@@ -110,8 +110,6 @@ public class SecurityConfig {
                                 antMatcher("/pedido/**"),
                                 antMatcher("/producto/**")
                         ).hasRole("CLIENTE")
-                        .requestMatchers(antMatcher("/cocinero/**")).hasRole("TRABAJADOR")
-                        .requestMatchers(antMatcher("/repartidor/**")).hasRole("TRABAJADOR")
                         .requestMatchers(antMatcher("/admin/**")).hasRole("ADMIN")
                         .anyRequest().authenticated());
 
