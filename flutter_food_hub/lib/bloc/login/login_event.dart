@@ -4,9 +4,7 @@ part of 'login_bloc.dart';
 sealed class LoginEvent {}
 
 class DoLoginEvent extends LoginEvent {
-  final String email;
+  final String username;
   final String password;
-  DoLoginEvent(this.email, this.password);
+  DoLoginEvent(this.username, this.password);
 }
-
-class GetRequestTokenEvent extends LoginEvent {}

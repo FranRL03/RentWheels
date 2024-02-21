@@ -4,19 +4,20 @@ import 'package:flutter_food_hub/repositories/auth/auth_repository.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 
-
-class AuthRepositoryImpl extends AuthRepository{
+class AuthRepositoryImpl extends AuthRepository {
   final Client _httpClient = Client();
 
-    @override
+  @override
   Future<LoginResponse> login(LoginDto loginDto) async {
+    final jsonBody = jsonEncode(loginDto.toJson());
     final response = await _httpClient.post(
-      Uri.parse(
-          '127.0.0.1:8080/auth/login'),
-      body: loginDto.toJson(),
+      // Uri.parse('10.0.2.2:8080/auth/login'),
+      Uri.parse('http://localhost:8080/auth/login'),
+      headers: <String, String>{'Content-Type': 'application/json'},
+      body: jsonBody,
     );
-    if (response.statusCode == 200) {
-      return LoginResponse.fromJson(json.decode(response.body));
+    if (response.statusCode == 201) {
+      return LoginResponse.fromJson(response.body);
     } else {
       throw Exception('Failed to do login');
     }

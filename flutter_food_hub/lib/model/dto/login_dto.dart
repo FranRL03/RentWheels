@@ -1,21 +1,18 @@
 class LoginDto {
-  String? email;
+  String? username;
   String? password;
-  String? token;
 
-  LoginDto({this.email, this.password, this.token});
+  LoginDto({this.username, this.password});
 
   LoginDto.fromJson(Map<String, dynamic> json) {
-    email = json['username'];
+    username = json['username'];
     password = json['password'];
-    token = json['request_token'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['email'] = this.email;
+    data['username'] = this.username;
     data['password'] = this.password;
-    data['token'] = this.token;
     return data;
   }
 }
