@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_hub/screen/login_screen.dart';
+import 'package:flutter_food_hub/screen/login/login_screen.dart';
+import 'package:flutter_food_hub/screen/login/register_screen.dart';
 
 class InicioScreen extends StatelessWidget {
   const InicioScreen({super.key});
@@ -77,7 +78,13 @@ class InicioScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 29),
                   child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const RegisterScreen()),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                           backgroundColor:
                               const Color.fromRGBO(254, 114, 76, 1),

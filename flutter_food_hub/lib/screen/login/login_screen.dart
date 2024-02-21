@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_food_hub/bloc/login/login_bloc.dart';
 import 'package:flutter_food_hub/repositories/auth/auth_repository.dart';
 import 'package:flutter_food_hub/repositories/auth/auth_repository_impl.dart';
+import 'package:flutter_food_hub/screen/login/register_screen.dart';
 import 'package:flutter_food_hub/screen/patatus.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -220,7 +221,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                     fontWeight: FontWeight.bold),
                               ),
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const RegisterScreen()),
+                                  );
+                                },
                                 child: const Text('Registrate',
                                     style: TextStyle(
                                       color: Color.fromRGBO(254, 114, 76, 1),
