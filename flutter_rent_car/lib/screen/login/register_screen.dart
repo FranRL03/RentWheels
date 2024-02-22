@@ -16,10 +16,12 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final _formRegister = GlobalKey<FormState>();
   final userTextController = TextEditingController();
-  final fullNameTextController = TextEditingController();
+  // final fullNameTextController = TextEditingController();
   final passTextController = TextEditingController();
   final emailTextController = TextEditingController();
   final verifyPassTextController = TextEditingController();
+  final telefonoTextController = TextEditingController();
+  final pinTextController = TextEditingController();
 
   late AuthRepository authRepository;
   late RegisterBloc _registerBloc;
@@ -147,16 +149,47 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         const SizedBox(
                           height: 20,
                         ),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(left: 20, right: 20),
+                        //   child: TextFormField(
+                        //     controller: fullNameTextController,
+                        //     decoration: InputDecoration(
+                        //         filled: true,
+                        //         fillColor: Colors.white,
+                        //         border: OutlineInputBorder(
+                        //             borderRadius: BorderRadius.circular(10)),
+                        //         labelText: 'Nombre completo',
+                        //         focusedBorder: OutlineInputBorder(
+                        //             borderSide: const BorderSide(
+                        //                 color: Color.fromRGBO(
+                        //                   254,
+                        //                   114,
+                        //                   76,
+                        //                   1,
+                        //                 ),
+                        //                 width: 2),
+                        //             borderRadius: BorderRadius.circular(10))),
+                        //     validator: (value) {
+                        //       if (value == null || value.isEmpty) {
+                        //         return 'Please enter some text';
+                        //       }
+                        //       return null;
+                        //     },
+                        //   ),
+                        // ),
+                        // const SizedBox(
+                        //   height: 20,
+                        // ),
                         Padding(
                           padding: const EdgeInsets.only(left: 20, right: 20),
                           child: TextFormField(
-                            controller: fullNameTextController,
+                            controller: emailTextController,
                             decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10)),
-                                labelText: 'Nombre completo',
+                                labelText: 'Email',
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
                                         color: Color.fromRGBO(
@@ -181,13 +214,44 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(left: 20, right: 20),
                           child: TextFormField(
-                            controller: emailTextController,
+                            controller: telefonoTextController,
                             decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10)),
-                                labelText: 'Email',
+                                labelText: 'Telefono',
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: Color.fromRGBO(
+                                          254,
+                                          114,
+                                          76,
+                                          1,
+                                        ),
+                                        width: 2),
+                                    borderRadius: BorderRadius.circular(10))),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20, right: 20),
+                          child: TextFormField(
+                            controller: pinTextController,
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                labelText: 'Pin',
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
                                         color: Color.fromRGBO(
@@ -283,10 +347,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   if (_formRegister.currentState!.validate()) {
                                     _registerBloc.add(DoRegisterEvent(
                                         userTextController.text,
-                                        fullNameTextController.text,
+                                        // fullNameTextController.text,
                                         emailTextController.text,
                                         passTextController.text,
-                                        verifyPassTextController.text));
+                                        verifyPassTextController.text,
+                                        telefonoTextController.text,
+                                        pinTextController.text));
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(

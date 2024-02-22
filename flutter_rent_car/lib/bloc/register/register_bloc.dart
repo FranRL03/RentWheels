@@ -20,10 +20,12 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     try {
       final RegisterDto registerDto = RegisterDto(
           username: event.username,
-          nombre: event.nombre,
+          // nombre: event.nombre,
           email: event.email,
           password: event.password,
-          verifyPassword: event.verifyPassword);
+          verifyPassword: event.verifyPassword,
+          telefono: event.telefono,
+          pin: event.pin);
       final response = await authRepository.register(registerDto);
       emit(DoRegisterSuccess(response));
       return;

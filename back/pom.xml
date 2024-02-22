@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.proyecto</groupId>
-	<artifactId>FoodHub-back</artifactId>
+	<artifactId>back</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>FoodHub-back</name>
 	<description>Demo project for Spring Boot</description>
