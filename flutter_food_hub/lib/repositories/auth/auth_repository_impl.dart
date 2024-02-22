@@ -1,5 +1,7 @@
 import 'package:flutter_food_hub/model/dto/login_dto.dart';
+import 'package:flutter_food_hub/model/dto/register_dto.dart';
 import 'package:flutter_food_hub/model/response/login_response.dart';
+import 'package:flutter_food_hub/model/response/register_response.dart';
 import 'package:flutter_food_hub/repositories/auth/auth_repository.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
@@ -20,6 +22,20 @@ class AuthRepositoryImpl extends AuthRepository {
       return LoginResponse.fromJson(response.body);
     } else {
       throw Exception('Failed to do login');
+    }
+  }
+
+  @override
+  Future<RegisterResponse> register(RegisterDto registerDto) async {
+    final response = await _httpClient.post(
+        // Uri.parse('10.0.2.2:8080/auth/register'),
+        Uri.parse('http://localhost:8080/auth/register'),
+        headers: <String, String>{'Content-Type': 'application/json'},
+        body: jsonEncode(registerDto.toJson()));
+    if (response.statusCode == 201) {
+      return RegisterResponse.fromJson(response.body);
+    } else {
+      throw Exception('Failed to do register');
     }
   }
 }
