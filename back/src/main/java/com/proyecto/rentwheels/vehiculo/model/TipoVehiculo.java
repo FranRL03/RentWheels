@@ -1,10 +1,14 @@
 package com.proyecto.rentwheels.vehiculo.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -13,8 +17,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @ToString
-@Builder
-public class Vehiculo {
+public class TipoVehiculo {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -31,16 +34,19 @@ public class Vehiculo {
     @Column(columnDefinition = "uuid")
     private UUID id;
 
-    private double precio;
-    private String marca;
-    private String modelo;
-    private String imagen;
-    private String combustible;
-    private String transmision;
-    private int capacidadPasajeros;
-    private double kilometros;
-    private int cc;
+    private String tipoVehiculo;
 
-    @ManyToOne
-    private TipoVehiculo tipoVehiculo;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TipoVehiculo tipoVehiculo = (TipoVehiculo) o;
+        return Objects.equals(id, tipoVehiculo.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
