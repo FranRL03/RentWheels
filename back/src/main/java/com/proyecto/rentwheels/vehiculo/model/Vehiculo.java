@@ -34,6 +34,7 @@ public class Vehiculo {
     private double precio;
     private String marca;
     private String modelo;
+    private String imagen;
     //EL COMBUSTOBLE LO PONGO COMO UN ENUM (GASOLINA, DIESEL, ELECTRICO O HIBRIDO)?
     private String combustible;
     //LA TRANSMISION LA PONGO COMO UN ENUM (MANUAL, AUTOMÁTICO)?
