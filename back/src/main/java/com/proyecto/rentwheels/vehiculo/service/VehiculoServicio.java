@@ -17,7 +17,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class VehiculoServicio {
 
-    private VehiculoRepository vehiculoRepository;
+    private final VehiculoRepository vehiculoRepository;
 
     public Page<Vehiculo> findAll (Pageable pageable){
 

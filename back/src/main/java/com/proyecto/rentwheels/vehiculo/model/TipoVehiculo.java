@@ -34,7 +34,7 @@ public class TipoVehiculo {
     @Column(columnDefinition = "uuid")
     private UUID id;
 
-    private String tipoVehiculo;
+    private String tipo;
 
 
     @Override

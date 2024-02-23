@@ -31,14 +31,14 @@ public class Vehiculo {
     @Column(columnDefinition = "uuid")
     private UUID id;
 
-    private double precio;
     private String modelo;
     private String imagen;
     private String combustible;
     private String transmision;
     private int capacidadPasajeros;
-    private double kilometrosHora;
-    private int cc;
+    private int autonomia;
+    private int potencia;
+    private String estado;
     private int numPuertas;
 
     @ManyToOne

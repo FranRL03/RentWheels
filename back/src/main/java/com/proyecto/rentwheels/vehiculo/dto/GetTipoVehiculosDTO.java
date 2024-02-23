@@ -12,7 +12,7 @@ public record GetTipoVehiculosDTO(
 
         return new GetTipoVehiculosDTO(
                 t.getId().toString(),
-                t.getTipoVehiculo()
+                t.getTipo()
         );
     }
 }

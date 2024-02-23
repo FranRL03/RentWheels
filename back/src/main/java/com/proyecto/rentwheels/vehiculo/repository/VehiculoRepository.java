@@ -25,8 +25,7 @@ public interface VehiculoRepository extends JpaRepository<Vehiculo, UUID> {
 
 
     @Query("""
-            SELECT *
-            FROM Vehiculo v
+            select v from Vehiculo v
             """)
     Page<Vehiculo> findAll(Pageable pageable);
 }
