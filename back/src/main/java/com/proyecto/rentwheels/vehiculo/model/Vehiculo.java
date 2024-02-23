@@ -32,14 +32,14 @@ public class Vehiculo {
     private UUID id;
 
     private double precio;
-    private String marca;
     private String modelo;
     private String imagen;
     private String combustible;
     private String transmision;
     private int capacidadPasajeros;
-    private double kilometros;
+    private double kilometrosHora;
     private int cc;
+    private int numPuertas;
 
     @ManyToOne
     private TipoVehiculo tipoVehiculo;
