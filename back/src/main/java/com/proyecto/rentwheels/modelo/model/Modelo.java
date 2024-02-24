@@ -36,6 +36,7 @@ public class Modelo {
     private UUID id;
 
     private String modelo;
+    private String logo;
 
 
     @Override

@@ -6,3 +6,6 @@ En la entidad Alquiler tiene que tener:
 (el coche lo puedes alquilar x numeros de años pero
 depende de cuantos años el precio varía)
 
+
+Para las imagenes png: 
+https://www.stickpng.com/es
