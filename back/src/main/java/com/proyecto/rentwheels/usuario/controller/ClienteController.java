@@ -22,35 +22,25 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClienteController {
 
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Editar datos del Cliente loggeado", content = {
+            @ApiResponse(responseCode = "200", description = "Detalles del cliente logueada", content = {
                     @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = GetClienteDetailsDto.class)),
                             examples = {@ExampleObject(
                                     value = """
                                             {
-                                                "id": "c0a801b2-8c0d-1417-818c-0d4421110003",
-                                                "nombre": "pepe",
-                                                "email": "pepe@gmail.com",
-                                                "avatar": "https://noticiasdelaciencia.com/upload/images/12_2021/6754_ciencia-en-imagenes-este-murcielago-da-la-cara.jpg",
-                                                "direccion": "C/Montaña nº3",
-                                                "codPostal": "33133",
-                                                "poblacion": "Valencia",
-                                                "puntos": 100,
-                                                "pedidos": [
-                                                    {
-                                                        "id": "c0a801b2-8c0d-1417-818c-0d4421e0000c",
-                                                        "fecha": "2023-11-26T21:13:38.144181",
-                                                        "estadoPedido": "CONFIRMADO",
-                                                        "importeTotal": 6.3
-                                                    }
-                                                ]
+                                                "id": "1ce9c1c7-7a02-4c7f-bf69-6d0306cbed61",
+                                                "username": "fernando01",
+                                                "avatar": "https://media.istockphoto.com/id/92044396/es/foto/rana-con-gafas-de-sol.jpg?s=170667a&w=0&k=20&c=jEh4ZMUWU9Y3gx5odmT-LmbCGymtiBVzzEPerkawqm0=",
+                                                "email": "fernando@gmail.com",
+                                                "telefono": "112332112",
+                                                "pin": "2222"
                                             }
                                             """
                             )}
                     )}),
-            @ApiResponse(responseCode = "400", description = "Dato introducido inválido", content = @Content)
+            @ApiResponse(responseCode = "400", description = "No hay nadie logueado", content = @Content)
     })
-    @Operation(summary = "editLoggedUser", description = "Editar datos del Cliente loggeado")
+    @Operation(summary = "Detalles", description = "Detalles del cliente")
     @GetMapping("/profile")
     public GetClienteDetailsDto detallesCliente (@AuthenticationPrincipal Cliente c){
         return GetClienteDetailsDto.of(c);
