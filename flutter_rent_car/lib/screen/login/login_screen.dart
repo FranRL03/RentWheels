@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocProvider.value(
       value: _loginBloc,
       child: Scaffold(
-        backgroundColor: const Color.fromRGBO(28, 38, 73, 1),
+        // backgroundColor: const Color.fromRGBO(28, 38, 73, 1),
         body: BlocConsumer<LoginBloc, LoginState>(
           buildWhen: (context, state) {
             return state is LoginInitial ||
@@ -75,45 +75,31 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 22, left: 10),
-            child: FloatingActionButton.small(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Icon(Icons.arrow_back_ios_new_rounded),
-            ),
-          ),
           Center(
             child: Padding(
-              padding: const EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.only(top: 13),
               child: Column(
                 children: [
                   const Text(
                     'Inicio sesión',
                     style: TextStyle(
-                        color: Color.fromRGBO(
-                          254,
-                          114,
-                          76,
-                          1,
-                        ),
+                        color:Color.fromRGBO(28, 38, 73, 1),
                         fontWeight: FontWeight.w300,
                         fontSize: 40),
                   ),
                   const Text(
                     'Bienvenido de vuelta',
                     style: TextStyle(
-                        color: Color.fromRGBO(167, 167, 167, 1),
+                        color: Color.fromRGBO(105, 105, 106, 1),
                         fontWeight: FontWeight.w300,
                         fontSize: 20),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 15),
+                    padding: const EdgeInsets.only(top: 12),
                     child: SizedBox(
-                      height: 200, // Altura deseada
-                      width: 200, // Anchura deseada
-                      child: Image.asset('assets/images/logo.png'),
+                      height: 250, // Altura deseada
+                      width: 250, // Anchura deseada
+                      child: Image.asset('assets/images/logo_pintado.png'),
                     ),
                   ),
                   Form(
@@ -138,12 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 labelText: 'Nombre de Usuario',
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
-                                        color: Color.fromRGBO(
-                                          254,
-                                          114,
-                                          76,
-                                          1,
-                                        ),
+                                        color:Color.fromRGBO(28, 38, 73, 1),
                                         width: 2),
                                     borderRadius: BorderRadius.circular(10))),
                             validator: (value) {
@@ -170,12 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 labelText: 'Contraseña',
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
-                                        color: Color.fromRGBO(
-                                          254,
-                                          114,
-                                          76,
-                                          1,
-                                        ),
+                                        color:Color.fromRGBO(28, 38, 73, 1),
                                         width: 2),
                                     borderRadius: BorderRadius.circular(10))),
                             validator: (value) {
@@ -204,7 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 },
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor:
-                                        const Color.fromRGBO(254, 114, 76, 1),
+                                        const Color.fromRGBO(28, 38, 73, 1),
                                     fixedSize: const Size(303, 50),
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
@@ -226,7 +202,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               const Text(
                                 '¿No tienes cuenta?',
                                 style: TextStyle(
-                                    color: Color.fromRGBO(0, 0, 0, 1),
+                                    color: Color.fromRGBO(85, 85, 85, 1),
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -241,12 +217,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 },
                                 child: const Text('Registrate',
                                     style: TextStyle(
-                                      color: Color.fromRGBO(254, 114, 76, 1),
+                                      color: Color.fromRGBO(28, 38, 73, 1),
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
-                                      decoration: TextDecoration.underline,
-                                      decorationColor:
-                                          Color.fromRGBO(254, 114, 76, 1),
                                     )),
                               ),
                             ],

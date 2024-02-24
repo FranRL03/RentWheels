@@ -13,8 +13,8 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<LoginResponse> login(LoginDto loginDto) async {
     final jsonBody = jsonEncode(loginDto.toJson());
     final response = await _httpClient.post(
-      // Uri.parse('10.0.2.2:8080/auth/login'),
-      Uri.parse('http://localhost:8080/auth/login'),
+      Uri.parse('10.0.2.2:8080/auth/login'),
+      // Uri.parse('http://localhost:8080/auth/login'),
       headers: <String, String>{'Content-Type': 'application/json'},
       body: jsonBody,
     );
@@ -28,8 +28,8 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<RegisterResponse> register(RegisterDto registerDto) async {
     final response = await _httpClient.post(
-        // Uri.parse('10.0.2.2:8080/auth/register'),
-        Uri.parse('http://localhost:8080/auth/register'),
+        Uri.parse('10.0.2.2:8080/auth/register'),
+        // Uri.parse('http://localhost:8080/auth/register'),
         headers: <String, String>{'Content-Type': 'application/json'},
         body: jsonEncode(registerDto.toJson()));
     if (response.statusCode == 201) {

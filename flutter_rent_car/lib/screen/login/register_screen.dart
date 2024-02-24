@@ -46,7 +46,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return BlocProvider.value(
       value: _registerBloc,
       child: Scaffold(
-        backgroundColor: const Color.fromRGBO(28, 38, 73, 1),
         body: BlocConsumer<RegisterBloc, RegisterState>(
           buildWhen: (context, state) {
             return state is RegisterInitial ||
@@ -80,31 +79,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 22, left: 10),
-            child: FloatingActionButton.small(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Icon(Icons.arrow_back_ios_new_rounded),
-            ),
-          ),
           Center(
             child: Padding(
-              padding: const EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.only(top: 13),
               child: Column(
                 children: [
                   const Text(
                     'Registrate',
                     style: TextStyle(
-                        color: Color.fromRGBO(254, 114, 76, 1),
+                        color: Color.fromRGBO(28, 38, 73, 1),
                         fontWeight: FontWeight.w300,
                         fontSize: 40),
                   ),
                   const Text(
                     'Crea tu cuenta',
                     style: TextStyle(
-                        color: Color.fromRGBO(167, 167, 167, 1),
+                        color: Color.fromRGBO(105, 105, 106, 1),
                         fontWeight: FontWeight.w300,
                         fontSize: 20),
                   ),
@@ -130,12 +120,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 labelText: 'Nombre de Usuario',
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
-                                        color: Color.fromRGBO(
-                                          254,
-                                          114,
-                                          76,
-                                          1,
-                                        ),
+                                        color: Color.fromRGBO(28, 38, 73, 1),
                                         width: 2),
                                     borderRadius: BorderRadius.circular(10))),
                             validator: (value) {
@@ -149,37 +134,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         const SizedBox(
                           height: 20,
                         ),
-                        // Padding(
-                        //   padding: const EdgeInsets.only(left: 20, right: 20),
-                        //   child: TextFormField(
-                        //     controller: fullNameTextController,
-                        //     decoration: InputDecoration(
-                        //         filled: true,
-                        //         fillColor: Colors.white,
-                        //         border: OutlineInputBorder(
-                        //             borderRadius: BorderRadius.circular(10)),
-                        //         labelText: 'Nombre completo',
-                        //         focusedBorder: OutlineInputBorder(
-                        //             borderSide: const BorderSide(
-                        //                 color: Color.fromRGBO(
-                        //                   254,
-                        //                   114,
-                        //                   76,
-                        //                   1,
-                        //                 ),
-                        //                 width: 2),
-                        //             borderRadius: BorderRadius.circular(10))),
-                        //     validator: (value) {
-                        //       if (value == null || value.isEmpty) {
-                        //         return 'Please enter some text';
-                        //       }
-                        //       return null;
-                        //     },
-                        //   ),
-                        // ),
-                        // const SizedBox(
-                        //   height: 20,
-                        // ),
                         Padding(
                           padding: const EdgeInsets.only(left: 20, right: 20),
                           child: TextFormField(
@@ -192,12 +146,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 labelText: 'Email',
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
-                                        color: Color.fromRGBO(
-                                          254,
-                                          114,
-                                          76,
-                                          1,
-                                        ),
+                                        color: Color.fromRGBO(28, 38, 73, 1),
                                         width: 2),
                                     borderRadius: BorderRadius.circular(10))),
                             validator: (value) {
@@ -223,12 +172,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 labelText: 'Telefono',
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
-                                        color: Color.fromRGBO(
-                                          254,
-                                          114,
-                                          76,
-                                          1,
-                                        ),
+                                        color: Color.fromRGBO(28, 38, 73, 1),
                                         width: 2),
                                     borderRadius: BorderRadius.circular(10))),
                             validator: (value) {
@@ -246,6 +190,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           padding: const EdgeInsets.only(left: 20, right: 20),
                           child: TextFormField(
                             controller: pinTextController,
+                            obscureText: true,
                             decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
@@ -254,12 +199,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 labelText: 'Pin',
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
-                                        color: Color.fromRGBO(
-                                          254,
-                                          114,
-                                          76,
-                                          1,
-                                        ),
+                                        color: Color.fromRGBO(28, 38, 73, 1),
                                         width: 2),
                                     borderRadius: BorderRadius.circular(10))),
                             validator: (value) {
@@ -286,12 +226,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 labelText: 'Contraseña',
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
-                                        color: Color.fromRGBO(
-                                          254,
-                                          114,
-                                          76,
-                                          1,
-                                        ),
+                                        color: Color.fromRGBO(28, 38, 73, 1),
                                         width: 2),
                                     borderRadius: BorderRadius.circular(10))),
                             validator: (value) {
@@ -318,12 +253,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 labelText: 'Confirmar contraseña',
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
-                                        color: Color.fromRGBO(
-                                          254,
-                                          114,
-                                          76,
-                                          1,
-                                        ),
+                                        color: Color.fromRGBO(28, 38, 73, 1),
                                         width: 2),
                                     borderRadius: BorderRadius.circular(10))),
                             validator: (value) {
@@ -341,7 +271,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           width: double.infinity,
                           child: Padding(
                             padding: const EdgeInsets.only(
-                                left: 20, right: 20, top: 40),
+                                left: 20, right: 20, top: 20),
                             child: ElevatedButton(
                                 onPressed: () {
                                   if (_formRegister.currentState!.validate()) {
@@ -357,7 +287,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 },
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor:
-                                        const Color.fromRGBO(254, 114, 76, 1),
+                                        const Color.fromRGBO(28, 38, 73, 1),
                                     fixedSize: const Size(303, 50),
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
@@ -379,7 +309,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               const Text(
                                 '¿Tienes cuenta?',
                                 style: TextStyle(
-                                    color: Color.fromRGBO(0, 0, 0, 1),
+                                    color: Color.fromRGBO(85, 85, 85, 1),
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -394,12 +324,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 },
                                 child: const Text('Iniciar sesión',
                                     style: TextStyle(
-                                      color: Color.fromRGBO(254, 114, 76, 1),
+                                      color: Color.fromRGBO(28, 38, 73, 1),
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
-                                      decoration: TextDecoration.underline,
-                                      decorationColor:
-                                          Color.fromRGBO(254, 114, 76, 1),
                                     )),
                               ),
                             ],
