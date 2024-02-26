@@ -83,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Text(
                     'Inicio sesión',
                     style: TextStyle(
-                        color:Color.fromRGBO(28, 38, 73, 1),
+                        color: Color.fromRGBO(28, 38, 73, 1),
                         fontWeight: FontWeight.w300,
                         fontSize: 40),
                   ),
@@ -124,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 labelText: 'Nombre de Usuario',
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
-                                        color:Color.fromRGBO(28, 38, 73, 1),
+                                        color: Color.fromRGBO(28, 38, 73, 1),
                                         width: 2),
                                     borderRadius: BorderRadius.circular(10))),
                             validator: (value) {
@@ -151,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 labelText: 'Contraseña',
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
-                                        color:Color.fromRGBO(28, 38, 73, 1),
+                                        color: Color.fromRGBO(28, 38, 73, 1),
                                         width: 2),
                                     borderRadius: BorderRadius.circular(10))),
                             validator: (value) {

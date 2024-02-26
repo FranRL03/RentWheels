@@ -107,8 +107,7 @@ public class SecurityConfig {
                                 .anyRequest().authenticated();*/
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers(
-                                antMatcher("/pedido/**"),
-                                antMatcher("/producto/**")
+                                antMatcher("/cliente/**")
                         ).hasRole("CLIENTE")
                         .requestMatchers(antMatcher("/admin/**")).hasRole("ADMIN")
                         .anyRequest().authenticated());

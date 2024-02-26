@@ -1,7 +1,7 @@
 import 'package:flutter_rent_car/model/dto/login_dto.dart';
 import 'package:flutter_rent_car/model/dto/register_dto.dart';
-import 'package:flutter_rent_car/model/response/login_response.dart';
-import 'package:flutter_rent_car/model/response/register_response.dart';
+import 'package:flutter_rent_car/model/response/auth/login_response.dart';
+import 'package:flutter_rent_car/model/response/auth/register_response.dart';
 import 'package:flutter_rent_car/repositories/auth/auth_repository.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
