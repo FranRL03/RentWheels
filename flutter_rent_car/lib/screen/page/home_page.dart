@@ -16,13 +16,13 @@ class _HomePageState extends State<HomePage> {
 
 late UserRepository userRepository;
 late HomeBloc _homeBloc;
-late UserDetailsDto userDetails;
+// late UserDetailsDto userDetails;
 
   @override
   void initState() {
     userRepository = UserRepositoryImpl();
     _homeBloc = HomeBloc(userRepository);
-     userDetails = UserDetailsDto();
+    //  userDetails = UserDetailsDto();
     super.initState();
   }
 
@@ -47,7 +47,7 @@ late UserDetailsDto userDetails;
           },
           builder: (context, state) {
             if (state is DoHomeSuccess) {
-              userDetails = (state).userDetails;
+              // userDetails = (state).userDetails;
             } else if (state is DoHomeError) {
               return const Text('Home error');
             } else if (state is DoHomeLoading) {
@@ -63,7 +63,7 @@ late UserDetailsDto userDetails;
   }
 
   _buildHome(){
-    return Text('Username: ${userDetails.username}');
+    // return Text('Username: ${userDetails.username}');
   }
 
 }
