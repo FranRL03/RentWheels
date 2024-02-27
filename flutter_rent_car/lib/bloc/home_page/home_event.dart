@@ -4,5 +4,6 @@ part of 'home_bloc.dart';
 sealed class HomeEvent {}
 
 class DoHomeEvent extends HomeEvent{
-  DoHomeEvent();
+  String username;
+  DoHomeEvent(this.username);
 }

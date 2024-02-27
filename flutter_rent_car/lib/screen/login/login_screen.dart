@@ -4,7 +4,7 @@ import 'package:flutter_rent_car/bloc/login/login_bloc.dart';
 import 'package:flutter_rent_car/repositories/auth/auth_repository.dart';
 import 'package:flutter_rent_car/repositories/auth/auth_repository_impl.dart';
 import 'package:flutter_rent_car/screen/login/register_screen.dart';
-import 'package:flutter_rent_car/screen/patatus.dart';
+import 'package:flutter_rent_car/screen/page/home_page.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
             if (state is DoLoginSuccess) {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const MyWidget()),
+                MaterialPageRoute(builder: (context) => const HomePage()),
               );
             }
           },
