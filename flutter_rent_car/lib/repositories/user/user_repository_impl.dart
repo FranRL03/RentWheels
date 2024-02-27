@@ -8,11 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class UserRepositoryImpl extends UserRepository {
   final Client _httpClient = Client();
 
-  void saveToken(String token) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('token', token);
-  }
-
 // Recuperación del token para incluirlo en las solicitudes HTTP
   Future<String?> getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

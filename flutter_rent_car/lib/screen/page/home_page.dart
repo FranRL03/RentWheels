@@ -23,7 +23,6 @@ late UserDetailsDto userDetails;
     userRepository = UserRepositoryImpl();
     _homeBloc = HomeBloc(userRepository);
      userDetails = UserDetailsDto();
-    _homeBloc = HomeBloc(userRepository)..add(DoHomeEvent('popular'));
     super.initState();
   }
 
