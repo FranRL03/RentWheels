@@ -20,7 +20,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   void _doHome(DoHomeEvent event, Emitter<HomeState> emit) async {
     emit(DoHomeLoading());
     try{
-      final UserDetailsDto userDetails = UserDetailsDto(username: event.username);
+      final UserDetailsDto userDetails = UserDetailsDto();
       final response = await userRepository.userDetails(userDetails);
       emit(DoHomeSuccess(response as UserDetailsDto));
     } on Exception catch (e){
