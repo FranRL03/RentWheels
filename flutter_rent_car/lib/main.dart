@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rent_car/screen/inicio_screen.dart';
-import 'package:flutter_rent_car/screen/patatus.dart';
 
 void main() {
   runApp(const MyApp());

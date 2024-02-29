@@ -37,11 +37,11 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<RegisterResponse> register(RegisterDto registerDto) async {
-    final response =
-        await _httpClient.post(Uri.parse('$urlMovil/auth/register'),
-            // Uri.parse('$urlChrome/auth/register'),
-            headers: <String, String>{'Content-Type': 'application/json'},
-            body: jsonEncode(registerDto.toJson()));
+    final response = await _httpClient.post(
+        // Uri.parse('$urlMovil/auth/register'),
+        Uri.parse('$urlChrome/auth/register'),
+        headers: <String, String>{'Content-Type': 'application/json'},
+        body: jsonEncode(registerDto.toJson()));
     if (response.statusCode == 201) {
       return RegisterResponse.fromJson(response.body);
     } else {
