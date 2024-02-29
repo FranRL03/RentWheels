@@ -40,6 +40,7 @@ public class Vehiculo {
     private int potencia;
     private String estado;
     private int numPuertas;
+    private boolean disponible;
 
     @ManyToOne
     private TipoVehiculo tipoVehiculo;
