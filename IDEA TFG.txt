@@ -2,6 +2,7 @@ En la entidad Alquiler tiene que tener:
 
 - Precio
 - Kilometros/año
+- Vehiculo 
 
 (el coche lo puedes alquilar x numeros de años pero
 depende de cuantos años el precio varía)

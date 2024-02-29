@@ -16,3 +16,13 @@ final class DoLoginError extends LoginState {
   final String errorMessage;
   DoLoginError(this.errorMessage);
 }
+
+final class DoTokenSuccess extends LoginState {
+  final bool valid;
+  DoTokenSuccess(this.valid);
+}
+
+final class DoTokenError extends LoginState {
+  final String errorMessage;
+  DoTokenError(this.errorMessage);
+}

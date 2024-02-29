@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/physics.dart';
 import 'package:flutter_rent_car/model/dto/register_dto.dart';
-import 'package:flutter_rent_car/model/response/register_response.dart';
+import 'package:flutter_rent_car/model/response/auth/register_response.dart';
 import 'package:flutter_rent_car/repositories/auth/auth_repository.dart';
 import 'package:meta/meta.dart';
 
