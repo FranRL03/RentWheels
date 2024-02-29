@@ -55,7 +55,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           },
           builder: (context, state) {
             if (state is DoRegisterError) {
-              return const Text('Login error');
+              return const Text('Register error');
             } else if (state is DoRegisterLoading) {
               return const Center(child: CircularProgressIndicator());
             }

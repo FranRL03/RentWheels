@@ -15,8 +15,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formLogin = GlobalKey<FormState>();
-  final userTextController = TextEditingController();
-  final passTextController = TextEditingController();
+  final userTextController = TextEditingController(text: 'fernando01');
+  final passTextController = TextEditingController(text: '1234');
 
   late AuthRepository authRepository;
   late LoginBloc _loginBloc;
@@ -24,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     authRepository = AuthRepositoryImpl();
-    _loginBloc = LoginBloc(authRepository)..add(DoTokenEvent());
+    _loginBloc = LoginBloc(authRepository);
     super.initState();
   }
 
@@ -47,8 +47,8 @@ class _LoginScreenState extends State<LoginScreen> {
             return state is LoginInitial ||
                 state is DoLoginSuccess ||
                 state is DoLoginError ||
-                state is DoLoginLoading ||
-                state is DoTokenSuccess;
+                state is DoLoginLoading;
+            // state is DoTokenSuccess;
           },
           builder: (context, state) {
             if (state is DoLoginError) {
@@ -58,18 +58,18 @@ class _LoginScreenState extends State<LoginScreen> {
             }
             return Center(child: _buildForm());
           },
-          listenWhen: (previous, current) {
-            return current is DoLoginSuccess || current is DoTokenSuccess;
-          },
+          // listenWhen: (previous, current) {
+          //   return current is DoLoginSuccess || current is DoTokenSuccess;
+          // },
           listener: (BuildContext context, LoginState state) {
-            if (state is DoTokenSuccess) {
-              if (state.valid) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomePage()),
-                );
-              }
-            }
+            // if (state is DoTokenSuccess) {
+            //   if (state.valid) {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => const HomePage()),
+            //     );
+            //   }
+            // }
             if (state is DoLoginSuccess) {
               Navigator.push(
                 context,

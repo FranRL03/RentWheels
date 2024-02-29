@@ -17,7 +17,8 @@ class UserRepositoryImpl extends UserRepository {
     final token = await getToken(); // Obtén el token almacenado
 
     final response = await _httpClient.get(
-      Uri.parse('$urlChrome/profile'),
+      Uri.parse('$urlMovil/profile'),
+      // Uri.parse('$urlChrome/profile'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',

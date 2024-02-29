@@ -20,8 +20,8 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<LoginResponse> login(LoginDto loginDto) async {
     final jsonBody = jsonEncode(loginDto.toJson());
     final response = await _httpClient.post(
-      // Uri.parse('$urlMovil/auth/login'),
-      Uri.parse('$urlChrome/auth/login'),
+      Uri.parse('$urlMovil/auth/login'),
+      // Uri.parse('$urlChrome/auth/login'),
       headers: <String, String>{'Content-Type': 'application/json'},
       body: jsonBody,
     );
@@ -29,7 +29,6 @@ class AuthRepositoryImpl extends AuthRepository {
       final loginResponse = LoginResponse.fromJson(response.body);
       saveToken(loginResponse.token!);
       return loginResponse;
-      // return LoginResponse.fromJson(response.body);
     } else {
       throw Exception('Failed to do login');
     }
@@ -37,11 +36,11 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<RegisterResponse> register(RegisterDto registerDto) async {
-    final response = await _httpClient.post(
-        // Uri.parse('$urlMovil/auth/register'),
-        Uri.parse('$urlChrome/auth/register'),
-        headers: <String, String>{'Content-Type': 'application/json'},
-        body: jsonEncode(registerDto.toJson()));
+    final response =
+        await _httpClient.post(Uri.parse('$urlMovil/auth/register'),
+            // Uri.parse('$urlChrome/auth/register'),
+            headers: <String, String>{'Content-Type': 'application/json'},
+            body: jsonEncode(registerDto.toJson()));
     if (response.statusCode == 201) {
       return RegisterResponse.fromJson(response.body);
     } else {
@@ -49,20 +48,20 @@ class AuthRepositoryImpl extends AuthRepository {
     }
   }
 
-  @override
-  Future<bool> checkToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  // @override
+  // Future<bool> checkToken() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    final response = await _httpClient.post(
-        // Uri.parse('$urlMovil/auth/register'),
-        Uri.parse('$urlChrome/auth/register'),
-        headers: <String, String>{'Content-Type': 'application/json'},
-        body: prefs.getString('token'));
+  //   final response =
+  //       await _httpClient.post(Uri.parse('$urlMovil/auth/register'),
+  //           // Uri.parse('$urlChrome/auth/register'),
+  //           headers: <String, String>{'Content-Type': 'application/json'},
+  //           body: prefs.getString('token'));
 
-    if (response.statusCode == 202) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  //   if (response.statusCode == 202) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 }

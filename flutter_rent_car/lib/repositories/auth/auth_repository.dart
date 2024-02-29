@@ -6,5 +6,5 @@ import 'package:flutter_rent_car/model/response/auth/register_response.dart';
 abstract class AuthRepository {
   Future<LoginResponse> login(LoginDto loginDto);
   Future<RegisterResponse> register(RegisterDto registerDto);
-  Future<bool> checkToken();
+  // Future<bool> checkToken();
 }
