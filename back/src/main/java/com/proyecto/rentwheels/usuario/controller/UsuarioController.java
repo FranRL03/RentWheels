@@ -108,4 +108,8 @@ public class UsuarioController {
         return clienteService.getAll();
     }
 
+    @PostMapping("/auth/token")
+    public ResponseEntity<Boolean> validatedToken(@RequestBody String token){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(jwtProvider.validateToken(token));
+    }
 }

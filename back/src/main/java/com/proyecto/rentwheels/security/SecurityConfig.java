@@ -130,8 +130,7 @@ public class SecurityConfig {
         return (web -> web.ignoring()
                 .requestMatchers(
                         antMatcher("/h2-console/**"),
-                        antMatcher("/auth/register"),
-                        antMatcher("/auth/login"),
+                        antMatcher("/auth/**"),
                         antMatcher("/api-docs"),
                         antMatcher("/swagger-ui/**"),
                         antMatcher("/swagger-ui-miapi.html"),
