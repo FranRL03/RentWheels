@@ -10,10 +10,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   final UserRepository userRepository;
 
   UserBloc(this.userRepository) : super(UserInitial()) {
-    on<DoUserEvent>(_doUser);
+    on<GetUserDetailsEvent>(_getUserDetails);
   }
 
-  void _doUser(DoUserEvent event, Emitter<UserState> emit) async {
+  void _getUserDetails(
+      GetUserDetailsEvent event, Emitter<UserState> emit) async {
     emit(DoUserLoading());
     try {
       final response = await userRepository.userDetails();

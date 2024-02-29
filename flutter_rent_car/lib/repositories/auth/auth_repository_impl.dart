@@ -48,4 +48,21 @@ class AuthRepositoryImpl extends AuthRepository {
       throw Exception('Failed to do register');
     }
   }
+
+  @override
+  Future<bool> checkToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    final response = await _httpClient.post(
+        // Uri.parse('$urlMovil/auth/register'),
+        Uri.parse('$urlChrome/auth/register'),
+        headers: <String, String>{'Content-Type': 'application/json'},
+        body: prefs.getString('token'));
+
+    if (response.statusCode == 202) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

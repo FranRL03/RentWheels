@@ -24,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     authRepository = AuthRepositoryImpl();
-    _loginBloc = LoginBloc(authRepository);
+    _loginBloc = LoginBloc(authRepository)..add(DoTokenEvent());
     super.initState();
   }
 
@@ -47,7 +47,8 @@ class _LoginScreenState extends State<LoginScreen> {
             return state is LoginInitial ||
                 state is DoLoginSuccess ||
                 state is DoLoginError ||
-                state is DoLoginLoading;
+                state is DoLoginLoading ||
+                state is DoTokenSuccess;
           },
           builder: (context, state) {
             if (state is DoLoginError) {
@@ -57,7 +58,18 @@ class _LoginScreenState extends State<LoginScreen> {
             }
             return Center(child: _buildForm());
           },
+          listenWhen: (previous, current) {
+            return current is DoLoginSuccess || current is DoTokenSuccess;
+          },
           listener: (BuildContext context, LoginState state) {
+            if (state is DoTokenSuccess) {
+              if (state.valid) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                );
+              }
+            }
             if (state is DoLoginSuccess) {
               Navigator.push(
                 context,

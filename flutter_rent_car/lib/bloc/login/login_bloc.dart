@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter_rent_car/model/dto/login_dto.dart';
 import 'package:flutter_rent_car/model/response/auth/login_response.dart';
@@ -12,6 +14,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   LoginBloc(this.authRepository) : super(LoginInitial()) {
     on<DoLoginEvent>(_doLogin);
+    on<DoTokenEvent>(_doToken);
   }
 
   void _doLogin(DoLoginEvent event, Emitter<LoginState> emit) async {
@@ -24,6 +27,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       return;
     } on Exception catch (e) {
       emit(DoLoginError(e.toString()));
+    }
+  }
+
+  Future<FutureOr<void>> _doToken(
+      DoTokenEvent event, Emitter<LoginState> emitter) async {
+    try {
+      final response = await authRepository.checkToken();
+      emitter(DoTokenSuccess(response));
+    } on Exception catch (e) {
+      emitter(DoTokenError(e.toString()));
     }
   }
 }

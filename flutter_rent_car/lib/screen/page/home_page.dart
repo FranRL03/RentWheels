@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rent_car/bloc/user_details/user_bloc.dart';
+import 'package:flutter_rent_car/model/response/user/user_details.dart';
 import 'package:flutter_rent_car/repositories/user/user_repository.dart';
 import 'package:flutter_rent_car/repositories/user/user_repository_impl.dart';
 
@@ -18,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     userRepository = UserRepositoryImpl();
-    _userBloc = UserBloc(userRepository)..add(DoUserEvent());
+    _userBloc = UserBloc(userRepository)..add(GetUserDetailsEvent());
     super.initState();
   }
 
@@ -39,9 +40,10 @@ class _HomePageState extends State<HomePage> {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider<UserBloc>(
-          create: (BuildContext context) => UserBloc(userRepository),
+        BlocProvider.value(
+          value: _userBloc,
         ),
+
         // BlocProvider<ThemeBloc>(
         //   create: (BuildContext context) => ThemeBloc(),
         // ),
@@ -71,6 +73,7 @@ class _HomePageState extends State<HomePage> {
     //   return const Center(child: CircularProgressIndicator());
     // });
     return BlocBuilder<UserBloc, UserState>(
+      bloc: _userBloc,
       builder: (context, state) {
         if (state is DoUserError) {
           return Column(

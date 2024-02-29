@@ -8,3 +8,5 @@ class DoLoginEvent extends LoginEvent {
   final String password;
   DoLoginEvent(this.username, this.password);
 }
+
+class DoTokenEvent extends LoginEvent {}
