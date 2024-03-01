@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rent_car/bloc/modelos/modelos_bloc.dart';
 import 'package:flutter_rent_car/bloc/user_details/user_bloc.dart';
+import 'package:flutter_rent_car/repositories/modelos/modelo_repository.dart';
+import 'package:flutter_rent_car/repositories/modelos/modelo_repository_impl.dart';
 import 'package:flutter_rent_car/repositories/user/user_repository.dart';
 import 'package:flutter_rent_car/repositories/user/user_repository_impl.dart';
 import 'package:flutter_rent_car/screen/patatus.dart';
@@ -15,12 +18,16 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
   late UserRepository userRepository;
+  late ModeloRepository modeloRepository;
   late UserBloc _userBloc;
+  late ModelosBloc _modelosBloc;
 
   @override
   void initState() {
     userRepository = UserRepositoryImpl();
     _userBloc = UserBloc(userRepository)..add(GetUserDetailsEvent());
+    modeloRepository = ModeloRepositorioImpl();
+    _modelosBloc = ModelosBloc(modeloRepository)..add(GetModelosEvent());
     super.initState();
   }
 
@@ -37,9 +44,7 @@ class _HomePageState extends State<HomePage> {
         BlocProvider.value(
           value: _userBloc,
         ),
-        // BlocProvider<ThemeBloc>(
-        //   create: (BuildContext context) => ThemeBloc(),
-        // ),
+        BlocProvider.value(value: _modelosBloc)
       ],
       child: _buildHome(),
     );
@@ -134,62 +139,115 @@ class _HomePageState extends State<HomePage> {
                         )
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 90),
-                      child: SizedBox(
-                        height: 150,
-                        width: double.infinity,
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            SizedBox(
-                              width: 100,
-                              // height: 200,
-                              child: Card(
-                                color: Colors.amberAccent,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(100.0),
-                                ),
-                                elevation: 0,
-                                child: Column(
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 25,
-                                      backgroundColor:
-                                          const Color.fromRGBO(28, 38, 73, 1),
-                                      backgroundImage: NetworkImage(
-                                          state.userDetails.avatar!),
-                                    ),
-                                    const Text(
-                                      'Ferrari',
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: 70),
+                    //   child: SizedBox(
+                    //     height: 170,
+                    //     width: double.infinity,
+                    //     child: ListView(
+                    //       scrollDirection: Axis.horizontal,
+                    //       children: [
+                    //         SizedBox(
+                    //           width: 120,
+                    //           // height: 200,
+                    //           child: Card(
+                    //             color: const Color.fromRGBO(29, 47, 111, 1),
+                    //             shape: RoundedRectangleBorder(
+                    //               borderRadius: BorderRadius.circular(100.0),
+                    //             ),
+                    //             elevation: 0,
+                    //             child: Column(
+                    //               children: [
+                    //                 Padding(
+                    //                   padding: const EdgeInsets.only(top: 10),
+                    //                   child: CircleAvatar(
+                    //                     radius: 40,
+                    //                     backgroundColor:
+                    //                         const Color.fromRGBO(28, 38, 73, 1),
+                    //                     backgroundImage: NetworkImage(
+                    //                         state.userDetails.avatar!),
+                    //                   ),
+                    //                 ),
+                    //                 const Padding(
+                    //                   padding: EdgeInsets.only(top: 13),
+                    //                   child: Text(
+                    //                     'Ferrari',
+                    //                     style: TextStyle(
+                    //                       color: Colors.white,
+                    //                       fontSize: 20,
+                    //                     ),
+                    //                   ),
+                    //                 ),
+                    //               ],
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // )
+                  ],
+                );
+              }
+              return const Center(child: CircularProgressIndicator());
+            },
+          ),
+          BlocBuilder<ModelosBloc, ModelosState>(
+            bloc: _modelosBloc,
+            builder: (context, state) {
+              if (state is GetModelosError) {
+                return Column(
+                  children: [
+                    Text(state.errorMessage),
+                  ],
+                );
+              } else if (state is GetModelosSuccess) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 70),
+                  child: SizedBox(
+                    height: 170,
+                    width: double.infinity,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        SizedBox(
+                          width: 120,
+                          // height: 200,
+                          child: Card(
+                            color: const Color.fromRGBO(29, 47, 111, 1),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(100.0),
                             ),
-                            Card(
-                              color: Colors.amber,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              elevation: 0,
-                              child: const Center(
-                                child: Text(
-                                  'Contenido de la tarjeta',
-                                  style: TextStyle(
-                                    fontSize: 20,
+                            elevation: 0,
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10),
+                                  child: CircleAvatar(
+                                    radius: 40,
+                                    backgroundColor:
+                                        const Color.fromRGBO(28, 38, 73, 1),
+                                    backgroundImage: NetworkImage(
+                                        state.modeloResponse.logo!),
                                   ),
                                 ),
-                              ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 13),
+                                  child: Text(
+                                    state.modeloResponse.modelo!,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    )
-                  ],
+                      ],
+                    ),
+                  ),
                 );
               }
               return const Center(child: CircularProgressIndicator());
