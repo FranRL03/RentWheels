@@ -47,111 +47,169 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildHome() {
     return Scaffold(
-      bottomNavigationBar: NavigationBar(
-        backgroundColor: const Color.fromARGB(255, 141, 186, 227),
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-        },
-        indicatorColor: const Color.fromARGB(255, 255, 255, 255),
-        selectedIndex: currentPageIndex,
-        destinations: const <Widget>[
-          NavigationDestination(
-            selectedIcon: Icon(Icons.home),
-            icon: Icon(Icons.home_outlined),
-            label: '',
-          ),
-           NavigationDestination(
-            selectedIcon: Icon(Icons.car_rental_rounded),
-            icon: Icon(Icons.car_rental_outlined),
-            label: '',
-          ),
-           NavigationDestination(
-            selectedIcon: Icon(Icons.person),
-            icon: Icon(Icons.person_outline),
-            label: '',
-          ),
-        ],
-      ),
-      body: _buildPage(currentPageIndex)
-    );
-  }
-
-  Widget _page(){
-return Padding(
-        padding: const EdgeInsets.only(top: 40, left: 30),
-        child: Column(
-          children: [
-            BlocBuilder<UserBloc, UserState>(
-              bloc: _userBloc,
-              builder: (context, state) {
-                if (state is DoUserError) {
-                  return Column(
-                    children: [
-                      Text(state.errorMessage),
-                    ],
-                  );
-                } else if (state is DoUserSuccess) {
-                  Widget avatarWidget;
-                  if (state.userDetails.avatar != null) {
-                    avatarWidget = CircleAvatar(
-                      radius: 25,
-                      backgroundColor: const Color.fromRGBO(28, 38, 73, 1),
-                      backgroundImage: NetworkImage(state.userDetails.avatar!),
-                    );
-                  } else {
-                    avatarWidget = const CircleAvatar(
-                      radius: 25,
-                      backgroundColor: Color.fromRGBO(28, 38, 73, 1),
-                      backgroundImage:
-                          AssetImage('assets/images/foto_perfil.png'),
-                    );
-                  }
-                  return Row(
-                    children: [
-                      avatarWidget,
-                      Padding(
-                        padding: const EdgeInsets.only(left: 50),
-                        child: Column(
-                          children: [
-                            Text(
-                              state.userDetails.username!.toUpperCase(),
-                              style: const TextStyle(
-                                  color: Color.fromRGBO(29, 47, 111, 1),
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              state.userDetails.email!,
-                              style: const TextStyle(
-                                  color: Color.fromRGBO(105, 105, 106, 1),
-                                  fontSize: 15),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  );
-                }
-                return const Center(child: CircularProgressIndicator());
-              },
+        bottomNavigationBar: NavigationBar(
+          backgroundColor: const Color.fromARGB(255, 141, 186, 227),
+          onDestinationSelected: (int index) {
+            setState(() {
+              currentPageIndex = index;
+            });
+          },
+          indicatorColor: const Color.fromARGB(255, 255, 255, 255),
+          selectedIndex: currentPageIndex,
+          destinations: const <Widget>[
+            NavigationDestination(
+              selectedIcon: Icon(Icons.home),
+              icon: Icon(Icons.home_outlined),
+              label: '',
+            ),
+            NavigationDestination(
+              selectedIcon: Icon(Icons.car_rental_rounded),
+              icon: Icon(Icons.car_rental_outlined),
+              label: '',
+            ),
+            NavigationDestination(
+              selectedIcon: Icon(Icons.person),
+              icon: Icon(Icons.person_outline),
+              label: '',
             ),
           ],
         ),
-      );
+        body: _buildPage(currentPageIndex));
   }
 
-  Widget _buildPage(int index){
-       switch (index) {
-    case 0:
-      return _page();
-    case 1:
-      return const MyWidget();
-    case 2:
-      return const MyWidget(); // Define la página de mensajes
-    default:
-      return Container(); // En caso de que el índice sea inválido
+  Widget _page() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 40, left: 30),
+      child: Column(
+        children: [
+          BlocBuilder<UserBloc, UserState>(
+            bloc: _userBloc,
+            builder: (context, state) {
+              if (state is DoUserError) {
+                return Column(
+                  children: [
+                    Text(state.errorMessage),
+                  ],
+                );
+              } else if (state is DoUserSuccess) {
+                Widget avatarWidget;
+                if (state.userDetails.avatar != null) {
+                  avatarWidget = CircleAvatar(
+                    radius: 25,
+                    backgroundColor: const Color.fromRGBO(28, 38, 73, 1),
+                    backgroundImage: NetworkImage(state.userDetails.avatar!),
+                  );
+                } else {
+                  avatarWidget = const CircleAvatar(
+                    radius: 25,
+                    backgroundColor: Color.fromRGBO(28, 38, 73, 1),
+                    backgroundImage:
+                        AssetImage('assets/images/foto_perfil.png'),
+                  );
+                }
+                return Column(
+                  children: [
+                    Row(
+                      children: [
+                        avatarWidget,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 50),
+                          child: Column(
+                            children: [
+                              Text(
+                                state.userDetails.username!.toUpperCase(),
+                                style: const TextStyle(
+                                    color: Color.fromRGBO(29, 47, 111, 1),
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                state.userDetails.email!,
+                                style: const TextStyle(
+                                    color: Color.fromRGBO(105, 105, 106, 1),
+                                    fontSize: 15),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 90),
+                      child: SizedBox(
+                        height: 150,
+                        width: double.infinity,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            SizedBox(
+                              width: 100,
+                              // height: 200,
+                              child: Card(
+                                color: Colors.amberAccent,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100.0),
+                                ),
+                                elevation: 0,
+                                child: Column(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 25,
+                                      backgroundColor:
+                                          const Color.fromRGBO(28, 38, 73, 1),
+                                      backgroundImage: NetworkImage(
+                                          state.userDetails.avatar!),
+                                    ),
+                                    const Text(
+                                      'Ferrari',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Card(
+                              color: Colors.amber,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              elevation: 0,
+                              child: const Center(
+                                child: Text(
+                                  'Contenido de la tarjeta',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                );
+              }
+              return const Center(child: CircularProgressIndicator());
+            },
+          )
+        ],
+      ),
+    );
   }
+
+  Widget _buildPage(int index) {
+    switch (index) {
+      case 0:
+        return _page();
+      case 1:
+        return const MyWidget();
+      case 2:
+        return const MyWidget(); // Define la página de mensajes
+      default:
+        return Container(); // En caso de que el índice sea inválido
+    }
   }
 }
