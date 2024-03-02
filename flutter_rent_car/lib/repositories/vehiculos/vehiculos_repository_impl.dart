@@ -1,11 +1,11 @@
 
-import 'package:flutter_rent_car/model/response/modelo/modelo_response/modelo_response.dart';
-import 'package:flutter_rent_car/repositories/modelos/modelo_repository.dart';
+import 'package:flutter_rent_car/model/response/vehiculos/list_vehiculos_response/list_vehiculos_response.dart';
+import 'package:flutter_rent_car/repositories/vehiculos/vehiculos_repository.dart';
 import 'package:flutter_rent_car/variables.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ModeloRepositorioImpl extends ModeloRepository {
+class VehiculoRepositoryImpl extends VehiculoRepository {
   final Client _htppClient = Client();
 
   Future<String?> getToken() async {
@@ -14,23 +14,22 @@ class ModeloRepositorioImpl extends ModeloRepository {
   }
 
   @override
-  Future <ModeloResponse> models() async {
+  Future <ListVehiculosResponse> listVehiculos() async {
     final token = await getToken();
 
     final response = await _htppClient.get(
-      Uri.parse('$urlMovil/modelo'),
-        // Uri.parse('$urlChrome/modelo'),
+      Uri.parse('$urlMovil/vehiculos/menu'),
+        // Uri.parse('$urlChrome/vehiculos/menu'),
         headers: <String, String>{
           'Content-Type': 'Content-type: application/json',
           'Authorization': 'Bearer $token',
         });
 
     if (response.statusCode == 200) {
-      return ModeloResponse.fromJson(response.body);
-      // return ModeloResponse.fromJson(json.decoder as String);
+      return ListVehiculosResponse.fromJson(response.body);
+      // return ListVehiculosResponse.fromJson(json.decoder as String);
     } else {
-      throw Exception('Failed to get models');
+      throw Exception('Failed to get vehicles');
     }
-
   }
 }

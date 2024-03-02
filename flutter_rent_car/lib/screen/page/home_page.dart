@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rent_car/bloc/modelos/modelos_bloc.dart';
 import 'package:flutter_rent_car/bloc/user_details/user_bloc.dart';
+import 'package:flutter_rent_car/bloc/vehiculo/vehiculo_bloc.dart';
 import 'package:flutter_rent_car/repositories/modelos/modelo_repository.dart';
 import 'package:flutter_rent_car/repositories/modelos/modelo_repository_impl.dart';
 import 'package:flutter_rent_car/repositories/user/user_repository.dart';
 import 'package:flutter_rent_car/repositories/user/user_repository_impl.dart';
+import 'package:flutter_rent_car/repositories/vehiculos/vehiculos_repository.dart';
+import 'package:flutter_rent_car/repositories/vehiculos/vehiculos_repository_impl.dart';
 import 'package:flutter_rent_car/screen/patatus.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,8 +22,11 @@ class _HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
   late UserRepository userRepository;
   late ModeloRepository modeloRepository;
+  late VehiculoRepository vehiculoRepository;
+
   late UserBloc _userBloc;
   late ModelosBloc _modelosBloc;
+  late VehiculoBloc _vehiculoBloc;
 
   @override
   void initState() {
@@ -28,6 +34,8 @@ class _HomePageState extends State<HomePage> {
     _userBloc = UserBloc(userRepository)..add(GetUserDetailsEvent());
     modeloRepository = ModeloRepositorioImpl();
     _modelosBloc = ModelosBloc(modeloRepository)..add(GetModelosEvent());
+    vehiculoRepository = VehiculoRepositoryImpl();
+    _vehiculoBloc = VehiculoBloc(vehiculoRepository)..add(GetVehiculoEvent());
     super.initState();
   }
 
@@ -35,6 +43,7 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     _userBloc.close();
     _modelosBloc.close();
+    _vehiculoBloc.close();
     super.dispose();
   }
 
@@ -45,7 +54,8 @@ class _HomePageState extends State<HomePage> {
         BlocProvider.value(
           value: _userBloc,
         ),
-        BlocProvider.value(value: _modelosBloc)
+        BlocProvider.value(value: _modelosBloc),
+        BlocProvider.value(value: _vehiculoBloc)
       ],
       child: _buildHome(),
     );
@@ -85,7 +95,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _page() {
     return Padding(
-      padding: const EdgeInsets.only(top: 40, left: 30),
+      padding: const EdgeInsets.only(top: 40, left: 10),
       child: Column(
         children: [
           BlocBuilder<UserBloc, UserState>(
@@ -146,74 +156,167 @@ class _HomePageState extends State<HomePage> {
               return const Center(child: CircularProgressIndicator());
             },
           ),
-          BlocBuilder<ModelosBloc, ModelosState>(
-            bloc: _modelosBloc,
-            builder: (context, state) {
-              if (state is GetModelosError) {
-                return Column(
-                  children: [
-                    Text(state.errorMessage),
-                  ],
-                );
-              } else if (state is GetModelosSuccess) {
-                return Padding(
-                  padding: const EdgeInsets.only(top: 70),
-                  child: SizedBox(
-                    height: 170,
-                    width: double.infinity,
-                    child: ListView.builder(
-                        scrollDirection: Axis
-                            .horizontal, 
-                        itemCount: state.modeloResponse.content!.length,
-                        itemBuilder: (context, index) {
-                          // scrollDirection: Axis.horizontal;
-                          return SizedBox(
-                            width: 120,
-                            // height: 200,
-                            child: Card(
-                              color: const Color.fromRGBO(29, 47, 111, 1),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(100.0),
-                              ),
-                              elevation: 0,
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: CircleAvatar(
-                                      radius: 40,
-                                      backgroundColor:
-                                          Color.fromARGB(255, 119, 133, 187),
-                                      backgroundImage: NetworkImage(state
-                                          .modeloResponse
-                                          .content![index]
-                                          .logo!),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 13),
-                                    child: Text(
-                                      state.modeloResponse.content![index]
-                                          .modelo!,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        }),
-                  ),
-                );
-              }
-              return const Center(child: CircularProgressIndicator());
-            },
-          )
+          modelosDeCoches(),
+          listDeCoches()
         ],
       ),
+    );
+  }
+
+  Widget modelosDeCoches() {
+    return BlocBuilder<ModelosBloc, ModelosState>(
+      bloc: _modelosBloc,
+      builder: (context, state) {
+        if (state is GetModelosError) {
+          return Column(
+            children: [
+              Text(state.errorMessage),
+            ],
+          );
+        } else if (state is GetModelosSuccess) {
+          return Padding(
+            padding: const EdgeInsets.only(top: 50),
+            child: SizedBox(
+              height: 146,
+              width: double.infinity,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: state.modeloResponse.content!.length,
+                  itemBuilder: (context, index) {
+                    // scrollDirection: Axis.horizontal;
+                    return SizedBox(
+                      width: 110,
+                      // height: 200,
+                      child: Card(
+                        color: const Color.fromRGBO(29, 47, 111, 1),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100.0),
+                        ),
+                        elevation: 0,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: CircleAvatar(
+                                radius: 40,
+                                backgroundColor:
+                                    const Color.fromARGB(255, 119, 133, 187),
+                                backgroundImage: NetworkImage(
+                                    state.modeloResponse.content![index].logo!),
+                              ),
+                            ),
+                            Text(
+                              state.modeloResponse.content![index].modelo!,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+            ),
+          );
+        }
+        return const Center(child: CircularProgressIndicator());
+      },
+    );
+  }
+
+  Widget listDeCoches() {
+    return BlocBuilder<VehiculoBloc, VehiculoState>(
+      bloc: _vehiculoBloc,
+      builder: (context, state) {
+        if (state is GetVehiculoError) {
+          return Column(
+            children: [
+              Text(state.errorMessage),
+            ],
+          );
+        } else if (state is GetVehiculoSuccess) {
+          return Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: SizedBox(
+              height: 330,
+              child: ListView.builder(
+                itemCount: state.vehiculosResponse.content!.length,
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                      width: 160,
+                      height: 220,
+                      child: Card(
+                        color: const Color.fromRGBO(255, 204, 0, 1),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.zero,
+                            topRight: Radius.circular(20),
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.zero,
+                          ),
+                        ),
+                        elevation: 10,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 160,
+                                  child: Image.network(
+                                    state.vehiculosResponse.content![index].imagen!,
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 60, bottom: 20),
+                                  child: Text(
+                                    'Coche \n ${state.vehiculosResponse.content![index].combustion}',
+                                    style: const TextStyle(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            OutlinedButton(
+                              onPressed: () {
+                                // Acción a realizar cuando se presione el botón
+                              },
+                              style: OutlinedButton.styleFrom(
+                                side: const BorderSide(
+                                  color: Color.fromRGBO(25, 134, 0, 1),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 12,
+                                  horizontal: 24,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(28.5),
+                                ),
+                              ),
+                              child: const Text(
+                                'Información',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Color.fromRGBO(25, 134, 0, 1),
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ));
+                },
+              ),
+            ),
+          );
+        }
+        return const Center(child: CircularProgressIndicator());
+      },
     );
   }
 
