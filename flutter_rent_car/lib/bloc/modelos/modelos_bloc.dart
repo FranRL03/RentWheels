@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_rent_car/model/response/modelo/modelo_response.dart';
+import 'package:flutter_rent_car/model/response/modelo/modelo_response/modelo_response.dart';
 import 'package:flutter_rent_car/repositories/modelos/modelo_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -16,8 +16,9 @@ class ModelosBloc extends Bloc<ModelosEvent, ModelosState> {
   void _getModels(GetModelosEvent event, Emitter<ModelosState> emit) async {
     emit(GetModelosLoading());
     try {
-      final response = await modeloRepository.models();
-      emit(GetModelosSuccess(response));
+      final listModelos = await modeloRepository.models();
+      print('bloc modelos ${listModelos}');
+      emit(GetModelosSuccess(listModelos));
     } on Exception catch (e) {
       emit(GetModelosError(e.toString()));
     }

@@ -34,6 +34,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void dispose() {
     _userBloc.close();
+    _modelosBloc.close();
     super.dispose();
   }
 
@@ -139,53 +140,6 @@ class _HomePageState extends State<HomePage> {
                         )
                       ],
                     ),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(top: 70),
-                    //   child: SizedBox(
-                    //     height: 170,
-                    //     width: double.infinity,
-                    //     child: ListView(
-                    //       scrollDirection: Axis.horizontal,
-                    //       children: [
-                    //         SizedBox(
-                    //           width: 120,
-                    //           // height: 200,
-                    //           child: Card(
-                    //             color: const Color.fromRGBO(29, 47, 111, 1),
-                    //             shape: RoundedRectangleBorder(
-                    //               borderRadius: BorderRadius.circular(100.0),
-                    //             ),
-                    //             elevation: 0,
-                    //             child: Column(
-                    //               children: [
-                    //                 Padding(
-                    //                   padding: const EdgeInsets.only(top: 10),
-                    //                   child: CircleAvatar(
-                    //                     radius: 40,
-                    //                     backgroundColor:
-                    //                         const Color.fromRGBO(28, 38, 73, 1),
-                    //                     backgroundImage: NetworkImage(
-                    //                         state.userDetails.avatar!),
-                    //                   ),
-                    //                 ),
-                    //                 const Padding(
-                    //                   padding: EdgeInsets.only(top: 13),
-                    //                   child: Text(
-                    //                     'Ferrari',
-                    //                     style: TextStyle(
-                    //                       color: Colors.white,
-                    //                       fontSize: 20,
-                    //                     ),
-                    //                   ),
-                    //                 ),
-                    //               ],
-                    //             ),
-                    //           ),
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // )
                   ],
                 );
               }
@@ -207,46 +161,51 @@ class _HomePageState extends State<HomePage> {
                   child: SizedBox(
                     height: 170,
                     width: double.infinity,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        SizedBox(
-                          width: 120,
-                          // height: 200,
-                          child: Card(
-                            color: const Color.fromRGBO(29, 47, 111, 1),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(100.0),
-                            ),
-                            elevation: 0,
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  child: CircleAvatar(
-                                    radius: 40,
-                                    backgroundColor:
-                                        const Color.fromRGBO(28, 38, 73, 1),
-                                    backgroundImage: NetworkImage(
-                                        state.modeloResponse.logo!),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 13),
-                                  child: Text(
-                                    state.modeloResponse.modelo!,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
+                    child: ListView.builder(
+                        scrollDirection: Axis
+                            .horizontal, 
+                        itemCount: state.modeloResponse.content!.length,
+                        itemBuilder: (context, index) {
+                          // scrollDirection: Axis.horizontal;
+                          return SizedBox(
+                            width: 120,
+                            // height: 200,
+                            child: Card(
+                              color: const Color.fromRGBO(29, 47, 111, 1),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(100.0),
+                              ),
+                              elevation: 0,
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: CircleAvatar(
+                                      radius: 40,
+                                      backgroundColor:
+                                          Color.fromARGB(255, 119, 133, 187),
+                                      backgroundImage: NetworkImage(state
+                                          .modeloResponse
+                                          .content![index]
+                                          .logo!),
                                     ),
                                   ),
-                                ),
-                              ],
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 13),
+                                    child: Text(
+                                      state.modeloResponse.content![index]
+                                          .modelo!,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
+                          );
+                        }),
                   ),
                 );
               }
