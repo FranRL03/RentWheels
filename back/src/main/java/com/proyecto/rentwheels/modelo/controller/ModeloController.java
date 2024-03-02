@@ -12,6 +12,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,11 +50,11 @@ public class ModeloController {
     })
     @Operation(summary = "getAllModels", description = "lista de modelos")
     @GetMapping("/modelo")
-    public List<GetModeloDto> getAllModelo () {
-        return modeloServicio.getAll()
-                .stream()
-                .map(GetModeloDto::of)
-                .toList();
+    public Page<GetModeloDto> getAllModelo (@PageableDefault(page=0, size =4) Pageable pageable) {
+
+        Page<Modelo> modelos = modeloServicio.getAll(pageable);
+
+        return modelos.map(GetModeloDto::of);
 
     }
 }

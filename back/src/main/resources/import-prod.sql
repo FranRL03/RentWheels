@@ -25,21 +25,21 @@ insert into TIPO_VEHICULO (id, tipo) values ('38c7c21e-13d7-4d2b-9fb3-df5ec849dd
 
 -- MODELO DE COCHES
 
-insert into MODELO (id, modelo, logo) values ('afcf760a-8e8a-4e7c-ae94-f5af066c0be7', 'Toyota Corolla', 'https://assets.stickpng.com/thumbs/580b585b2edbce24c47b2cdc.png');
-insert into MODELO (id, modelo, logo) values ('b13f10a7-5cc1-4bc2-8e16-21260b2a1fe2', 'Honda Civic', 'https://assets.stickpng.com/thumbs/5ec3e3f358550c0004427748.png');
-insert into MODELO (id, modelo, logo) values ('7d7d67f8-73e5-4cfb-87fd-3c7769db2b24', 'Ford Mustang', 'https://assets.stickpng.com/thumbs/612a46d77c7c75000443b29b.png');
-insert into MODELO (id, modelo, logo) values ('e04f9cd6-f5e1-4db2-9eaa-29b9b29431a1', 'Chevrolet Silverado', 'https://assets.stickpng.com/thumbs/580b585b2edbce24c47b2c48.png');
-insert into MODELO (id, modelo, logo) values ('35eef7de-5b6e-48d7-803e-b201d8b032f6', 'BMW Serie 3', 'https://assets.stickpng.com/thumbs/580b57fcd9996e24bc43c46e.png');
-insert into MODELO (id, modelo, logo) values ('fe3756a0-2262-4ec7-a924-95e0eefdaa15', 'Mercedes-Benz Clase C', 'https://assets.stickpng.com/thumbs/5ec3e30358550c0004427741.png');
-insert into MODELO (id, modelo, logo) values ('8c5e42c3-3c2b-4e15-af8c-498e5e63509f', 'Audi A4', 'https://assets.stickpng.com/thumbs/580b585b2edbce24c47b2c18.png');
-insert into MODELO (id, modelo, logo) values ('4f8a0e86-b937-4189-9435-65f66543e956', 'Volkswagen Golf', 'https://assets.stickpng.com/thumbs/61321f3b00feb70004beb7bc.png');
-insert into MODELO (id, modelo, logo) values ('b40e4dd4-b0d7-4715-8391-eb5a7b0bbd1a', 'Tesla Model S', 'https://assets.stickpng.com/thumbs/5ec3e21d58550c000442773a.png');
-insert into MODELO (id, modelo, logo) values ('1c4e89a2-0ac4-41e8-a885-4b8b0d11fcdf', 'Nissan Rogue', 'https://assets.stickpng.com/thumbs/580b57fcd9996e24bc43c497.png');
-insert into MODELO (id, modelo, logo) values ('eb3d7d0d-1667-494d-9912-90521e057010', 'Subaru Outback', 'https://assets.stickpng.com/thumbs/580b585b2edbce24c47b2cbf.png');
-insert into MODELO (id, modelo, logo) values ('b8b5f10e-41a4-4705-91eb-305c7f00df53', 'Jeep Wrangler', 'https://assets.stickpng.com/thumbs/6128f860e3a15c00041a8e3c.png');
-insert into MODELO (id, modelo, logo) values ('0d96352d-8295-4622-87d1-511398daac50', 'Porsche 911', 'https://assets.stickpng.com/thumbs/580b585b2edbce24c47b2cac.png');
-insert into MODELO (id, modelo, logo) values ('a18715cc-b94b-43b0-bb73-52a1d0b89e61', 'Hyundai Sonata', 'https://assets.stickpng.com/thumbs/580b585b2edbce24c47b2c77.png');
-insert into MODELO (id, modelo, logo) values ('ec3c2e40-6892-4725-8670-4b79922fe7b3', 'Kia Sportage', 'https://assets.stickpng.com/thumbs/580b57fcd9996e24bc43c485.png');
+insert into MODELO (id, modelo, logo) values ('afcf760a-8e8a-4e7c-ae94-f5af066c0be7', 'Toyota', 'https://assets.stickpng.com/thumbs/580b585b2edbce24c47b2cdc.png');
+insert into MODELO (id, modelo, logo) values ('b13f10a7-5cc1-4bc2-8e16-21260b2a1fe2', 'Honda', 'https://assets.stickpng.com/thumbs/5ec3e3f358550c0004427748.png');
+insert into MODELO (id, modelo, logo) values ('7d7d67f8-73e5-4cfb-87fd-3c7769db2b24', 'Mustang', 'https://assets.stickpng.com/thumbs/612a46d77c7c75000443b29b.png');
+insert into MODELO (id, modelo, logo) values ('e04f9cd6-f5e1-4db2-9eaa-29b9b29431a1', 'Chevrolet', 'https://assets.stickpng.com/thumbs/580b585b2edbce24c47b2c48.png');
+insert into MODELO (id, modelo, logo) values ('35eef7de-5b6e-48d7-803e-b201d8b032f6', 'BMW', 'https://assets.stickpng.com/thumbs/580b57fcd9996e24bc43c46e.png');
+insert into MODELO (id, modelo, logo) values ('fe3756a0-2262-4ec7-a924-95e0eefdaa15', 'Mercedes', 'https://assets.stickpng.com/thumbs/5ec3e30358550c0004427741.png');
+insert into MODELO (id, modelo, logo) values ('8c5e42c3-3c2b-4e15-af8c-498e5e63509f', 'Audi', 'https://assets.stickpng.com/thumbs/580b585b2edbce24c47b2c18.png');
+insert into MODELO (id, modelo, logo) values ('4f8a0e86-b937-4189-9435-65f66543e956', 'Volkswagen', 'https://assets.stickpng.com/thumbs/61321f3b00feb70004beb7bc.png');
+insert into MODELO (id, modelo, logo) values ('b40e4dd4-b0d7-4715-8391-eb5a7b0bbd1a', 'Tesla', 'https://assets.stickpng.com/thumbs/5ec3e21d58550c000442773a.png');
+insert into MODELO (id, modelo, logo) values ('1c4e89a2-0ac4-41e8-a885-4b8b0d11fcdf', 'Nissan', 'https://assets.stickpng.com/thumbs/580b57fcd9996e24bc43c497.png');
+insert into MODELO (id, modelo, logo) values ('eb3d7d0d-1667-494d-9912-90521e057010', 'Subaru', 'https://assets.stickpng.com/thumbs/580b585b2edbce24c47b2cbf.png');
+insert into MODELO (id, modelo, logo) values ('b8b5f10e-41a4-4705-91eb-305c7f00df53', 'Jeep', 'https://assets.stickpng.com/thumbs/6128f860e3a15c00041a8e3c.png');
+insert into MODELO (id, modelo, logo) values ('0d96352d-8295-4622-87d1-511398daac50', 'Porsche', 'https://assets.stickpng.com/thumbs/580b585b2edbce24c47b2cac.png');
+insert into MODELO (id, modelo, logo) values ('a18715cc-b94b-43b0-bb73-52a1d0b89e61', 'Hyundai', 'https://assets.stickpng.com/thumbs/580b585b2edbce24c47b2c77.png');
+insert into MODELO (id, modelo, logo) values ('ec3c2e40-6892-4725-8670-4b79922fe7b3', 'Kia', 'https://assets.stickpng.com/thumbs/580b57fcd9996e24bc43c485.png');
 
 --COCHES
 
