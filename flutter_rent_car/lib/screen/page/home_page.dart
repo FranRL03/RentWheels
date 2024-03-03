@@ -175,7 +175,7 @@ class _HomePageState extends State<HomePage> {
           );
         } else if (state is GetModelosSuccess) {
           return Padding(
-            padding: const EdgeInsets.only(top: 50),
+            padding: const EdgeInsets.only(top: 20),
             child: SizedBox(
               height: 146,
               width: double.infinity,
@@ -239,15 +239,32 @@ class _HomePageState extends State<HomePage> {
           return Padding(
             padding: const EdgeInsets.only(top: 10),
             child: SizedBox(
-              height: 330,
+              height: 360,
               child: ListView.builder(
                 itemCount: state.vehiculosResponse.content!.length,
                 itemBuilder: (context, index) {
+                  Color tipoCard = Colors.black;
+                  Color disponible = Colors.black;
+                  if (state.vehiculosResponse.content![index].combustion == 'Gasolina'){
+                    tipoCard = const Color.fromARGB(255, 175, 102, 34);
+                  } else if (state.vehiculosResponse.content![index].combustion == 'Cable'){
+                    tipoCard = const Color.fromARGB(255, 164, 134, 13);
+                  } else {
+                    tipoCard = const Color.fromARGB(255, 138, 134, 116);
+                  }
+
+                  if (state.vehiculosResponse.content![index].disponible == true) {
+                    disponible = Colors.green.shade300;
+                  } else {
+                    disponible = Colors.red.shade300;
+                  }
+
                   return SizedBox(
                       width: 160,
                       height: 220,
-                      child: Card(
-                        color: const Color.fromRGBO(255, 204, 0, 1),
+                      child:
+                      Card(
+                        color: tipoCard,
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.zero,
@@ -282,14 +299,12 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ],
                             ),
-                            OutlinedButton(
+                            ElevatedButton(
                               onPressed: () {
                                 // Acción a realizar cuando se presione el botón
                               },
-                              style: OutlinedButton.styleFrom(
-                                side: const BorderSide(
-                                  color: Color.fromRGBO(25, 134, 0, 1),
-                                ),
+                              style: ElevatedButton.styleFrom(
+                              backgroundColor: disponible,
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 12,
                                   horizontal: 24,
@@ -302,7 +317,7 @@ class _HomePageState extends State<HomePage> {
                                 'Información',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
-                                  color: Color.fromRGBO(25, 134, 0, 1),
+                                  color: Color.fromRGBO(255, 255, 255, 1),
                                   fontSize: 16,
                                 ),
                               ),
@@ -310,7 +325,7 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                       ));
-                },
+              }
               ),
             ),
           );

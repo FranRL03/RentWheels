@@ -1,4 +1,3 @@
-
 import 'package:flutter_rent_car/model/response/modelo/modelo_response/modelo_response.dart';
 import 'package:flutter_rent_car/repositories/modelos/modelo_repository.dart';
 import 'package:flutter_rent_car/variables.dart';
@@ -14,11 +13,10 @@ class ModeloRepositorioImpl extends ModeloRepository {
   }
 
   @override
-  Future <ModeloResponse> models() async {
+  Future<ModeloResponse> models() async {
     final token = await getToken();
 
-    final response = await _htppClient.get(
-      Uri.parse('$urlMovil/modelo'),
+    final response = await _htppClient.get(Uri.parse('$urlMovil/modelo'),
         // Uri.parse('$urlChrome/modelo'),
         headers: <String, String>{
           'Content-Type': 'Content-type: application/json',
@@ -31,6 +29,5 @@ class ModeloRepositorioImpl extends ModeloRepository {
     } else {
       throw Exception('Failed to get models');
     }
-
   }
 }

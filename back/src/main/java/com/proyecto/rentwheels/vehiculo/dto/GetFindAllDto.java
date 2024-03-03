@@ -8,7 +8,13 @@ public record GetFindAllDto(
         String combustion,
         GetModeloDto modelo,
         String imagen,
-        String transmision
+        String transmision,
+        int capacidadPasajeros,
+        int autonomia,
+        int potencia,
+        String estado,
+        int numPuertas,
+        boolean disponible
 //        GetTipoVehiculosDTO tipoVehiculosdto
 ) {
 
@@ -18,7 +24,13 @@ public record GetFindAllDto(
                 v.getCombustible(),
                 GetModeloDto.of(v.getModelo()),
                 v.getImagen(),
-                v.getTransmision()
+                v.getTransmision(),
+                v.getCapacidadPasajeros(),
+                v.getAutonomia(),
+                v.getPotencia(),
+                v.getEstado(),
+                v.getNumPuertas(),
+                v.isDisponible()
 //                GetTipoVehiculosDTO.of(v.getTipoVehiculo())
         );
     }
