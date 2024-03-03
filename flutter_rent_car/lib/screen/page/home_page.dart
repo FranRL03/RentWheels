@@ -9,6 +9,7 @@ import 'package:flutter_rent_car/repositories/user/user_repository.dart';
 import 'package:flutter_rent_car/repositories/user/user_repository_impl.dart';
 import 'package:flutter_rent_car/repositories/vehiculos/vehiculos_repository.dart';
 import 'package:flutter_rent_car/repositories/vehiculos/vehiculos_repository_impl.dart';
+import 'package:flutter_rent_car/screen/page/my_perfil_page.dart';
 import 'package:flutter_rent_car/screen/patatus.dart';
 
 class HomePage extends StatefulWidget {
@@ -342,7 +343,7 @@ class _HomePageState extends State<HomePage> {
       case 1:
         return const MyWidget();
       case 2:
-        return const MyWidget(); // Define la página de mensajes
+        return const MyPerfilPage(); // Define la página de mensajes
       default:
         return Container(); // En caso de que el índice sea inválido
     }
