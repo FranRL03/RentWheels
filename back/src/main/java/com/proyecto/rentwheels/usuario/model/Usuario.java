@@ -46,8 +46,7 @@ public class Usuario implements UserDetails {
     private String username;
 
     private String password;
-//    private String email;
-//    private String telefono;
+
     private String avatar;
 
     @Builder.Default
