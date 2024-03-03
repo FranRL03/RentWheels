@@ -41,7 +41,7 @@ public class Usuario implements UserDetails {
     @Column(columnDefinition = "uuid")
     private UUID id;
 
-//    @NaturalId
+    @NaturalId
     @Column(unique = true, updatable = false)
     private String username;
 
