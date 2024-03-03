@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -111,5 +112,40 @@ public class UsuarioController {
     @PostMapping("/auth/token")
     public ResponseEntity<Boolean> validatedToken(@RequestBody String token){
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(jwtProvider.validateToken(token));
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Editar datos del Cliente loggeado", content = {
+                    @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetClienteDetailsDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                "id": "c0a801b2-8c0d-1417-818c-0d4421110003",
+                                                "nombre": "pepe",
+                                                "email": "pepe@gmail.com",
+                                                "avatar": "https://noticiasdelaciencia.com/upload/images/12_2021/6754_ciencia-en-imagenes-este-murcielago-da-la-cara.jpg",
+                                                "direccion": "C/Montaña nº3",
+                                                "codPostal": "33133",
+                                                "poblacion": "Valencia",
+                                                "puntos": 100,
+                                                "pedidos": [
+                                                    {
+                                                        "id": "c0a801b2-8c0d-1417-818c-0d4421e0000c",
+                                                        "fecha": "2023-11-26T21:13:38.144181",
+                                                        "estadoPedido": "CONFIRMADO",
+                                                        "importeTotal": 6.3
+                                                    }
+                                                ]
+                                            }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "400", description = "Dato introducido inválido", content = @Content)
+    })
+    @Operation(summary = "editLoggedUser", description = "Editar datos del Cliente loggeado")
+    @PutMapping("/profile/edit")
+    public GetClienteDetailsDto editLoggedUser(@Valid @RequestBody EditClientDto editado, @AuthenticationPrincipal Cliente c){
+        return GetClienteDetailsDto.of(clienteService.editCliente(editado,c));
     }
 }
