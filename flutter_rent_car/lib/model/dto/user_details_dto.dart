@@ -1,4 +1,4 @@
-class UserDetailsDto{
+class UserDetailsDto {
   String? id;
   String? username;
   String? avatar;
@@ -17,7 +17,7 @@ class UserDetailsDto{
 
   UserDetailsDto.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    username =  json['username'];
+    username = json['username'];
     avatar = json['avatar'];
     email = json['email'];
     telefono = json['telefono'];

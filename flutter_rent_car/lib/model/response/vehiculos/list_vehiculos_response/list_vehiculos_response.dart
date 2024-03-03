@@ -4,12 +4,12 @@ import 'content.dart';
 import 'pageable.dart';
 import 'sort.dart';
 
-class ModeloResponse {
+class ListVehiculosResponse {
   List<Content>? content;
   Pageable? pageable;
   bool? last;
-  int? totalElements;
   int? totalPages;
+  int? totalElements;
   int? size;
   int? number;
   Sort? sort;
@@ -17,12 +17,12 @@ class ModeloResponse {
   int? numberOfElements;
   bool? empty;
 
-  ModeloResponse({
+  ListVehiculosResponse({
     this.content,
     this.pageable,
     this.last,
-    this.totalElements,
     this.totalPages,
+    this.totalElements,
     this.size,
     this.number,
     this.sort,
@@ -31,38 +31,38 @@ class ModeloResponse {
     this.empty,
   });
 
-  factory ModeloResponse.fromModeloResponse(Map<String, dynamic> data) {
-    return ModeloResponse(
+  factory ListVehiculosResponse.fromVehiculoResponse(Map<String, dynamic> data) {
+    return ListVehiculosResponse(
       content: (data['content'] as List<dynamic>?)
-          ?.map((e) => Content.fromModeloResponse(e as Map<String, dynamic>))
+          ?.map((e) => Content.fromVehiculoResponse(e as Map<String, dynamic>))
           .toList(),
       pageable: data['pageable'] == null
           ? null
-          : Pageable.fromModeloResponse(
+          : Pageable.fromVehiculoResponse(
               data['pageable'] as Map<String, dynamic>),
       last: data['last'] as bool?,
-      totalElements: data['totalElements'] as int?,
       totalPages: data['totalPages'] as int?,
+      totalElements: data['totalElements'] as int?,
       size: data['size'] as int?,
       number: data['number'] as int?,
       sort: data['sort'] == null
           ? null
-          : Sort.fromModeloResponse(data['sort'] as Map<String, dynamic>),
+          : Sort.fromVehiculoResponse(data['sort'] as Map<String, dynamic>),
       first: data['first'] as bool?,
       numberOfElements: data['numberOfElements'] as int?,
       empty: data['empty'] as bool?,
     );
   }
 
-  Map<String, dynamic> toModeloResponse() => {
-        'content': content?.map((e) => e.toModeloResponse()).toList(),
-        'pageable': pageable?.toModeloResponse(),
+  Map<String, dynamic> toVehiculoResponse() => {
+        'content': content?.map((e) => e.toVehiculoResponse()).toList(),
+        'pageable': pageable?.toVehiculoResponse(),
         'last': last,
-        'totalElements': totalElements,
         'totalPages': totalPages,
+        'totalElements': totalElements,
         'size': size,
         'number': number,
-        'sort': sort?.toModeloResponse(),
+        'sort': sort?.toVehiculoResponse(),
         'first': first,
         'numberOfElements': numberOfElements,
         'empty': empty,
@@ -70,14 +70,14 @@ class ModeloResponse {
 
   /// `dart:convert`
   ///
-  /// Parses the string and returns the resulting Json object as [ModeloResponse].
-  factory ModeloResponse.fromJson(String data) {
-    return ModeloResponse.fromModeloResponse(
+  /// Parses the string and returns the resulting Json object as [ListVehiculoResponse].
+  factory ListVehiculosResponse.fromJson(String data) {
+    return ListVehiculosResponse.fromVehiculoResponse(
         json.decode(data) as Map<String, dynamic>);
   }
 
   /// `dart:convert`
   ///
-  /// Converts [ModeloResponse] to a JSON string.
-  String toJson() => json.encode(toModeloResponse());
+  /// Converts [ListVehiculoResponse] to a JSON string.
+  String toJson() => json.encode(toVehiculoResponse());
 }
