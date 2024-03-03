@@ -121,23 +121,13 @@ public class UsuarioController {
                             examples = {@ExampleObject(
                                     value = """
                                             {
-                                                "id": "c0a801b2-8c0d-1417-818c-0d4421110003",
-                                                "nombre": "pepe",
-                                                "email": "pepe@gmail.com",
-                                                "avatar": "https://noticiasdelaciencia.com/upload/images/12_2021/6754_ciencia-en-imagenes-este-murcielago-da-la-cara.jpg",
-                                                "direccion": "C/Montaña nº3",
-                                                "codPostal": "33133",
-                                                "poblacion": "Valencia",
-                                                "puntos": 100,
-                                                "pedidos": [
-                                                    {
-                                                        "id": "c0a801b2-8c0d-1417-818c-0d4421e0000c",
-                                                        "fecha": "2023-11-26T21:13:38.144181",
-                                                        "estadoPedido": "CONFIRMADO",
-                                                        "importeTotal": 6.3
-                                                    }
-                                                ]
-                                            }
+                                                 "id": "1ce9c1c7-7a02-4c7f-bf69-6d0306cbed61",
+                                                 "username": "fernando01",
+                                                 "avatar": null,
+                                                 "email": "fran@gmail.com",
+                                                 "telefono": "2222222",
+                                                 "pin": "1111"
+                                             }
                                             """
                             )}
                     )}),
