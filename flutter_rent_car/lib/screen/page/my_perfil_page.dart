@@ -4,6 +4,8 @@ import 'package:flutter_rent_car/bloc/user_details/user_bloc.dart';
 import 'package:flutter_rent_car/repositories/user/user_repository.dart';
 import 'package:flutter_rent_car/repositories/user/user_repository_impl.dart';
 import 'package:flutter_rent_car/screen/login/login_screen.dart';
+import 'package:flutter_rent_car/screen/login/register_screen.dart';
+import 'package:flutter_rent_car/screen/page/edit_perfil_page.dart';
 
 class MyPerfilPage extends StatefulWidget {
   const MyPerfilPage({super.key});
@@ -46,7 +48,6 @@ class _MyPerfilPageState extends State<MyPerfilPage> {
             child: Padding(
               padding: const EdgeInsets.only(top: 30),
               child: BlocBuilder<UserBloc, UserState>(
-                // bloc: _userDetailsBloc,
                 builder: (context, state) {
                   if (state is DoUserError) {
                     return Column(
@@ -91,7 +92,7 @@ class _MyPerfilPageState extends State<MyPerfilPage> {
                             ),
                           ),
                           Text(
-                            state.userDetails.telefono!,
+                            "(+34) ${state.userDetails.telefono!}",
                             style: const TextStyle(
                               color: Color.fromRGBO(105, 105, 106, 1),
                               fontSize: 15,
@@ -100,7 +101,14 @@ class _MyPerfilPageState extends State<MyPerfilPage> {
                           Padding(
                             padding: const EdgeInsets.only(top: 30),
                             child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const EditPerfilPage()),
+                                  );
+                                },
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor:
                                         const Color.fromRGBO(29, 47, 111, 1),
@@ -159,10 +167,11 @@ class _MyPerfilPageState extends State<MyPerfilPage> {
                             child: ElevatedButton(
                                 onPressed: () {
                                   Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LoginScreen()),
-                        );
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const LoginScreen()),
+                                  );
                                 },
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor:
