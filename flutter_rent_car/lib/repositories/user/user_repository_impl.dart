@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flutter_rent_car/model/dto/user_edit_dto.dart';
 import 'package:flutter_rent_car/model/response/user/user_details.dart';
 import 'package:flutter_rent_car/repositories/user/user_repository.dart';
 import 'package:flutter_rent_car/variables.dart';
@@ -30,6 +33,20 @@ class UserRepositoryImpl extends UserRepository {
       return UserDetails.fromJson(response.body);
     } else {
       throw Exception('Failed to get details');
+    }
+  }
+
+  @override
+  Future<UserDetails> editUser(UserEditDto userEditDto) async {
+    final response = await _httpClient.put(Uri.parse('$urlMovil/profile/edit'),
+        // Uri.parse('$urlChrome/profile/edit'),
+        headers: <String, String>{'Content-Type': 'application/json'},
+        body: jsonEncode(userEditDto.toJson()));
+
+    if (response.statusCode == 200) {
+      return UserDetails.fromJson(response.body);
+    } else {
+      throw Exception('Failed to do edit');
     }
   }
 }

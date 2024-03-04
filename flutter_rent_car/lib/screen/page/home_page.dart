@@ -77,17 +77,17 @@ class _HomePageState extends State<HomePage> {
             NavigationDestination(
               selectedIcon: Icon(Icons.home),
               icon: Icon(Icons.home_outlined),
-              label: '',
+              label: 'Home',
             ),
             NavigationDestination(
               selectedIcon: Icon(Icons.car_rental_rounded),
               icon: Icon(Icons.car_rental_outlined),
-              label: '',
+              label: 'Mantenimiento',
             ),
             NavigationDestination(
               selectedIcon: Icon(Icons.person),
               icon: Icon(Icons.person_outline),
-              label: '',
+              label: 'Perfil',
             ),
           ],
         ),
@@ -242,92 +242,95 @@ class _HomePageState extends State<HomePage> {
             child: SizedBox(
               height: 360,
               child: ListView.builder(
-                itemCount: state.vehiculosResponse.content!.length,
-                itemBuilder: (context, index) {
-                  Color tipoCard = Colors.black;
-                  Color disponible = Colors.black;
-                  if (state.vehiculosResponse.content![index].combustion == 'Gasolina'){
-                    tipoCard = const Color.fromARGB(255, 175, 102, 34);
-                  } else if (state.vehiculosResponse.content![index].combustion == 'Cable'){
-                    tipoCard = const Color.fromARGB(255, 164, 134, 13);
-                  } else {
-                    tipoCard = const Color.fromARGB(255, 138, 134, 116);
-                  }
+                  itemCount: state.vehiculosResponse.content!.length,
+                  itemBuilder: (context, index) {
+                    Color tipoCard = Colors.black;
+                    Color disponible = Colors.black;
+                    if (state.vehiculosResponse.content![index].combustion ==
+                        'Gasolina') {
+                      tipoCard = const Color.fromARGB(255, 175, 102, 34);
+                    } else if (state
+                            .vehiculosResponse.content![index].combustion ==
+                        'Cable') {
+                      tipoCard = const Color.fromARGB(255, 164, 134, 13);
+                    } else {
+                      tipoCard = const Color.fromARGB(255, 138, 134, 116);
+                    }
 
-                  if (state.vehiculosResponse.content![index].disponible == true) {
-                    disponible = Colors.green.shade300;
-                  } else {
-                    disponible = Colors.red.shade300;
-                  }
+                    if (state.vehiculosResponse.content![index].disponible ==
+                        true) {
+                      disponible = Colors.green.shade300;
+                    } else {
+                      disponible = Colors.red.shade300;
+                    }
 
-                  return SizedBox(
-                      width: 160,
-                      height: 220,
-                      child:
-                      Card(
-                        color: tipoCard,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.zero,
-                            topRight: Radius.circular(20),
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.zero,
+                    return SizedBox(
+                        width: 160,
+                        height: 220,
+                        child: Card(
+                          color: tipoCard,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.zero,
+                              topRight: Radius.circular(20),
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.zero,
+                            ),
                           ),
-                        ),
-                        elevation: 10,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 160,
-                                  child: Image.network(
-                                    state.vehiculosResponse.content![index].imagen!,
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 60, bottom: 20),
-                                  child: Text(
-                                    'Coche \n ${state.vehiculosResponse.content![index].combustion}',
-                                    style: const TextStyle(
-                                      fontSize: 28,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
+                          elevation: 10,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 160,
+                                    child: Image.network(
+                                      state.vehiculosResponse.content![index]
+                                          .imagen!,
                                     ),
                                   ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 60, bottom: 20),
+                                    child: Text(
+                                      'Coche \n ${state.vehiculosResponse.content![index].combustion}',
+                                      style: const TextStyle(
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  // Acción a realizar cuando se presione el botón
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: disponible,
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 12,
+                                    horizontal: 24,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(28.5),
+                                  ),
                                 ),
-                              ],
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                // Acción a realizar cuando se presione el botón
-                              },
-                              style: ElevatedButton.styleFrom(
-                              backgroundColor: disponible,
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 12,
-                                  horizontal: 24,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(28.5),
+                                child: const Text(
+                                  'Información',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: Color.fromRGBO(255, 255, 255, 1),
+                                    fontSize: 16,
+                                  ),
                                 ),
                               ),
-                              child: const Text(
-                                'Información',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Color.fromRGBO(255, 255, 255, 1),
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ));
-              }
-              ),
+                            ],
+                          ),
+                        ));
+                  }),
             ),
           );
         }

@@ -113,29 +113,4 @@ public class UsuarioController {
     public ResponseEntity<Boolean> validatedToken(@RequestBody String token){
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(jwtProvider.validateToken(token));
     }
-
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Editar datos del Cliente loggeado", content = {
-                    @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = GetClienteDetailsDto.class)),
-                            examples = {@ExampleObject(
-                                    value = """
-                                            {
-                                                 "id": "1ce9c1c7-7a02-4c7f-bf69-6d0306cbed61",
-                                                 "username": "fernando01",
-                                                 "avatar": null,
-                                                 "email": "fran@gmail.com",
-                                                 "telefono": "2222222",
-                                                 "pin": "1111"
-                                             }
-                                            """
-                            )}
-                    )}),
-            @ApiResponse(responseCode = "400", description = "Dato introducido inválido", content = @Content)
-    })
-    @Operation(summary = "editLoggedUser", description = "Editar datos del Cliente loggeado")
-    @PutMapping("/profile/edit")
-    public GetClienteDetailsDto editLoggedUser(@Valid @RequestBody EditClientDto editado, @AuthenticationPrincipal Cliente c){
-        return GetClienteDetailsDto.of(clienteService.editCliente(editado,c));
-    }
 }
