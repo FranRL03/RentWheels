@@ -1,4 +1,4 @@
-package com.proyecto.rentwheels.alquiler.repositry;
+package com.proyecto.rentwheels.alquiler.repository;
 
 import com.proyecto.rentwheels.alquiler.dto.GetAlquileresCliente;
 import com.proyecto.rentwheels.alquiler.model.Alquiler;

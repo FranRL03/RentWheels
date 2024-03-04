@@ -41,14 +41,12 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocProvider.value(
       value: _loginBloc,
       child: Scaffold(
-        // backgroundColor: const Color.fromRGBO(28, 38, 73, 1),
         body: BlocConsumer<LoginBloc, LoginState>(
           buildWhen: (context, state) {
             return state is LoginInitial ||
                 state is DoLoginSuccess ||
                 state is DoLoginError ||
                 state is DoLoginLoading;
-            // state is DoTokenSuccess;
           },
           builder: (context, state) {
             if (state is DoLoginError) {
@@ -58,18 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
             }
             return Center(child: _buildForm());
           },
-          // listenWhen: (previous, current) {
-          //   return current is DoLoginSuccess || current is DoTokenSuccess;
-          // },
           listener: (BuildContext context, LoginState state) {
-            // if (state is DoTokenSuccess) {
-            //   if (state.valid) {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => const HomePage()),
-            //     );
-            //   }
-            // }
             if (state is DoLoginSuccess) {
               Navigator.push(
                 context,
@@ -109,8 +96,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.only(top: 12),
                     child: SizedBox(
-                      height: 250, // Altura deseada
-                      width: 250, // Anchura deseada
+                      height: 250,
+                      width: 250,
                       child: Image.asset('assets/images/logo_pintado.png'),
                     ),
                   ),

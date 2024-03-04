@@ -1,70 +1,81 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_rent_car/bloc/register/register_bloc.dart';
-import 'package:flutter_rent_car/repositories/auth/auth_repository.dart';
-import 'package:flutter_rent_car/repositories/auth/auth_repository_impl.dart';
-import 'package:flutter_rent_car/screen/login/login_screen.dart';
-import 'package:flutter_rent_car/screen/patatus.dart';
+import 'package:flutter_rent_car/bloc/edit_user/edit_user_bloc.dart';
+import 'package:flutter_rent_car/model/response/user/user_details.dart';
+import 'package:flutter_rent_car/repositories/user/user_repository.dart';
+import 'package:flutter_rent_car/repositories/user/user_repository_impl.dart';
+import 'package:flutter_rent_car/screen/page/my_perfil_page.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class EditPerfilPage extends StatefulWidget {
+  const EditPerfilPage({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<EditPerfilPage> createState() => _EditPerfilPageState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  final _formRegister = GlobalKey<FormState>();
-  final userTextController = TextEditingController();
-  final passTextController = TextEditingController();
-  final emailTextController = TextEditingController();
-  final verifyPassTextController = TextEditingController();
-  final telefonoTextController = TextEditingController();
-  final pinTextController = TextEditingController();
+class _EditPerfilPageState extends State<EditPerfilPage> {
+  final _formEdit = GlobalKey<FormState>();
 
-  late AuthRepository authRepository;
-  late RegisterBloc _registerBloc;
+  late TextEditingController userTextController = TextEditingController();
+  late TextEditingController avatarTextController = TextEditingController();
+  late TextEditingController emailTextController = TextEditingController();
+  late TextEditingController telefonoTextController = TextEditingController();
+  late TextEditingController pinTextController = TextEditingController();
+
+  late UserRepository userRepository;
+  late EditUserBloc _editUserBloc;
+  late UserDetails userDetails;
 
   @override
   void initState() {
-    authRepository = AuthRepositoryImpl();
-    _registerBloc = RegisterBloc(authRepository);
+    userRepository = UserRepositoryImpl();
+    _editUserBloc = EditUserBloc(userRepository);
+
+    _loadUserData();
     super.initState();
   }
 
-  @override
-  void dispose() {
-    userTextController.dispose();
-    passTextController.dispose();
-    _registerBloc.close();
-    super.dispose();
+  void _loadUserData() async {
+    try {
+      userDetails = await userRepository.userDetails();
+      // Actualiza los controladores de texto con los datos del usuario
+      setState(() {
+        userTextController.text = userDetails.username ?? '';
+        avatarTextController.text = userDetails.avatar ?? '';
+        emailTextController.text = userDetails.email ?? '';
+        telefonoTextController.text = userDetails.telefono ?? '';
+        pinTextController.text = userDetails.pin ?? '';
+      });
+    } catch (e) {
+      print("Error cargando los datos del usuario: $e");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: _registerBloc,
+      value: _editUserBloc,
       child: Scaffold(
-        body: BlocConsumer<RegisterBloc, RegisterState>(
+        body: BlocConsumer<EditUserBloc, EditUserState>(
           buildWhen: (context, state) {
-            return state is RegisterInitial ||
-                state is DoRegisterSuccess ||
-                state is DoRegisterError ||
-                state is DoRegisterLoading;
+            return state is EditUserInitial ||
+                state is DoEditUserSuccess ||
+                state is DoEditUserError ||
+                state is DoEditUserLoading;
           },
           builder: (context, state) {
-            if (state is DoRegisterError) {
-              return const Text('Register error');
-            } else if (state is DoRegisterLoading) {
+            if (state is DoEditUserError) {
+              return const Text('Edit error');
+            } else if (state is DoEditUserLoading) {
               return const Center(child: CircularProgressIndicator());
             }
-            return Center(child: _buildRegister());
+            return Center(child: _buildEdit());
           },
-          listener: (BuildContext context, RegisterState state) {
-            if (state is DoRegisterSuccess) {
+          listener: (BuildContext context, EditUserState state) {
+            if (state is DoEditUserSuccess) {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const MyWidget()),
+                MaterialPageRoute(builder: (context) => const MyPerfilPage()),
               );
             }
           },
@@ -73,7 +84,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  _buildRegister() {
+  _buildEdit() {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,21 +95,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(
                 children: [
                   const Text(
-                    'Registrate',
+                    'Editar Perfil',
                     style: TextStyle(
                         color: Color.fromRGBO(28, 38, 73, 1),
                         fontWeight: FontWeight.w300,
                         fontSize: 40),
                   ),
                   const Text(
-                    'Crea tu cuenta',
+                    'Edita tus datos',
                     style: TextStyle(
                         color: Color.fromRGBO(105, 105, 106, 1),
                         fontWeight: FontWeight.w300,
                         fontSize: 20),
                   ),
                   Form(
-                    key: _formRegister,
+                    key: _formEdit,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
@@ -111,23 +122,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           padding: const EdgeInsets.only(left: 20, right: 20),
                           child: TextFormField(
                             controller: userTextController,
+                            enabled: false,
                             decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10)),
-                                labelText: 'Nombre de Usuario',
+                                labelText: 'Nombre del Usuario',
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
                                         color: Color.fromRGBO(28, 38, 73, 1),
                                         width: 2),
                                     borderRadius: BorderRadius.circular(10))),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20, right: 20),
+                          child: TextFormField(
+                            controller: avatarTextController,
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                labelText: 'Avatar del Usuario',
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: Color.fromRGBO(28, 38, 73, 1),
+                                        width: 2),
+                                    borderRadius: BorderRadius.circular(10))),
                           ),
                         ),
                         const SizedBox(
@@ -148,12 +174,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         color: Color.fromRGBO(28, 38, 73, 1),
                                         width: 2),
                                     borderRadius: BorderRadius.circular(10))),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
                           ),
                         ),
                         const SizedBox(
@@ -174,12 +194,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         color: Color.fromRGBO(28, 38, 73, 1),
                                         width: 2),
                                     borderRadius: BorderRadius.circular(10))),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
                           ),
                         ),
                         const SizedBox(
@@ -201,67 +215,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         color: Color.fromRGBO(28, 38, 73, 1),
                                         width: 2),
                                     borderRadius: BorderRadius.circular(10))),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
                           ),
                         ),
                         const SizedBox(
                           height: 20,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
-                          child: TextFormField(
-                            controller: passTextController,
-                            obscureText: true,
-                            decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                labelText: 'Contraseña',
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Color.fromRGBO(28, 38, 73, 1),
-                                        width: 2),
-                                    borderRadius: BorderRadius.circular(10))),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some contraseña';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
-                          child: TextFormField(
-                            controller: verifyPassTextController,
-                            obscureText: true,
-                            decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                labelText: 'Confirmar contraseña',
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Color.fromRGBO(28, 38, 73, 1),
-                                        width: 2),
-                                    borderRadius: BorderRadius.circular(10))),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some contraseña';
-                              }
-                              return null;
-                            },
-                          ),
                         ),
                         const SizedBox(
                           height: 20,
@@ -273,13 +230,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 left: 20, right: 20, top: 20),
                             child: ElevatedButton(
                                 onPressed: () {
-                                  if (_formRegister.currentState!.validate()) {
-                                    _registerBloc.add(DoRegisterEvent(
-                                        userTextController.text,
-                                        // fullNameTextController.text,
+                                  if (_formEdit.currentState!.validate()) {
+                                    _editUserBloc.add(DoEditUserEvent(
+                                        avatarTextController.text,
                                         emailTextController.text,
-                                        passTextController.text,
-                                        verifyPassTextController.text,
                                         telefonoTextController.text,
                                         pinTextController.text));
                                   }
@@ -292,43 +246,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         borderRadius:
                                             BorderRadius.circular(28.5))),
                                 child: const Text(
-                                  'Registrarse',
+                                  'Editar',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       color: Colors.white,
                                       fontSize: 16),
                                 )),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 32, top: 26),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                '¿Tienes cuenta?',
-                                style: TextStyle(
-                                    color: Color.fromRGBO(85, 85, 85, 1),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const LoginScreen()),
-                                  );
-                                },
-                                child: const Text('Iniciar sesión',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(28, 38, 73, 1),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                              ),
-                            ],
                           ),
                         ),
                       ],

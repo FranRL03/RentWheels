@@ -17,5 +17,4 @@ DUDAS:
 una lista de todos lo coches con ese modelo, entonces esa lista 
 debería de ser reseteando la HomePage? o enviandolo a otra pagina que sea igual que la HomePage.
 
-- Como poner el if para que la carta cambie de color según el tipo de combustión y 
-el boton verdo o rojo si esta disponible o no.
+

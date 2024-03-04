@@ -1,7 +1,7 @@
 package com.proyecto.rentwheels.alquiler.service;
 
 import com.proyecto.rentwheels.alquiler.dto.GetAlquileresCliente;
-import com.proyecto.rentwheels.alquiler.repositry.AlquilerRepository;
+import com.proyecto.rentwheels.alquiler.repository.AlquilerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
