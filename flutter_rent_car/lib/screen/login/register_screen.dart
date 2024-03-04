@@ -16,7 +16,6 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final _formRegister = GlobalKey<FormState>();
   final userTextController = TextEditingController();
-  // final fullNameTextController = TextEditingController();
   final passTextController = TextEditingController();
   final emailTextController = TextEditingController();
   final verifyPassTextController = TextEditingController();
