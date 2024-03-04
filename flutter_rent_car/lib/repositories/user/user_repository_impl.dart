@@ -40,11 +40,12 @@ class UserRepositoryImpl extends UserRepository {
   Future<UserDetails> editUser(UserEditDto userEditDto) async {
     final token = await getToken();
 
-    final response = await _httpClient.put(
-      Uri.parse('$urlMovil/profile/edit'),
+    final response = await _httpClient.put(Uri.parse('$urlMovil/profile/edit'),
         // Uri.parse('$urlChrome/profile/edit'),
-        headers: <String, String>{'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',},
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
         body: jsonEncode(userEditDto.toJson()));
 
     if (response.statusCode == 200) {

@@ -1,6 +1,7 @@
 package com.proyecto.rentwheels.vehiculo.controller;
 
 import com.proyecto.rentwheels.vehiculo.dto.GetFindAllDto;
+import com.proyecto.rentwheels.vehiculo.dto.GetVehiculosDto;
 import com.proyecto.rentwheels.vehiculo.model.Vehiculo;
 import com.proyecto.rentwheels.vehiculo.service.VehiculoServicio;
 import io.swagger.v3.oas.annotations.Operation;
@@ -62,11 +63,11 @@ public class VehiculoController {
                     content = @Content)
     })
     @GetMapping("/menu")
-    public Page<GetFindAllDto> findAll(@PageableDefault Pageable pageable){
+    public Page<GetVehiculosDto> findAll(@PageableDefault Pageable pageable){
 
         Page<Vehiculo> vehiculos = vehiculoServicio.findAll(pageable);
 
-        return vehiculos.map(GetFindAllDto::of);
+        return vehiculos.map(GetVehiculosDto::of);
     }
 
 

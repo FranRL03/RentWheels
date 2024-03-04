@@ -1,4 +1,3 @@
-
 import 'package:flutter_rent_car/model/response/vehiculos/list_vehiculos_response/list_vehiculos_response.dart';
 import 'package:flutter_rent_car/repositories/vehiculos/vehiculos_repository.dart';
 import 'package:flutter_rent_car/variables.dart';
@@ -14,13 +13,13 @@ class VehiculoRepositoryImpl extends VehiculoRepository {
   }
 
   @override
-  Future <ListVehiculosResponse> listVehiculos() async {
+  Future<ListVehiculosResponse> listVehiculos() async {
     final token = await getToken();
 
-    final response = await _htppClient.get(
-      Uri.parse('$urlMovil/vehiculos/menu'),
-        // Uri.parse('$urlChrome/vehiculos/menu'),
-        headers: <String, String>{
+    final response =
+        await _htppClient.get(Uri.parse('$urlMovil/vehiculos/menu'),
+            // Uri.parse('$urlChrome/vehiculos/menu'),
+            headers: <String, String>{
           'Content-Type': 'Content-type: application/json',
           'Authorization': 'Bearer $token',
         });

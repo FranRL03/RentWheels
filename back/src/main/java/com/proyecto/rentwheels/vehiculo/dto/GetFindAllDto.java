@@ -1,6 +1,8 @@
 package com.proyecto.rentwheels.vehiculo.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.proyecto.rentwheels.modelo.dto.GetModeloDto;
+import com.proyecto.rentwheels.modelo.jsonview.ModeloView;
 import com.proyecto.rentwheels.vehiculo.model.Vehiculo;
 
 public record GetFindAllDto(
