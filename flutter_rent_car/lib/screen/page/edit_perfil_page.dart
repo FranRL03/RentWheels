@@ -4,7 +4,7 @@ import 'package:flutter_rent_car/bloc/edit_user/edit_user_bloc.dart';
 import 'package:flutter_rent_car/model/response/user/user_details.dart';
 import 'package:flutter_rent_car/repositories/user/user_repository.dart';
 import 'package:flutter_rent_car/repositories/user/user_repository_impl.dart';
-import 'package:flutter_rent_car/screen/page/my_perfil_page.dart';
+import 'package:flutter_rent_car/screen/page/home_page.dart';
 
 class EditPerfilPage extends StatefulWidget {
   const EditPerfilPage({super.key});
@@ -75,7 +75,7 @@ class _EditPerfilPageState extends State<EditPerfilPage> {
             if (state is DoEditUserSuccess) {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const MyPerfilPage()),
+                MaterialPageRoute(builder: (context) => const HomePage()),
               );
             }
           },
