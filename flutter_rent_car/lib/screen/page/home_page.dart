@@ -251,10 +251,14 @@ class _HomePageState extends State<HomePage> {
                       tipoCard = const Color.fromARGB(255, 175, 102, 34);
                     } else if (state
                             .vehiculosResponse.content![index].combustion ==
-                        'Cable') {
-                      tipoCard = const Color.fromARGB(255, 164, 134, 13);
-                    } else {
+                        'Electrico') {
+                      tipoCard = Color.fromARGB(255, 212, 173, 17);
+                    } else if (state
+                            .vehiculosResponse.content![index].combustion ==
+                        'Diesel') {
                       tipoCard = const Color.fromARGB(255, 138, 134, 116);
+                    } else {
+                      tipoCard = const Color.fromARGB(255, 22, 50, 87);
                     }
 
                     if (state.vehiculosResponse.content![index].disponible ==
@@ -296,7 +300,7 @@ class _HomePageState extends State<HomePage> {
                                     child: Text(
                                       'Coche \n ${state.vehiculosResponse.content![index].combustion}',
                                       style: const TextStyle(
-                                        fontSize: 28,
+                                        fontSize: 26,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white,
                                       ),
@@ -304,28 +308,59 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ],
                               ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  // Acción a realizar cuando se presione el botón
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: disponible,
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 12,
-                                    horizontal: 24,
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Container(
+                                      width: 100,
+                                      height: 35,
+                                      decoration: BoxDecoration(
+                                        color: disponible,
+                                        borderRadius: BorderRadius.circular(
+                                            8),
+                                      ),
+                                      child: const Center(
+                                        child: Text(
+                                          'Disponible',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            // fontSize: 28,
+                                            color: Colors
+                                                .white, // Cambia el color del texto según sea necesario
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(28.5),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 90),
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        // Acción a realizar cuando se presione el botón
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: const Color.fromARGB(255, 82, 148, 181),
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 12,
+                                          horizontal: 24,
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(28.5),
+                                        ),
+                                      ),
+                                      child: const Text(
+                                        'Información',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: Color.fromRGBO(255, 255, 255, 1),
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                child: const Text(
-                                  'Información',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: Color.fromRGBO(255, 255, 255, 1),
-                                    fontSize: 16,
-                                  ),
-                                ),
+                                ],
                               ),
                             ],
                           ),
