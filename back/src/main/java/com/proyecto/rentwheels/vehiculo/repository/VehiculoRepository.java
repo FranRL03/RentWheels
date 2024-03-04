@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.UUID;
 
 public interface VehiculoRepository extends JpaRepository<Vehiculo, UUID> {
-    
+
     @Query("""
             select v from Vehiculo v
             """)
