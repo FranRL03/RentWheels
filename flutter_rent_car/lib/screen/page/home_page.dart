@@ -238,8 +238,9 @@ class _HomePageState extends State<HomePage> {
             child: ListView.builder(
                 itemCount: state.vehiculosResponse.content!.length,
                 itemBuilder: (context, index) {
-                  String  disponible = '';
-                  if(state.vehiculosResponse.content![index].disponible == true){
+                  String disponible = '';
+                  if (state.vehiculosResponse.content![index].disponible ==
+                      true) {
                     disponible = 'Disponible';
                   } else {
                     disponible = 'No disponible';
@@ -262,7 +263,8 @@ class _HomePageState extends State<HomePage> {
                             Row(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(bottom: 90, left: 10),
+                                  padding: const EdgeInsets.only(
+                                      bottom: 90, left: 10),
                                   child: Text(
                                     '${state.vehiculosResponse.content![index].modelo}',
                                     style: const TextStyle(
@@ -288,9 +290,20 @@ class _HomePageState extends State<HomePage> {
                               padding: const EdgeInsets.only(left: 10),
                               child: Row(
                                 children: [
-                                    Text('${state.vehiculosResponse.content![index].transmision} | ', style: const TextStyle(color:  Color.fromARGB(255, 100, 99, 99))),
-                                    Text('${state.vehiculosResponse.content![index].combustion} | ', style: const TextStyle(color:  Color.fromARGB(255, 100, 99, 99))),
-                                    Text(disponible, style: const TextStyle(color:  Color.fromARGB(255, 100, 99, 99)))
+                                  Text(
+                                      '${state.vehiculosResponse.content![index].transmision} | ',
+                                      style: const TextStyle(
+                                          color: Color.fromARGB(
+                                              255, 100, 99, 99))),
+                                  Text(
+                                      '${state.vehiculosResponse.content![index].combustion} | ',
+                                      style: const TextStyle(
+                                          color: Color.fromARGB(
+                                              255, 100, 99, 99))),
+                                  Text(disponible,
+                                      style: const TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 100, 99, 99)))
                                 ],
                               ),
                             ),
@@ -307,8 +320,7 @@ class _HomePageState extends State<HomePage> {
                                     horizontal: 24,
                                   ),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(28.5),
+                                    borderRadius: BorderRadius.circular(28.5),
                                   ),
                                 ),
                                 child: const Text(
@@ -331,8 +343,10 @@ class _HomePageState extends State<HomePage> {
             child: ListView.builder(
                 itemCount: state.vehiculosModelsResponse.content!.length,
                 itemBuilder: (context, index) {
-                  String  disponible = '';
-                  if(state.vehiculosModelsResponse.content![index].disponible == true){
+                  String disponible = '';
+                  if (state
+                          .vehiculosModelsResponse.content![index].disponible ==
+                      true) {
                     disponible = 'Disponible';
                   } else {
                     disponible = 'No disponible';
@@ -355,7 +369,8 @@ class _HomePageState extends State<HomePage> {
                             Row(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(bottom: 90, left: 10),
+                                  padding: const EdgeInsets.only(
+                                      bottom: 90, left: 10),
                                   child: Text(
                                     '${state.vehiculosModelsResponse.content![index].modelo}',
                                     style: const TextStyle(
@@ -370,8 +385,8 @@ class _HomePageState extends State<HomePage> {
                                   child: SizedBox(
                                     width: 160,
                                     child: Image.network(
-                                      state.vehiculosModelsResponse.content![index]
-                                          .imagen!,
+                                      state.vehiculosModelsResponse
+                                          .content![index].imagen!,
                                     ),
                                   ),
                                 ),
@@ -381,9 +396,20 @@ class _HomePageState extends State<HomePage> {
                               padding: const EdgeInsets.only(left: 10),
                               child: Row(
                                 children: [
-                                    Text('${state.vehiculosModelsResponse.content![index].transmision} | ', style: const TextStyle(color:  Color.fromARGB(255, 100, 99, 99))),
-                                    Text('${state.vehiculosModelsResponse.content![index].combustion} | ', style: const TextStyle(color:  Color.fromARGB(255, 100, 99, 99))),
-                                    Text(disponible, style: const TextStyle(color:  Color.fromARGB(255, 100, 99, 99)))
+                                  Text(
+                                      '${state.vehiculosModelsResponse.content![index].transmision} | ',
+                                      style: const TextStyle(
+                                          color: Color.fromARGB(
+                                              255, 100, 99, 99))),
+                                  Text(
+                                      '${state.vehiculosModelsResponse.content![index].combustion} | ',
+                                      style: const TextStyle(
+                                          color: Color.fromARGB(
+                                              255, 100, 99, 99))),
+                                  Text(disponible,
+                                      style: const TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 100, 99, 99)))
                                 ],
                               ),
                             ),
@@ -400,8 +426,7 @@ class _HomePageState extends State<HomePage> {
                                     horizontal: 24,
                                   ),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(28.5),
+                                    borderRadius: BorderRadius.circular(28.5),
                                   ),
                                 ),
                                 child: const Text(

@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:flutter_rent_car/model/dto/change_password_dto.dart';
 import 'package:flutter_rent_car/model/dto/user_edit_dto.dart';
+import 'package:flutter_rent_car/model/response/user/change_password_response.dart';
 import 'package:flutter_rent_car/model/response/user/user_details.dart';
 import 'package:flutter_rent_car/repositories/user/user_repository.dart';
 import 'package:flutter_rent_car/variables.dart';
@@ -29,7 +31,6 @@ class UserRepositoryImpl extends UserRepository {
     );
 
     if (response.statusCode == 200) {
-      print(response.body);
       return UserDetails.fromJson(response.body);
     } else {
       throw Exception('Failed to get details');
@@ -40,7 +41,8 @@ class UserRepositoryImpl extends UserRepository {
   Future<UserDetails> editUser(UserEditDto userEditDto) async {
     final token = await getToken();
 
-    final response = await _httpClient.put(Uri.parse('$urlMovil/profile/edit'),
+    final response = await _httpClient.put(
+      Uri.parse('$urlMovil/profile/edit'),
         // Uri.parse('$urlChrome/profile/edit'),
         headers: <String, String>{
           'Content-Type': 'application/json',
@@ -52,6 +54,27 @@ class UserRepositoryImpl extends UserRepository {
       return UserDetails.fromJson(response.body);
     } else {
       throw Exception('Failed to do edit');
+    }
+  }
+
+  @override
+  Future<ChangePasswordResponse> changePassword (ChangePasswordDto changePasswordDto) async {
+    final token = await getToken();
+
+    final response = await _httpClient.put(
+      Uri.parse('$urlMovil/user/changePassword'),
+        // Uri.parse('$urlChrome/user/changePassword'),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'accept': 'application/json',
+        'Authorization': 'Bearer $token'
+      },
+      body: jsonEncode(changePasswordDto.toJson()),
+    );
+    if (response.statusCode == 200) {
+      return ChangePasswordResponse.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Error al cambiar la contraseña: ${response.statusCode}');
     }
   }
 }
