@@ -17,7 +17,6 @@ class ModelosBloc extends Bloc<ModelosEvent, ModelosState> {
     emit(GetModelosLoading());
     try {
       final listModelos = await modeloRepository.models();
-      print('bloc modelos ${listModelos}');
       emit(GetModelosSuccess(listModelos));
     } on Exception catch (e) {
       emit(GetModelosError(e.toString()));

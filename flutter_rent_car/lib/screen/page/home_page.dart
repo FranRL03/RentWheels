@@ -30,6 +30,8 @@ class _HomePageState extends State<HomePage> {
   late ModelosBloc _modelosBloc;
   late VehiculoBloc _vehiculoBloc;
 
+  final String nombreModelo = '';
+
   @override
   void initState() {
     userRepository = UserRepositoryImpl();
@@ -189,7 +191,10 @@ class _HomePageState extends State<HomePage> {
                       width: 80,
                       // height: 20,
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          _vehiculoBloc.add(GetVehiculosModelosEvent(
+                              state.modeloResponse.content![index].modelo!));
+                        },
                         child: Card(
                           color: const Color.fromRGBO(29, 47, 111, 1),
                           shape: RoundedRectangleBorder(
@@ -224,6 +229,7 @@ class _HomePageState extends State<HomePage> {
     return BlocBuilder<VehiculoBloc, VehiculoState>(
       bloc: _vehiculoBloc,
       builder: (context, state) {
+        print(state);
         if (state is GetVehiculoError) {
           return Column(
             children: [
@@ -235,44 +241,6 @@ class _HomePageState extends State<HomePage> {
             child: ListView.builder(
                 itemCount: state.vehiculosResponse.content!.length,
                 itemBuilder: (context, index) {
-                  Icon tipoIcono = const Icon(
-                    Icons.local_gas_station,
-                    color: Colors.grey,
-                    size: 25,
-                  );
-                  Color disponible = Colors.black;
-                  if (state.vehiculosResponse.content![index].combustion ==
-                      'Gasolina') {
-                    tipoIcono = const Icon(
-                      Icons.local_gas_station,
-                      color: Colors.grey,
-                      size: 25,
-                    );
-                  } else if (state
-                          .vehiculosResponse.content![index].combustion ==
-                      'Electrico') {
-                    tipoIcono = const Icon(
-                      Icons.flash_on_outlined,
-                      color: Colors.yellow,
-                      size: 25,
-                    );
-                  } else if (state
-                          .vehiculosResponse.content![index].combustion ==
-                      'Diesel') {
-                    tipoIcono = const Icon(
-                      Icons.gas_meter_rounded,
-                      color: Color.fromARGB(255, 105, 96, 65),
-                      size: 25,
-                    );
-                  } else {}
-
-                  if (state.vehiculosResponse.content![index].disponible ==
-                      true) {
-                    disponible = Colors.green.shade300;
-                  } else {
-                    disponible = Colors.red.shade300;
-                  }
-
                   return SizedBox(
                       width: 160,
                       height: 250,
@@ -293,10 +261,6 @@ class _HomePageState extends State<HomePage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 300, top: 5),
-                                child: tipoIcono),
                             Row(
                               children: [
                                 SizedBox(
@@ -327,7 +291,111 @@ class _HomePageState extends State<HomePage> {
                                     width: 100,
                                     height: 35,
                                     decoration: BoxDecoration(
-                                      color: disponible,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: const Center(
+                                      child: Text(
+                                        'Disponible',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          // fontSize: 28,
+                                          color: Colors
+                                              .white, // Cambia el color del texto según sea necesario
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 120),
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      // Acción a realizar cuando se presione el botón
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color.fromARGB(
+                                          255, 82, 148, 181),
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 12,
+                                        horizontal: 24,
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(28.5),
+                                      ),
+                                    ),
+                                    child: const Text(
+                                      'Información',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color: Color.fromRGBO(255, 255, 255, 1),
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ));
+                }),
+          );
+        } else if (state is GetModelosVehiculosSuccess) {
+          return SizedBox(
+            child: ListView.builder(
+                itemCount: state.vehiculosModelsResponse.content!.length,
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                      width: 160,
+                      height: 250,
+                      child: Card(
+                        surfaceTintColor: Colors.white,
+                        color: Colors.white,
+                        shadowColor: Colors.grey,
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(color: AppColors.colorPrincipal),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.zero,
+                            topRight: Radius.circular(20),
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.zero,
+                          ),
+                        ),
+                        elevation: 10,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 160,
+                                  child: Image.network(
+                                    state.vehiculosModelsResponse
+                                        .content![index].imagen!,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 60),
+                                  child: Text(
+                                    '${state.vehiculosModelsResponse.content![index].modelo}',
+                                    style: const TextStyle(
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 0, 0, 0),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Container(
+                                    width: 100,
+                                    height: 35,
+                                    decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: const Center(

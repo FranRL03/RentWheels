@@ -11,6 +11,7 @@ class VehiculoBloc extends Bloc<VehiculoEvent, VehiculoState> {
 
   VehiculoBloc(this.vehiculoRepository) : super(VehiculoInitial()) {
     on<GetVehiculoEvent>(_getVehiculos);
+    on<GetVehiculosModelosEvent>(_getVehiculosModels);
   }
 
   void _getVehiculos(
@@ -21,6 +22,18 @@ class VehiculoBloc extends Bloc<VehiculoEvent, VehiculoState> {
       emit(GetVehiculoSuccess(listVehiculos));
     } on Exception catch (e) {
       emit(GetVehiculoError(e.toString()));
+    }
+  }
+
+  void _getVehiculosModels(
+      GetVehiculosModelosEvent event, Emitter<VehiculoState> emit) async {
+    emit(GetModelosVehiculosLoading());
+    try {
+      final listVehiculosByModel =
+          await vehiculoRepository.vehiculoModels(event.nombreModelo);
+      emit(GetModelosVehiculosSuccess(listVehiculosByModel));
+    } on Exception catch (e) {
+      emit(GetModelosVehiculosError(e.toString()));
     }
   }
 }

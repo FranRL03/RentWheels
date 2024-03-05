@@ -31,4 +31,23 @@ class VehiculoRepositoryImpl extends VehiculoRepository {
       throw Exception('Failed to get vehicles');
     }
   }
+
+  @override
+  Future<ListVehiculosResponse> vehiculoModels(String nombreModelo) async {
+    final token = await getToken();
+
+    final response = await _htppClient
+        .get(Uri.parse('$urlMovil/modelo/vehiculo/$nombreModelo'),
+            // Uri.parse('$urlChrome/modelo/vehiculo/$nombreModelo'),
+            headers: <String, String>{
+          'Content-Type': 'Content-type: application/json',
+          'Authorization': 'Bearer $token',
+        });
+
+    if (response.statusCode == 200) {
+      return ListVehiculosResponse.fromJson(response.body);
+    } else {
+      throw Exception('Failed to get models');
+    }
+  }
 }
