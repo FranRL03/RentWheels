@@ -181,7 +181,6 @@ class _HomePageState extends State<HomePage> {
           return Padding(
             padding: const EdgeInsets.only(top: 20),
             child: SizedBox(
-              height: 80,
               width: double.infinity,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
@@ -189,7 +188,6 @@ class _HomePageState extends State<HomePage> {
                   itemBuilder: (context, index) {
                     return SizedBox(
                       width: 80,
-                      // height: 20,
                       child: InkWell(
                         onTap: () {
                           _vehiculoBloc.add(GetVehiculosModelosEvent(
