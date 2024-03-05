@@ -6,6 +6,7 @@ public record GetVehiculosDto(
     String imagen,
     String modelo,
     String combustion,
+    String transmision,
     boolean disponible
 ){
 
@@ -14,6 +15,7 @@ public record GetVehiculosDto(
                 v.getImagen(),
                 v.getModelo().getModelo(),
                 v.getCombustible(),
+                v.getTransmision(),
                 v.isDisponible()
         );
     }

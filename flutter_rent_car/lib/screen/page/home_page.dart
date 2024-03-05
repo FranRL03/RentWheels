@@ -227,7 +227,6 @@ class _HomePageState extends State<HomePage> {
     return BlocBuilder<VehiculoBloc, VehiculoState>(
       bloc: _vehiculoBloc,
       builder: (context, state) {
-        print(state);
         if (state is GetVehiculoError) {
           return Column(
             children: [
@@ -239,6 +238,13 @@ class _HomePageState extends State<HomePage> {
             child: ListView.builder(
                 itemCount: state.vehiculosResponse.content!.length,
                 itemBuilder: (context, index) {
+                  String  disponible = '';
+                  if(state.vehiculosResponse.content![index].disponible == true){
+                    disponible = 'Disponible';
+                  } else {
+                    disponible = 'No disponible';
+                  }
+
                   return SizedBox(
                       width: 160,
                       height: 250,
@@ -246,14 +252,8 @@ class _HomePageState extends State<HomePage> {
                         surfaceTintColor: Colors.white,
                         color: Colors.white,
                         shadowColor: Colors.grey,
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(color: AppColors.colorPrincipal),
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.zero,
-                            topRight: Radius.circular(20),
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.zero,
-                          ),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
                         elevation: 10,
                         child: Column(
@@ -261,78 +261,65 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             Row(
                               children: [
-                                SizedBox(
-                                  width: 160,
-                                  child: Image.network(
-                                    state.vehiculosResponse.content![index]
-                                        .imagen!,
-                                  ),
-                                ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 60),
+                                  padding: const EdgeInsets.only(bottom: 90, left: 10),
                                   child: Text(
                                     '${state.vehiculosResponse.content![index].modelo}',
                                     style: const TextStyle(
-                                      fontSize: 26,
+                                      fontSize: 25,
                                       fontWeight: FontWeight.bold,
                                       color: Color.fromARGB(255, 0, 0, 0),
                                     ),
                                   ),
                                 ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 0),
+                                  child: SizedBox(
+                                    width: 160,
+                                    child: Image.network(
+                                      state.vehiculosResponse.content![index]
+                                          .imagen!,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Container(
-                                    width: 100,
-                                    height: 35,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: const Center(
-                                      child: Text(
-                                        'Disponible',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          // fontSize: 28,
-                                          color: Colors
-                                              .white, // Cambia el color del texto según sea necesario
-                                        ),
-                                      ),
-                                    ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Row(
+                                children: [
+                                    Text('${state.vehiculosResponse.content![index].transmision} | ', style: const TextStyle(color:  Color.fromARGB(255, 100, 99, 99))),
+                                    Text('${state.vehiculosResponse.content![index].combustion} | ', style: const TextStyle(color:  Color.fromARGB(255, 100, 99, 99))),
+                                    Text(disponible, style: const TextStyle(color:  Color.fromARGB(255, 100, 99, 99)))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 190),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  // Acción a realizar cuando se presione el botón
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.colorPrincipal,
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 12,
+                                    horizontal: 24,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(28.5),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 120),
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      // Acción a realizar cuando se presione el botón
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: const Color.fromARGB(
-                                          255, 82, 148, 181),
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 12,
-                                        horizontal: 24,
-                                      ),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(28.5),
-                                      ),
-                                    ),
-                                    child: const Text(
-                                      'Información',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        color: Color.fromRGBO(255, 255, 255, 1),
-                                        fontSize: 16,
-                                      ),
-                                    ),
+                                child: const Text(
+                                  'Información',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: Color.fromRGBO(255, 255, 255, 1),
+                                    fontSize: 16,
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
                           ],
                         ),
@@ -344,6 +331,13 @@ class _HomePageState extends State<HomePage> {
             child: ListView.builder(
                 itemCount: state.vehiculosModelsResponse.content!.length,
                 itemBuilder: (context, index) {
+                  String  disponible = '';
+                  if(state.vehiculosModelsResponse.content![index].disponible == true){
+                    disponible = 'Disponible';
+                  } else {
+                    disponible = 'No disponible';
+                  }
+
                   return SizedBox(
                       width: 160,
                       height: 250,
@@ -351,14 +345,8 @@ class _HomePageState extends State<HomePage> {
                         surfaceTintColor: Colors.white,
                         color: Colors.white,
                         shadowColor: Colors.grey,
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(color: AppColors.colorPrincipal),
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.zero,
-                            topRight: Radius.circular(20),
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.zero,
-                          ),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
                         elevation: 10,
                         child: Column(
@@ -366,78 +354,65 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             Row(
                               children: [
-                                SizedBox(
-                                  width: 160,
-                                  child: Image.network(
-                                    state.vehiculosModelsResponse
-                                        .content![index].imagen!,
-                                  ),
-                                ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 60),
+                                  padding: const EdgeInsets.only(bottom: 90, left: 10),
                                   child: Text(
                                     '${state.vehiculosModelsResponse.content![index].modelo}',
                                     style: const TextStyle(
-                                      fontSize: 26,
+                                      fontSize: 25,
                                       fontWeight: FontWeight.bold,
                                       color: Color.fromARGB(255, 0, 0, 0),
                                     ),
                                   ),
                                 ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 0),
+                                  child: SizedBox(
+                                    width: 160,
+                                    child: Image.network(
+                                      state.vehiculosModelsResponse.content![index]
+                                          .imagen!,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Container(
-                                    width: 100,
-                                    height: 35,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: const Center(
-                                      child: Text(
-                                        'Disponible',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          // fontSize: 28,
-                                          color: Colors
-                                              .white, // Cambia el color del texto según sea necesario
-                                        ),
-                                      ),
-                                    ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Row(
+                                children: [
+                                    Text('${state.vehiculosModelsResponse.content![index].transmision} | ', style: const TextStyle(color:  Color.fromARGB(255, 100, 99, 99))),
+                                    Text('${state.vehiculosModelsResponse.content![index].combustion} | ', style: const TextStyle(color:  Color.fromARGB(255, 100, 99, 99))),
+                                    Text(disponible, style: const TextStyle(color:  Color.fromARGB(255, 100, 99, 99)))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 190),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  // Acción a realizar cuando se presione el botón
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.colorPrincipal,
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 12,
+                                    horizontal: 24,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(28.5),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 120),
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      // Acción a realizar cuando se presione el botón
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: const Color.fromARGB(
-                                          255, 82, 148, 181),
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 12,
-                                        horizontal: 24,
-                                      ),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(28.5),
-                                      ),
-                                    ),
-                                    child: const Text(
-                                      'Información',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        color: Color.fromRGBO(255, 255, 255, 1),
-                                        fontSize: 16,
-                                      ),
-                                    ),
+                                child: const Text(
+                                  'Información',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: Color.fromRGBO(255, 255, 255, 1),
+                                    fontSize: 16,
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
                           ],
                         ),
