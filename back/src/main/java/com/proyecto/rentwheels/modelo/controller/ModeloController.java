@@ -52,7 +52,7 @@ public class ModeloController {
     })
     @Operation(summary = "getAllModels", description = "lista de modelos")
     @GetMapping("/modelo")
-    public Page<GetModeloDto> getAllModelo (@PageableDefault(page=0, size =4) Pageable pageable) {
+    public Page<GetModeloDto> getAllModelo (@PageableDefault(page=0, size =10) Pageable pageable) {
 
         Page<Modelo> modelos = modeloServicio.getAll(pageable);
 
