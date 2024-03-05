@@ -16,3 +16,15 @@ final class GetVehiculoError extends VehiculoState {
   final String errorMessage;
   GetVehiculoError(this.errorMessage);
 }
+
+final class GetModelosVehiculosLoading extends VehiculoState {}
+
+final class GetModelosVehiculosSuccess extends VehiculoState {
+  final ListVehiculosResponse vehiculosModelsResponse;
+  GetModelosVehiculosSuccess(this.vehiculosModelsResponse);
+}
+
+final class GetModelosVehiculosError extends VehiculoState {
+  final String errorMessage;
+  GetModelosVehiculosError(this.errorMessage);
+}

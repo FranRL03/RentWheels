@@ -2,4 +2,5 @@ import 'package:flutter_rent_car/model/response/vehiculos/list_vehiculos_respons
 
 abstract class VehiculoRepository {
   Future<ListVehiculosResponse> listVehiculos();
+  Future<ListVehiculosResponse> vehiculoModels(String nombreModelo);
 }
