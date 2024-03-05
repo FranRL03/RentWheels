@@ -23,8 +23,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -112,5 +114,24 @@ public class UsuarioController {
     @PostMapping("/auth/token")
     public ResponseEntity<Boolean> validatedToken(@RequestBody String token){
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(jwtProvider.validateToken(token));
+    }
+
+    @PutMapping("/user/changePassword")
+    public ResponseEntity<UserResponse> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest,
+                                                           @AuthenticationPrincipal Usuario loggedUser) {
+
+        try {
+            if (userService.passwordMatch(loggedUser, changePasswordRequest.getOldPassword())) {
+                Optional<Usuario> modified = userService.editPassword(loggedUser.getId(), changePasswordRequest.getNewPassword());
+                if (modified.isPresent())
+                    return ResponseEntity.ok(UserResponse.fromUser(modified.get()));
+            } else {
+                throw new RuntimeException();
+            }
+        } catch (RuntimeException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password Data Error");
+        }
+
+        return null;
     }
 }
