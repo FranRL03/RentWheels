@@ -6,11 +6,10 @@ import 'package:meta/meta.dart';
 part 'alquiler_event.dart';
 part 'alquiler_state.dart';
 
-class AlquilerClienteBloc extends Bloc<AlquilerEvent, AlquilerState> {
+class AlquilerBloc extends Bloc<AlquilerEvent, AlquilerState> {
   final AlquilerRepository alquilerRepository;
 
-  AlquilerClienteBloc(this.alquilerRepository)
-      : super(AlquilerClienteInitial()) {
+  AlquilerBloc(this.alquilerRepository) : super(AlquilerClienteInitial()) {
     on<GetAlquilerClienteEvent>(_getAlquilerCliente);
   }
 

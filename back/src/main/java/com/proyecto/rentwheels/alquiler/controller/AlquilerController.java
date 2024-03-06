@@ -64,7 +64,7 @@ public class AlquilerController {
     })
     @Operation(summary = "getAlquileresClientes", description = "Obtener lista de los alquieres")
     @GetMapping("/cliente/alquiler")
-    public Page<GetAlquileresCliente> getAlquileresClientes(@PageableDefault(page=0, size =4) Pageable pageable, @AuthenticationPrincipal Cliente c){
+    public Page<GetAlquileresCliente> getAlquileresClientes(@PageableDefault(page=0, size =10) Pageable pageable, @AuthenticationPrincipal Cliente c){
         return alquilerServicio.getAlquileresCliente(pageable, c.getId());
     }
 
