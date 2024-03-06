@@ -25,7 +25,6 @@ class ModeloRepositorioImpl extends ModeloRepository {
 
     if (response.statusCode == 200) {
       return ModeloResponse.fromJson(response.body);
-      // return ModeloResponse.fromJson(json.decoder as String);
     } else {
       throw Exception('Failed to get models');
     }

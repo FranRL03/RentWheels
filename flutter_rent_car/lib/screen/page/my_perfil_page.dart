@@ -147,7 +147,7 @@ class _MyPerfilPageState extends State<MyPerfilPage> {
                             padding: const EdgeInsets.only(top: 10),
                             child: ElevatedButton(
                                 onPressed: () {
-                                   Navigator.push(
+                                  Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
