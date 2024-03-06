@@ -13,17 +13,16 @@ class ChangePasswordPage extends StatefulWidget {
 }
 
 class _ChangePasswordPage extends State<ChangePasswordPage> {
-
   final _formChangePassword = GlobalKey<FormState>();
 
   final oldPasswordTextController = TextEditingController();
   final newPasswordTextController = TextEditingController();
   final verifyPasswordTextController = TextEditingController();
- 
+
   late UserRepository userRepository;
   late ChangePasswordBloc _changePasswordBloc;
 
-   @override
+  @override
   void initState() {
     userRepository = UserRepositoryImpl();
     _changePasswordBloc = ChangePasswordBloc(userRepository);
@@ -38,7 +37,7 @@ class _ChangePasswordPage extends State<ChangePasswordPage> {
         body: BlocConsumer<ChangePasswordBloc, ChangePasswordState>(
           buildWhen: (context, state) {
             return state is ChangePasswordInitial ||
-                state is DoChangePasswordSuccess ||
+                state is! DoChangePasswordSuccess ||
                 state is DoChangePasswordError ||
                 state is DoChangePasswordLoading;
           },
@@ -101,6 +100,7 @@ class _ChangePasswordPage extends State<ChangePasswordPage> {
                           padding: const EdgeInsets.only(left: 20, right: 20),
                           child: TextFormField(
                             controller: oldPasswordTextController,
+                            obscureText: true,
                             decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
@@ -121,6 +121,7 @@ class _ChangePasswordPage extends State<ChangePasswordPage> {
                           padding: const EdgeInsets.only(left: 20, right: 20),
                           child: TextFormField(
                             controller: newPasswordTextController,
+                            obscureText: true,
                             decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
@@ -141,6 +142,7 @@ class _ChangePasswordPage extends State<ChangePasswordPage> {
                           padding: const EdgeInsets.only(left: 20, right: 20),
                           child: TextFormField(
                             controller: verifyPasswordTextController,
+                            obscureText: true,
                             decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
@@ -167,12 +169,14 @@ class _ChangePasswordPage extends State<ChangePasswordPage> {
                                 left: 20, right: 20, top: 20),
                             child: ElevatedButton(
                                 onPressed: () {
-                                  if (_formChangePassword.currentState!.validate()) {
-                                    _changePasswordBloc.add(DoChangePasswordEvent(
-                                        oldPasswordTextController.text,
-                                        newPasswordTextController.text,
-                                        verifyPasswordTextController.text,
-                                        ));
+                                  if (_formChangePassword.currentState!
+                                      .validate()) {
+                                    _changePasswordBloc
+                                        .add(DoChangePasswordEvent(
+                                      oldPasswordTextController.text,
+                                      newPasswordTextController.text,
+                                      verifyPasswordTextController.text,
+                                    ));
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(

@@ -8,7 +8,7 @@ final class ChangePasswordInitial extends ChangePasswordState {}
 final class DoChangePasswordLoading extends ChangePasswordState {}
 
 final class DoChangePasswordSuccess extends ChangePasswordState {
-  final ChangePasswordResponse myProfileResponse;
+  final RegisterResponse myProfileResponse;
   DoChangePasswordSuccess(this.myProfileResponse);
 }
 

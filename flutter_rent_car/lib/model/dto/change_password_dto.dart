@@ -13,9 +13,9 @@ class ChangePasswordDto {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['oldPassword'] = oldPassword;
-    data['newPassword'] = newPassword;
-    data['verifyPassword'] = verifyPassword;
+    data['oldPassword'] = this.oldPassword;
+    data['newPassword'] = this.newPassword;
+    data['verifyPassword'] = this.verifyPassword;
     return data;
   }
 }
