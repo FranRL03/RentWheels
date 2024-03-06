@@ -7,7 +7,12 @@ class Content {
   String? transmision;
   bool? disponible;
 
-  Content({this.imagen, this.modelo, this.combustion, this.transmision, this.disponible});
+  Content(
+      {this.imagen,
+      this.modelo,
+      this.combustion,
+      this.transmision,
+      this.disponible});
 
   factory Content.fromListVehiculos(Map<String, dynamic> data) => Content(
         imagen: data['imagen'] as String?,
