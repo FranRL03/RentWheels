@@ -30,6 +30,7 @@ class _ListAlquilerClienteState extends State<ListAlquilerCliente> {
     return BlocProvider.value(
       value: _alquilerClienteBloc,
       child: Scaffold(
+        appBar: AppBar(title: const Text('Mis Alquileres')),
         body: BlocBuilder<AlquilerBloc, AlquilerState>(
           builder: (context, state) {
             if (state is GetAlquilerClienteError) {
@@ -78,7 +79,7 @@ class _ListAlquilerClienteState extends State<ListAlquilerCliente> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(left: 0),
+                                      padding: const EdgeInsets.only(left: 45),
                                       child: SizedBox(
                                         width: 160,
                                         child: Image.network(state
