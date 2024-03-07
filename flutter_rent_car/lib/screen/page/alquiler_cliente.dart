@@ -40,15 +40,12 @@ class _ListAlquilerClienteState extends State<ListAlquilerCliente> {
                 child: ListView.builder(
                     itemCount: state.alquilerClientesResponse.content!.length,
                     itemBuilder: (context, index) {
-                      String disponible = '';
+                      String alquilado = '';
                       if (state.alquilerClientesResponse.content![index]
                               .vehiculo?.disponible ==
-                          true) {
-                        disponible = 'Disponible';
-                      } else {
-                        disponible = 'No disponible';
+                          false) {
+                        alquilado = 'Alquilado';
                       }
-
                       return SizedBox(
                           width: 160,
                           height: 250,
@@ -79,14 +76,18 @@ class _ListAlquilerClienteState extends State<ListAlquilerCliente> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(left: 45),
-                                      child: SizedBox(
-                                        width: 160,
-                                        child: Image.network(state
-                                            .alquilerClientesResponse
-                                            .content![index]
-                                            .vehiculo!
-                                            .imagen!),
+                                      padding: const EdgeInsets.only(left: 30),
+                                      child: Row(
+                                        children: [
+                                          SizedBox(
+                                            width: 145,
+                                            child: Image.network(state
+                                                .alquilerClientesResponse
+                                                .content![index]
+                                                .vehiculo!
+                                                .imagen!),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
@@ -94,26 +95,29 @@ class _ListAlquilerClienteState extends State<ListAlquilerCliente> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 10),
                                   child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
                                       Text(
-                                          '${state.alquilerClientesResponse.content![index].vehiculo?.transmision} | ',
-                                          style: const TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 100, 99, 99))),
+                                          '${state.alquilerClientesResponse.content![index].precio} € ',
+                                          style: TextStyle(
+                                              color: AppColors.colorPrincipal, fontWeight: FontWeight.bold, fontSize: 18)),
                                       Text(
-                                          '${state.alquilerClientesResponse.content![index].vehiculo?.combustion} | ',
-                                          style: const TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 100, 99, 99))),
-                                      Text(disponible,
-                                          style: const TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 100, 99, 99)))
+                                          '${ state.alquilerClientesResponse.content![index].kilometrosPorAno} Km/año ',
+                                          style: TextStyle(
+                                              color: AppColors.colorPrincipal, fontWeight: FontWeight.bold, fontSize: 18)),
+                                      Row(
+                                        children: [
+                                          Text(alquilado,
+                                              style: TextStyle(
+                                                  color: AppColors.colorPrincipal, fontWeight: FontWeight.bold, fontSize: 18)),
+                                          const Icon(Icons.check_circle_outline, size: 20, color: Color.fromARGB(255, 13, 136, 76),),
+                                        ],
+                                      )       
                                     ],
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 190),
+                                  padding: const EdgeInsets.only(left: 190, top: 14),
                                   child: ElevatedButton(
                                     onPressed: () {
                                       // Acción a realizar cuando se presione el botón
