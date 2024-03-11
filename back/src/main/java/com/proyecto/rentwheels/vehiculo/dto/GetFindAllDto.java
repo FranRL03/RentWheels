@@ -7,6 +7,7 @@ import com.proyecto.rentwheels.vehiculo.model.Vehiculo;
 
 public record GetFindAllDto(
 
+        String id,
         String combustion,
         GetModeloDto modelo,
         String imagen,
@@ -23,6 +24,7 @@ public record GetFindAllDto(
     public static GetFindAllDto of(Vehiculo v){
 
         return new GetFindAllDto(
+                v.getId().toString(),
                 v.getCombustible(),
                 GetModeloDto.of(v.getModelo()),
                 v.getImagen(),
