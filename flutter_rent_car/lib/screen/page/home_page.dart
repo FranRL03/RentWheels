@@ -312,11 +312,13 @@ class _HomePageState extends State<HomePage> {
                               padding: const EdgeInsets.only(left: 190),
                               child: ElevatedButton(
                                 onPressed: () {
-                                 Navigator.push(
+                                  Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const VehiculoDetailsPage()),
+                                            VehiculoDetailsPage(
+                                              uuid: state.vehiculosResponse.content![index].id!
+                                            )),
                                   );
                                 },
                                 style: ElevatedButton.styleFrom(
@@ -423,11 +425,13 @@ class _HomePageState extends State<HomePage> {
                               padding: const EdgeInsets.only(left: 190),
                               child: ElevatedButton(
                                 onPressed: () {
-                                 Navigator.push(
+                           Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const VehiculoDetailsPage()),
+                                            VehiculoDetailsPage(
+                                              uuid: state.vehiculosModelsResponse.content![index].id!
+                                            )),
                                   );
                                 },
                                 style: ElevatedButton.styleFrom(

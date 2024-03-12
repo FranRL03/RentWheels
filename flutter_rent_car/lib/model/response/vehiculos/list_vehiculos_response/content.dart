@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 class Content {
+  String? id;
   String? imagen;
   String? modelo;
   String? combustion;
@@ -8,13 +9,15 @@ class Content {
   bool? disponible;
 
   Content(
-      {this.imagen,
+      {this.id,
+      this.imagen,
       this.modelo,
       this.combustion,
       this.transmision,
       this.disponible});
 
   factory Content.fromListVehiculos(Map<String, dynamic> data) => Content(
+        id: data['id'] as String?,
         imagen: data['imagen'] as String?,
         modelo: data['modelo'] as String?,
         combustion: data['combustion'] as String?,
@@ -23,6 +26,7 @@ class Content {
       );
 
   Map<String, dynamic> toListVehiculos() => {
+        'id': id,
         'imagen': imagen,
         'modelo': modelo,
         'combustion': combustion,
