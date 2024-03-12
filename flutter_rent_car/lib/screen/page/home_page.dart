@@ -10,6 +10,7 @@ import 'package:flutter_rent_car/repositories/user/user_repository_impl.dart';
 import 'package:flutter_rent_car/repositories/vehiculos/vehiculos_repository.dart';
 import 'package:flutter_rent_car/repositories/vehiculos/vehiculos_repository_impl.dart';
 import 'package:flutter_rent_car/screen/page/my_perfil_page.dart';
+import 'package:flutter_rent_car/screen/page/vehiculo_details.dart';
 import 'package:flutter_rent_car/screen/patatus.dart';
 import 'package:flutter_rent_car/variables.dart';
 
@@ -311,7 +312,12 @@ class _HomePageState extends State<HomePage> {
                               padding: const EdgeInsets.only(left: 190),
                               child: ElevatedButton(
                                 onPressed: () {
-                                  // Acción a realizar cuando se presione el botón
+                                 Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const VehiculoDetailsPage()),
+                                  );
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: AppColors.colorPrincipal,
@@ -417,7 +423,12 @@ class _HomePageState extends State<HomePage> {
                               padding: const EdgeInsets.only(left: 190),
                               child: ElevatedButton(
                                 onPressed: () {
-                                  // Acción a realizar cuando se presione el botón
+                                 Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const VehiculoDetailsPage()),
+                                  );
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: AppColors.colorPrincipal,
