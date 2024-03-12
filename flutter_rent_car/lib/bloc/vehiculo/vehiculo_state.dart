@@ -28,3 +28,11 @@ final class GetModelosVehiculosError extends VehiculoState {
   final String errorMessage;
   GetModelosVehiculosError(this.errorMessage);
 }
+
+
+final class GetVehiculoDetailsLoading extends VehiculoState {}
+
+final class GetVehiculoDetailsSuccess extends VehiculoState {
+  final VehiculoDetailsResponse vehiculoDetailsResponse;
+  GetVehiculoDetailsSuccess(this.vehiculoDetailsResponse);
+}

@@ -1,4 +1,5 @@
 import 'package:flutter_rent_car/model/response/vehiculos/list_vehiculos_response/list_vehiculos_response.dart';
+import 'package:flutter_rent_car/model/response/vehiculos/vehiculo_details_response/vehiculo_details_response.dart';
 import 'package:flutter_rent_car/repositories/vehiculos/vehiculos_repository.dart';
 import 'package:flutter_rent_car/variables.dart';
 import 'package:http/http.dart';
@@ -48,6 +49,24 @@ class VehiculoRepositoryImpl extends VehiculoRepository {
       return ListVehiculosResponse.fromJson(response.body);
     } else {
       throw Exception('Failed to get models');
+    }
+  }
+
+  @override
+  Future<VehiculoDetailsResponse> vehiculoDetails(String uuid) async {
+    final token = await getToken();
+
+    final response = await _htppClient.get(Uri.parse('$urlMovil/vehiculos/$uuid'),
+            // Uri.parse('$urlChrome/modelo/vehiculo/$nombreModelo'),
+            headers: <String, String>{
+          'Content-Type': 'Content-type: application/json',
+          'Authorization': 'Bearer $token',
+        });
+
+    if(response.statusCode == 200) {
+      return VehiculoDetailsResponse.fromJson(response.body);
+    } else {
+      throw Exception('Failed to get details');
     }
   }
 }

@@ -95,29 +95,43 @@ class _ListAlquilerClienteState extends State<ListAlquilerCliente> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 10),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
                                     children: [
                                       Text(
                                           '${state.alquilerClientesResponse.content![index].precio} € ',
                                           style: TextStyle(
-                                              color: AppColors.colorPrincipal, fontWeight: FontWeight.bold, fontSize: 18)),
+                                              color: AppColors.colorPrincipal,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18)),
                                       Text(
-                                          '${ state.alquilerClientesResponse.content![index].kilometrosPorAno} Km/año ',
+                                          '${state.alquilerClientesResponse.content![index].kilometrosPorAno} Km/año ',
                                           style: TextStyle(
-                                              color: AppColors.colorPrincipal, fontWeight: FontWeight.bold, fontSize: 18)),
+                                              color: AppColors.colorPrincipal,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18)),
                                       Row(
                                         children: [
                                           Text(alquilado,
                                               style: TextStyle(
-                                                  color: AppColors.colorPrincipal, fontWeight: FontWeight.bold, fontSize: 18)),
-                                          const Icon(Icons.check_circle_outline, size: 20, color: Color.fromARGB(255, 13, 136, 76),),
+                                                  color:
+                                                      AppColors.colorPrincipal,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18)),
+                                          const Icon(
+                                            Icons.check_circle_outline,
+                                            size: 20,
+                                            color: Color.fromARGB(
+                                                255, 13, 136, 76),
+                                          ),
                                         ],
-                                      )       
+                                      )
                                     ],
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 190, top: 14),
+                                  padding:
+                                      const EdgeInsets.only(left: 190, top: 14),
                                   child: ElevatedButton(
                                     onPressed: () {
                                       // Acción a realizar cuando se presione el botón
