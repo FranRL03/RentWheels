@@ -20,8 +20,8 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<LoginResponse> login(LoginDto loginDto) async {
     final jsonBody = jsonEncode(loginDto.toJson());
     final response = await _httpClient.post(
-      Uri.parse('$urlMovil/auth/login'),
-      // Uri.parse('$urlChrome/auth/login'),
+      // Uri.parse('$urlMovil/auth/login'),
+      Uri.parse('$urlChrome/auth/login'),
       headers: <String, String>{'Content-Type': 'application/json'},
       body: jsonBody,
     );
@@ -37,7 +37,8 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<RegisterResponse> register(RegisterDto registerDto) async {
     final response =
-        await _httpClient.post(Uri.parse('$urlMovil/auth/register'),
+        await _httpClient.post(
+          Uri.parse('$urlMovil/auth/register'),
             // Uri.parse('$urlChrome/auth/register'),
             headers: <String, String>{'Content-Type': 'application/json'},
             body: jsonEncode(registerDto.toJson()));

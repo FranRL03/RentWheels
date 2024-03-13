@@ -11,7 +11,9 @@ import 'package:flutter_rent_car/repositories/vehiculos/vehiculos_repository.dar
 import 'package:flutter_rent_car/repositories/vehiculos/vehiculos_repository_impl.dart';
 import 'package:flutter_rent_car/screen/page/my_perfil_page.dart';
 import 'package:flutter_rent_car/screen/page/vehiculo_details.dart';
+import 'package:flutter_rent_car/screen/widget/lista_coches_widget.dart';
 import 'package:flutter_rent_car/screen/patatus.dart';
+import 'package:flutter_rent_car/screen/widget/lista_modelos_widget.dart';
 import 'package:flutter_rent_car/variables.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,11 +26,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
   late UserRepository userRepository;
-  late ModeloRepository modeloRepository;
-  late VehiculoRepository vehiculoRepository;
+  // late ModeloRepository modeloRepository;
+  // late VehiculoRepository vehiculoRepository;
 
   late UserBloc _userBloc;
-  late ModelosBloc _modelosBloc;
+  // late ModelosBloc _modelosBloc;
   late VehiculoBloc _vehiculoBloc;
 
   final String nombreModelo = '';
@@ -37,17 +39,17 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     userRepository = UserRepositoryImpl();
     _userBloc = UserBloc(userRepository)..add(GetUserDetailsEvent());
-    modeloRepository = ModeloRepositorioImpl();
-    _modelosBloc = ModelosBloc(modeloRepository)..add(GetModelosEvent());
-    vehiculoRepository = VehiculoRepositoryImpl();
-    _vehiculoBloc = VehiculoBloc(vehiculoRepository)..add(GetVehiculoEvent());
+    // modeloRepository = ModeloRepositorioImpl();
+    // _modelosBloc = ModelosBloc(modeloRepository)..add(GetModelosEvent());
+    // vehiculoRepository = VehiculoRepositoryImpl();
+    // _vehiculoBloc = VehiculoBloc(vehiculoRepository)..add(GetVehiculoEvent());
     super.initState();
   }
 
   @override
   void dispose() {
     _userBloc.close();
-    _modelosBloc.close();
+    // _modelosBloc.close();
     _vehiculoBloc.close();
     super.dispose();
   }
@@ -59,8 +61,8 @@ class _HomePageState extends State<HomePage> {
         BlocProvider.value(
           value: _userBloc,
         ),
-        BlocProvider.value(value: _modelosBloc),
-        BlocProvider.value(value: _vehiculoBloc)
+        // BlocProvider.value(value: _modelosBloc),
+        // BlocProvider.value(value: _vehiculoBloc)
       ],
       child: _buildHome(),
     );
@@ -161,309 +163,331 @@ class _HomePageState extends State<HomePage> {
               return const Center(child: CircularProgressIndicator());
             },
           ),
-          Expanded(flex: 1, child: modelosDeCoches()),
-          Expanded(flex: 4, child: listDeCoches())
+          BlocBuilder<VehiculoBloc, VehiculoState>(
+          bloc: _vehiculoBloc, // Usa el VehiculoBloc aquí
+          builder: (context, state) {
+            if (state is GetVehiculoError) {
+              return Column(
+                children: [
+                  Text(state.errorMessage),
+                ],
+              );
+            } else if (state is GetVehiculoSuccess) {
+              return Expanded(
+                flex: 4,
+                child: ListaCochesWidget(
+                  vehiculosResponse: state.vehiculosResponse,
+                ),
+              );
+            }
+            return const Center(child: CircularProgressIndicator());
+          },
+        ),
+          // Expanded(flex: 1, child: modelosDeCoches()),
+          // Expanded(flex: 4, child: listDeCoches())
+          const Expanded(flex: 1, child: ListModelosWidget()),
+          // const Expanded(flex: 4 ,child: ListaCochesWidget())
         ],
       ),
     );
   }
 
-  Widget modelosDeCoches() {
-    return BlocBuilder<ModelosBloc, ModelosState>(
-      bloc: _modelosBloc,
-      builder: (context, state) {
-        if (state is GetModelosError) {
-          return Column(
-            children: [
-              Text(state.errorMessage),
-            ],
-          );
-        } else if (state is GetModelosSuccess) {
-          return Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: SizedBox(
-              width: double.infinity,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: state.modeloResponse.content!.length,
-                  itemBuilder: (context, index) {
-                    return SizedBox(
-                      width: 80,
-                      child: InkWell(
-                        onTap: () {
-                          _vehiculoBloc.add(GetVehiculosModelosEvent(
-                              state.modeloResponse.content![index].modelo!));
-                        },
-                        child: Card(
-                          color: const Color.fromRGBO(29, 47, 111, 1),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100.0),
-                          ),
-                          elevation: 7.0,
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 0),
-                              child: CircleAvatar(
-                                radius: 30,
-                                backgroundColor:
-                                    const Color.fromARGB(255, 119, 133, 187),
-                                backgroundImage: NetworkImage(
-                                    state.modeloResponse.content![index].logo!),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
-            ),
-          );
-        }
-        return const Center(child: CircularProgressIndicator());
-      },
-    );
-  }
+  // Widget modelosDeCoches() {
+  //   return BlocBuilder<ModelosBloc, ModelosState>(
+  //     bloc: _modelosBloc,
+  //     builder: (context, state) {
+  //       if (state is GetModelosError) {
+  //         return Column(
+  //           children: [
+  //             Text(state.errorMessage),
+  //           ],
+  //         );
+  //       } else if (state is GetModelosSuccess) {
+  //         return Padding(
+  //           padding: const EdgeInsets.only(top: 20),
+  //           child: SizedBox(
+  //             width: double.infinity,
+  //             child: ListView.builder(
+  //                 scrollDirection: Axis.horizontal,
+  //                 itemCount: state.modeloResponse.content!.length,
+  //                 itemBuilder: (context, index) {
+  //                   return SizedBox(
+  //                     width: 80,
+  //                     child: InkWell(
+  //                       onTap: () {
+  //                         _vehiculoBloc.add(GetVehiculosModelosEvent(
+  //                             state.modeloResponse.content![index].modelo!));
+  //                       },
+  //                       child: Card(
+  //                         color: const Color.fromRGBO(29, 47, 111, 1),
+  //                         shape: RoundedRectangleBorder(
+  //                           borderRadius: BorderRadius.circular(100.0),
+  //                         ),
+  //                         elevation: 7.0,
+  //                         child: Center(
+  //                           child: Padding(
+  //                             padding: const EdgeInsets.only(top: 0),
+  //                             child: CircleAvatar(
+  //                               radius: 30,
+  //                               backgroundColor:
+  //                                   const Color.fromARGB(255, 119, 133, 187),
+  //                               backgroundImage: NetworkImage(
+  //                                   state.modeloResponse.content![index].logo!),
+  //                             ),
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ),
+  //                   );
+  //                 }),
+  //           ),
+  //         );
+  //       }
+  //       return const Center(child: CircularProgressIndicator());
+  //     },
+  //   );
+  // }
 
-  Widget listDeCoches() {
-    return BlocBuilder<VehiculoBloc, VehiculoState>(
-      bloc: _vehiculoBloc,
-      builder: (context, state) {
-        if (state is GetVehiculoError) {
-          return Column(
-            children: [
-              Text(state.errorMessage),
-            ],
-          );
-        } else if (state is GetVehiculoSuccess) {
-          return SizedBox(
-            child: ListView.builder(
-                itemCount: state.vehiculosResponse.content!.length,
-                itemBuilder: (context, index) {
-                  String disponible = '';
-                  if (state.vehiculosResponse.content![index].disponible ==
-                      true) {
-                    disponible = 'Disponible';
-                  } else {
-                    disponible = 'No disponible';
-                  }
+  // Widget listDeCoches() {
+  //   return BlocBuilder<VehiculoBloc, VehiculoState>(
+  //     bloc: _vehiculoBloc,
+  //     builder: (context, state) {
+  //       if (state is GetVehiculoError) {
+  //         return Column(
+  //           children: [
+  //             Text(state.errorMessage),
+  //           ],
+  //         );
+  //       } else if (state is GetVehiculoSuccess) {
+  //         return SizedBox(
+  //           child: ListView.builder(
+  //               itemCount: state.vehiculosResponse.content!.length,
+  //               itemBuilder: (context, index) {
+  //                 String disponible = '';
+  //                 if (state.vehiculosResponse.content![index].disponible ==
+  //                     true) {
+  //                   disponible = 'Disponible';
+  //                 } else {
+  //                   disponible = 'No disponible';
+  //                 }
 
-                  return SizedBox(
-                      width: 160,
-                      height: 250,
-                      child: Card(
-                        surfaceTintColor: Colors.white,
-                        color: Colors.white,
-                        shadowColor: Colors.grey,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                        ),
-                        elevation: 10,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      bottom: 90, left: 10),
-                                  child: Text(
-                                    '${state.vehiculosResponse.content![index].modelo}',
-                                    style: const TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 0),
-                                  child: SizedBox(
-                                    width: 160,
-                                    child: Image.network(
-                                      state.vehiculosResponse.content![index]
-                                          .imagen!,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Row(
-                                children: [
-                                  Text(
-                                      '${state.vehiculosResponse.content![index].transmision} | ',
-                                      style: const TextStyle(
-                                          color: Color.fromARGB(
-                                              255, 100, 99, 99))),
-                                  Text(
-                                      '${state.vehiculosResponse.content![index].combustion} | ',
-                                      style: const TextStyle(
-                                          color: Color.fromARGB(
-                                              255, 100, 99, 99))),
-                                  Text(disponible,
-                                      style: const TextStyle(
-                                          color:
-                                              Color.fromARGB(255, 100, 99, 99)))
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 190),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            VehiculoDetailsPage(
-                                              uuid: state.vehiculosResponse.content![index].id!
-                                            )),
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.colorPrincipal,
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 12,
-                                    horizontal: 24,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(28.5),
-                                  ),
-                                ),
-                                child: const Text(
-                                  'Información',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: Color.fromRGBO(255, 255, 255, 1),
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ));
-                }),
-          );
-        } else if (state is GetModelosVehiculosSuccess) {
-          return SizedBox(
-            child: ListView.builder(
-                itemCount: state.vehiculosModelsResponse.content!.length,
-                itemBuilder: (context, index) {
-                  String disponible = '';
-                  if (state
-                          .vehiculosModelsResponse.content![index].disponible ==
-                      true) {
-                    disponible = 'Disponible';
-                  } else {
-                    disponible = 'No disponible';
-                  }
+  //                 return SizedBox(
+  //                     width: 160,
+  //                     height: 250,
+  //                     child: Card(
+  //                       surfaceTintColor: Colors.white,
+  //                       color: Colors.white,
+  //                       shadowColor: Colors.grey,
+  //                       shape: const RoundedRectangleBorder(
+  //                         borderRadius: BorderRadius.all(Radius.circular(20)),
+  //                       ),
+  //                       elevation: 10,
+  //                       child: Column(
+  //                         crossAxisAlignment: CrossAxisAlignment.center,
+  //                         children: [
+  //                           Row(
+  //                             children: [
+  //                               Padding(
+  //                                 padding: const EdgeInsets.only(
+  //                                     bottom: 90, left: 10),
+  //                                 child: Text(
+  //                                   '${state.vehiculosResponse.content![index].modelo}',
+  //                                   style: const TextStyle(
+  //                                     fontSize: 25,
+  //                                     fontWeight: FontWeight.bold,
+  //                                     color: Color.fromARGB(255, 0, 0, 0),
+  //                                   ),
+  //                                 ),
+  //                               ),
+  //                               Padding(
+  //                                 padding: const EdgeInsets.only(left: 0),
+  //                                 child: SizedBox(
+  //                                   width: 160,
+  //                                   child: Image.network(
+  //                                     state.vehiculosResponse.content![index]
+  //                                         .imagen!,
+  //                                   ),
+  //                                 ),
+  //                               ),
+  //                             ],
+  //                           ),
+  //                           Padding(
+  //                             padding: const EdgeInsets.only(left: 10),
+  //                             child: Row(
+  //                               children: [
+  //                                 Text(
+  //                                     '${state.vehiculosResponse.content![index].transmision} | ',
+  //                                     style: const TextStyle(
+  //                                         color: Color.fromARGB(
+  //                                             255, 100, 99, 99))),
+  //                                 Text(
+  //                                     '${state.vehiculosResponse.content![index].combustion} | ',
+  //                                     style: const TextStyle(
+  //                                         color: Color.fromARGB(
+  //                                             255, 100, 99, 99))),
+  //                                 Text(disponible,
+  //                                     style: const TextStyle(
+  //                                         color:
+  //                                             Color.fromARGB(255, 100, 99, 99)))
+  //                               ],
+  //                             ),
+  //                           ),
+  //                           Padding(
+  //                             padding: const EdgeInsets.only(left: 190),
+  //                             child: ElevatedButton(
+  //                               onPressed: () {
+  //                                 Navigator.push(
+  //                                   context,
+  //                                   MaterialPageRoute(
+  //                                       builder: (context) =>
+  //                                           VehiculoDetailsPage(
+  //                                             uuid: state.vehiculosResponse.content![index].id!
+  //                                           )),
+  //                                 );
+  //                               },
+  //                               style: ElevatedButton.styleFrom(
+  //                                 backgroundColor: AppColors.colorPrincipal,
+  //                                 padding: const EdgeInsets.symmetric(
+  //                                   vertical: 12,
+  //                                   horizontal: 24,
+  //                                 ),
+  //                                 shape: RoundedRectangleBorder(
+  //                                   borderRadius: BorderRadius.circular(28.5),
+  //                                 ),
+  //                               ),
+  //                               child: const Text(
+  //                                 'Información',
+  //                                 style: TextStyle(
+  //                                   fontWeight: FontWeight.w600,
+  //                                   color: Color.fromRGBO(255, 255, 255, 1),
+  //                                   fontSize: 16,
+  //                                 ),
+  //                               ),
+  //                             ),
+  //                           ),
+  //                         ],
+  //                       ),
+  //                     ));
+  //               }),
+  //         );
+  //       } else if (state is GetModelosVehiculosSuccess) {
+  //         return SizedBox(
+  //           child: ListView.builder(
+  //               itemCount: state.vehiculosModelsResponse.content!.length,
+  //               itemBuilder: (context, index) {
+  //                 String disponible = '';
+  //                 if (state
+  //                         .vehiculosModelsResponse.content![index].disponible ==
+  //                     true) {
+  //                   disponible = 'Disponible';
+  //                 } else {
+  //                   disponible = 'No disponible';
+  //                 }
 
-                  return SizedBox(
-                      width: 160,
-                      height: 250,
-                      child: Card(
-                        surfaceTintColor: Colors.white,
-                        color: Colors.white,
-                        shadowColor: Colors.grey,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                        ),
-                        elevation: 10,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      bottom: 90, left: 10),
-                                  child: Text(
-                                    '${state.vehiculosModelsResponse.content![index].modelo}',
-                                    style: const TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 0),
-                                  child: SizedBox(
-                                    width: 160,
-                                    child: Image.network(
-                                      state.vehiculosModelsResponse
-                                          .content![index].imagen!,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Row(
-                                children: [
-                                  Text(
-                                      '${state.vehiculosModelsResponse.content![index].transmision} | ',
-                                      style: const TextStyle(
-                                          color: Color.fromARGB(
-                                              255, 100, 99, 99))),
-                                  Text(
-                                      '${state.vehiculosModelsResponse.content![index].combustion} | ',
-                                      style: const TextStyle(
-                                          color: Color.fromARGB(
-                                              255, 100, 99, 99))),
-                                  Text(disponible,
-                                      style: const TextStyle(
-                                          color:
-                                              Color.fromARGB(255, 100, 99, 99)))
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 190),
-                              child: ElevatedButton(
-                                onPressed: () {
-                           Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            VehiculoDetailsPage(
-                                              uuid: state.vehiculosModelsResponse.content![index].id!
-                                            )),
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.colorPrincipal,
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 12,
-                                    horizontal: 24,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(28.5),
-                                  ),
-                                ),
-                                child: const Text(
-                                  'Información',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: Color.fromRGBO(255, 255, 255, 1),
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ));
-                }),
-          );
-        }
-        return const Center(child: CircularProgressIndicator());
-      },
-    );
-  }
+  //                 return SizedBox(
+  //                     width: 160,
+  //                     height: 250,
+  //                     child: Card(
+  //                       surfaceTintColor: Colors.white,
+  //                       color: Colors.white,
+  //                       shadowColor: Colors.grey,
+  //                       shape: const RoundedRectangleBorder(
+  //                         borderRadius: BorderRadius.all(Radius.circular(20)),
+  //                       ),
+  //                       elevation: 10,
+  //                       child: Column(
+  //                         crossAxisAlignment: CrossAxisAlignment.center,
+  //                         children: [
+  //                           Row(
+  //                             children: [
+  //                               Padding(
+  //                                 padding: const EdgeInsets.only(
+  //                                     bottom: 90, left: 10),
+  //                                 child: Text(
+  //                                   '${state.vehiculosModelsResponse.content![index].modelo}',
+  //                                   style: const TextStyle(
+  //                                     fontSize: 25,
+  //                                     fontWeight: FontWeight.bold,
+  //                                     color: Color.fromARGB(255, 0, 0, 0),
+  //                                   ),
+  //                                 ),
+  //                               ),
+  //                               Padding(
+  //                                 padding: const EdgeInsets.only(left: 0),
+  //                                 child: SizedBox(
+  //                                   width: 160,
+  //                                   child: Image.network(
+  //                                     state.vehiculosModelsResponse
+  //                                         .content![index].imagen!,
+  //                                   ),
+  //                                 ),
+  //                               ),
+  //                             ],
+  //                           ),
+  //                           Padding(
+  //                             padding: const EdgeInsets.only(left: 10),
+  //                             child: Row(
+  //                               children: [
+  //                                 Text(
+  //                                     '${state.vehiculosModelsResponse.content![index].transmision} | ',
+  //                                     style: const TextStyle(
+  //                                         color: Color.fromARGB(
+  //                                             255, 100, 99, 99))),
+  //                                 Text(
+  //                                     '${state.vehiculosModelsResponse.content![index].combustion} | ',
+  //                                     style: const TextStyle(
+  //                                         color: Color.fromARGB(
+  //                                             255, 100, 99, 99))),
+  //                                 Text(disponible,
+  //                                     style: const TextStyle(
+  //                                         color:
+  //                                             Color.fromARGB(255, 100, 99, 99)))
+  //                               ],
+  //                             ),
+  //                           ),
+  //                           Padding(
+  //                             padding: const EdgeInsets.only(left: 190),
+  //                             child: ElevatedButton(
+  //                               onPressed: () {
+  //                          Navigator.push(
+  //                                   context,
+  //                                   MaterialPageRoute(
+  //                                       builder: (context) =>
+  //                                           VehiculoDetailsPage(
+  //                                             uuid: state.vehiculosModelsResponse.content![index].id!
+  //                                           )),
+  //                                 );
+  //                               },
+  //                               style: ElevatedButton.styleFrom(
+  //                                 backgroundColor: AppColors.colorPrincipal,
+  //                                 padding: const EdgeInsets.symmetric(
+  //                                   vertical: 12,
+  //                                   horizontal: 24,
+  //                                 ),
+  //                                 shape: RoundedRectangleBorder(
+  //                                   borderRadius: BorderRadius.circular(28.5),
+  //                                 ),
+  //                               ),
+  //                               child: const Text(
+  //                                 'Información',
+  //                                 style: TextStyle(
+  //                                   fontWeight: FontWeight.w600,
+  //                                   color: Color.fromRGBO(255, 255, 255, 1),
+  //                                   fontSize: 16,
+  //                                 ),
+  //                               ),
+  //                             ),
+  //                           ),
+  //                         ],
+  //                       ),
+  //                     ));
+  //               }),
+  //         );
+  //       }
+  //       return const Center(child: CircularProgressIndicator());
+  //     },
+  //   );
+  // }
 
   Widget _buildPage(int index) {
     switch (index) {
