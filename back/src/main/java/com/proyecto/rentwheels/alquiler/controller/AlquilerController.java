@@ -1,6 +1,8 @@
 package com.proyecto.rentwheels.alquiler.controller;
 
+import com.proyecto.rentwheels.alquiler.dto.CreateAlquilerDto;
 import com.proyecto.rentwheels.alquiler.dto.GetAlquileresCliente;
+import com.proyecto.rentwheels.alquiler.model.Alquiler;
 import com.proyecto.rentwheels.alquiler.service.AlquilerServicio;
 import com.proyecto.rentwheels.usuario.model.Cliente;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,9 +16,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -66,6 +68,16 @@ public class AlquilerController {
     @GetMapping("/cliente/alquiler")
     public Page<GetAlquileresCliente> getAlquileresClientes(@PageableDefault(page=0, size =10) Pageable pageable, @AuthenticationPrincipal Cliente c){
         return alquilerServicio.getAlquileresCliente(pageable, c.getId());
+    }
+
+    @PostMapping("/alquilar/{idVehiculo}")
+    public ResponseEntity<GetAlquileresCliente> createAlquiler (@AuthenticationPrincipal Cliente c, @RequestBody CreateAlquilerDto create, @PathVariable String idVehiculo){
+
+        Alquiler a = alquilerServicio.createAlquiler(idVehiculo, c, create);
+
+        return ResponseEntity
+                .status(200)
+                .body(GetAlquileresCliente.of(a));
     }
 
 }
