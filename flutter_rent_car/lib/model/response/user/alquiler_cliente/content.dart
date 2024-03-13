@@ -8,6 +8,7 @@ class Content {
   int? kilometrosPorAno;
   String? fechaInicio;
   String? fechaFin;
+  bool? enAlquiler;
   Vehiculo? vehiculo;
 
   Content({
@@ -16,6 +17,7 @@ class Content {
     this.kilometrosPorAno,
     this.fechaInicio,
     this.fechaFin,
+    this.enAlquiler,
     this.vehiculo,
   });
 
@@ -25,6 +27,7 @@ class Content {
         kilometrosPorAno: data['kilometrosPorAno'] as int?,
         fechaInicio: data['fechaInicio'] as String?,
         fechaFin: data['fechaFin'] as String?,
+        enAlquiler: data['enAlquiler'] as bool?,
         vehiculo: data['vehiculo'] == null
             ? null
             : Vehiculo.fromAlquilerCliente(
@@ -37,6 +40,7 @@ class Content {
         'kilometrosPorAno': kilometrosPorAno,
         'fechaInicio': fechaInicio,
         'fechaFin': fechaFin,
+        'enAlquiler': enAlquiler,
         'vehiculo': vehiculo?.toAlquilerCliente(),
       };
 

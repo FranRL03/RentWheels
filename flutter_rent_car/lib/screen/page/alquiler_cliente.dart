@@ -43,8 +43,10 @@ class _ListAlquilerClienteState extends State<ListAlquilerCliente> {
                       String alquilado = '';
                       if (state.alquilerClientesResponse.content![index]
                               .vehiculo?.disponible ==
-                          false) {
+                          true) {
                         alquilado = 'Alquilado';
+                      } else {
+                        alquilado = 'Activo';
                       }
                       return SizedBox(
                           width: 160,
@@ -131,32 +133,79 @@ class _ListAlquilerClienteState extends State<ListAlquilerCliente> {
                                 ),
                                 Padding(
                                   padding:
-                                      const EdgeInsets.only(left: 190, top: 14),
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      // Acción a realizar cuando se presione el botón
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: AppColors.colorPrincipal,
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 12,
-                                        horizontal: 24,
-                                      ),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(28.5),
-                                      ),
-                                    ),
-                                    child: const Text(
-                                      'Información',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        color: Color.fromRGBO(255, 255, 255, 1),
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ),
+                                      const EdgeInsets.only(top: 10, left: 10),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            const Text('Start: ',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18)),
+                                            Text(
+                                                state
+                                                    .alquilerClientesResponse
+                                                    .content![index]
+                                                    .fechaInicio!,
+                                                style: TextStyle(
+                                                    color: AppColors
+                                                        .colorPrincipal,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18)),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            const Text('End: ',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18)),
+                                            Text(
+                                                state
+                                                    .alquilerClientesResponse
+                                                    .content![index]
+                                                    .fechaFin!,
+                                                style: TextStyle(
+                                                    color: AppColors
+                                                        .colorPrincipal,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18)),
+                                          ],
+                                        ),
+                                      ]),
                                 ),
+                                // Padding(
+                                //   padding:
+                                //       const EdgeInsets.only(left: 190, top: 14),
+                                //   child: ElevatedButton(
+                                //     onPressed: () {
+                                //       // Acción a realizar cuando se presione el botón
+                                //     },
+                                //     style: ElevatedButton.styleFrom(
+                                //       backgroundColor: AppColors.colorPrincipal,
+                                //       padding: const EdgeInsets.symmetric(
+                                //         vertical: 12,
+                                //         horizontal: 24,
+                                //       ),
+                                //       shape: RoundedRectangleBorder(
+                                //         borderRadius:
+                                //             BorderRadius.circular(28.5),
+                                //       ),
+                                //     ),
+                                //     child: const Text(
+                                //       'Información',
+                                //       style: TextStyle(
+                                //         fontWeight: FontWeight.w600,
+                                //         color: Color.fromRGBO(255, 255, 255, 1),
+                                //         fontSize: 16,
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
                               ],
                             ),
                           ));
