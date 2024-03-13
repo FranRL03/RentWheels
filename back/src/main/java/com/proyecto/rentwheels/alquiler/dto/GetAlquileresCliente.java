@@ -12,6 +12,7 @@ public record GetAlquileresCliente(
       int kilometrosPorAno,
       String fechaInicio,
       String fechaFin,
+      boolean enAlquiler,
       GetFindAllDto vehiculo
 
 ) {
@@ -23,6 +24,7 @@ public record GetAlquileresCliente(
                 a.getKilometrosAnos(),
                 a.getFechaInicio().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
                 a.getFechaFin().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
+                a.isEnAlquiler(),
                 GetFindAllDto.of(a.getVehiculo())
 
         );

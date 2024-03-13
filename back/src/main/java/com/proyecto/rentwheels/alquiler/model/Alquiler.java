@@ -12,7 +12,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -43,6 +42,7 @@ public class Alquiler {
     private int kilometrosAnos;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
+    private boolean enAlquiler;
 
     @ManyToOne
     private Cliente cliente;
