@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
   late UserRepository userRepository;
   // late ModeloRepository modeloRepository;
-  // late VehiculoRepository vehiculoRepository;
+  late VehiculoRepository vehiculoRepository;
 
   late UserBloc _userBloc;
   // late ModelosBloc _modelosBloc;
@@ -41,8 +41,8 @@ class _HomePageState extends State<HomePage> {
     _userBloc = UserBloc(userRepository)..add(GetUserDetailsEvent());
     // modeloRepository = ModeloRepositorioImpl();
     // _modelosBloc = ModelosBloc(modeloRepository)..add(GetModelosEvent());
-    // vehiculoRepository = VehiculoRepositoryImpl();
-    // _vehiculoBloc = VehiculoBloc(vehiculoRepository)..add(GetVehiculoEvent());
+    vehiculoRepository = VehiculoRepositoryImpl();
+    _vehiculoBloc = VehiculoBloc(vehiculoRepository)..add(GetVehiculoEvent());
     super.initState();
   }
 
@@ -163,30 +163,11 @@ class _HomePageState extends State<HomePage> {
               return const Center(child: CircularProgressIndicator());
             },
           ),
-          BlocBuilder<VehiculoBloc, VehiculoState>(
-          bloc: _vehiculoBloc, // Usa el VehiculoBloc aquí
-          builder: (context, state) {
-            if (state is GetVehiculoError) {
-              return Column(
-                children: [
-                  Text(state.errorMessage),
-                ],
-              );
-            } else if (state is GetVehiculoSuccess) {
-              return Expanded(
-                flex: 4,
-                child: ListaCochesWidget(
-                  vehiculosResponse: state.vehiculosResponse,
-                ),
-              );
-            }
-            return const Center(child: CircularProgressIndicator());
-          },
-        ),
+          
           // Expanded(flex: 1, child: modelosDeCoches()),
           // Expanded(flex: 4, child: listDeCoches())
           const Expanded(flex: 1, child: ListModelosWidget()),
-          // const Expanded(flex: 4 ,child: ListaCochesWidget())
+          const Expanded(flex: 4 ,child: ListaCochesWidget())
         ],
       ),
     );

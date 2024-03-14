@@ -11,7 +11,7 @@ import 'package:flutter_rent_car/screen/page/vehiculo_details.dart';
 import 'package:flutter_rent_car/variables.dart';
 
 class ListaCochesWidget extends StatefulWidget {
-  const ListaCochesWidget({super.key, required ListVehiculosResponse vehiculosResponse});
+  const ListaCochesWidget({super.key});
 
   @override
   State<ListaCochesWidget> createState() => _ListaCochesWidgetState();
