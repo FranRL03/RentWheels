@@ -59,7 +59,7 @@ class _VehiculoAlquilarPageState extends State<VehiculoAlquilarPage> {
                   } else if (state is GetVehiculoDetailsSuccess) {
                     Widget formularioAlquiler;
                     if (state.vehiculoDetailsResponse.disponible == true) {
-                      formularioAlquiler = const FormAlquiler();
+                      formularioAlquiler = FormAlquiler(uuid: widget.uuid,);
                     } else {
                       formularioAlquiler = const Text('No disponible');
                     }

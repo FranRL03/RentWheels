@@ -81,21 +81,22 @@ public class VehiculoController {
                             examples = {@ExampleObject(
                                     value = """
                                             {
-                                                 "id": "9b11dd61-4424-46c9-9daa-c5d70025c478",
-                                                 "combustion": "Hibrido",
-                                                 "modelo": {
-                                                     "modelo": "Mercedes",
-                                                     "logo": "https://assets.stickpng.com/thumbs/5ec3e30358550c0004427741.png"
-                                                 },
-                                                 "imagen": "https://assets.stickpng.com/thumbs/580b585b2edbce24c47b2c94.png",
-                                                 "transmision": "Manual",
-                                                 "capacidadPasajeros": 4,
-                                                 "autonomia": 247587,
-                                                 "potencia": 170,
-                                                 "estado": "Nuevo",
-                                                 "numPuertas": 5,
-                                                 "disponible": true
-                                             }
+                                                "id": "9b11dd61-4424-46c9-9daa-c5d70025c478",
+                                                "combustion": "Hibrido",
+                                                "modelo": {
+                                                    "modelo": "Mercedes",
+                                                    "logo": "https://assets.stickpng.com/thumbs/5ec3e30358550c0004427741.png"
+                                                },
+                                                "imagen": "https://assets.stickpng.com/thumbs/580b585b2edbce24c47b2c94.png",
+                                                "transmision": "Manual",
+                                                "capacidadPasajeros": 4,
+                                                "autonomia": 247587,
+                                                "potencia": 170,
+                                                "estado": "Nuevo",
+                                                "numPuertas": 5,
+                                                "disponible": true,
+                                                "precioBase": 275.0
+                                            }
                                             """
                             )}
                     )}),

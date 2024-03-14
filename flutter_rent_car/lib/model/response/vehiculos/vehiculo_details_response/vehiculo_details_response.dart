@@ -14,6 +14,7 @@ class VehiculoDetailsResponse {
   String? estado;
   int? numPuertas;
   bool? disponible;
+  double? precioBase;
 
   VehiculoDetailsResponse({
     this.id,
@@ -27,6 +28,7 @@ class VehiculoDetailsResponse {
     this.estado,
     this.numPuertas,
     this.disponible,
+    this.precioBase
   });
 
   factory VehiculoDetailsResponse.fromVehiculoDetails(
@@ -45,6 +47,7 @@ class VehiculoDetailsResponse {
       estado: data['estado'] as String?,
       numPuertas: data['numPuertas'] as int?,
       disponible: data['disponible'] as bool?,
+      precioBase: data['precioBase'] as double?
     );
   }
 
@@ -60,6 +63,7 @@ class VehiculoDetailsResponse {
         'estado': estado,
         'numPuertas': numPuertas,
         'disponible': disponible,
+        'precioBase': precioBase
       };
 
   /// `dart:convert`
