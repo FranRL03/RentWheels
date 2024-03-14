@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rent_car/bloc/alquiler/alquiler_bloc.dart';
+import 'package:flutter_rent_car/bloc/vehiculo/vehiculo_bloc.dart';
 import 'package:flutter_rent_car/model/response/vehiculos/vehiculo_details_response/vehiculo_details_response.dart';
+import 'package:flutter_rent_car/repositories/alquiler/alquiler_repository.dart';
+import 'package:flutter_rent_car/repositories/alquiler/alquiler_repository_impl.dart';
 import 'package:flutter_rent_car/repositories/vehiculos/vehiculos_repository.dart';
 import 'package:flutter_rent_car/repositories/vehiculos/vehiculos_repository_impl.dart';
+import 'package:flutter_rent_car/screen/page/home_page.dart';
 import 'package:flutter_rent_car/variables.dart';
 import 'package:intl/intl.dart';
 
@@ -17,19 +23,26 @@ class _FormAlquilerState extends State<FormAlquiler> {
   late double _precio = 0.0;
 
   final _formAlquiler = GlobalKey<FormState>();
+
+  late TextEditingController kilomettrosTextController = TextEditingController();
   late TextEditingController dateEndTextController = TextEditingController();
   late TextEditingController dateStartTextController = TextEditingController();
   late TextEditingController precioTextController = TextEditingController();
   final DateFormat formatter = DateFormat('dd-MM-yyyy');
 
   var _currentSelectedDate = DateTime.now();
+  var _selecteEnd = DateTime.now();
 
+  late AlquilerBloc _alquilerBloc;
+  late AlquilerRepository alquilerRepository;
   late VehiculoDetailsResponse vehiculoDetailsResponse;
   late VehiculoRepository vehiculoRepository;
 
   @override
   void initState() {
     super.initState();
+    alquilerRepository = AlquilerRepositoryImpl();
+    _alquilerBloc = AlquilerBloc(alquilerRepository);
     vehiculoRepository = VehiculoRepositoryImpl();
     _loadPrecioBase();
   }
@@ -47,17 +60,59 @@ class _FormAlquilerState extends State<FormAlquiler> {
     }
   }
 
-  void callDatePicker() async {
-    var selectedDate = await getDatePickedWidget();
+  void callDatePickerStart() async {
+  var selectedDate = await getDatePickedWidget();
+  if (selectedDate != null) {
     setState(() {
-      _currentSelectedDate = selectedDate!;
-      dateEndTextController.text = formatter.format(selectedDate);
+      _currentSelectedDate = selectedDate;
       dateStartTextController.text = formatter.format(selectedDate);
     });
   }
+}
+
+void callDatePickerEnd() async {
+  var selectedDate = await getDatePickedEnd();
+  if (selectedDate != null) {
+    setState(() {
+      _selecteEnd = selectedDate;
+      dateEndTextController.text = formatter.format(selectedDate);
+    });
+  }
+}
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider.value(
+      value: _alquilerBloc,
+      child: BlocConsumer<AlquilerBloc, AlquilerState>(
+        buildWhen: (context, state) {
+          return state is AlquilerInitial ||
+                state is! DoAlquilerSuccess ||
+                state is GetAlquilerClienteError ||
+                state is DoAlquilerLoading;
+        },
+        builder: (context, state){
+          if (state is GetAlquilerClienteError) {
+            return const Text('Alquiler Error');
+          } else if (state is DoAlquilerLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return _buildAlquiler();
+        }, 
+        listener: 
+        (BuildContext context, AlquilerState state) {
+            if (state is DoAlquilerSuccess) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const HomePage()),
+              );
+            }
+          },
+        ),
+      );
+  }
+
+  _buildAlquiler() {
     return Form(
       key: _formAlquiler,
       child: Column(
@@ -72,7 +127,7 @@ class _FormAlquilerState extends State<FormAlquiler> {
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: TextFormField(
                 controller: dateStartTextController,
-                onTap: callDatePicker,
+                onTap: callDatePickerStart,
                 decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.calendar_month_outlined),
                     filled: true,
@@ -99,6 +154,7 @@ class _FormAlquilerState extends State<FormAlquiler> {
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: TextFormField(
                 controller: dateEndTextController,
+                onTap: callDatePickerEnd,
                 decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.calendar_month_outlined),
                     filled: true,
@@ -129,6 +185,7 @@ class _FormAlquilerState extends State<FormAlquiler> {
                         _precio = (vehiculoDetailsResponse.precioBase! + 0.0);
                         precioTextController.text =
                             '$_precio'; // Cambiar precio // Cambiar tipo de precio
+                        kilomettrosTextController.text = '10000';
                       });
                     },
                     child: const Text('10000 Km/Año'),
@@ -139,6 +196,7 @@ class _FormAlquilerState extends State<FormAlquiler> {
                         _precio = (vehiculoDetailsResponse.precioBase! + 100.0);
                         precioTextController.text =
                             '$_precio'; // Cambiar precio // Cambiar tipo de precio
+                        kilomettrosTextController.text = '20000';
                       });
                     },
                     child: const Text('20000 Km/Año'),
@@ -153,6 +211,7 @@ class _FormAlquilerState extends State<FormAlquiler> {
                   setState(() {
                     _precio = (vehiculoDetailsResponse.precioBase! + 150.0);
                     precioTextController.text = '$_precio'; // Cambiar precio
+                    kilomettrosTextController.text = '30000';
                   });
                 },
                 child: const Text('30000 Km/Año'),
@@ -186,7 +245,14 @@ class _FormAlquilerState extends State<FormAlquiler> {
             Padding(
               padding: const EdgeInsets.only(top: 30, left: 100),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (_formAlquiler.currentState!.validate()) {
+                    kilomettrosTextController.text;
+                    dateEndTextController.text;
+                    dateStartTextController.text;
+                    precioTextController.text;
+                  }
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.colorPrincipal,
                   padding: const EdgeInsets.symmetric(
@@ -215,6 +281,17 @@ class _FormAlquilerState extends State<FormAlquiler> {
     return showDatePicker(
         context: context,
         initialDate: _currentSelectedDate,
+        firstDate: DateTime(2017),
+        lastDate: DateTime(2025),
+        builder: (context, child) {
+          return Theme(data: ThemeData.dark(), child: child!);
+        });
+  }
+
+   Future<DateTime?> getDatePickedEnd() {
+    return showDatePicker(
+        context: context,
+        initialDate: _selecteEnd,
         firstDate: DateTime(2017),
         lastDate: DateTime(2025),
         builder: (context, child) {

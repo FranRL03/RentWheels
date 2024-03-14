@@ -18,8 +18,7 @@ class VehiculoRepositoryImpl extends VehiculoRepository {
     final token = await getToken();
 
     final response =
-        await _htppClient.get(
-          Uri.parse('$urlMovil/vehiculos/menu'),
+        await _htppClient.get(Uri.parse('$urlMovil/vehiculos/menu'),
             // Uri.parse('$urlChrome/vehiculos/menu'),
             headers: <String, String>{
           'Content-Type': 'Content-type: application/json',
@@ -39,8 +38,7 @@ class VehiculoRepositoryImpl extends VehiculoRepository {
     final token = await getToken();
 
     final response = await _htppClient
-        .get(
-          Uri.parse('$urlMovil/modelo/vehiculo/$nombreModelo'),
+        .get(Uri.parse('$urlMovil/modelo/vehiculo/$nombreModelo'),
             // Uri.parse('$urlChrome/modelo/vehiculo/$nombreModelo'),
             headers: <String, String>{
           'Content-Type': 'Content-type: application/json',
@@ -58,14 +56,15 @@ class VehiculoRepositoryImpl extends VehiculoRepository {
   Future<VehiculoDetailsResponse> vehiculoDetails(String uuid) async {
     final token = await getToken();
 
-    final response = await _htppClient.get(Uri.parse('$urlMovil/vehiculos/$uuid'),
+    final response =
+        await _htppClient.get(Uri.parse('$urlMovil/vehiculos/$uuid'),
             // Uri.parse('$urlChrome/modelo/vehiculo/$nombreModelo'),
             headers: <String, String>{
           'Content-Type': 'Content-type: application/json',
           'Authorization': 'Bearer $token',
         });
 
-    if(response.statusCode == 200) {
+    if (response.statusCode == 200) {
       return VehiculoDetailsResponse.fromJson(response.body);
     } else {
       throw Exception('Failed to get details');

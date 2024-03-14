@@ -16,39 +16,38 @@ class VehiculoDetailsResponse {
   bool? disponible;
   double? precioBase;
 
-  VehiculoDetailsResponse({
-    this.id,
-    this.combustion,
-    this.modelo,
-    this.imagen,
-    this.transmision,
-    this.capacidadPasajeros,
-    this.autonomia,
-    this.potencia,
-    this.estado,
-    this.numPuertas,
-    this.disponible,
-    this.precioBase
-  });
+  VehiculoDetailsResponse(
+      {this.id,
+      this.combustion,
+      this.modelo,
+      this.imagen,
+      this.transmision,
+      this.capacidadPasajeros,
+      this.autonomia,
+      this.potencia,
+      this.estado,
+      this.numPuertas,
+      this.disponible,
+      this.precioBase});
 
   factory VehiculoDetailsResponse.fromVehiculoDetails(
       Map<String, dynamic> data) {
     return VehiculoDetailsResponse(
-      id: data['id'] as String?,
-      combustion: data['combustion'] as String?,
-      modelo: data['modelo'] == null
-          ? null
-          : Modelo.fromVehiculoDetails(data['modelo'] as Map<String, dynamic>),
-      imagen: data['imagen'] as String?,
-      transmision: data['transmision'] as String?,
-      capacidadPasajeros: data['capacidadPasajeros'] as int?,
-      autonomia: data['autonomia'] as int?,
-      potencia: data['potencia'] as int?,
-      estado: data['estado'] as String?,
-      numPuertas: data['numPuertas'] as int?,
-      disponible: data['disponible'] as bool?,
-      precioBase: data['precioBase'] as double?
-    );
+        id: data['id'] as String?,
+        combustion: data['combustion'] as String?,
+        modelo: data['modelo'] == null
+            ? null
+            : Modelo.fromVehiculoDetails(
+                data['modelo'] as Map<String, dynamic>),
+        imagen: data['imagen'] as String?,
+        transmision: data['transmision'] as String?,
+        capacidadPasajeros: data['capacidadPasajeros'] as int?,
+        autonomia: data['autonomia'] as int?,
+        potencia: data['potencia'] as int?,
+        estado: data['estado'] as String?,
+        numPuertas: data['numPuertas'] as int?,
+        disponible: data['disponible'] as bool?,
+        precioBase: data['precioBase'] as double?);
   }
 
   Map<String, dynamic> toVehiculoDetails() => {

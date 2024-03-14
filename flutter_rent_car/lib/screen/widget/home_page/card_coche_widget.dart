@@ -12,12 +12,11 @@ class CardCocheWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String disponible = '';
-                    if (vehiculosResponse.content![index].disponible ==
-                        true) {
-                      disponible = 'Disponible';
-                    } else {
-                      disponible = 'No disponible';
-                    }
+    if (vehiculosResponse.content![index].disponible == true) {
+      disponible = 'Disponible';
+    } else {
+      disponible = 'No disponible';
+    }
     return SizedBox(
         width: 160,
         height: 250,
@@ -60,12 +59,10 @@ class CardCocheWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 10),
                 child: Row(
                   children: [
-                    Text(
-                        '${vehiculosResponse.content![index].transmision} | ',
+                    Text('${vehiculosResponse.content![index].transmision} | ',
                         style: const TextStyle(
                             color: Color.fromARGB(255, 100, 99, 99))),
-                    Text(
-                        '${vehiculosResponse.content![index].combustion} | ',
+                    Text('${vehiculosResponse.content![index].combustion} | ',
                         style: const TextStyle(
                             color: Color.fromARGB(255, 100, 99, 99))),
                     Text(disponible,
@@ -82,8 +79,7 @@ class CardCocheWidget extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => VehiculoAlquilarPage(
-                              uuid:
-                                  vehiculosResponse.content![index].id!)),
+                              uuid: vehiculosResponse.content![index].id!)),
                     );
                   },
                   style: ElevatedButton.styleFrom(

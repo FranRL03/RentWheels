@@ -120,7 +120,6 @@ class _HomePageState extends State<HomePage> {
               return const Center(child: CircularProgressIndicator());
             },
           ),
-
           Expanded(flex: 1, child: modelosDeCoches()),
           Expanded(flex: 4, child: listDeCoches()),
         ],
@@ -138,15 +137,18 @@ class _HomePageState extends State<HomePage> {
         );
       } else if (state is GetModelosSuccess) {
         return Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: SizedBox(
+            padding: const EdgeInsets.only(top: 20),
+            child: SizedBox(
                 width: double.infinity,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: state.modeloResponse.content!.length,
                     itemBuilder: (context, index) {
                       final modelo = state.modeloResponse;
-                      return CardModeloWidget(modeloResponse: modelo, index: index, vehiculoBloc: vehiculoBloc);
+                      return CardModeloWidget(
+                          modeloResponse: modelo,
+                          index: index,
+                          vehiculoBloc: vehiculoBloc);
                     })));
       }
       return const Center(child: CircularProgressIndicator());

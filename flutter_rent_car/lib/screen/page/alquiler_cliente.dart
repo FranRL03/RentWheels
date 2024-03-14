@@ -41,7 +41,8 @@ class _ListAlquilerClienteState extends State<ListAlquilerCliente> {
                     itemCount: state.alquilerClientesResponse.content!.length,
                     itemBuilder: (context, index) {
                       final alquileres = state.alquilerClientesResponse;
-                      return CardAlquileresWidget(alquilerClientesResponse: alquileres, index: index);
+                      return CardAlquileresWidget(
+                          alquilerClientesResponse: alquileres, index: index);
                     }),
               );
             }
