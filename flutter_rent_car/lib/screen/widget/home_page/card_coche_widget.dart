@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rent_car/model/response/vehiculos/list_vehiculos_response/list_vehiculos_response.dart';
-import 'package:flutter_rent_car/screen/page/vehiculo_details.dart';
+import 'package:flutter_rent_car/screen/page/vehiculo_alquilar.dart';
 import 'package:flutter_rent_car/variables.dart';
 
 class CardCocheWidget extends StatelessWidget {
@@ -81,7 +81,7 @@ class CardCocheWidget extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => VehiculoDetailsPage(
+                          builder: (context) => VehiculoAlquilarPage(
                               uuid:
                                   vehiculosResponse.content![index].id!)),
                     );
