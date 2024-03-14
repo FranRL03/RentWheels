@@ -17,8 +17,8 @@ class ModeloRepositorioImpl extends ModeloRepository {
     final token = await getToken();
 
     final response = await _htppClient.get(
-      // Uri.parse('$urlMovil/modelo'),
-        Uri.parse('$urlChrome/modelo'),
+      Uri.parse('$urlMovil/modelo'),
+        // Uri.parse('$urlChrome/modelo'),
         headers: <String, String>{
           'Content-Type': 'Content-type: application/json',
           'Authorization': 'Bearer $token',
