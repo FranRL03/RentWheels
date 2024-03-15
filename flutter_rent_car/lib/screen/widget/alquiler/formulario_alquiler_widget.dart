@@ -29,7 +29,7 @@ class _FormAlquilerState extends State<FormAlquiler> {
   late TextEditingController dateEndTextController = TextEditingController();
   late TextEditingController dateStartTextController = TextEditingController();
   late TextEditingController precioTextController = TextEditingController();
-  final DateFormat formatter = DateFormat('dd-MM-yyyy');
+  final DateFormat formatter = DateFormat('yyyy-MM-dd');
 
   var _currentSelectedDate = DateTime.now();
   var _selecteEnd = DateTime.now();
@@ -88,7 +88,7 @@ class _FormAlquilerState extends State<FormAlquiler> {
       child: BlocConsumer<AlquilerBloc, AlquilerState>(
         buildWhen: (context, state) {
           return state is AlquilerInitial ||
-              state is DoAlquilerSuccess ||
+              state is! DoAlquilerSuccess ||
               state is DoAlquilerError ||
               state is DoAlquilerLoading;
         },
@@ -99,6 +99,9 @@ class _FormAlquilerState extends State<FormAlquiler> {
             return const Center(child: CircularProgressIndicator());
           }
           return _buildAlquiler();
+        },
+        listenWhen: (context, state) {
+          return state is DoAlquilerSuccess;
         },
         listener: (BuildContext context, AlquilerState state) {
           if (state is DoAlquilerSuccess) {

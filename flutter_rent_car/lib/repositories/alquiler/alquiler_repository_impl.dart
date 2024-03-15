@@ -44,7 +44,7 @@ class AlquilerRepositoryImpl extends AlquilerRepository {
         await _httpClient.post(Uri.parse('$urlMovil/alquilar/$uuid'),
             // Uri.parse('$urlChrome/alquilar/$uuid'),
             headers: <String, String>{
-              'Content-Type': 'Content-type: application/json',
+              'Content-Type': 'application/json',
               'Authorization': 'Bearer $token',
             },
             body: jsonEncode(alquilerDto.toJson()));

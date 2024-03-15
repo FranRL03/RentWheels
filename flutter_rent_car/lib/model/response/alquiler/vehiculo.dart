@@ -14,7 +14,7 @@ class Vehiculo {
   String? estado;
   int? numPuertas;
   bool? disponible;
-  int? precioBase;
+  double? precioBase;
 
   Vehiculo({
     this.id,
@@ -46,7 +46,7 @@ class Vehiculo {
       estado: data['estado'] as String?,
       numPuertas: data['numPuertas'] as int?,
       disponible: data['disponible'] as bool?,
-      precioBase: data['precioBase'] as int?,
+      precioBase: data['precioBase'] as double?,
     );
   }
 
