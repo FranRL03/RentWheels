@@ -25,3 +25,8 @@ final class DoAlquilerSuccess extends AlquilerState {
   final AlquilerResponse alquilerResponse;
   DoAlquilerSuccess(this.alquilerResponse);
 }
+
+final class DoAlquilerError extends AlquilerState {
+  final String errorMessage;
+  DoAlquilerError(this.errorMessage);
+}

@@ -27,16 +27,16 @@ class AlquilerBloc extends Bloc<AlquilerEvent, AlquilerState> {
     }
   }
 
-  void _doAlquiler(DoAlquilerEvent event, Emitter<AlquilerState> emit) async{
+  void _doAlquiler(DoAlquilerEvent event, Emitter<AlquilerState> emit) async {
     emit(DoAlquilerLoading());
-    try{
+    try {
       final AlquilerDto alquilerDto = AlquilerDto(
-        kilometrosPorAno: event.kilometrosPorAno,
-        fechaInicio: event.fechaInicio,
-        fechaFin: event.fechaFin,
-        precio: event.precio
-      );
-      final response = await alquilerRepository.alquiler(alquilerDto, event.uuid);
+          kilometrosPorAno: event.kilometrosPorAno,
+          fechaInicio: event.fechaInicio,
+          fechaFin: event.fechaFin,
+          precio: event.precio);
+      final response =
+          await alquilerRepository.alquiler(alquilerDto, event.uuid);
       emit(DoAlquilerSuccess(response));
     } on Exception catch (e) {
       emit(GetAlquilerClienteError(e.toString()));

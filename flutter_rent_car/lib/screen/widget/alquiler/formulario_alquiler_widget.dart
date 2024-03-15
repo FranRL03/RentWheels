@@ -24,7 +24,8 @@ class _FormAlquilerState extends State<FormAlquiler> {
 
   final _formAlquiler = GlobalKey<FormState>();
 
-  late TextEditingController kilomettrosTextController = TextEditingController();
+  late TextEditingController kilomettrosTextController =
+      TextEditingController(text: '10000');
   late TextEditingController dateEndTextController = TextEditingController();
   late TextEditingController dateStartTextController = TextEditingController();
   late TextEditingController precioTextController = TextEditingController();
@@ -61,24 +62,24 @@ class _FormAlquilerState extends State<FormAlquiler> {
   }
 
   void callDatePickerStart() async {
-  var selectedDate = await getDatePickedWidget();
-  if (selectedDate != null) {
-    setState(() {
-      _currentSelectedDate = selectedDate;
-      dateStartTextController.text = formatter.format(selectedDate);
-    });
+    var selectedDate = await getDatePickedWidget();
+    if (selectedDate != null) {
+      setState(() {
+        _currentSelectedDate = selectedDate;
+        dateStartTextController.text = formatter.format(selectedDate);
+      });
+    }
   }
-}
 
-void callDatePickerEnd() async {
-  var selectedDate = await getDatePickedEnd();
-  if (selectedDate != null) {
-    setState(() {
-      _selecteEnd = selectedDate;
-      dateEndTextController.text = formatter.format(selectedDate);
-    });
+  void callDatePickerEnd() async {
+    var selectedDate = await getDatePickedEnd();
+    if (selectedDate != null) {
+      setState(() {
+        _selecteEnd = selectedDate;
+        dateEndTextController.text = formatter.format(selectedDate);
+      });
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -87,29 +88,28 @@ void callDatePickerEnd() async {
       child: BlocConsumer<AlquilerBloc, AlquilerState>(
         buildWhen: (context, state) {
           return state is AlquilerInitial ||
-                state is! DoAlquilerSuccess ||
-                state is GetAlquilerClienteError ||
-                state is DoAlquilerLoading;
+              state is DoAlquilerSuccess ||
+              state is DoAlquilerError ||
+              state is DoAlquilerLoading;
         },
-        builder: (context, state){
-          if (state is GetAlquilerClienteError) {
+        builder: (context, state) {
+          if (state is DoAlquilerError) {
             return const Text('Alquiler Error');
           } else if (state is DoAlquilerLoading) {
             return const Center(child: CircularProgressIndicator());
           }
           return _buildAlquiler();
-        }, 
-        listener: 
-        (BuildContext context, AlquilerState state) {
-            if (state is DoAlquilerSuccess) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HomePage()),
-              );
-            }
-          },
-        ),
-      );
+        },
+        listener: (BuildContext context, AlquilerState state) {
+          if (state is DoAlquilerSuccess) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HomePage()),
+            );
+          }
+        },
+      ),
+    );
   }
 
   _buildAlquiler() {
@@ -183,8 +183,7 @@ void callDatePickerEnd() async {
                     onPressed: () {
                       setState(() {
                         _precio = (vehiculoDetailsResponse.precioBase! + 0.0);
-                        precioTextController.text =
-                            '$_precio'; // Cambiar precio // Cambiar tipo de precio
+                        precioTextController.text = '$_precio';
                         kilomettrosTextController.text = '10000';
                       });
                     },
@@ -194,14 +193,12 @@ void callDatePickerEnd() async {
                     onPressed: () {
                       setState(() {
                         _precio = (vehiculoDetailsResponse.precioBase! + 100.0);
-                        precioTextController.text =
-                            '$_precio'; // Cambiar precio // Cambiar tipo de precio
+                        precioTextController.text = '$_precio';
                         kilomettrosTextController.text = '20000';
                       });
                     },
                     child: const Text('20000 Km/Año'),
                   ),
-                  // Aquí puedes agregar los demás campos de tu formulario
                 ],
               ),
             ),
@@ -210,7 +207,7 @@ void callDatePickerEnd() async {
                 onPressed: () {
                   setState(() {
                     _precio = (vehiculoDetailsResponse.precioBase! + 150.0);
-                    precioTextController.text = '$_precio'; // Cambiar precio
+                    precioTextController.text = '$_precio';
                     kilomettrosTextController.text = '30000';
                   });
                 },
@@ -243,14 +240,41 @@ void callDatePickerEnd() async {
               ),
             ),
             Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+              child: TextFormField(
+                controller: kilomettrosTextController,
+                enabled: false,
+                decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.car_crash_outlined),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    labelText: 'Kilometros/Año',
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color.fromRGBO(28, 38, 73, 1), width: 2),
+                        borderRadius: BorderRadius.circular(10))),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some date';
+                  }
+                  return null;
+                },
+              ),
+            ),
+            Padding(
               padding: const EdgeInsets.only(top: 30, left: 100),
               child: ElevatedButton(
                 onPressed: () {
                   if (_formAlquiler.currentState!.validate()) {
-                    kilomettrosTextController.text;
-                    dateEndTextController.text;
-                    dateStartTextController.text;
-                    precioTextController.text;
+                    _alquilerBloc.add(DoAlquilerEvent(
+                        kilomettrosTextController.text,
+                        dateStartTextController.text,
+                        dateEndTextController.text,
+                        precioTextController.text,
+                        widget.uuid));
                   }
                 },
                 style: ElevatedButton.styleFrom(
@@ -288,7 +312,7 @@ void callDatePickerEnd() async {
         });
   }
 
-   Future<DateTime?> getDatePickedEnd() {
+  Future<DateTime?> getDatePickedEnd() {
     return showDatePicker(
         context: context,
         initialDate: _selecteEnd,

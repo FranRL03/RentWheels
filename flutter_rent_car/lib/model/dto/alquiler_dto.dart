@@ -4,13 +4,8 @@ class AlquilerDto {
   String? fechaFin;
   String? precio;
 
-
   AlquilerDto(
-      {this.kilometrosPorAno,
-      this.fechaInicio,
-      this.fechaFin,
-      this.precio
-});
+      {this.kilometrosPorAno, this.fechaInicio, this.fechaFin, this.precio});
 
   AlquilerDto.fromJson(Map<String, dynamic> json) {
     kilometrosPorAno = json['kilometrosPorAno'];

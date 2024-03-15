@@ -11,8 +11,8 @@ class DoAlquilerEvent extends AlquilerEvent {
   final String kilometrosPorAno;
   final String fechaInicio;
   final String fechaFin;
-  final String uuid;
   final String precio;
-  DoAlquilerEvent(this.kilometrosPorAno, this.fechaInicio, this.fechaFin, this.uuid, this.precio);
-
+  final String uuid;
+  DoAlquilerEvent(this.kilometrosPorAno, this.fechaInicio, this.fechaFin,
+      this.precio, this.uuid);
 }

@@ -44,12 +44,12 @@ class AlquilerRepositoryImpl extends AlquilerRepository {
         await _httpClient.post(Uri.parse('$urlMovil/alquilar/$uuid'),
             // Uri.parse('$urlChrome/alquilar/$uuid'),
             headers: <String, String>{
-          'Content-Type': 'Content-type: application/json',
-          'Authorization': 'Bearer $token',
-        },
-        body: jsonEncode(alquilerDto.toJson()));
+              'Content-Type': 'Content-type: application/json',
+              'Authorization': 'Bearer $token',
+            },
+            body: jsonEncode(alquilerDto.toJson()));
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       return AlquilerResponse.fromJson(response.body);
     } else {
       throw Exception('Failed to do alquiler');
