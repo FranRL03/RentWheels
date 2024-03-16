@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rent_car/bloc/alquiler/alquiler_bloc.dart';
-import 'package:flutter_rent_car/bloc/vehiculo/vehiculo_bloc.dart';
 import 'package:flutter_rent_car/model/response/vehiculos/vehiculo_details_response/vehiculo_details_response.dart';
 import 'package:flutter_rent_car/repositories/alquiler/alquiler_repository.dart';
 import 'package:flutter_rent_car/repositories/alquiler/alquiler_repository_impl.dart';
@@ -38,6 +37,9 @@ class _FormAlquilerState extends State<FormAlquiler> {
   late AlquilerRepository alquilerRepository;
   late VehiculoDetailsResponse vehiculoDetailsResponse;
   late VehiculoRepository vehiculoRepository;
+
+  List lista = ['10000', '20000', '30000'];
+   String dropdownValue = '10000';
 
   @override
   void initState() {
@@ -177,51 +179,62 @@ class _FormAlquilerState extends State<FormAlquiler> {
                 },
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _precio = (vehiculoDetailsResponse.precioBase! + 0.0);
-                        precioTextController.text = '$_precio';
-                        kilomettrosTextController.text = '10000';
-                      });
-                    },
-                    child: const Text('10000 Km/Año'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _precio = (vehiculoDetailsResponse.precioBase! + 100.0);
-                        precioTextController.text = '$_precio';
-                        kilomettrosTextController.text = '20000';
-                      });
-                    },
-                    child: const Text('20000 Km/Año'),
-                  ),
-                ],
-              ),
-            ),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _precio = (vehiculoDetailsResponse.precioBase! + 150.0);
-                    precioTextController.text = '$_precio';
-                    kilomettrosTextController.text = '30000';
-                  });
-                },
-                child: const Text('30000 Km/Año'),
-              ),
-            ),
+            // DropdownButtonFormField(
+            //   items: lista.map((e){
+            //     return DropdownMenuItem(value: e,child: Text(e),);
+            //   }).toList(),
+            //   onChanged: (value) {
+            //     if (value == '10000') {
+            //       setState(() {
+            //             _precio = (vehiculoDetailsResponse.precioBase! + 0.0);
+            //             precioTextController.text = '$_precio';
+            //             kilomettrosTextController.text = '10000';
+            //           });
+            //     } else if (value == '20000') {
+            //       setState(() {
+            //             _precio = (vehiculoDetailsResponse.precioBase! + 100.0);
+            //             precioTextController.text = '$_precio';
+            //             kilomettrosTextController.text = '20000';
+            //           });
+            //     } else {
+            //       setState(() {
+            //             _precio = (vehiculoDetailsResponse.precioBase! + 150.0);
+            //             precioTextController.text = '$_precio';
+            //             kilomettrosTextController.text = '30000';
+            //           });
+            //     }
+            //   }),
+            // DropdownButtonFormField(
+            //   value: dropdownValue,
+            //   items: lista.map((e) {
+            //     return DropdownMenuItem(
+            //       value: e,
+            //       child: Text(e),
+            //     );
+            //   }).toList(),
+            //   onChanged: (value) {
+            //     setState(() {
+            //       dropdownValue = value.toString();
+            //       if (dropdownValue == '10000') {
+            //         _precio = (vehiculoDetailsResponse.precioBase! + 0.0);
+            //         kilomettrosTextController.text = '10000';
+            //       } else if (dropdownValue == '20000') {
+            //         _precio = (vehiculoDetailsResponse.precioBase! + 100.0);
+            //         kilomettrosTextController.text = '20000';
+            //       } else {
+            //         _precio = (vehiculoDetailsResponse.precioBase! + 150.0);
+            //         kilomettrosTextController.text = '30000';
+            //       }
+            //       precioTextController.text = _precio.toString();
+            //     });
+            //   },
+            // ),
+
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
               child: TextFormField(
                 controller: precioTextController,
-                enabled: false,
+                // enabled: false,
                 decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.euro),
                     filled: true,
@@ -246,7 +259,7 @@ class _FormAlquilerState extends State<FormAlquiler> {
               padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
               child: TextFormField(
                 controller: kilomettrosTextController,
-                enabled: false,
+                // enabled: false,
                 decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.car_crash_outlined),
                     filled: true,
