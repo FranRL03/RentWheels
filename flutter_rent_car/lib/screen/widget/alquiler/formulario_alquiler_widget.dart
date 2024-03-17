@@ -273,6 +273,7 @@ class _FormAlquilerState extends State<FormAlquiler> {
                             color: Color.fromRGBO(28, 38, 73, 1), width: 2),
                         borderRadius: BorderRadius.circular(10))),
                 validator: (value) {
+                  // ignore: unrelated_type_equality_checks
                   if (value == null || value.isEmpty) {
                     return 'Please enter some date';
                   }
@@ -286,10 +287,10 @@ class _FormAlquilerState extends State<FormAlquiler> {
                 onPressed: () {
                   if (_formAlquiler.currentState!.validate()) {
                     _alquilerBloc.add(DoAlquilerEvent(
-                        kilomettrosTextController.text,
+                       int.parse(kilomettrosTextController.text),
                         dateStartTextController.text,
                         dateEndTextController.text,
-                        precioTextController.text,
+                        double.parse(precioTextController.text),
                         widget.uuid));
                   }
                 },

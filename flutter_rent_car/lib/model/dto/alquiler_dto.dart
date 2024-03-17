@@ -1,8 +1,8 @@
 class AlquilerDto {
-  String? kilometrosPorAno;
+  int? kilometrosPorAno;
   String? fechaInicio;
   String? fechaFin;
-  String? precio;
+  double? precio;
 
   AlquilerDto(
       {this.kilometrosPorAno, this.fechaInicio, this.fechaFin, this.precio});
