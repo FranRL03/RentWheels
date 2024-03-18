@@ -15,12 +15,13 @@ class ListAlquilerCliente extends StatefulWidget {
 class _ListAlquilerClienteState extends State<ListAlquilerCliente> {
   late AlquilerRepository alquilerRepository;
   late AlquilerBloc _alquilerClienteBloc;
+  bool statusAlquiler = false;
 
   @override
   void initState() {
     alquilerRepository = AlquilerRepositoryImpl();
     _alquilerClienteBloc = AlquilerBloc(alquilerRepository)
-      ..add(GetAlquilerClienteEvent());
+      ..add(GetAlquilerClienteEvent(false));
 
     super.initState();
   }
@@ -30,7 +31,16 @@ class _ListAlquilerClienteState extends State<ListAlquilerCliente> {
     return BlocProvider.value(
       value: _alquilerClienteBloc,
       child: Scaffold(
-        appBar: AppBar(title: const Text('Mis Alquileres')),
+        appBar: AppBar(
+          title: const Text('Mis Alquileres'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                _showBottomSheet(context);
+              }, 
+              icon: const Icon(Icons.format_list_bulleted_rounded))
+          ],
+          ),
         body: BlocBuilder<AlquilerBloc, AlquilerState>(
           builder: (context, state) {
             if (state is GetAlquilerClienteError) {
@@ -50,6 +60,51 @@ class _ListAlquilerClienteState extends State<ListAlquilerCliente> {
           },
         ),
       ),
+    );
+  }
+
+  void _showBottomSheet(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return SizedBox(
+          height: 200,
+          child: Center(
+            child: ListView(
+              children: [
+                ListTile(
+                  title: const Row(
+                    children: [
+                      Text('Alquileres expirados'),
+                    ],
+                  ),
+                  onTap: () {
+                    _alquilerClienteBloc.add(GetAlquilerClienteEvent(false));
+                    setState(() {
+                      statusAlquiler = false;
+                    });
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  title: const Row(
+                    children: [
+                      Text('Alquileres activos'),
+                    ],
+                  ),
+                  onTap: () {
+                    _alquilerClienteBloc.add(GetAlquilerClienteEvent(true));
+                    setState(() {
+                      statusAlquiler = true;
+                    });
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

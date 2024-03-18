@@ -4,7 +4,8 @@ part of 'alquiler_bloc.dart';
 sealed class AlquilerEvent {}
 
 class GetAlquilerClienteEvent extends AlquilerEvent {
-  GetAlquilerClienteEvent();
+  bool statusAlquiler;
+  GetAlquilerClienteEvent(this.statusAlquiler);
 }
 
 class DoAlquilerEvent extends AlquilerEvent {
