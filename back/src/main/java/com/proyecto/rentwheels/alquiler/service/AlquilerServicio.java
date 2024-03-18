@@ -30,6 +30,10 @@ public class AlquilerServicio {
         return alquilerRepository.getAllAlquileresCliente(pageable, id);
     }
 
+    public Page<GetAlquileresCliente> getAlquileresRentCliente (Pageable pageable, UUID id, boolean statusRent){
+        return alquilerRepository.getAlquileresActivosCliente(pageable, id, statusRent);
+    }
+
     public Alquiler createAlquiler (String idVehiculo, Cliente c, CreateAlquilerDto create) {
 
         Optional<Vehiculo> disponible = vehiculoRepository.findById(UUID.fromString(idVehiculo));

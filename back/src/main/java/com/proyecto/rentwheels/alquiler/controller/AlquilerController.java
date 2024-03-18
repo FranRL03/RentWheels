@@ -70,6 +70,11 @@ public class AlquilerController {
         return alquilerServicio.getAlquileresCliente(pageable, c.getId());
     }
 
+    @GetMapping("/cliente/alquiler/{statusRent}")
+    public Page<GetAlquileresCliente> getAlquileresRentClientes(@PageableDefault(page=0, size =10) Pageable pageable, @AuthenticationPrincipal Cliente c, @PathVariable boolean statusRent){
+        return alquilerServicio.getAlquileresRentCliente(pageable, c.getId(), statusRent);
+    }
+
     @PostMapping("/alquilar/{idVehiculo}")
     public ResponseEntity<GetAlquileresCliente> createAlquiler (@AuthenticationPrincipal Cliente c, @RequestBody CreateAlquilerDto create, @PathVariable String idVehiculo){
 
