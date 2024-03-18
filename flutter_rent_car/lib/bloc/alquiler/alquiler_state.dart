@@ -16,3 +16,17 @@ final class GetAlquilerClienteError extends AlquilerState {
   final String errorMessage;
   GetAlquilerClienteError(this.errorMessage);
 }
+
+final class AlquilerInitial extends AlquilerState {}
+
+final class DoAlquilerLoading extends AlquilerState {}
+
+final class DoAlquilerSuccess extends AlquilerState {
+  final AlquilerResponse alquilerResponse;
+  DoAlquilerSuccess(this.alquilerResponse);
+}
+
+final class DoAlquilerError extends AlquilerState {
+  final String errorMessage;
+  DoAlquilerError(this.errorMessage);
+}

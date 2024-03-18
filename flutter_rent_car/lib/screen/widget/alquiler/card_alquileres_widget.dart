@@ -2,16 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rent_car/model/response/user/alquiler_cliente/alquiler_clientes.dart';
 import 'package:flutter_rent_car/variables.dart';
 
-class CardAlquileresWidget extends StatelessWidget {
+class CardAlquileresWidget extends StatefulWidget {
   final AlquilerClientesResponse alquilerClientesResponse;
   final int index;
   const CardAlquileresWidget(
       {super.key, required this.alquilerClientesResponse, required this.index});
 
+    @override
+  State<CardAlquileresWidget> createState() => _CardAlquileresWidgetState();
+}
+
+  class _CardAlquileresWidgetState extends State<CardAlquileresWidget> {
+
   @override
   Widget build(BuildContext context) {
     String alquilado = '';
-    if (alquilerClientesResponse.content![index].vehiculo?.disponible == true) {
+    if (widget.alquilerClientesResponse.content![widget.index].vehiculo?.disponible == true) {
       alquilado = 'Alquilado';
     } else {
       alquilado = 'Activo';
@@ -35,7 +41,7 @@ class CardAlquileresWidget extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 90, left: 10),
                     child: Text(
-                      '${alquilerClientesResponse.content![index].vehiculo!.modelo?.modelo}',
+                      '${widget.alquilerClientesResponse.content![widget.index].vehiculo!.modelo?.modelo}',
                       style: const TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
@@ -49,8 +55,8 @@ class CardAlquileresWidget extends StatelessWidget {
                       children: [
                         SizedBox(
                           width: 145,
-                          child: Image.network(alquilerClientesResponse
-                              .content![index].vehiculo!.imagen!),
+                          child: Image.network(widget.alquilerClientesResponse
+                              .content![widget.index].vehiculo!.imagen!),
                         ),
                       ],
                     ),
@@ -63,13 +69,13 @@ class CardAlquileresWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
-                        '${alquilerClientesResponse.content![index].precio} € ',
+                        '${widget.alquilerClientesResponse.content![widget.index].precio} € ',
                         style: TextStyle(
                             color: AppColors.colorPrincipal,
                             fontWeight: FontWeight.bold,
                             fontSize: 18)),
                     Text(
-                        '${alquilerClientesResponse.content![index].kilometrosPorAno} Km/año ',
+                        '${widget.alquilerClientesResponse.content![widget.index].kilometrosPorAno} Km/año ',
                         style: TextStyle(
                             color: AppColors.colorPrincipal,
                             fontWeight: FontWeight.bold,
@@ -104,8 +110,8 @@ class CardAlquileresWidget extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18)),
                           Text(
-                              alquilerClientesResponse
-                                  .content![index].fechaInicio!,
+                              widget.alquilerClientesResponse
+                                  .content![widget.index].fechaInicio!,
                               style: TextStyle(
                                   color: AppColors.colorPrincipal,
                                   fontWeight: FontWeight.bold,
@@ -120,8 +126,8 @@ class CardAlquileresWidget extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18)),
                           Text(
-                              alquilerClientesResponse
-                                  .content![index].fechaFin!,
+                              widget.alquilerClientesResponse
+                                  .content![widget.index].fechaFin!,
                               style: TextStyle(
                                   color: AppColors.colorPrincipal,
                                   fontWeight: FontWeight.bold,
@@ -133,5 +139,5 @@ class CardAlquileresWidget extends StatelessWidget {
             ],
           ),
         ));
-  }
-}
+  }}
+

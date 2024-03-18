@@ -47,6 +47,7 @@ class _EditPerfilPageState extends State<EditPerfilPage> {
         pinTextController.text = userDetails.pin ?? '';
       });
     } catch (e) {
+      // ignore: avoid_print
       print("Error cargando los datos del usuario: $e");
     }
   }

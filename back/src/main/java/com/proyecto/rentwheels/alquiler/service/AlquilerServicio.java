@@ -5,6 +5,7 @@ import com.proyecto.rentwheels.alquiler.dto.GetAlquileresCliente;
 import com.proyecto.rentwheels.alquiler.model.Alquiler;
 import com.proyecto.rentwheels.alquiler.repository.AlquilerRepository;
 import com.proyecto.rentwheels.usuario.model.Cliente;
+import com.proyecto.rentwheels.vehiculo.exception.VehiculoNoDisponibleException;
 import com.proyecto.rentwheels.vehiculo.exception.VehiculoNotFoundException;
 import com.proyecto.rentwheels.vehiculo.model.Vehiculo;
 import com.proyecto.rentwheels.vehiculo.repository.VehiculoRepository;
@@ -37,14 +38,17 @@ public class AlquilerServicio {
              Vehiculo v = disponible.get();
 
              if (v.isDisponible()) {
+                 if (create.fechaInicio().isAfter(create.fechaFin())) {
+                     throw new IllegalArgumentException("La fecha de inicio no puede ser posterior a la fecha fin");
+                 }
 
                  v.setDisponible(false);
                  vehiculoRepository.save(v);
 
                  Alquiler a = Alquiler.builder()
-                         .precio(precioPorKilometro(create))
+                         .precio(precioPorKilometro(v, create))
                          .kilometrosAnos(create.kilometrosAnos())
-                         .fechaInicio(LocalDate.now())
+                         .fechaInicio(create.fechaInicio())
                          .fechaFin(create.fechaFin())
                          .enAlquiler(true)
                          .vehiculo(v)
@@ -60,17 +64,16 @@ public class AlquilerServicio {
             throw new VehiculoNotFoundException(idVehiculo);
         }
 
-        return null;
+        throw new VehiculoNoDisponibleException();
     }
 
-    private double precioPorKilometro (CreateAlquilerDto a) {
+    private double precioPorKilometro (Vehiculo v, CreateAlquilerDto create) {
+        if (create.kilometrosAnos() <= 20000)
+            return v.getPrecioBase();
+        else if (create.kilometrosAnos() > 20000 && create.kilometrosAnos() <=30000)
+            return v.getPrecioBase() + 100;
 
-        if (a.kilometrosAnos() <= 20000)
-            return a.precio();
-        else if (a.kilometrosAnos() > 20000 && a.kilometrosAnos() <=30000)
-            return a.precio() + 100;
-
-        return a.precio() + 150;
+        return v.getPrecioBase() + 150;
     }
 
 }

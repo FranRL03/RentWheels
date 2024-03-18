@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter_rent_car/model/dto/alquiler_dto.dart';
+import 'package:flutter_rent_car/model/response/alquiler/alquiler_response.dart';
 import 'package:flutter_rent_car/model/response/user/alquiler_cliente/alquiler_clientes.dart';
 import 'package:flutter_rent_car/repositories/alquiler/alquiler_repository.dart';
 import 'package:meta/meta.dart';
@@ -11,6 +13,7 @@ class AlquilerBloc extends Bloc<AlquilerEvent, AlquilerState> {
 
   AlquilerBloc(this.alquilerRepository) : super(AlquilerClienteInitial()) {
     on<GetAlquilerClienteEvent>(_getAlquilerCliente);
+    on<DoAlquilerEvent>(_doAlquiler);
   }
 
   void _getAlquilerCliente(
@@ -19,6 +22,22 @@ class AlquilerBloc extends Bloc<AlquilerEvent, AlquilerState> {
     try {
       final listAlquiler = await alquilerRepository.alquilerCliente();
       emit(GetAlquilerClienteSuccess(listAlquiler));
+    } on Exception catch (e) {
+      emit(GetAlquilerClienteError(e.toString()));
+    }
+  }
+
+  void _doAlquiler(DoAlquilerEvent event, Emitter<AlquilerState> emit) async {
+    emit(DoAlquilerLoading());
+    try {
+      final AlquilerDto alquilerDto = AlquilerDto(
+          kilometrosPorAno: event.kilometrosPorAno,
+          fechaInicio: event.fechaInicio,
+          fechaFin: event.fechaFin,
+          precio: event.precio);
+      final response =
+          await alquilerRepository.alquiler(alquilerDto, event.uuid);
+      emit(DoAlquilerSuccess(response));
     } on Exception catch (e) {
       emit(GetAlquilerClienteError(e.toString()));
     }

@@ -39,10 +39,12 @@ class VehiculoBloc extends Bloc<VehiculoEvent, VehiculoState> {
     }
   }
 
-  void _getVehiculoDetails (GetVehiculoDetailsEvent event, Emitter<VehiculoState> emit) async {
+  void _getVehiculoDetails(
+      GetVehiculoDetailsEvent event, Emitter<VehiculoState> emit) async {
     emit(GetModelosVehiculosLoading());
     try {
-      final vehiculoDetails = await vehiculoRepository.vehiculoDetails(event.uuid);
+      final vehiculoDetails =
+          await vehiculoRepository.vehiculoDetails(event.uuid);
       emit(GetVehiculoDetailsSuccess(vehiculoDetails));
     } on Exception catch (e) {
       emit(GetVehiculoError(e.toString()));

@@ -29,7 +29,6 @@ final class GetModelosVehiculosError extends VehiculoState {
   GetModelosVehiculosError(this.errorMessage);
 }
 
-
 final class GetVehiculoDetailsLoading extends VehiculoState {}
 
 final class GetVehiculoDetailsSuccess extends VehiculoState {

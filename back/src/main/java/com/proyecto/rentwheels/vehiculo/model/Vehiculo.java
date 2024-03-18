@@ -41,6 +41,7 @@ public class Vehiculo {
     private String estado;
     private int numPuertas;
     private boolean disponible;
+    private double precioBase;
 
     @ManyToOne
     private TipoVehiculo tipoVehiculo;

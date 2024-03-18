@@ -76,7 +76,7 @@ public class AlquilerController {
         Alquiler a = alquilerServicio.createAlquiler(idVehiculo, c, create);
 
         return ResponseEntity
-                .status(200)
+                .status(201)
                 .body(GetAlquileresCliente.of(a));
     }
 

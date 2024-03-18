@@ -17,7 +17,8 @@ public record GetFindAllDto(
         int potencia,
         String estado,
         int numPuertas,
-        boolean disponible
+        boolean disponible,
+        double precioBase
 //        GetTipoVehiculosDTO tipoVehiculosdto
 ) {
 
@@ -34,7 +35,8 @@ public record GetFindAllDto(
                 v.getPotencia(),
                 v.getEstado(),
                 v.getNumPuertas(),
-                v.isDisponible()
+                v.isDisponible(),
+                v.getPrecioBase()
 //                GetTipoVehiculosDTO.of(v.getTipoVehiculo())
         );
     }

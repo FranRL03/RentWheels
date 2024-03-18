@@ -16,4 +16,7 @@ DUDAS:
 - En la creación del alquiler que lógica le puedo añadir para que cuando 
 le fecha límite del alquiler se supere al cliente le salga que ya se termino ese alquiler
 
+- En el formulario para alquilar como pongo que el campo del precio se vea un poco más
+oscuro
+
 
