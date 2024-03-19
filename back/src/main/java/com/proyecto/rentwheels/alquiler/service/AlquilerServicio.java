@@ -26,9 +26,9 @@ public class AlquilerServicio {
     private final AlquilerRepository alquilerRepository;
     private final VehiculoRepository vehiculoRepository;
 
-    public Page<GetAlquileresCliente> getAlquileresCliente (Pageable pageable, UUID id){
-        return alquilerRepository.getAllAlquileresCliente(pageable, id);
-    }
+//    public Page<GetAlquileresCliente> getAlquileresCliente (Pageable pageable, UUID id){
+//        return alquilerRepository.getAllAlquileresCliente(pageable, id);
+//    }
 
     public Page<GetAlquileresCliente> getAlquileresRentCliente (Pageable pageable, UUID id, boolean statusRent){
         return alquilerRepository.getAlquileresActivosCliente(pageable, id, statusRent);
