@@ -322,7 +322,7 @@ class _FormAlquilerState extends State<FormAlquiler> {
     return showDatePicker(
         context: context,
         initialDate: _currentSelectedDate,
-        firstDate: DateTime(2017),
+        firstDate: DateTime.now(),
         lastDate: DateTime(2025),
         builder: (context, child) {
           return Theme(data: ThemeData.dark(), child: child!);
@@ -333,7 +333,7 @@ class _FormAlquilerState extends State<FormAlquiler> {
     return showDatePicker(
         context: context,
         initialDate: _selecteEnd,
-        firstDate: DateTime(2017),
+        firstDate:DateTime.now(),
         lastDate: DateTime(2025),
         builder: (context, child) {
           return Theme(data: ThemeData.dark(), child: child!);
