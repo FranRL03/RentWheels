@@ -11,10 +11,18 @@ import java.util.UUID;
 
 public interface AlquilerRepository extends JpaRepository<Alquiler, UUID> {
 
+//    @Query("""
+//            select a
+//            from Alquiler a
+//            where a.cliente.id = :id
+//            """)
+//    Page<GetAlquileresCliente> getAllAlquileresCliente(Pageable pageable, UUID id);
+
     @Query("""
             select a
             from Alquiler a
             where a.cliente.id = :id
+                and a.enAlquiler = :statusRent
             """)
-    Page<GetAlquileresCliente> getAllAlquileresCliente(Pageable pageable, UUID id);
+    Page<GetAlquileresCliente> getAlquileresActivosCliente(Pageable pageable, UUID id, boolean statusRent);
 }

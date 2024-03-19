@@ -27,6 +27,12 @@ public class AlquilerController {
     private final AlquilerServicio alquilerServicio;
 
 
+
+//    @GetMapping("/cliente/alquiler")
+//    public Page<GetAlquileresCliente> getAlquileresClientes(@PageableDefault(page=0, size =10) Pageable pageable, @AuthenticationPrincipal Cliente c){
+//        return alquilerServicio.getAlquileresCliente(pageable, c.getId());
+//    }
+
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Obtener lista de alquileres del cliente", content = {
                     @Content(mediaType = "application/json",
@@ -65,9 +71,9 @@ public class AlquilerController {
             @ApiResponse(responseCode = "500", description = "Lista de clientes vacia", content = @Content)
     })
     @Operation(summary = "getAlquileresClientes", description = "Obtener lista de los alquieres")
-    @GetMapping("/cliente/alquiler")
-    public Page<GetAlquileresCliente> getAlquileresClientes(@PageableDefault(page=0, size =10) Pageable pageable, @AuthenticationPrincipal Cliente c){
-        return alquilerServicio.getAlquileresCliente(pageable, c.getId());
+    @GetMapping("/cliente/alquiler/{statusRent}")
+    public Page<GetAlquileresCliente> getAlquileresRentClientes(@PageableDefault(page=0, size =10) Pageable pageable, @AuthenticationPrincipal Cliente c, @PathVariable boolean statusRent){
+        return alquilerServicio.getAlquileresRentCliente(pageable, c.getId(), statusRent);
     }
 
     @PostMapping("/alquilar/{idVehiculo}")

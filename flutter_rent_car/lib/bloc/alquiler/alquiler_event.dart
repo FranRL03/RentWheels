@@ -3,8 +3,10 @@ part of 'alquiler_bloc.dart';
 @immutable
 sealed class AlquilerEvent {}
 
+// ignore: must_be_immutable
 class GetAlquilerClienteEvent extends AlquilerEvent {
-  GetAlquilerClienteEvent();
+  bool statusAlquiler;
+  GetAlquilerClienteEvent(this.statusAlquiler);
 }
 
 class DoAlquilerEvent extends AlquilerEvent {

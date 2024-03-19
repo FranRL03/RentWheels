@@ -7,6 +7,7 @@ class Content {
   String? combustion;
   String? transmision;
   bool? disponible;
+  double? precioBase;
 
   Content(
       {this.id,
@@ -14,7 +15,8 @@ class Content {
       this.modelo,
       this.combustion,
       this.transmision,
-      this.disponible});
+      this.disponible,
+      this.precioBase});
 
   factory Content.fromListVehiculos(Map<String, dynamic> data) => Content(
         id: data['id'] as String?,
@@ -23,6 +25,7 @@ class Content {
         combustion: data['combustion'] as String?,
         transmision: data['transmision'] as String?,
         disponible: data['disponible'] as bool?,
+        precioBase: data['precioBase'] as double?
       );
 
   Map<String, dynamic> toListVehiculos() => {
@@ -32,6 +35,7 @@ class Content {
         'combustion': combustion,
         'transmision': transmision,
         'disponible': disponible,
+        'precioBase': precioBase
       };
 
   /// `dart:convert`

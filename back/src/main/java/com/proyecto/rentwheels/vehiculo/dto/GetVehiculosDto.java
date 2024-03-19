@@ -8,7 +8,8 @@ public record GetVehiculosDto(
     String modelo,
     String combustion,
     String transmision,
-    boolean disponible
+    boolean disponible,
+    double precioBase
 ){
 
     public static GetVehiculosDto of (Vehiculo v){
@@ -18,7 +19,8 @@ public record GetVehiculosDto(
                 v.getModelo().getModelo(),
                 v.getCombustible(),
                 v.getTransmision(),
-                v.isDisponible()
+                v.isDisponible(),
+                v.getPrecioBase()
         );
     }
 }

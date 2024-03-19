@@ -20,7 +20,7 @@ class AlquilerBloc extends Bloc<AlquilerEvent, AlquilerState> {
       GetAlquilerClienteEvent event, Emitter<AlquilerState> emit) async {
     emit(GetAlquilerClienteLoading());
     try {
-      final listAlquiler = await alquilerRepository.alquilerCliente();
+      final listAlquiler = await alquilerRepository.alquilerCliente(event.statusAlquiler);
       emit(GetAlquilerClienteSuccess(listAlquiler));
     } on Exception catch (e) {
       emit(GetAlquilerClienteError(e.toString()));
