@@ -6,7 +6,6 @@ import 'package:flutter_rent_car/repositories/alquiler/alquiler_repository_impl.
 import 'package:flutter_rent_car/screen/login/login_screen.dart';
 import 'package:flutter_rent_car/screen/page/home_page.dart';
 import 'package:flutter_rent_car/screen/widget/alquiler/card_alquileres_widget.dart';
-import 'package:flutter_rent_car/variables.dart';
 
 class ListAlquilerCliente extends StatefulWidget {
   const ListAlquilerCliente({super.key});
@@ -19,7 +18,6 @@ class _ListAlquilerClienteState extends State<ListAlquilerCliente> {
   late AlquilerRepository alquilerRepository;
   late AlquilerBloc _alquilerClienteBloc;
   bool statusAlquiler = false;
-  int _selectedButtonIndex = 1;
 
   @override
   void initState() {

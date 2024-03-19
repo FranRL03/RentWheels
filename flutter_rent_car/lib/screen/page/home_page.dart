@@ -9,10 +9,10 @@ import 'package:flutter_rent_car/repositories/user/user_repository.dart';
 import 'package:flutter_rent_car/repositories/user/user_repository_impl.dart';
 import 'package:flutter_rent_car/repositories/vehiculos/vehiculos_repository.dart';
 import 'package:flutter_rent_car/repositories/vehiculos/vehiculos_repository_impl.dart';
+import 'package:flutter_rent_car/screen/page/alquiler_cliente.dart';
 import 'package:flutter_rent_car/screen/page/my_perfil_page.dart';
 import 'package:flutter_rent_car/screen/widget/home_page/card_coche_widget.dart';
 import 'package:flutter_rent_car/screen/widget/home_page/card_modelo_widget.dart';
-import 'package:flutter_rent_car/screen/patatus.dart';
 import 'package:flutter_rent_car/screen/widget/home_page/profile_home_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -82,12 +82,12 @@ class _HomePageState extends State<HomePage> {
             NavigationDestination(
               selectedIcon: Icon(Icons.home),
               icon: Icon(Icons.home_outlined),
-              label: 'Home',
+              label: 'Inicio',
             ),
             NavigationDestination(
               selectedIcon: Icon(Icons.car_rental_rounded),
               icon: Icon(Icons.car_rental_outlined),
-              label: 'Mantenimiento',
+              label: 'Mis Alquileres',
             ),
             NavigationDestination(
               selectedIcon: Icon(Icons.person),
@@ -193,7 +193,7 @@ class _HomePageState extends State<HomePage> {
       case 0:
         return _page();
       case 1:
-        return const MyWidget();
+        return const ListAlquilerCliente();
       case 2:
         return const MyPerfilPage(); // Define la página de mensajes
       default:
