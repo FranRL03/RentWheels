@@ -13,6 +13,7 @@ import 'package:flutter_rent_car/screen/page/alquiler_cliente.dart';
 import 'package:flutter_rent_car/screen/page/my_perfil_page.dart';
 import 'package:flutter_rent_car/screen/widget/home_page/card_coche_widget.dart';
 import 'package:flutter_rent_car/screen/widget/home_page/card_modelo_widget.dart';
+import 'package:flutter_rent_car/screen/widget/home_page/list_coche_widget.dart';
 import 'package:flutter_rent_car/screen/widget/home_page/profile_home_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -121,7 +122,8 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           Expanded(flex: 1, child: modelosDeCoches()),
-          Expanded(flex: 4, child: listDeCoches()),
+          // Expanded(flex: 4, child: listDeCoches()),
+          const Expanded(flex: 4, child: ListCocheWidget()),
         ],
       ),
     );
