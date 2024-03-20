@@ -23,9 +23,10 @@ class _ListCocheWidgetState extends State<ListCocheWidget> {
 
   // static const _pageSize = 20;
 
-  final PagingController<int, ListCocheWidget> _pagingController =
+  final PagingController<int, Content> _pagingController =
       PagingController(firstPageKey: 0);
 
+    late ListVehiculosResponse vehiculosResponse;
    late VehiculoRepository vehiculoRepository;
 
    late VehiculoBloc vehiculoBloc;
@@ -45,10 +46,10 @@ Future<void> _fetchPage(int pageKey) async {
       final newItems = await vehiculoRepository.listVehiculos(pageKey, widget.size, widget.empty, widget.last);
       final isLastPage = newItems.content!.isEmpty || !newItems.last!;
       if (isLastPage) {
-        _pagingController.appendLastPage(newItems.content!.cast<ListCocheWidget>());
+        _pagingController.appendLastPage(newItems.content!.cast<Content>());
       } else {
         final nextPageKey = pageKey + 1;
-      _pagingController.appendPage(newItems.content!.cast<ListCocheWidget>(), nextPageKey);
+      _pagingController.appendPage(newItems.content!.cast<Content>(), nextPageKey);
       }
     } catch (error) {
       _pagingController.error = error;
@@ -62,11 +63,48 @@ Future<void> _fetchPage(int pageKey) async {
   }
 
   @override
+  // Widget build(BuildContext context) {
+  //   return BlocProvider.value(
+  //     value: vehiculoBloc,
+  //     child: Scaffold(
+  //       body: BlocBuilder<VehiculoBloc, VehiculoState>(
+  //       bloc: vehiculoBloc,
+  //       builder: (context, state) {
+  //         if (state is GetVehiculoError) {
+  //           return Column(
+  //             children: [
+  //               Text(state.errorMessage),
+  //             ],
+  //           );
+  //         } else if (state is GetVehiculoSuccess) {
+  //           return SizedBox(
+  //               child: ListView.builder(
+  //                   itemCount: state.vehiculosResponse.content!.length,
+  //                   itemBuilder: (context, index) {
+  //                     final vehiculo = state.vehiculosResponse;
+  //                     return CardCocheWidget(
+  //                         vehiculosResponse: vehiculo, index: index);
+  //                   }));
+  //         } else if (state is GetModelosVehiculosSuccess) {
+  //           return SizedBox(
+  //               child: ListView.builder(
+  //                   itemCount: state.vehiculosModelsResponse.content!.length,
+  //                   itemBuilder: (context, index) {
+  //                     final vehiculo = state.vehiculosModelsResponse;
+  //                     return CardCocheWidget(
+  //                         vehiculosResponse: vehiculo, index: index);
+  //                   }));
+  //         }
+  //         return const Center(child: CircularProgressIndicator());
+  //       })
+  // ),
+  // );
+  // }
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: vehiculoBloc,
-      child: Scaffold(
-        body: BlocBuilder<VehiculoBloc, VehiculoState>(
+  return BlocProvider.value(
+    value: vehiculoBloc,
+    child: Scaffold(
+      body: BlocBuilder<VehiculoBloc, VehiculoState>(
         bloc: vehiculoBloc,
         builder: (context, state) {
           if (state is GetVehiculoError) {
@@ -76,27 +114,35 @@ Future<void> _fetchPage(int pageKey) async {
               ],
             );
           } else if (state is GetVehiculoSuccess) {
-            return SizedBox(
-                child: ListView.builder(
-                    itemCount: state.vehiculosResponse.content!.length,
-                    itemBuilder: (context, index) {
-                      final vehiculo = state.vehiculosResponse;
-                      return CardCocheWidget(
-                          vehiculosResponse: vehiculo, index: index);
-                    }));
+            return PagedListView<int, Content>(
+              pagingController: _pagingController,
+              builderDelegate: PagedChildBuilderDelegate<Content>(
+                itemBuilder: (context, content, index) {
+                  return CardCocheWidget(
+                    vehiculosResponse: content,
+                    index: index,
+                  );
+                },
+              ),
+            );
           } else if (state is GetModelosVehiculosSuccess) {
-            return SizedBox(
-                child: ListView.builder(
-                    itemCount: state.vehiculosModelsResponse.content!.length,
-                    itemBuilder: (context, index) {
-                      final vehiculo = state.vehiculosModelsResponse;
-                      return CardCocheWidget(
-                          vehiculosResponse: vehiculo, index: index);
-                    }));
+            return PagedListView<int, Content>(
+              pagingController: _pagingController,
+              builderDelegate: PagedChildBuilderDelegate<Content>(
+                itemBuilder: (context, vehiculo, index) {
+                  return CardCocheWidget(
+                    vehiculosResponse: vehiculo,
+                    index: index,
+                  );
+                },
+              ),
+            );
           }
-          return const Center(child: CircularProgressIndicator());
-        })
-  ),
+          return Center(child: CircularProgressIndicator());
+        },
+      ),
+    ),
   );
-  }
+}
+
 }
