@@ -14,11 +14,11 @@ class VehiculoRepositoryImpl extends VehiculoRepository {
   }
 
   @override
-  Future<ListVehiculosResponse> listVehiculos() async {
+  Future<ListVehiculosResponse> listVehiculos(int number, int size, bool empty, bool last) async {
     final token = await getToken();
 
     final response =
-        await _htppClient.get(Uri.parse('$urlMovil/vehiculos/menu'),
+        await _htppClient.get(Uri.parse('$urlMovil/vehiculos/menu?page=$number'),
             // Uri.parse('$urlChrome/vehiculos/menu'),
             headers: <String, String>{
           'Content-Type': 'Content-type: application/json',

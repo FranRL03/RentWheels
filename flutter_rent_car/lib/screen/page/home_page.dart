@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
     modeloRepository = ModeloRepositorioImpl();
     _modelosBloc = ModelosBloc(modeloRepository)..add(GetModelosEvent());
     vehiculoRepository = VehiculoRepositoryImpl();
-    vehiculoBloc = VehiculoBloc(vehiculoRepository)..add(GetVehiculoEvent());
+    // vehiculoBloc = VehiculoBloc(vehiculoRepository)..add(GetVehiculoEvent());
     super.initState();
   }
 

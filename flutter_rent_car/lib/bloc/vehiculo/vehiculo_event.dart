@@ -4,7 +4,11 @@ part of 'vehiculo_bloc.dart';
 sealed class VehiculoEvent {}
 
 class GetVehiculoEvent extends VehiculoEvent {
-  GetVehiculoEvent();
+  final int number;
+  final int pageSize;
+  final bool empty;
+  final bool last;
+  GetVehiculoEvent(this.number, this.pageSize, this.empty, this.last);
 }
 
 class GetVehiculosModelosEvent extends VehiculoEvent {

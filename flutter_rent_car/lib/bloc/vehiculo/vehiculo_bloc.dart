@@ -20,7 +20,7 @@ class VehiculoBloc extends Bloc<VehiculoEvent, VehiculoState> {
       GetVehiculoEvent event, Emitter<VehiculoState> emit) async {
     emit(GetVehiculoLoading());
     try {
-      final listVehiculos = await vehiculoRepository.listVehiculos();
+      final listVehiculos = await vehiculoRepository.listVehiculos(event.number, event.pageSize, event.empty, event.last);
       emit(GetVehiculoSuccess(listVehiculos));
     } on Exception catch (e) {
       emit(GetVehiculoError(e.toString()));
