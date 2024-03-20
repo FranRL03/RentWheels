@@ -7,6 +7,7 @@ import 'package:flutter_rent_car/screen/login/login_screen.dart';
 import 'package:flutter_rent_car/screen/page/alquiler_cliente.dart';
 import 'package:flutter_rent_car/screen/page/change_password.dart';
 import 'package:flutter_rent_car/screen/page/edit_perfil_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyPerfilPage extends StatefulWidget {
   const MyPerfilPage({super.key});
@@ -32,6 +33,13 @@ class _MyPerfilPageState extends State<MyPerfilPage> {
     _userDetailsBloc.close();
     super.dispose();
   }
+
+   Future<void> logout() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.remove('token');
+  // ignore: avoid_print
+  print('Token borrado exitosamente.');
+}
 
   @override
   Widget build(BuildContext context) {
@@ -180,12 +188,24 @@ class _MyPerfilPageState extends State<MyPerfilPage> {
                           Padding(
                             padding: const EdgeInsets.only(top: 45),
                             child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.push(
+                                // onPressed: () {
+                                //   Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) =>
+                                //             const LoginScreen()),
+                                //   );
+                                // },
+                                onPressed: () async {
+                                  await logout(); // Llama a la función logout para eliminar el token
+                                  // ignore: use_build_context_synchronously
+                                  Navigator.pushAndRemoveUntil(
+                                    // Navega a la pantalla de inicio de sesión y elimina la pila de rutas
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             const LoginScreen()),
+                                    (route) => false,
                                   );
                                 },
                                 style: ElevatedButton.styleFrom(
