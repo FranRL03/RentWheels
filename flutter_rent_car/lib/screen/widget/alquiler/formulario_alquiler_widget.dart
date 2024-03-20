@@ -39,7 +39,7 @@ class _FormAlquilerState extends State<FormAlquiler> {
   late VehiculoRepository vehiculoRepository;
 
   List lista = ['10000', '20000', '30000'];
-   String dropdownValue = '10000';
+  String dropdownValue = '10000';
 
   @override
   void initState() {
@@ -287,7 +287,7 @@ class _FormAlquilerState extends State<FormAlquiler> {
                 onPressed: () {
                   if (_formAlquiler.currentState!.validate()) {
                     _alquilerBloc.add(DoAlquilerEvent(
-                       int.parse(kilomettrosTextController.text),
+                        int.parse(kilomettrosTextController.text),
                         dateStartTextController.text,
                         dateEndTextController.text,
                         double.parse(precioTextController.text),
@@ -333,7 +333,7 @@ class _FormAlquilerState extends State<FormAlquiler> {
     return showDatePicker(
         context: context,
         initialDate: _selecteEnd,
-        firstDate:DateTime.now(),
+        firstDate: DateTime.now(),
         lastDate: DateTime(2025),
         builder: (context, child) {
           return Theme(data: ThemeData.dark(), child: child!);
