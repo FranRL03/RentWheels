@@ -107,6 +107,7 @@ public class UsuarioController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtProvider.generateToken(authentication);
         Usuario user = (Usuario) authentication.getPrincipal();
+
         refreshTokenService.deleteByUser(user);
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(user);
         return ResponseEntity.status(HttpStatus.CREATED)

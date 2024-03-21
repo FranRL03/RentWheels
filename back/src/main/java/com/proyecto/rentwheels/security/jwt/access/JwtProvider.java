@@ -41,7 +41,7 @@ public class JwtProvider {
 
         secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes());
 
-        //jwtParser = Jwts.parserBuilder()
+//        jwtParser = Jwts.parserBuilder()
         jwtParser = Jwts.parser()
                 //.setSigningKey(secretKey)
                 .verifyWith(secretKey)
@@ -69,19 +69,19 @@ public class JwtProvider {
                 );
 
         return Jwts.builder()
-//                .header().type(TOKEN_TYPE)
-//                .and()
-//                .subject(user.getId().toString())
-//                .issuedAt(new Date())
-//                .expiration(tokenExpirationDateTime)
-//                .signWith(secretKey)
-//                .compact();
-                .setHeaderParam("typ", TOKEN_TYPE)
-                .setSubject(user.getId().toString())
-                .setIssuedAt(new Date())
-                .setExpiration(tokenExpirationDateTime)
+                .header().type(TOKEN_TYPE)
+                .and()
+                .subject(user.getId().toString())
+                .issuedAt(new Date())
+                .expiration(tokenExpirationDateTime)
                 .signWith(secretKey)
                 .compact();
+//                .setHeaderParam("typ", TOKEN_TYPE)
+//                .setSubject(user.getId().toString())
+//                .setIssuedAt(new Date())
+//                .setExpiration(tokenExpirationDateTime)
+//                .signWith(secretKey)
+//                .compact();
 
     }
 
@@ -91,8 +91,8 @@ public class JwtProvider {
 
 
         return UUID.fromString(
-                jwtParser.parseClaimsJws(token).getBody().getSubject()
-//                jwtParser.parseSignedClaims(token).getPayload().getSubject()
+//                jwtParser.parseClaimsJws(token).getBody().getSubject()
+                jwtParser.parseSignedClaims(token).getPayload().getSubject()
         );
     }
 
@@ -100,8 +100,8 @@ public class JwtProvider {
     public boolean validateToken(String token) {
 
         try {
-            jwtParser.parseClaimsJws(token);
-//            jwtParser.parse(token);
+//            jwtParser.parseClaimsJws(token);
+            jwtParser.parse(token);
             return true;
         } catch (SignatureException | MalformedJwtException | ExpiredJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
             log.info("Error con el token: " + ex.getMessage());
