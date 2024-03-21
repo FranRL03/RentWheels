@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rent_car/model/response/vehiculos/list_vehiculos_response/list_vehiculos_response.dart';
 import 'package:flutter_rent_car/screen/page/vehiculo_alquilar.dart';
+import 'package:flutter_rent_car/variables.dart';
 
 class CardCocheWidget extends StatelessWidget {
   final ListVehiculosResponse vehiculosResponse;
@@ -81,14 +82,14 @@ class CardCocheWidget extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10, right: 10),
+                  padding: const EdgeInsets.only(top: 10, left: 10),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text('${vehiculosResponse.content![index].precioBase} €',
-                      style: const TextStyle(
-                        fontSize: 25,
-                        color: Colors.green,
+                      Text('${vehiculosResponse.content![index].precioBase} €/semana',
+                      style: TextStyle(
+                        fontSize: 23,
+                        color: AppColors.colorPrincipal,
                         // fontWeight: FontWeight.bold
                       ),
                       ),
