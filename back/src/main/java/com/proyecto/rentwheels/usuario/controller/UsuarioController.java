@@ -1,6 +1,10 @@
 package com.proyecto.rentwheels.usuario.controller;
 
 import com.proyecto.rentwheels.security.jwt.access.JwtProvider;
+import com.proyecto.rentwheels.security.jwt.refresh.RefreshToken;
+import com.proyecto.rentwheels.security.jwt.refresh.RefreshTokenException;
+import com.proyecto.rentwheels.security.jwt.refresh.RefreshTokenRequest;
+import com.proyecto.rentwheels.security.jwt.refresh.RefreshTokenService;
 import com.proyecto.rentwheels.usuario.dto.*;
 import com.proyecto.rentwheels.usuario.model.Cliente;
 import com.proyecto.rentwheels.usuario.model.Usuario;
@@ -37,6 +41,7 @@ public class UsuarioController {
 
     private final AuthenticationManager authManager;
     private final JwtProvider jwtProvider;
+    private final RefreshTokenService refreshTokenService;
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Registrarme como Cliente", content = {
@@ -102,8 +107,32 @@ public class UsuarioController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtProvider.generateToken(authentication);
         Usuario user = (Usuario) authentication.getPrincipal();
+        refreshTokenService.deleteByUser(user);
+        RefreshToken refreshToken = refreshTokenService.createRefreshToken(user);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(JwtUserResponse.of(user, token));
+                .body(JwtUserResponse.of(user, token, refreshToken.getToken()));
+    }
+
+
+    @PostMapping("/refreshtoken")
+    public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+        String refreshToken = refreshTokenRequest.getRefreshToken();
+
+        return refreshTokenService.findByToken(refreshToken)
+                .map(refreshTokenService::verify)
+                .map(RefreshToken::getUser)
+                .map(user -> {
+                    String token = jwtProvider.generateToken(user);
+                    refreshTokenService.deleteByUser(user);
+                    RefreshToken refreshToken2 = refreshTokenService.createRefreshToken(user);
+                    return ResponseEntity.status(HttpStatus.CREATED)
+                            .body(JwtUserResponse.builder()
+                                    .token(token)
+                                    .refreshToken(refreshToken2.getToken())
+                                    .build());
+                })
+                .orElseThrow(() -> new RefreshTokenException("Refresh token not found"));
+
     }
 
     @GetMapping("/admin/cliente")

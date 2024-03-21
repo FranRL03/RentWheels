@@ -29,8 +29,8 @@ public class JwtProvider {
     private String jwtSecret;
 
     @Value("${jwt.duration}")
-    private int jwtLifeInDays;
-    //private int jwtLifeInMinutes;
+//    private int jwtLifeInDays;
+    private int jwtLifeInMinutes;
 
     private JwtParser jwtParser;
 
@@ -62,26 +62,26 @@ public class JwtProvider {
                 Date.from(
                         LocalDateTime
                                 .now()
-                                .plusDays(jwtLifeInDays)
-                                //.plusMinutes(jwtLifeInMinutes)
+//                                .plusDays(jwtLifeInDays)
+                                .plusMinutes(jwtLifeInMinutes)
                                 .atZone(ZoneId.systemDefault())
                                 .toInstant()
                 );
 
         return Jwts.builder()
-                .header().type(TOKEN_TYPE)
-                .and()
-                .subject(user.getId().toString())
-                .issuedAt(new Date())
-                .expiration(tokenExpirationDateTime)
-                .signWith(secretKey)
-                .compact();
-                /*.setHeaderParam("typ", TOKEN_TYPE)
+//                .header().type(TOKEN_TYPE)
+//                .and()
+//                .subject(user.getId().toString())
+//                .issuedAt(new Date())
+//                .expiration(tokenExpirationDateTime)
+//                .signWith(secretKey)
+//                .compact();
+                .setHeaderParam("typ", TOKEN_TYPE)
                 .setSubject(user.getId().toString())
                 .setIssuedAt(new Date())
                 .setExpiration(tokenExpirationDateTime)
                 .signWith(secretKey)
-                .compact();*/
+                .compact();
 
     }
 
@@ -91,8 +91,8 @@ public class JwtProvider {
 
 
         return UUID.fromString(
-                //jwtParser.parseClaimsJws(token).getBody().getSubject()
-                jwtParser.parseSignedClaims(token).getPayload().getSubject()
+                jwtParser.parseClaimsJws(token).getBody().getSubject()
+//                jwtParser.parseSignedClaims(token).getPayload().getSubject()
         );
     }
 
@@ -100,8 +100,8 @@ public class JwtProvider {
     public boolean validateToken(String token) {
 
         try {
-            //jwtParser.parseClaimsJws(token);
-            jwtParser.parse(token);
+            jwtParser.parseClaimsJws(token);
+//            jwtParser.parse(token);
             return true;
         } catch (SignatureException | MalformedJwtException | ExpiredJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
             log.info("Error con el token: " + ex.getMessage());
