@@ -1,0 +1,22 @@
+nav{
+    background-color: #181C2C;
+}
+
+.logo{
+    width: 100px;
+    padding-left: 10px;
+}
+
+a{
+    color: rgb(210, 192, 192);
+}
+
+.nav-underline .nav-link.active{
+    --bs-nav-underline-link-active-color: #e1e1e1;
+}
+
+.fotoPerfil{
+    width: 100px;
+}
+
+
