@@ -10,6 +10,8 @@ import { NoAdminComponent } from './ui/no-admin/no-admin.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModalPerfilComponent } from './components/modal-perfil/modal-perfil.component';
+import { AdminSectionComponent } from './section/admin-section/admin-section.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NavComponent,
     LoginPageComponent,
     CochesPageComponent,
-    NoAdminComponent
+    NoAdminComponent,
+    ModalPerfilComponent,
+    AdminSectionComponent
   ],
   imports: [
     BrowserModule,

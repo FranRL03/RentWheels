@@ -6,15 +6,16 @@
             </a>
         </div>
         <div class="nav-item d-flex justify-content-around nav-underline">
-            <a [routerLink]="['/coche']" [routerLinkActive]="['active']" class="nav-link mx-2">COCHES</a>
+            <a [routerLink]="['/admin/coche']" [routerLinkActive]="['active']" class="nav-link mx-2">COCHES</a>
             <a [routerLink]="['/no-admin']" [routerLinkActive]="['active']" class="nav-link  mx-2">MODELOS</a>
             <a [routerLink]="['/no-admin']" [routerLinkActive]="['active']" class="nav-link  mx-2">ALQUILERES</a>
             <a [routerLink]="['/no-admin']" [routerLinkActive]="['active']" class="nav-link  mx-2">USUARIOS</a>
         </div>
-        <div class="nav-item fotoPerfil">
+        <!-- <div class="nav-item fotoPerfil">
             <a class="nav-link" [routerLink]="['/']" aria-current="page">
                 <img src="assets/img/foto_perfil.png" width="60%">
             </a>
-        </div>
+        </div> -->
+        <app-modal-perfil [admin]="admin"></app-modal-perfil>
     </div>
 </nav>

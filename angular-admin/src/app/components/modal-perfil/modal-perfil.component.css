@@ -1,0 +1,12 @@
+.fotoPerfil{
+    width: 100px;
+}
+
+.dropdown-menu{
+    --bs-dropdown-min-width: 0rem;
+}
+
+.logout:hover{
+    color: red;
+}
+

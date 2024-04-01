@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LoginResponse } from '../models/login.interface';
 import { environment } from '../environment/environment';
+import { UserDetailsResponse } from '../models/user-details';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,14 @@ export class UserService {
       }
     }
     )
+  }
+
+  getUserDetails(): Observable<UserDetailsResponse> {
+    return this.http.get<UserDetailsResponse>(`${environment.apiBaseUrl}/profile`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    })
   }
     
 }
