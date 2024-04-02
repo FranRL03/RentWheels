@@ -21,7 +21,7 @@ import { AdminSectionComponent } from './section/admin-section/admin-section.com
     CochesPageComponent,
     NoAdminComponent,
     ModalPerfilComponent,
-    AdminSectionComponent
+    AdminSectionComponent,
   ],
   imports: [
     BrowserModule,
