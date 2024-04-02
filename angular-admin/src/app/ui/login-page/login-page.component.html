@@ -10,6 +10,7 @@
         <div class="mb-3">
             <input type="password" class="form-control" name="password" [(ngModel)]="password" placeholder="PASSWORD">
         </div>
-        <button (click)="login()" type="submit" class="btn mt-3 border-1 border border-white text-white">LOGIN</button>
+        <button (click)="login()" ngbTooltip="Will disappear in 10s" type="submit" class="btn mt-3 border-1 border border-white text-white">LOGIN</button>
     </form>
 </div>
+<ng-template #successTpl> I'm a success toast </ng-template>

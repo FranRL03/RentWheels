@@ -28,7 +28,7 @@ import { AdminSectionComponent } from './section/admin-section/admin-section.com
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule, 
   ],
   providers: [],
   bootstrap: [AppComponent]

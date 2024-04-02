@@ -1,2 +1,4 @@
-package com.proyecto.rentwheels.usuario.repository;public class AdminRepository {
+package com.proyecto.rentwheels.usuario.repository;
+
+public class AdminRepository {
 }

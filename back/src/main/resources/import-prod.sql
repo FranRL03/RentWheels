@@ -9,7 +9,8 @@ INSERT INTO USUARIO (id, username, password, avatar, account_non_expired, accoun
 INSERT INTO CLIENTE (id, pin, email, telefono) VALUES ('1ce9c1c7-7a02-4c7f-bf69-6d0306cbed61','2222', 'fernando@gmail.com','112332112');
 INSERT INTO USUARIO_ROLES (roles, usuario_id) VALUES (1,'1ce9c1c7-7a02-4c7f-bf69-6d0306cbed61');
 
-INSERT INTO USUARIO (id, username, password, avatar, account_non_expired, account_non_locked,credentials_non_expired, enabled) VALUES ('86cc45ac-7e72-40d7-b528-2863a1e2500f', 'angel02','{bcrypt}$2a$12$qG8MR/W6ExYtPPdpr2Ry/eEy.x30mvHWlRyLuG6fP57lCK.6Kuz.W', 'https://media.istockphoto.com/id/92044396/es/foto/rana-con-gafas-de-sol.jpg?s=170667a&w=0&k=20&c=jEh4ZMUWU9Y3gx5odmT-LmbCGymtiBVzzEPerkawqm0=', true, true, true, true);
+INSERT INTO USUARIO (id, username, password, avatar, account_non_expired, account_non_locked,credentials_non_expired, enabled) VALUES ('86cc45ac-7e72-40d7-b528-2863a1e2500f', 'angel02','{bcrypt}$2a$12$qG8MR/W6ExYtPPdpr2Ry/eEy.x30mvHWlRyLuG6fP57lCK.6Kuz.W', 'https://images.vexels.com/media/users/3/157970/isolated/preview/c156b4270aea292b9b335dd463ea17eb-icono-de-planeta-tierra-icono-de-tierra.png', true, true, true, true);
+INSERT INTO CLIENTE (id, pin, email, telefono) VALUES ('86cc45ac-7e72-40d7-b528-2863a1e2500f','1111', 'angel@gmail.com','123456789');
 INSERT INTO USUARIO_ROLES (roles, usuario_id) VALUES (0,'86cc45ac-7e72-40d7-b528-2863a1e2500f');
 
 
