@@ -1,0 +1,27 @@
+<div class="d-flex justify-content-center">
+	<table class="table table-striped mt-5" style="box-shadow: 0 0 20px rgba(12, 97, 255, 0.636);">
+		<thead>
+			<tr class="mb-5">
+				<th scope="col">#</th>
+				<th scope="col">MODELO</th>
+				<th scope="col">DISPONIBILIDAD</th>
+				<th scope="col">Population</th>
+			</tr>
+		</thead>
+		<tbody class="table-group-divider">
+			@for (v of vehiculoList; track v.modelo; let i = $index) {
+				<tr>
+					<th scope="row">{{ i + 1 }}</th>
+					<td>{{v.modelo}}</td>
+					@if (v.disponible) {
+						<td>DISPONIBLE</td>
+					}@else {
+						<td>EN ALQUILER</td>
+					}
+					<td>ICONO</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
