@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPerfilComponent } from './components/modal-perfil/modal-perfil.component';
 import { AdminSectionComponent } from './section/admin-section/admin-section.component';
+import { VehiculosRowVerticalComponent } from './components/vehiculos-row-vertical/vehiculos-row-vertical.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { AdminSectionComponent } from './section/admin-section/admin-section.com
     NoAdminComponent,
     ModalPerfilComponent,
     AdminSectionComponent,
+    VehiculosRowVerticalComponent
   ],
   imports: [
     BrowserModule,

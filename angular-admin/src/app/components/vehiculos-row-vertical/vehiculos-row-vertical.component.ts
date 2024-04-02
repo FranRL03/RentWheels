@@ -4,23 +4,27 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AsyncPipe, DecimalPipe } from '@angular/common';
 import { map, startWith, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { VehiculoService } from '../../services/vehiculo.service';
 
 @Component({
   selector: 'app-vehiculos-row-vertical',
   templateUrl: './vehiculos-row-vertical.component.html',
   styleUrl: './vehiculos-row-vertical.component.css',
-  providers: [DecimalPipe]
 })
 export class VehiculosRowVerticalComponent implements OnInit {
 
-  vehiculo!: Vehiculo[];
+  vehiculoList!: Vehiculo[];
+
+  constructor(private service: VehiculoService) {}
 
   ngOnInit(): void {
     this.loadPage();
   }
 
   loadPage(): void {
-    this
+    this.service.listVehiculos().subscribe(resp => {
+      this.vehiculoList = resp.content;
+    });
   }
 
 }
