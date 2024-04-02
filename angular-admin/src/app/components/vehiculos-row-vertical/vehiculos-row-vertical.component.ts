@@ -15,6 +15,11 @@ export class VehiculosRowVerticalComponent implements OnInit {
 
   vehiculoList!: Vehiculo[];
 
+  totalVehiculos = 0; 
+  vehiculosPorPagina = 0;
+  cantPaginas = 5;
+  pagina = 0;
+
   constructor(private service: VehiculoService) {}
 
   ngOnInit(): void {
@@ -22,8 +27,10 @@ export class VehiculosRowVerticalComponent implements OnInit {
   }
 
   loadPage(): void {
-    this.service.listVehiculos().subscribe(resp => {
+    this.service.listVehiculos(this.pagina).subscribe(resp => {
       this.vehiculoList = resp.content;
+      this.vehiculosPorPagina = resp.pageable.pageSize;
+      this.totalVehiculos = resp.numberOfElements;
     });
   }
 
