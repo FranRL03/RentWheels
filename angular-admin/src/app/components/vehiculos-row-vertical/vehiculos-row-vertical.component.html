@@ -11,7 +11,12 @@
 		<tbody class="table-group-divider">
 			@for (v of vehiculoList; track v.modelo; let i = $index) {
 				<tr>
-					<th scope="row">{{ i + 1 }}</th>
+					<th scope="row"><img
+						[src]="v.imagen"
+						[alt]=""
+						class="me-2"
+						style="width: 90px"
+					/></th>
 					<td>{{v.modelo}}</td>
 					@if (v.disponible) {
 						<td>DISPONIBLE</td>
