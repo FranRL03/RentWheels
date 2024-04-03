@@ -25,7 +25,7 @@
 	</table>
 </div>
 
-<ngb-pagination [collectionSize]="totalVehiculos" [pageSize]="cantPaginas" [maxSize]="vehiculosPorPagina" [(page)]="pagina"
+<ngb-pagination [collectionSize]="totalVehiculos" [pageSize]="vehiculosPorPagina" [maxSize]="5" [(page)]="pagina"
     aria-label="Default pagination"
     class="d-flex justify-content-center mt-5" (pageChange)="loadPage()"></ngb-pagination>
 

@@ -16,8 +16,7 @@ export class VehiculosRowVerticalComponent implements OnInit {
   vehiculoList!: Vehiculo[];
 
   totalVehiculos = 0; 
-  vehiculosPorPagina = 0;
-  cantPaginas = 5;
+  vehiculosPorPagina = 10;
   pagina = 0;
 
   constructor(private service: VehiculoService) {}
@@ -27,11 +26,10 @@ export class VehiculosRowVerticalComponent implements OnInit {
   }
 
   loadPage(): void {
-    this.service.listVehiculos(this.pagina).subscribe(resp => {
+    this.service.listVehiculos(this.pagina - 1).subscribe(resp => {
       this.vehiculoList = resp.content;
       this.vehiculosPorPagina = resp.pageable.pageSize;
-      this.totalVehiculos = resp.numberOfElements;
-      this.cantPaginas = resp.totalPages;
+      this.totalVehiculos = resp.totalElements;
     });
   }
 
