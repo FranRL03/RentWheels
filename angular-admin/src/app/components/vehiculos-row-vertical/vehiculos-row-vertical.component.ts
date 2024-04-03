@@ -31,6 +31,7 @@ export class VehiculosRowVerticalComponent implements OnInit {
       this.vehiculoList = resp.content;
       this.vehiculosPorPagina = resp.pageable.pageSize;
       this.totalVehiculos = resp.numberOfElements;
+      this.cantPaginas = resp.totalPages;
     });
   }
 
