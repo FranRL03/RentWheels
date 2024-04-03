@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPerfilComponent } from './components/modal-perfil/modal-perfil.component';
 import { AdminSectionComponent } from './section/admin-section/admin-section.component';
 import { VehiculosRowVerticalComponent } from './components/vehiculos-row-vertical/vehiculos-row-vertical.component';
+import { VehiculoFormComponent } from './ui/vehiculo-form/vehiculo-form.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { VehiculosRowVerticalComponent } from './components/vehiculos-row-vertic
     NoAdminComponent,
     ModalPerfilComponent,
     AdminSectionComponent,
-    VehiculosRowVerticalComponent
+    VehiculosRowVerticalComponent,
+    VehiculoFormComponent
   ],
   imports: [
     BrowserModule,

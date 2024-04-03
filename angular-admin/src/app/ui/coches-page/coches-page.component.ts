@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-coches-page',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class CochesPageComponent {
 
+  constructor(private route: Router) { }
+
+  crear() {
+    this.route.navigate([`admin/vehiculo/form`]);
   }
+}
