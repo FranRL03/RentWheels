@@ -60,7 +60,7 @@ public class AdminController {
                     content = @Content)
     })
     @GetMapping("/vehiculos")
-    public Page<GetVehiculosDto> findAll(@PageableDefault Pageable pageable){
+    public Page<GetVehiculosDto> findAll(@PageableDefault(page = 0, size = 6) Pageable pageable){
 
         Page<Vehiculo> vehiculos = vehiculoServicio.findAll(pageable);
 

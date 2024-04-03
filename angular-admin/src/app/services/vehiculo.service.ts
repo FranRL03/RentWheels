@@ -11,8 +11,8 @@ export class VehiculoService {
 
   constructor(private http: HttpClient) { }
 
-  listVehiculos(): Observable<ListVehiculo> {
-    return this.http.get<ListVehiculo>(`${environment.apiBaseUrl}/admin/vehiculos`,
+  listVehiculos(page: number): Observable<ListVehiculo> {
+    return this.http.get<ListVehiculo>(`${environment.apiBaseUrl}/admin/vehiculos?page=${page}`,
     
     {
       headers: {
