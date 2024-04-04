@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ListModelosNoPage } from '../models/list-modelos-no-page.interface';
 import { environment } from '../environment/environment';
 import { ListModelos } from '../models/list-modelos-paginacion.interface';
+import { ModeloDetails } from '../models/new-modelo.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class ModeloService {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
-    })
+    });
   }
 
   listModelos(page: number): Observable<ListModelos> {
@@ -27,6 +28,18 @@ export class ModeloService {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
-    })
+    });
+  }
+
+  create(logo: string, modelo: string): Observable<ModeloDetails> {
+    return this.http.post<ModeloDetails>(`${environment.apiBaseUrl}/admin/add/modelo`,
+    {
+      logo: logo,
+      modelo: modelo
+    }, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
   }
 }

@@ -33,12 +33,12 @@ public class AdminModeloService {
         return modelos;
     }
 
-    public Modelo create (EditModeloDto edit){
+    public Modelo create (EditModeloDto nuevo){
 
         Modelo m = new Modelo();
 
-        m.setLogo(edit.logo());
-        m.setModelo(edit.modelo());
+        m.setLogo(nuevo.logo());
+        m.setModelo(nuevo.modelo());
 
         return modeloRepository.save(m);
     }
