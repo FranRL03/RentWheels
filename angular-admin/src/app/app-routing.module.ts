@@ -7,6 +7,7 @@ import { AdminSectionComponent } from './section/admin-section/admin-section.com
 import { VehiculoFormComponent } from './ui/vehiculo-form/vehiculo-form.component';
 import { VehiculoEditComponent } from './ui/vehiculo-edit/vehiculo-edit.component';
 import { ModelosPageComponent } from './ui/modelos-page/modelos-page.component';
+import { ModeloConVehiculosComponent } from './ui/modelo-con-vehiculos/modelo-con-vehiculos.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
     { path: 'coche', component: CochesPageComponent},
     { path: 'vehiculo/form', component: VehiculoFormComponent},
     { path: 'vehiculo/form-edit/:id', component: VehiculoEditComponent},
-    { path: 'modelos', component: ModelosPageComponent}
+    { path: 'modelos', component: ModelosPageComponent},
+    { path: 'modelo/:idModelo', component: ModeloConVehiculosComponent}
   ]},
 
   { path: 'no-admin', component: NoAdminComponent},

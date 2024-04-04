@@ -17,6 +17,7 @@ import { VehiculoFormComponent } from './ui/vehiculo-form/vehiculo-form.componen
 import { VehiculoEditComponent } from './ui/vehiculo-edit/vehiculo-edit.component';
 import { CardModelosListComponent } from './components/card-modelos-list/card-modelos-list.component';
 import { ModelosPageComponent } from './ui/modelos-page/modelos-page.component';
+import { ModeloConVehiculosComponent } from './ui/modelo-con-vehiculos/modelo-con-vehiculos.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ModelosPageComponent } from './ui/modelos-page/modelos-page.component';
     VehiculoFormComponent,
     VehiculoEditComponent,
     CardModelosListComponent,
-    ModelosPageComponent
+    ModelosPageComponent,
+    ModeloConVehiculosComponent
   ],
   imports: [
     BrowserModule,

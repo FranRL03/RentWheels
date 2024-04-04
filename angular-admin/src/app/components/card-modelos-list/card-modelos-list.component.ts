@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class CardModelosListComponent implements OnInit{
   modelosList!: Modelo[];
+  idModelo!: string;
 
   totalModelos = 0;
   modelosPorPagina = 0;
@@ -28,6 +29,10 @@ export class CardModelosListComponent implements OnInit{
       this.modelosPorPagina = resp.pageable.pageSize;
       this.totalModelos = resp.totalElements;
     });
+  }
+
+  modelo(idModelo: string){
+    this.router.navigate([`/admin/modelo/${idModelo}`]);
   }
 
 }

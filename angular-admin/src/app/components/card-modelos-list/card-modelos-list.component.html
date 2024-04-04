@@ -4,7 +4,7 @@
             @for (m of modelosList; track m.modelo; let i = $index) {
             <div class="col-md-4 mb-4">
                 <!-- Cambiado a col-md-4 para mostrar 3 tarjetas por fila en pantallas medianas -->
-                <button type="button" class="card" style="width: 15rem;">
+                <button type="button" class="card" style="width: 15rem;" (click)="modelo(m.id)">
                     <img src="assets/img/logo_toyota.png" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h4 class="text-center">{{m.modelo}}</h4>
