@@ -4,12 +4,14 @@ import { LoginPageComponent } from './ui/login-page/login-page.component';
 import { CochesPageComponent } from './ui/coches-page/coches-page.component';
 import { NoAdminComponent } from './ui/no-admin/no-admin.component';
 import { AdminSectionComponent } from './section/admin-section/admin-section.component';
+import { VehiculoFormComponent } from './ui/vehiculo-form/vehiculo-form.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   
   { path: 'admin', component: AdminSectionComponent, children: [
     { path: 'coche', component: CochesPageComponent},
+    { path: 'vehiculo/form', component: VehiculoFormComponent}
   ]},
 
   { path: 'no-admin', component: NoAdminComponent},

@@ -1,6 +1,6 @@
 package com.proyecto.rentwheels.vehiculo.controller;
 
-import com.proyecto.rentwheels.vehiculo.dto.GetFindAllDto;
+import com.proyecto.rentwheels.vehiculo.dto.GetAllDetailsDto;
 import com.proyecto.rentwheels.vehiculo.dto.GetVehiculosDto;
 import com.proyecto.rentwheels.vehiculo.model.Vehiculo;
 import com.proyecto.rentwheels.vehiculo.service.VehiculoServicio;
@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -106,11 +104,11 @@ public class VehiculoController {
                     content = @Content)
     })
     @GetMapping("/{id}")
-    public GetFindAllDto details (@Valid @PathVariable String id) {
+    public GetAllDetailsDto details (@Valid @PathVariable String id) {
 
         Vehiculo v = vehiculoServicio.details(id);
 
-        return GetFindAllDto.of(v);
+        return GetAllDetailsDto.of(v);
     }
 
 }
