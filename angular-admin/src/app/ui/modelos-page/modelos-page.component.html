@@ -1,7 +1,34 @@
 <div class="container">
-    <button type="button" class="btn btn-secondary mt-4" (click)="crear()">    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-lg pb-1" viewBox="0 0 16 16">
+    <button type="button" class="btn btn-secondary mt-4" (click)="openBackDropCustomClass(content)">    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-lg pb-1" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
       </svg>
       Añadir</button>
     <app-card-modelos-list></app-card-modelos-list>
 </div>
+
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title">Crear Modelo</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<form class="form">
+            <div class="">
+              <label for="validationDefault01" class="form-label">Nombre del modelo: *</label>
+              <input type="text" class="form-control" id="validationDefault01" [(ngModel)] = "modelo" name="modelo" required>
+              <span class="error" *ngIf="modeloError">{{modeloError}}</span>
+            </div>
+            <div class="pt-2">
+                <label for="validationDefault02" class="form-label">Imagen del logo: *</label>
+                <input type="url" class="form-control" id="validationDefault02" [(ngModel)]="logo" name="logo" required>
+                <span class="error" *ngIf="logoError">{{logoError}}</span>
+              </div>
+            <div class="pt-3">
+              <button class="btn btn-primary" type="submit" (click)="crear(); modal.close('Close click')">Enviar</button>
+            </div>
+          </form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Cerrar</button>
+	</div>
+</ng-template>

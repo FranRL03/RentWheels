@@ -1,5 +1,6 @@
 package com.proyecto.rentwheels.usuario.service.AdminService;
 
+import com.proyecto.rentwheels.modelo.dto.EditModeloDto;
 import com.proyecto.rentwheels.modelo.exception.EmptyModeloException;
 import com.proyecto.rentwheels.modelo.model.Modelo;
 import com.proyecto.rentwheels.modelo.repositorio.ModeloRepository;
@@ -30,6 +31,16 @@ public class AdminModeloService {
             throw  new EmptyModeloException();
 
         return modelos;
+    }
+
+    public Modelo create (EditModeloDto nuevo){
+
+        Modelo m = new Modelo();
+
+        m.setLogo(nuevo.logo());
+        m.setModelo(nuevo.modelo());
+
+        return modeloRepository.save(m);
     }
 
 }
