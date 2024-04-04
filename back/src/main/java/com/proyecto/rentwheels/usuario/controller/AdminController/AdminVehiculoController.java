@@ -156,5 +156,15 @@ public class AdminVehiculoController {
         return GetAllDetailsDto.of(v);
     }
 
+    @Operation(summary = "Borra un vehiculo por su id")
+    @ApiResponse(responseCode = "204 No Content",
+            description = "Borrado con éxito",
+            content = @Content)
+    @DeleteMapping("/delete/vehiculo/{idVehiculo}")
+    public ResponseEntity<?> delete(@PathVariable UUID idVehiculo) {
+        adminService.deleteVehiculo(idVehiculo);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }

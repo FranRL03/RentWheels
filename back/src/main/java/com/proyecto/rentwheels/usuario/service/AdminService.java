@@ -70,4 +70,15 @@ public class AdminService {
 
     }
 
+    public void deleteVehiculo(UUID idVehiculo) {
+
+    int num = vehiculoRepository.comprobarDisponibilidad(idVehiculo);
+
+    if(num == 0)
+        throw new VehiculoNoDisponibleException();
+    else
+        vehiculoRepository.deleteById(idVehiculo);
+
+    }
+
 }
