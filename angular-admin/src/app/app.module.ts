@@ -15,6 +15,8 @@ import { AdminSectionComponent } from './section/admin-section/admin-section.com
 import { VehiculosRowVerticalComponent } from './components/vehiculos-row-vertical/vehiculos-row-vertical.component';
 import { VehiculoFormComponent } from './ui/vehiculo-form/vehiculo-form.component';
 import { VehiculoEditComponent } from './ui/vehiculo-edit/vehiculo-edit.component';
+import { CardModelosListComponent } from './components/card-modelos-list/card-modelos-list.component';
+import { ModelosPageComponent } from './ui/modelos-page/modelos-page.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { VehiculoEditComponent } from './ui/vehiculo-edit/vehiculo-edit.componen
     AdminSectionComponent,
     VehiculosRowVerticalComponent,
     VehiculoFormComponent,
-    VehiculoEditComponent
+    VehiculoEditComponent,
+    CardModelosListComponent,
+    ModelosPageComponent
   ],
   imports: [
     BrowserModule,

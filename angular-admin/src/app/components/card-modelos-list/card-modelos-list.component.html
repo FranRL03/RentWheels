@@ -1,0 +1,22 @@
+<div class="row mt-4">
+    <div class="col">
+        <div class="row">
+            @for (m of modelosList; track m.modelo; let i = $index) {
+            <div class="col-md-4 mb-4">
+                <!-- Cambiado a col-md-4 para mostrar 3 tarjetas por fila en pantallas medianas -->
+                <button type="button" class="card" style="width: 15rem;">
+                    <img src="assets/img/logo_toyota.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h4 class="text-center">{{m.modelo}}</h4>
+                    </div>
+                </button>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<ngb-pagination [collectionSize]="totalModelos" [pageSize]="modelosPorPagina" [maxSize]="5" [(page)]="pagina"
+    aria-label="Default pagination" class="d-flex justify-content-center mt-5"
+    (pageChange)="loadPage()"></ngb-pagination>
