@@ -20,6 +20,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin")
@@ -111,5 +113,48 @@ public class AdminVehiculoController {
                 .status(201)
                 .body(GetAllDetailsDto.of(v));
     }
+
+    @Operation(summary = "Edita un vehiculo existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "OK",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Vehiculo.class)),
+                            examples = @ExampleObject(
+                                    value = """
+                                              {
+                                                "id": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+                                                "combustion": "Hibrido",
+                                                "modelo": {
+                                                    "modelo": "Toyota Corolla",
+                                                     "logo": "https://assets.stickpng.com/thumbs/580b585b2edbce24c47b2cdc.png"
+                                                                         },
+                                                "imagen": "https://kobemotor.es/wp-content/uploads/2023/12/Toyota-C-HR-140h-Advance.png",
+                                                "transmision": "manual",
+                                                "capacidadPasajeros": 5,
+                                                "autonomia": 69000,
+                                                "potencia": 100,
+                                                "estado": "seminuevo",
+                                                "numPuertas": 5,
+                                                "disponible": true,
+                                                "precioBase": 300.0
+                                                }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(responseCode = "404",
+                    description = "Not Found",
+                    content = @Content
+            )
+    })
+    @PutMapping("/edit/vehiculo/{idVehiculo}")
+    public GetAllDetailsDto editVehiculo (@RequestBody EditVehiculoDto edit, @PathVariable UUID idVehiculo){
+
+        Vehiculo v = adminService.editVehiculo(edit, idVehiculo);
+
+        return GetAllDetailsDto.of(v);
+    }
+
 
 }

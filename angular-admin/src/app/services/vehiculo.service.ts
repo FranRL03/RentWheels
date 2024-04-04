@@ -43,4 +43,33 @@ export class VehiculoService {
       }
       )
     }
+
+    edit(imagen: string, combustion: string, transmision: string, capacidadPasajeros: number, autonomia: number, 
+      potencia: number, estado: string, numPuertas: number, precioBase: number, id: string): Observable <VehiculoAllDetails> {
+        return this.http.put<VehiculoAllDetails>(`${environment.apiBaseUrl}/admin/edit/vehiculo/${id}`, 
+        {
+          imagen: imagen,
+          combustion: combustion,
+          transmision: transmision,
+          capacidadPasajeros: capacidadPasajeros,
+          autonomia: autonomia,
+          potencia:potencia,
+          estado: estado,
+          numPuertas: numPuertas,
+          precioBase: precioBase,
+        }, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+      }
+
+    details(id: string): Observable<VehiculoAllDetails> {
+      return this.http.get<VehiculoAllDetails>(`${environment.apiBaseUrl}/vehiculos/${id}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      })
+    }
 }

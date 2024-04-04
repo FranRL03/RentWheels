@@ -14,6 +14,7 @@ import { ModalPerfilComponent } from './components/modal-perfil/modal-perfil.com
 import { AdminSectionComponent } from './section/admin-section/admin-section.component';
 import { VehiculosRowVerticalComponent } from './components/vehiculos-row-vertical/vehiculos-row-vertical.component';
 import { VehiculoFormComponent } from './ui/vehiculo-form/vehiculo-form.component';
+import { VehiculoEditComponent } from './ui/vehiculo-edit/vehiculo-edit.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { VehiculoFormComponent } from './ui/vehiculo-form/vehiculo-form.componen
     ModalPerfilComponent,
     AdminSectionComponent,
     VehiculosRowVerticalComponent,
-    VehiculoFormComponent
+    VehiculoFormComponent,
+    VehiculoEditComponent
   ],
   imports: [
     BrowserModule,
