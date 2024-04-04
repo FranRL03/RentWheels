@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-modelos-page',
@@ -7,8 +8,14 @@ import { Component } from '@angular/core';
 })
 export class ModelosPageComponent {
 
+  constructor(private modalService: NgbModal) {}
+
   crear(){
     
   }
+
+	openBackDropCustomClass(content: TemplateRef<any>) {
+		this.modalService.open(content, { backdropClass: 'light-blue-backdrop' });
+	}
 
 }
