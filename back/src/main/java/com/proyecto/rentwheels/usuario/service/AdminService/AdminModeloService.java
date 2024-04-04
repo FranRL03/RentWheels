@@ -2,6 +2,7 @@ package com.proyecto.rentwheels.usuario.service.AdminService;
 
 import com.proyecto.rentwheels.modelo.dto.EditModeloDto;
 import com.proyecto.rentwheels.modelo.exception.EmptyModeloException;
+import com.proyecto.rentwheels.modelo.exception.NotFoundModeloException;
 import com.proyecto.rentwheels.modelo.model.Modelo;
 import com.proyecto.rentwheels.modelo.repositorio.ModeloRepository;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +41,17 @@ public class AdminModeloService {
 
         m.setLogo(nuevo.logo());
         m.setModelo(nuevo.modelo());
+
+        return modeloRepository.save(m);
+    }
+
+    public Modelo edit (EditModeloDto edit, UUID idModelo) {
+
+        Modelo m = modeloRepository.findById(idModelo)
+                .orElseThrow(() -> new NotFoundModeloException());
+
+        m.setLogo(edit.logo());
+        m.setModelo(edit.modelo());
 
         return modeloRepository.save(m);
     }

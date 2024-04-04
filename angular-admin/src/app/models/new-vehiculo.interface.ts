@@ -16,6 +16,7 @@ export interface VehiculoAllDetails {
 }
 
 export interface Modelo {
+    id: string;
     modelo: string;
     logo:   string;
 }
