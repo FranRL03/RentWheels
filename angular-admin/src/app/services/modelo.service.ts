@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListModelosNoPage } from '../models/list-modelos-no-page.interface';
 import { environment } from '../environment/environment';
+import { ListModelos } from '../models/list-modelos-paginacion.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,15 @@ export class ModeloService {
 
   listModelosWithOutPage(): Observable<ListModelosNoPage[]>{
     return this.http.get<ListModelosNoPage[]>(`${environment.apiBaseUrl}/admin/modelo/no-page`,
+    {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+  }
+
+  listModelos(page: number): Observable<ListModelos> {
+    return this.http.get<ListModelos>(`${environment.apiBaseUrl}/admin/modelo?page=${page}`,
     {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
