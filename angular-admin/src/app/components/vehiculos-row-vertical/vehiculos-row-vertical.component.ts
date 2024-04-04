@@ -5,6 +5,7 @@ import { AsyncPipe, DecimalPipe } from '@angular/common';
 import { map, startWith, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { VehiculoService } from '../../services/vehiculo.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vehiculos-row-vertical',
@@ -18,8 +19,9 @@ export class VehiculosRowVerticalComponent implements OnInit {
   totalVehiculos = 0; 
   vehiculosPorPagina = 10;
   pagina = 0;
+  id!: string;
 
-  constructor(private service: VehiculoService) {}
+  constructor(private service: VehiculoService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadPage();
@@ -31,6 +33,11 @@ export class VehiculosRowVerticalComponent implements OnInit {
       this.vehiculosPorPagina = resp.pageable.pageSize;
       this.totalVehiculos = resp.totalElements;
     });
+  }
+  
+  edit(id: string){
+    this.router.navigate([`admin/vehiculo/form-edit/${id}`])
+    console.log(id);
   }
 
 }
