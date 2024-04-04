@@ -23,16 +23,6 @@ public class ModeloServicio {
         return modeloRepository.findAll(pageable);
     }
 
-    public List<Modelo> getAllWithoutPage(){
-
-        List<Modelo> modelos = modeloRepository.findAll();
-
-        if (modelos.isEmpty())
-            throw  new EmptyModeloException();
-
-        return modelos;
-    }
-
     public Page<Vehiculo> getVehiculoModelo(String nombreModelo, Pageable pageable) {
         Page<Vehiculo> vehiculos = modeloRepository.getVehiculoModelo(nombreModelo.toLowerCase(), pageable);
 
