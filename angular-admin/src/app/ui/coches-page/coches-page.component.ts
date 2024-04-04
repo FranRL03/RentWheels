@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './coches-page.component.html',
   styleUrl: './coches-page.component.css'
 })
-export class CochesPageComponent {
+export class CochesPageComponent{
 
   constructor(private route: Router) { }
 

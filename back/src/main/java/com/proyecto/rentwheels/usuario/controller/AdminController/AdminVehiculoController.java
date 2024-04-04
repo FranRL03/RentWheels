@@ -1,4 +1,4 @@
-package com.proyecto.rentwheels.usuario.controller;
+package com.proyecto.rentwheels.usuario.controller.AdminController;
 
 import com.proyecto.rentwheels.usuario.service.AdminService;
 import com.proyecto.rentwheels.vehiculo.dto.EditVehiculoDto;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin")
-public class AdminController {
+public class AdminVehiculoController {
 
     private final AdminService adminService;
     private final VehiculoServicio vehiculoServicio;
