@@ -72,4 +72,13 @@ export class VehiculoService {
         }
       })
     }
+
+    delete(id: string) {
+      return this.http.delete(`${environment.apiBaseUrl}/admin/delete/vehiculo/${id}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+    }
 }
