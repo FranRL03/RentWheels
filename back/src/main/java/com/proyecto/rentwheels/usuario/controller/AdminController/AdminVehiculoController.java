@@ -20,6 +20,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin")
@@ -111,5 +113,14 @@ public class AdminVehiculoController {
                 .status(201)
                 .body(GetAllDetailsDto.of(v));
     }
+
+    @PutMapping("/edit/vehiculo/{idVehiculo}")
+    public GetAllDetailsDto editVehiculo (@RequestBody EditVehiculoDto edit, @PathVariable UUID idVehiculo){
+
+        Vehiculo v = adminService.editVehiculo(edit, idVehiculo);
+
+        return GetAllDetailsDto.of(v);
+    }
+
 
 }
