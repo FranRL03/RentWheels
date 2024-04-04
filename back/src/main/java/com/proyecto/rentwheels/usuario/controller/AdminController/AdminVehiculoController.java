@@ -1,6 +1,6 @@
 package com.proyecto.rentwheels.usuario.controller.AdminController;
 
-import com.proyecto.rentwheels.usuario.service.AdminService;
+import com.proyecto.rentwheels.usuario.service.AdminService.AdminVehiculoService;
 import com.proyecto.rentwheels.vehiculo.dto.EditVehiculoDto;
 import com.proyecto.rentwheels.vehiculo.dto.GetAllDetailsDto;
 import com.proyecto.rentwheels.vehiculo.dto.GetVehiculosDto;
@@ -27,7 +27,7 @@ import java.util.UUID;
 @RequestMapping("/admin")
 public class AdminVehiculoController {
 
-    private final AdminService adminService;
+    private final AdminVehiculoService adminVehiculoService;
     private final VehiculoServicio vehiculoServicio;
 
     @Operation(summary = "Lista de menu de todos los vehiculos")
@@ -107,7 +107,7 @@ public class AdminVehiculoController {
     @PostMapping("/add/vehiculo")
     public ResponseEntity<GetAllDetailsDto> create (@RequestBody EditVehiculoDto nuevo) {
 
-        Vehiculo v = adminService.createVehiculo(nuevo);
+        Vehiculo v = adminVehiculoService.createVehiculo(nuevo);
 
         return ResponseEntity
                 .status(201)
@@ -151,7 +151,7 @@ public class AdminVehiculoController {
     @PutMapping("/edit/vehiculo/{idVehiculo}")
     public GetAllDetailsDto editVehiculo (@RequestBody EditVehiculoDto edit, @PathVariable UUID idVehiculo){
 
-        Vehiculo v = adminService.editVehiculo(edit, idVehiculo);
+        Vehiculo v = adminVehiculoService.editVehiculo(edit, idVehiculo);
 
         return GetAllDetailsDto.of(v);
     }
@@ -162,7 +162,7 @@ public class AdminVehiculoController {
             content = @Content)
     @DeleteMapping("/delete/vehiculo/{idVehiculo}")
     public ResponseEntity<?> delete(@PathVariable UUID idVehiculo) {
-        adminService.deleteVehiculo(idVehiculo);
+        adminVehiculoService.deleteVehiculo(idVehiculo);
         return ResponseEntity.noContent().build();
     }
 
