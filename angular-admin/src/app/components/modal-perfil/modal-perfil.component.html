@@ -1,0 +1,30 @@
+<div class="row pe-4 mx-auto">
+	<div class="col">
+		<div ngbDropdown class="d-inline-block">
+			<button type="button" class="btn btn-outline-light" id="dropdownBasic1" ngbDropdownToggle>
+				{{admin!.username.toUpperCase()}}
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+				<button ngbDropdownItem [routerLink]="['/no-admin']">Mi Perfil</button>
+				<button ngbDropdownItem>Contraseña</button>
+                <button ngbDropdownItem>Editar Perfil</button>
+                <hr class="dropdown-divider">
+                <button ngbDropdownItem class="logout" (click)="logout()">Cerrar Sesión</button>
+			</div>
+		</div>
+	</div>
+
+<ng-template #miModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">{{admin!.username}}</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <p>{{admin.email}}</p>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="logout()">Cerrar Sesion</button>
+    </div>
+</ng-template>

@@ -1,11 +1,9 @@
 package com.proyecto.rentwheels.vehiculo.dto;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.proyecto.rentwheels.modelo.dto.GetModeloDto;
-import com.proyecto.rentwheels.modelo.jsonview.ModeloView;
 import com.proyecto.rentwheels.vehiculo.model.Vehiculo;
 
-public record GetFindAllDto(
+public record GetAllDetailsDto(
 
         String id,
         String combustion,
@@ -22,9 +20,9 @@ public record GetFindAllDto(
 //        GetTipoVehiculosDTO tipoVehiculosdto
 ) {
 
-    public static GetFindAllDto of(Vehiculo v){
+    public static GetAllDetailsDto of(Vehiculo v){
 
-        return new GetFindAllDto(
+        return new GetAllDetailsDto(
                 v.getId().toString(),
                 v.getCombustible(),
                 GetModeloDto.of(v.getModelo()),

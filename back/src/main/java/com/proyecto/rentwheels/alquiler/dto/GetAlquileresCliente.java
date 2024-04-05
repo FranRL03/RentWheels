@@ -1,8 +1,7 @@
 package com.proyecto.rentwheels.alquiler.dto;
 
 import com.proyecto.rentwheels.alquiler.model.Alquiler;
-import com.proyecto.rentwheels.usuario.model.Cliente;
-import com.proyecto.rentwheels.vehiculo.dto.GetFindAllDto;
+import com.proyecto.rentwheels.vehiculo.dto.GetAllDetailsDto;
 
 import java.time.format.DateTimeFormatter;
 
@@ -13,7 +12,7 @@ public record GetAlquileresCliente(
       String fechaInicio,
       String fechaFin,
       boolean enAlquiler,
-      GetFindAllDto vehiculo
+      GetAllDetailsDto vehiculo
 
 ) {
 
@@ -25,7 +24,7 @@ public record GetAlquileresCliente(
                 a.getFechaInicio().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
                 a.getFechaFin().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
                 a.isEnAlquiler(),
-                GetFindAllDto.of(a.getVehiculo())
+                GetAllDetailsDto.of(a.getVehiculo())
 
         );
     }

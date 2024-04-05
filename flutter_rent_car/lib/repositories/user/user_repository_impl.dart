@@ -17,6 +17,12 @@ class UserRepositoryImpl extends UserRepository {
     return prefs.getString('token');
   }
 
+  Future<void> logout() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.remove('token');
+  print('Token borrado exitosamente.');
+}
+
   @override
   Future<UserDetails> userDetails() async {
     final token = await getToken(); // Obtén el token almacenado

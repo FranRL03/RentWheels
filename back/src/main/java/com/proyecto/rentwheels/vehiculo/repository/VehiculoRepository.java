@@ -14,4 +14,12 @@ public interface VehiculoRepository extends JpaRepository<Vehiculo, UUID> {
             select v from Vehiculo v
             """)
     Page<Vehiculo> findAll(Pageable pageable);
+
+    @Query("""
+            select count(v)
+            from Vehiculo v
+            where v.id = ?1
+            and v.disponible = true
+            """)
+    int comprobarDisponibilidad(UUID id);
 }

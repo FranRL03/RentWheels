@@ -32,7 +32,7 @@ public class ModeloController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de modelos de coches", content = {
                     @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = JwtUserResponse.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = Modelo.class)),
                             examples = {@ExampleObject(
                                     value = """
                                             [
