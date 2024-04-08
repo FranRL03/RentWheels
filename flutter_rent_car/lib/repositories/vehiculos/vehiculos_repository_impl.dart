@@ -16,26 +16,6 @@ class VehiculoRepositoryImpl extends VehiculoRepository {
     return prefs.getString('token');
   }
 
-  // @override
-  // Future <List<ListVehiculosResponseV2>> listVehiculos() async {
-  //   final token = await getToken();
-
-  //   final response =
-  //       await _htppClient.get(Uri.parse('$urlMovil/vehiculos/menu'),
-  //           // Uri.parse('$urlChrome/vehiculos/menu'),
-  //           headers: <String, String>{
-  //         'Content-Type': 'Content-type: application/json',
-  //         'Authorization': 'Bearer $token',
-  //       });
-
-  //   if (response.statusCode == 200) {
-  //     return ListVehiculosResponseV2.fromJson(response.body);
-  //     // return ListVehiculosResponse.fromJson(json.decoder as String);
-  //   } else {
-  //     throw Exception('Failed to get vehicles');
-  //   }
-  // }
-
   @override
 Future<List<ListVehiculosResponseV2>> listVehiculos() async {
   final token = await getToken();

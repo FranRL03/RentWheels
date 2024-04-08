@@ -20,7 +20,12 @@ public class AdminModeloService {
 
     public Page<Modelo> getAll (Pageable pageable){
 
-        return modeloRepository.findAll(pageable);
+        Page<Modelo> modelos = modeloRepository.findAll(pageable);
+
+        if (modelos.isEmpty())
+            throw new EmptyModeloException();
+
+        return modelos;
     }
 
     public List<Modelo> getAllWithoutPage(){

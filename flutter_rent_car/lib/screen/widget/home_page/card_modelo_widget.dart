@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rent_car/bloc/vehiculo/vehiculo_bloc.dart';
 import 'package:flutter_rent_car/model/response/modelo/modelo_response/modelo_response.dart';
+import 'package:flutter_rent_car/model/response/modelo/modelo_response_v2/modelo_response_v2.dart';
 
 class CardModeloWidget extends StatelessWidget {
-  final ModeloResponse modeloResponse;
+  final List<ModeloResponseV2> modeloResponse;
   final int index;
   final VehiculoBloc vehiculoBloc;
   const CardModeloWidget(
@@ -19,7 +20,7 @@ class CardModeloWidget extends StatelessWidget {
       child: InkWell(
         onTap: () {
           vehiculoBloc.add(
-              GetVehiculosModelosEvent(modeloResponse.content![index].modelo!));
+              GetVehiculosModelosEvent(modeloResponse[index].modelo!));
         },
         child: Card(
           color: const Color.fromRGBO(29, 47, 111, 1),
@@ -34,7 +35,7 @@ class CardModeloWidget extends StatelessWidget {
                 radius: 30,
                 backgroundColor: const Color.fromARGB(255, 119, 133, 187),
                 backgroundImage:
-                    NetworkImage(modeloResponse.content![index].logo!),
+                    NetworkImage(modeloResponse[index].logo!),
               ),
             ),
           ),

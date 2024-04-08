@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_rent_car/model/response/modelo/modelo_response/modelo_response.dart';
+import 'package:flutter_rent_car/model/response/modelo/modelo_response_v2/modelo_response_v2.dart';
 import 'package:flutter_rent_car/repositories/modelos/modelo_repository.dart';
 import 'package:meta/meta.dart';
 

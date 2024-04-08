@@ -8,7 +8,7 @@ final class ModelosInitial extends ModelosState {}
 final class GetModelosLoading extends ModelosState {}
 
 final class GetModelosSuccess extends ModelosState {
-  final ModeloResponse modeloResponse;
+  final List<ModeloResponseV2> modeloResponse;
   GetModelosSuccess(this.modeloResponse);
 }
 

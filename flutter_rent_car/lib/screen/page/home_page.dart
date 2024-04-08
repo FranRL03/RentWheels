@@ -142,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                 width: double.infinity,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: state.modeloResponse.content!.length,
+                    itemCount: state.modeloResponse.length,
                     itemBuilder: (context, index) {
                       final modelo = state.modeloResponse;
                       return CardModeloWidget(
