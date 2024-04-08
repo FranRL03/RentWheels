@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rent_car/variables.dart';
 
 class MyWidget extends StatelessWidget {
   const MyWidget({super.key});

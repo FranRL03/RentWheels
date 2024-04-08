@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rent_car/model/response/vehiculos/list_vehiculos_response/list_vehiculos_response.dart';
 import 'package:flutter_rent_car/model/response/vehiculos/list_vehiculos_response_v2/list_vehiculos_response_v2.dart';
 import 'package:flutter_rent_car/screen/page/vehiculo_alquilar.dart';
 import 'package:flutter_rent_car/variables.dart';
