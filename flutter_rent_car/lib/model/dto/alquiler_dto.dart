@@ -1,14 +1,14 @@
 class AlquilerDto {
-  int? kilometrosPorAno;
+  int? kilometrosAnos;
   String? fechaInicio;
   String? fechaFin;
   double? precio;
 
   AlquilerDto(
-      {this.kilometrosPorAno, this.fechaInicio, this.fechaFin, this.precio});
+      {this.kilometrosAnos, this.fechaInicio, this.fechaFin, this.precio});
 
   AlquilerDto.fromJson(Map<String, dynamic> json) {
-    kilometrosPorAno = json['kilometrosPorAno'];
+    kilometrosAnos = json['kilometrosAnos'];
     fechaInicio = json['fechaInicio'];
     fechaFin = json['fechaFin'];
     precio = json['precio'];
@@ -16,7 +16,7 @@ class AlquilerDto {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['usernkilometrosPorAnoame'] = this.kilometrosPorAno;
+    data['kilometrosAnos'] = this.kilometrosAnos;
     data['fechaInicio'] = this.fechaInicio;
     data['fechaFin'] = this.fechaFin;
     data['precio'] = this.precio;

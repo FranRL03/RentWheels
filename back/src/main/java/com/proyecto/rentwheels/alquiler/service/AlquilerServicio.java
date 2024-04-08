@@ -49,8 +49,10 @@ public class AlquilerServicio {
                  v.setDisponible(false);
                  vehiculoRepository.save(v);
 
+                 double precioTotal = precioPorKilometro(v, create);
+
                  Alquiler a = Alquiler.builder()
-                         .precio(precioPorKilometro(v, create))
+                         .precio(precioTotal)
                          .kilometrosAnos(create.kilometrosAnos())
                          .fechaInicio(create.fechaInicio())
                          .fechaFin(create.fechaFin())
@@ -72,12 +74,14 @@ public class AlquilerServicio {
     }
 
     private double precioPorKilometro (Vehiculo v, CreateAlquilerDto create) {
-        if (create.kilometrosAnos() <= 20000)
-            return v.getPrecioBase();
-        else if (create.kilometrosAnos() > 20000 && create.kilometrosAnos() <=30000)
+        if (create.kilometrosAnos() <= 20000) {
+            return  v.getPrecioBase();
+        }else if (create.kilometrosAnos() > 20000 && create.kilometrosAnos() <=30000) {
             return v.getPrecioBase() + 100;
+        }
 
         return v.getPrecioBase() + 150;
+
     }
 
 }

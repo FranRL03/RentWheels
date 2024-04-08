@@ -75,7 +75,7 @@ class CardAlquileresWidget extends StatefulWidget {
                             fontWeight: FontWeight.bold,
                             fontSize: 18)),
                     Text(
-                        '${widget.alquilerClientesResponse.content![widget.index].kilometrosPorAno} Km/año ',
+                        '${widget.alquilerClientesResponse.content![widget.index].kilometrosAnos} Km/año ',
                         style: TextStyle(
                             color: AppColors.colorPrincipal,
                             fontWeight: FontWeight.bold,
