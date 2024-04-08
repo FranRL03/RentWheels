@@ -19,16 +19,6 @@ public class VehiculoServicio {
 
     private final VehiculoRepository vehiculoRepository;
 
-    public Page<Vehiculo> findAll (Pageable pageable){
-
-        Page<Vehiculo> vehiculos = vehiculoRepository.findAll(pageable);
-
-        if (vehiculos.isEmpty())
-            throw new EmptyVehiculosListException();
-
-        return vehiculos;
-    }
-
     public List<Vehiculo> findAllList (){
 
         List<Vehiculo> vehiculos = vehiculoRepository.findAll();
