@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rent_car/model/response/vehiculos/list_vehiculos_response/list_vehiculos_response.dart';
+import 'package:flutter_rent_car/model/response/vehiculos/list_vehiculos_response_v2/list_vehiculos_response_v2.dart';
 import 'package:flutter_rent_car/screen/page/vehiculo_alquilar.dart';
 import 'package:flutter_rent_car/variables.dart';
 
 class CardCocheWidget extends StatelessWidget {
-  final ListVehiculosResponse vehiculosResponse;
+  final List<ListVehiculosResponseV2> vehiculosResponse;
   final int index;
   const CardCocheWidget(
       {super.key, required this.vehiculosResponse, required this.index});
@@ -12,7 +13,7 @@ class CardCocheWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String disponible = '';
-    if (vehiculosResponse.content![index].disponible == true) {
+    if (vehiculosResponse[index].disponible == true) {
       disponible = 'Disponible';
     } else {
       disponible = 'No disponible';
@@ -26,7 +27,7 @@ class CardCocheWidget extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) => VehiculoAlquilarPage(
-                      uuid: vehiculosResponse.content![index].id!)),
+                      uuid: vehiculosResponse[index].id!)),
             );
           },
           child: Card(
@@ -45,7 +46,7 @@ class CardCocheWidget extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 90, left: 10),
                       child: Text(
-                        '${vehiculosResponse.content![index].modelo}',
+                        '${vehiculosResponse[index].modelo}',
                         style: const TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
@@ -58,7 +59,7 @@ class CardCocheWidget extends StatelessWidget {
                       child: SizedBox(
                         width: 160,
                         child: Image.network(
-                          vehiculosResponse.content![index].imagen!,
+                          vehiculosResponse[index].imagen!,
                         ),
                       ),
                     ),
@@ -69,10 +70,10 @@ class CardCocheWidget extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                          '${vehiculosResponse.content![index].transmision} | ',
+                          '${vehiculosResponse[index].transmision} | ',
                           style: const TextStyle(
                               color: Color.fromARGB(255, 100, 99, 99))),
-                      Text('${vehiculosResponse.content![index].combustion} | ',
+                      Text('${vehiculosResponse[index].combustion} | ',
                           style: const TextStyle(
                               color: Color.fromARGB(255, 100, 99, 99))),
                       Text(disponible,
@@ -86,7 +87,7 @@ class CardCocheWidget extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text('${vehiculosResponse.content![index].precioBase} €/semana',
+                      Text('${vehiculosResponse[index].precioBase} €/semana',
                       style: TextStyle(
                         fontSize: 23,
                         color: AppColors.colorPrincipal,

@@ -8,7 +8,7 @@ final class VehiculoInitial extends VehiculoState {}
 final class GetVehiculoLoading extends VehiculoState {}
 
 final class GetVehiculoSuccess extends VehiculoState {
-  final ListVehiculosResponse vehiculosResponse;
+  final List<ListVehiculosResponseV2> vehiculosResponse;
   GetVehiculoSuccess(this.vehiculosResponse);
 }
 
@@ -20,7 +20,7 @@ final class GetVehiculoError extends VehiculoState {
 final class GetModelosVehiculosLoading extends VehiculoState {}
 
 final class GetModelosVehiculosSuccess extends VehiculoState {
-  final ListVehiculosResponse vehiculosModelsResponse;
+  final List<ListVehiculosResponseV2> vehiculosModelsResponse;
   GetModelosVehiculosSuccess(this.vehiculosModelsResponse);
 }
 
