@@ -63,11 +63,13 @@ public class ModeloController {
     }
 
     @GetMapping("/modelo/vehiculo/{nombreModelo}")
-    public Page<GetVehiculosDto> getVehiculoModelos (@PathVariable String nombreModelo, @PageableDefault(page = 0, size = 4) Pageable pageable){
+    public List<GetVehiculosDto> getVehiculoModelos (@PathVariable String nombreModelo){
 
-    Page<Vehiculo> vehiculos = modeloServicio.getVehiculoModelo(nombreModelo.toLowerCase(), pageable);
 
-    return vehiculos.map(GetVehiculosDto::of);
+    return  modeloServicio.getVehiculoModelo(nombreModelo.toLowerCase())
+            .stream()
+            .map(GetVehiculosDto::of)
+            .toList();
 
     }
 }

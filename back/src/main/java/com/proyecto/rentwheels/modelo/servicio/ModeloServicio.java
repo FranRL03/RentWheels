@@ -29,8 +29,8 @@ public class ModeloServicio {
         return modelos;
     }
 
-    public Page<Vehiculo> getVehiculoModelo(String nombreModelo, Pageable pageable) {
-        Page<Vehiculo> vehiculos = modeloRepository.getVehiculoModelo(nombreModelo.toLowerCase(), pageable);
+    public List<Vehiculo> getVehiculoModelo(String nombreModelo) {
+        List<Vehiculo> vehiculos = modeloRepository.getVehiculoModelo(nombreModelo.toLowerCase());
 
         if (vehiculos.isEmpty())
             throw  new EmptyModeloException();

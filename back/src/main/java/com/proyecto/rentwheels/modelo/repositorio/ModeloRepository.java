@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ public interface ModeloRepository extends JpaRepository<Modelo, UUID> {
             from Vehiculo v
             where lower(v.modelo.modelo) = lower(?1)
             """)
-    Page<Vehiculo> getVehiculoModelo (String nombreModelo, Pageable pageable);
+    List<Vehiculo> getVehiculoModelo (String nombreModelo);
 
     Modelo findByModeloIgnoreCase(String nombreModelo);
 }
