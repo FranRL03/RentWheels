@@ -8,23 +8,24 @@ class CardAlquileresWidget extends StatefulWidget {
   const CardAlquileresWidget(
       {super.key, required this.alquilerClientesResponse, required this.index});
 
-    @override
+  @override
   State<CardAlquileresWidget> createState() => _CardAlquileresWidgetState();
 }
 
-  class _CardAlquileresWidgetState extends State<CardAlquileresWidget> {
-
+class _CardAlquileresWidgetState extends State<CardAlquileresWidget> {
   @override
   Widget build(BuildContext context) {
     String alquilado = '';
-    if (widget.alquilerClientesResponse.content![widget.index].vehiculo?.disponible == true) {
-      alquilado = 'Alquilado';
+    if (widget.alquilerClientesResponse.content![widget.index].vehiculo
+            ?.disponible ==
+        true) {
+      alquilado = 'Alquiler expirado';
     } else {
       alquilado = 'Activo';
     }
     return SizedBox(
         width: 160,
-        height: 250,
+        height: 370,
         child: Card(
           surfaceTintColor: Colors.white,
           color: Colors.white,
@@ -66,22 +67,8 @@ class CardAlquileresWidget extends StatefulWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text(
-                        '${widget.alquilerClientesResponse.content![widget.index].precio} € ',
-                        style: TextStyle(
-                            color: AppColors.colorPrincipal,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18)),
-                    Text(
-                        '${widget.alquilerClientesResponse.content![widget.index].kilometrosAnos} Km/año ',
-                        style: TextStyle(
-                            color: AppColors.colorPrincipal,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18)),
-                    Row(
-                      children: [
                         Text(alquilado,
                             style: TextStyle(
                                 color: AppColors.colorPrincipal,
@@ -92,35 +79,38 @@ class CardAlquileresWidget extends StatefulWidget {
                           size: 20,
                           color: Color.fromARGB(255, 13, 136, 76),
                         ),
-                      ],
-                    )
                   ],
                 ),
               ),
+              const Padding(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                child: Divider(),
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 10, left: 10),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Row(
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        const Text('Inicio del alquiler: ',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18)),
+                        Text(
+                            widget.alquilerClientesResponse
+                                .content![widget.index].fechaInicio!,
+                            style: TextStyle(
+                                color: AppColors.colorPrincipal,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18)),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Row(
                         children: [
-                          const Text('Start: ',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18)),
-                          Text(
-                              widget.alquilerClientesResponse
-                                  .content![widget.index].fechaInicio!,
-                              style: TextStyle(
-                                  color: AppColors.colorPrincipal,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18)),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          const Text('End: ',
+                          const Text('Fin del alquiler: ',
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
@@ -134,10 +124,53 @@ class CardAlquileresWidget extends StatefulWidget {
                                   fontSize: 18)),
                         ],
                       ),
-                    ]),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Row(
+                        children: [
+                          const Text('Kilometros alquilados: ',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18)),
+                          Text(
+                              '${widget.alquilerClientesResponse.content![widget.index].kilometrosAnos} Km/año ',
+                              style: TextStyle(
+                                  color: AppColors.colorPrincipal,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18)),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                child: Divider(),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const Text('Precio: ',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18)),
+                    Text(
+                        '${widget.alquilerClientesResponse.content![widget.index].precio} € ',
+                        style: TextStyle(
+                            color: AppColors.colorPrincipal,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18)),
+                  ],
+                ),
               ),
             ],
           ),
         ));
-  }}
-
+  }
+}
