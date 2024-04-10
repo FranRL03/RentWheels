@@ -5,7 +5,7 @@ import 'vehiculo.dart';
 class AlquilerResponse {
   String? id;
   double? precio;
-  int? kilometrosPorAno;
+  int? kilometrosAnos;
   String? fechaInicio;
   String? fechaFin;
   bool? enAlquiler;
@@ -14,7 +14,7 @@ class AlquilerResponse {
   AlquilerResponse({
     this.id,
     this.precio,
-    this.kilometrosPorAno,
+    this.kilometrosAnos,
     this.fechaInicio,
     this.fechaFin,
     this.enAlquiler,
@@ -25,7 +25,7 @@ class AlquilerResponse {
     return AlquilerResponse(
       id: data['id'] as String?,
       precio: data['precio'] as double?,
-      kilometrosPorAno: data['kilometrosPorAno'] as int?,
+      kilometrosAnos: data['kilometrosAnos'] as int?,
       fechaInicio: data['fechaInicio'] as String?,
       fechaFin: data['fechaFin'] as String?,
       enAlquiler: data['enAlquiler'] as bool?,
@@ -39,7 +39,7 @@ class AlquilerResponse {
   Map<String, dynamic> toAlquilerResponse() => {
         'id': id,
         'precio': precio,
-        'kilometrosPorAno': kilometrosPorAno,
+        'kilometrosAnos': kilometrosAnos,
         'fechaInicio': fechaInicio,
         'fechaFin': fechaFin,
         'enAlquiler': enAlquiler,

@@ -1,0 +1,803 @@
+{
+	"info": {
+		"_postman_id": "b1cbfeef-1657-4b97-be20-c01766d8f41a",
+		"name": "RentWheels",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30052642"
+	},
+	"item": [
+		{
+			"name": "no-auth",
+			"item": [
+				{
+					"name": "loginUsuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var json = pm.response.json();",
+									"pm.collectionVariables.set(\"token\", json.token);",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"fernando01\",\n    \"password\": \"1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "registerCliente",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"luismi\",\r\n    \"password\":\"1234\",\r\n    \"verifyPassword\":\"1234\",\r\n    \"avatar\":\"https://img.a.transfermarkt.technology/portrait/big/610461-1647594517.jpg?lm=1\",\r\n    \"nombre\":\"Luis Miguel\",\r\n    \"email\":\"lm@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validar Token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{token}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/token",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refreshToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"refreshToken\": \"{{refresh_token}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/refreshtoken",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"refreshtoken"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "VehiculoAdmin",
+					"item": [
+						{
+							"name": "addVehiculo",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"imagen\": \"https://kobemotor.es/wp-content/uploads/2023/12/Toyota-C-HR-140h-Advance.png\",\r\n    \"combustion\": \"Hibrido\",\r\n    \"transmision\": \"manual\",\r\n    \"capacidadPasajeros\": 5,\r\n    \"autonomia\": 69000,\r\n    \"potencia\": 100,\r\n    \"estado\": \"seminuevo\",\r\n    \"numPuertas\": 5,\r\n    \"precioBase\": 300,\r\n    \"modelo\": \"toyota corolla\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/admin/add/vehiculo",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"add",
+										"vehiculo"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editVehiculo",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"imagen\": \"https://kobemotor.es/wp-content/uploads/2023/12/Toyota-C-HR-140h-Advance.png\",\r\n    \"combustion\": \"Hibrido\",\r\n    \"transmision\": \"manual\",\r\n    \"capacidadPasajeros\": 5,\r\n    \"autonomia\": 69000,\r\n    \"potencia\": 100,\r\n    \"estado\": \"seminuevo\",\r\n    \"numPuertas\": 5,\r\n    \"precioBase\": 300\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/admin/edit/vehiculo/7c9e6679-7425-40de-944b-e07fc1f90ae7",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"edit",
+										"vehiculo",
+										"7c9e6679-7425-40de-944b-e07fc1f90ae7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteVehiculo",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/admin/delete/vehiculo/7c9e6679-7425-40de-944b-e07fc1f90ae7",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"delete",
+										"vehiculo",
+										"7c9e6679-7425-40de-944b-e07fc1f90ae7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "vehiculos",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/admin/vehiculos?page=0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"vehiculos"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ModeloAdmin",
+					"item": [
+						{
+							"name": "modelsWithOutPage",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/admin/modelo/no-page",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"modelo",
+										"no-page"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAllModelos",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/admin/modelo",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"modelo"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "addModelo",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"logo\": \"https://seeklogo.com/images/A/Acura-logo-6A7CD0D53A-seeklogo.com.png\",\r\n    \"modelo\": \"Acura\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/admin/add/modelo",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"add",
+										"modelo"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editModelo",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"logo\": \"https://seeklogo.com/images/A/Acura-logo-6A7CD0D53A-seeklogo.com.png\",\r\n    \"modelo\": \"editado\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/admin/edit/modelo/afcf760a-8e8a-4e7c-ae94-f5af066c0be7",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"edit",
+										"modelo",
+										"afcf760a-8e8a-4e7c-ae94-f5af066c0be7"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetAllClientes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/admin/cliente",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"cliente"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vehiculo",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/vehiculos/menu",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"vehiculos",
+								"menu"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/vehiculos/9b11dd61-4424-46c9-9daa-c5d70025c478",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"vehiculos",
+								"9b11dd61-4424-46c9-9daa-c5d70025c478"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cliente",
+			"item": [
+				{
+					"name": "mi perfil",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxY2U5YzFjNy03YTAyLTRjN2YtYmY2OS02ZDAzMDZjYmVkNjEiLCJpYXQiOjE3MDk1MDE1MzcsImV4cCI6MTcwOTU4NzkzN30.jZBGNTDuqYrVx6Q5mDNysme4BNYJVIlOMOxwe3KM36QNypABzFy3LYR6v4rYDI7i4J8aR-a_06uo24r4tX8NpA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"avatar\":null,\r\n    \"email\":\"hola@gmail.com\",\r\n    \"telefono\": \"2222222\",\r\n    \"pin\": \"1111\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/profile/edit",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profile",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "changePassword",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"oldPassword\": \"1234\",\r\n    \"newPassword\": \"1\",\r\n    \"verifyNewPassword\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/user/changePassword",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"changePassword"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Modelo",
+			"item": [
+				{
+					"name": "getAllModels",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/modelo",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"modelo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getVehiculosModel",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/modelo/vehiculo/toyota",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"modelo",
+								"vehiculo",
+								"toyota"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Alquiler",
+			"item": [
+				{
+					"name": "getAlquilerCliente",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/cliente/alquiler",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cliente",
+								"alquiler"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "alquilar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"kilometrosAnos\": 25000,\r\n    \"fechaInicio\": \"2024-02-04\",\r\n    \"fechaFin\": \"2024-12-03\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/alquilar/9b11dd61-4424-46c9-9daa-c5d70025c478",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"alquilar",
+								"9b11dd61-4424-46c9-9daa-c5d70025c478"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "refresh_token",
+			"value": ""
+		}
+	]
+}

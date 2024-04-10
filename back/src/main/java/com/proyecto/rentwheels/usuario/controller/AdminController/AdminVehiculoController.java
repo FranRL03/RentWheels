@@ -29,7 +29,6 @@ import java.util.UUID;
 public class AdminVehiculoController {
 
     private final AdminVehiculoService adminVehiculoService;
-    private final VehiculoServicio vehiculoServicio;
 
     @Operation(summary = "Lista de menu de todos los vehiculos")
     @ApiResponses(value = {
@@ -68,7 +67,7 @@ public class AdminVehiculoController {
     @GetMapping("/vehiculos")
     public Page<GetVehiculosDto> findAll(@PageableDefault(page = 0, size = 6) Pageable pageable){
 
-        Page<Vehiculo> vehiculos = vehiculoServicio.findAll(pageable);
+        Page<Vehiculo> vehiculos = adminVehiculoService.findAll(pageable);
 
         return vehiculos.map(GetVehiculosDto::of);
     }

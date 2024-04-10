@@ -142,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                 width: double.infinity,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: state.modeloResponse.content!.length,
+                    itemCount: state.modeloResponse.length,
                     itemBuilder: (context, index) {
                       final modelo = state.modeloResponse;
                       return CardModeloWidget(
@@ -168,7 +168,7 @@ class _HomePageState extends State<HomePage> {
           } else if (state is GetVehiculoSuccess) {
             return SizedBox(
                 child: ListView.builder(
-                    itemCount: state.vehiculosResponse.content!.length,
+                    itemCount: state.vehiculosResponse.length,
                     itemBuilder: (context, index) {
                       final vehiculo = state.vehiculosResponse;
                       return CardCocheWidget(
@@ -177,7 +177,7 @@ class _HomePageState extends State<HomePage> {
           } else if (state is GetModelosVehiculosSuccess) {
             return SizedBox(
                 child: ListView.builder(
-                    itemCount: state.vehiculosModelsResponse.content!.length,
+                    itemCount: state.vehiculosModelsResponse.length,
                     itemBuilder: (context, index) {
                       final vehiculo = state.vehiculosModelsResponse;
                       return CardCocheWidget(

@@ -90,7 +90,7 @@ class _FormAlquilerState extends State<FormAlquiler> {
       child: BlocConsumer<AlquilerBloc, AlquilerState>(
         buildWhen: (context, state) {
           return state is AlquilerInitial ||
-              state is! DoAlquilerSuccess ||
+              state is DoAlquilerSuccess ||
               state is DoAlquilerError ||
               state is DoAlquilerLoading;
         },
@@ -102,9 +102,9 @@ class _FormAlquilerState extends State<FormAlquiler> {
           }
           return _buildAlquiler();
         },
-        listenWhen: (context, state) {
-          return state is DoAlquilerSuccess;
-        },
+        // listenWhen: (context, state) {
+        //   return state is DoAlquilerSuccess;
+        // },
         listener: (BuildContext context, AlquilerState state) {
           if (state is DoAlquilerSuccess) {
             Navigator.push(
@@ -179,31 +179,35 @@ class _FormAlquilerState extends State<FormAlquiler> {
                 },
               ),
             ),
-            // DropdownButtonFormField(
-            //   items: lista.map((e){
-            //     return DropdownMenuItem(value: e,child: Text(e),);
-            //   }).toList(),
-            //   onChanged: (value) {
-            //     if (value == '10000') {
-            //       setState(() {
-            //             _precio = (vehiculoDetailsResponse.precioBase! + 0.0);
-            //             precioTextController.text = '$_precio';
-            //             kilomettrosTextController.text = '10000';
-            //           });
-            //     } else if (value == '20000') {
-            //       setState(() {
-            //             _precio = (vehiculoDetailsResponse.precioBase! + 100.0);
-            //             precioTextController.text = '$_precio';
-            //             kilomettrosTextController.text = '20000';
-            //           });
-            //     } else {
-            //       setState(() {
-            //             _precio = (vehiculoDetailsResponse.precioBase! + 150.0);
-            //             precioTextController.text = '$_precio';
-            //             kilomettrosTextController.text = '30000';
-            //           });
-            //     }
-            //   }),
+            DropdownButtonFormField(
+                value: dropdownValue,
+                items: lista.map((e) {
+                  return DropdownMenuItem(
+                    value: e,
+                    child: Text(e),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  if (value == '10000') {
+                    setState(() {
+                      _precio = (vehiculoDetailsResponse.precioBase! + 0.0);
+                      precioTextController.text = '$_precio';
+                      kilomettrosTextController.text = '10000';
+                    });
+                  } else if (value == '20000') {
+                    setState(() {
+                      _precio = (vehiculoDetailsResponse.precioBase! + 100.0);
+                      precioTextController.text = '$_precio';
+                      kilomettrosTextController.text = '20000';
+                    });
+                  } else {
+                    setState(() {
+                      _precio = (vehiculoDetailsResponse.precioBase! + 150.0);
+                      precioTextController.text = '$_precio';
+                      kilomettrosTextController.text = '30000';
+                    });
+                  }
+                }),
             // DropdownButtonFormField(
             //   value: dropdownValue,
             //   items: lista.map((e) {
@@ -230,57 +234,57 @@ class _FormAlquilerState extends State<FormAlquiler> {
             //   },
             // ),
 
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-              child: TextFormField(
-                controller: precioTextController,
-                // enabled: false,
-                decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.euro),
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    labelText: 'Precio',
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromRGBO(28, 38, 73, 1), width: 2),
-                        borderRadius: BorderRadius.circular(10))),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some date';
-                  }
-                  return null;
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-              child: TextFormField(
-                controller: kilomettrosTextController,
-                // enabled: false,
-                decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.car_crash_outlined),
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    labelText: 'Kilometros/Año',
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromRGBO(28, 38, 73, 1), width: 2),
-                        borderRadius: BorderRadius.circular(10))),
-                validator: (value) {
-                  // ignore: unrelated_type_equality_checks
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some date';
-                  }
-                  return null;
-                },
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+            //   child: TextFormField(
+            //     controller: precioTextController,
+            //     // enabled: false,
+            //     decoration: InputDecoration(
+            //         prefixIcon: const Icon(Icons.euro),
+            //         filled: true,
+            //         fillColor: Colors.white,
+            //         border: OutlineInputBorder(
+            //           borderRadius: BorderRadius.circular(10),
+            //         ),
+            //         labelText: 'Precio',
+            //         focusedBorder: OutlineInputBorder(
+            //             borderSide: const BorderSide(
+            //                 color: Color.fromRGBO(28, 38, 73, 1), width: 2),
+            //             borderRadius: BorderRadius.circular(10))),
+            //     validator: (value) {
+            //       if (value == null || value.isEmpty) {
+            //         return 'Please enter some date';
+            //       }
+            //       return null;
+            //     },
+            //   ),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+            //   child: TextFormField(
+            //     controller: kilomettrosTextController,
+            //     // enabled: false,
+            //     decoration: InputDecoration(
+            //         prefixIcon: const Icon(Icons.car_crash_outlined),
+            //         filled: true,
+            //         fillColor: Colors.white,
+            //         border: OutlineInputBorder(
+            //           borderRadius: BorderRadius.circular(10),
+            //         ),
+            //         labelText: 'Kilometros/Año',
+            //         focusedBorder: OutlineInputBorder(
+            //             borderSide: const BorderSide(
+            //                 color: Color.fromRGBO(28, 38, 73, 1), width: 2),
+            //             borderRadius: BorderRadius.circular(10))),
+            //     validator: (value) {
+            //       // ignore: unrelated_type_equality_checks
+            //       if (value == null || value.isEmpty) {
+            //         return 'Please enter some date';
+            //       }
+            //       return null;
+            //     },
+            //   ),
+            // ),
             Padding(
               padding: const EdgeInsets.only(top: 30, left: 100),
               child: ElevatedButton(

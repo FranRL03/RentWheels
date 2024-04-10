@@ -1,4 +1,6 @@
-import 'package:flutter_rent_car/model/response/modelo/modelo_response/modelo_response.dart';
+import 'dart:convert';
+
+import 'package:flutter_rent_car/model/response/modelo/modelo_response_v2/modelo_response_v2.dart';
 import 'package:flutter_rent_car/repositories/modelos/modelo_repository.dart';
 import 'package:flutter_rent_car/variables.dart';
 import 'package:http/http.dart';
@@ -13,7 +15,7 @@ class ModeloRepositorioImpl extends ModeloRepository {
   }
 
   @override
-  Future<ModeloResponse> models() async {
+  Future <List<ModeloResponseV2>> models() async {
     final token = await getToken();
 
     final response = await _htppClient.get(Uri.parse('$urlMovil/modelo'),
@@ -24,7 +26,8 @@ class ModeloRepositorioImpl extends ModeloRepository {
         });
 
     if (response.statusCode == 200) {
-      return ModeloResponse.fromJson(response.body);
+       List<dynamic> jsonResponse = json.decode(response.body);
+    return jsonResponse.map((data) => ModeloResponseV2.fromModeloResponseV2(data)).toList();
     } else {
       throw Exception('Failed to get models');
     }

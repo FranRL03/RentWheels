@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -18,9 +19,9 @@ public class VehiculoServicio {
 
     private final VehiculoRepository vehiculoRepository;
 
-    public Page<Vehiculo> findAll (Pageable pageable){
+    public List<Vehiculo> findAllList (){
 
-        Page<Vehiculo> vehiculos = vehiculoRepository.findAll(pageable);
+        List<Vehiculo> vehiculos = vehiculoRepository.findAll();
 
         if (vehiculos.isEmpty())
             throw new EmptyVehiculosListException();

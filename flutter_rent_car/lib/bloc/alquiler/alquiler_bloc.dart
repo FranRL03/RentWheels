@@ -31,7 +31,7 @@ class AlquilerBloc extends Bloc<AlquilerEvent, AlquilerState> {
     emit(DoAlquilerLoading());
     try {
       final AlquilerDto alquilerDto = AlquilerDto(
-          kilometrosPorAno: event.kilometrosPorAno,
+          kilometrosAnos: event.kilometrosAnos,
           fechaInicio: event.fechaInicio,
           fechaFin: event.fechaFin,
           precio: event.precio);
