@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 public record GetAlquileresCliente(
       String id,
       double precio,
-      int kilometrosPorAno,
+      int kilometrosAnos,
       String fechaInicio,
       String fechaFin,
       boolean enAlquiler,

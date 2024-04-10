@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.UUID;
@@ -18,13 +19,18 @@ public class ModeloServicio {
 
     private final ModeloRepository modeloRepository;
 
-    public Page<Modelo> getAll (Pageable pageable){
+    public List<Modelo> getAllList (){
 
-        return modeloRepository.findAll(pageable);
+        List<Modelo> modelos = modeloRepository.findAll();
+
+        if (modelos.isEmpty())
+            throw new EmptyModeloException();
+
+        return modelos;
     }
 
-    public Page<Vehiculo> getVehiculoModelo(String nombreModelo, Pageable pageable) {
-        Page<Vehiculo> vehiculos = modeloRepository.getVehiculoModelo(nombreModelo.toLowerCase(), pageable);
+    public List<Vehiculo> getVehiculoModelo(String nombreModelo) {
+        List<Vehiculo> vehiculos = modeloRepository.getVehiculoModelo(nombreModelo.toLowerCase());
 
         if (vehiculos.isEmpty())
             throw  new EmptyModeloException();

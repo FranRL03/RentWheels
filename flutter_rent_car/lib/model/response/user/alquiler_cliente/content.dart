@@ -5,7 +5,7 @@ import 'vehiculo.dart';
 class Content {
   String? id;
   double? precio;
-  int? kilometrosPorAno;
+  int? kilometrosAnos;
   String? fechaInicio;
   String? fechaFin;
   bool? enAlquiler;
@@ -14,7 +14,7 @@ class Content {
   Content({
     this.id,
     this.precio,
-    this.kilometrosPorAno,
+    this.kilometrosAnos,
     this.fechaInicio,
     this.fechaFin,
     this.enAlquiler,
@@ -24,7 +24,7 @@ class Content {
   factory Content.fromAlquilerCliente(Map<String, dynamic> data) => Content(
         id: data['id'] as String?,
         precio: (data['precio'] as num?)?.toDouble(),
-        kilometrosPorAno: data['kilometrosPorAno'] as int?,
+        kilometrosAnos: data['kilometrosAnos'] as int?,
         fechaInicio: data['fechaInicio'] as String?,
         fechaFin: data['fechaFin'] as String?,
         enAlquiler: data['enAlquiler'] as bool?,
@@ -37,7 +37,7 @@ class Content {
   Map<String, dynamic> toAlquilerCliente() => {
         'id': id,
         'precio': precio,
-        'kilometrosPorAno': kilometrosPorAno,
+        'kilometrosAnos': kilometrosAnos,
         'fechaInicio': fechaInicio,
         'fechaFin': fechaFin,
         'enAlquiler': enAlquiler,

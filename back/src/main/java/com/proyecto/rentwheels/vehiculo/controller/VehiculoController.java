@@ -19,6 +19,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/vehiculos")
@@ -61,11 +63,12 @@ public class VehiculoController {
                     content = @Content)
     })
     @GetMapping("/menu")
-    public Page<GetVehiculosDto> findAll(@PageableDefault Pageable pageable){
+    public List<GetVehiculosDto> findAll(){
 
-        Page<Vehiculo> vehiculos = vehiculoServicio.findAll(pageable);
-
-        return vehiculos.map(GetVehiculosDto::of);
+        return vehiculoServicio.findAllList()
+                .stream()
+                .map(GetVehiculosDto::of)
+                .toList();
     }
 
     @Operation(summary = "Detalles vehiculo")

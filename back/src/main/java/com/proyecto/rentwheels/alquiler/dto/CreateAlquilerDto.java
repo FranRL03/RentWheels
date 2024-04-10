@@ -6,6 +6,7 @@ public record CreateAlquilerDto(
 
         int kilometrosAnos,
         LocalDate fechaInicio,
-        LocalDate fechaFin
+        LocalDate fechaFin,
+        double precio
 ) {
 }

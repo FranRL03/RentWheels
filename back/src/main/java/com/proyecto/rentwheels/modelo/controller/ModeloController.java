@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -52,20 +53,23 @@ public class ModeloController {
     })
     @Operation(summary = "getAllModels", description = "lista de modelos")
     @GetMapping("/modelo")
-    public Page<GetModeloDto> getAllModelo (@PageableDefault(page=0, size =10) Pageable pageable) {
+    public List<GetModeloDto> getAllModelo () {
 
-        Page<Modelo> modelos = modeloServicio.getAll(pageable);
-
-        return modelos.map(GetModeloDto::of);
+        return modeloServicio.getAllList()
+                .stream()
+                .map(GetModeloDto::of)
+                .toList();
 
     }
 
     @GetMapping("/modelo/vehiculo/{nombreModelo}")
-    public Page<GetVehiculosDto> getVehiculoModelos (@PathVariable String nombreModelo, @PageableDefault(page = 0, size = 4) Pageable pageable){
+    public List<GetVehiculosDto> getVehiculoModelos (@PathVariable String nombreModelo){
 
-    Page<Vehiculo> vehiculos = modeloServicio.getVehiculoModelo(nombreModelo.toLowerCase(), pageable);
 
-    return vehiculos.map(GetVehiculosDto::of);
+    return  modeloServicio.getVehiculoModelo(nombreModelo.toLowerCase())
+            .stream()
+            .map(GetVehiculosDto::of)
+            .toList();
 
     }
 }
