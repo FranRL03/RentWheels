@@ -49,10 +49,17 @@ public class AlquilerServicio {
                  v.setDisponible(false);
                  vehiculoRepository.save(v);
 
+                 /*
+                 Aquí el precio del alquiler no se cambia en función de los kiloómetros
+                 elegidos que sería la metodología del alquiler.
+                 En cambio en el front si se cambia porque así el dto que recibe el front el precio
+                 se puede actualizar.
+                  */
+
                  double precioTotal = precioPorKilometro(v, create);
 
                  Alquiler a = Alquiler.builder()
-                         .precio(precioTotal)
+                         .precio(create.precio())
                          .kilometrosAnos(create.kilometrosAnos())
                          .fechaInicio(create.fechaInicio())
                          .fechaFin(create.fechaFin())

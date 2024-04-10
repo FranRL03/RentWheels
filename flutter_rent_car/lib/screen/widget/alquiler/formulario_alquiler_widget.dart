@@ -180,31 +180,34 @@ class _FormAlquilerState extends State<FormAlquiler> {
               ),
             ),
             DropdownButtonFormField(
-              value: dropdownValue,
-              items: lista.map((e){
-                return DropdownMenuItem(value: e,child: Text(e),);
-              }).toList(),
-              onChanged: (value) {
-                if (value == '10000') {
-                  setState(() {
-                        _precio = (vehiculoDetailsResponse.precioBase! + 0.0);
-                        precioTextController.text = '$_precio';
-                        kilomettrosTextController.text = '10000';
-                      });
-                } else if (value == '20000') {
-                  setState(() {
-                        _precio = (vehiculoDetailsResponse.precioBase! + 100.0);
-                        precioTextController.text = '$_precio';
-                        kilomettrosTextController.text = '20000';
-                      });
-                } else {
-                  setState(() {
-                        _precio = (vehiculoDetailsResponse.precioBase! + 150.0);
-                        precioTextController.text = '$_precio';
-                        kilomettrosTextController.text = '30000';
-                      });
-                }
-              }),
+                value: dropdownValue,
+                items: lista.map((e) {
+                  return DropdownMenuItem(
+                    value: e,
+                    child: Text(e),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  if (value == '10000') {
+                    setState(() {
+                      _precio = (vehiculoDetailsResponse.precioBase! + 0.0);
+                      precioTextController.text = '$_precio';
+                      kilomettrosTextController.text = '10000';
+                    });
+                  } else if (value == '20000') {
+                    setState(() {
+                      _precio = (vehiculoDetailsResponse.precioBase! + 100.0);
+                      precioTextController.text = '$_precio';
+                      kilomettrosTextController.text = '20000';
+                    });
+                  } else {
+                    setState(() {
+                      _precio = (vehiculoDetailsResponse.precioBase! + 150.0);
+                      precioTextController.text = '$_precio';
+                      kilomettrosTextController.text = '30000';
+                    });
+                  }
+                }),
             // DropdownButtonFormField(
             //   value: dropdownValue,
             //   items: lista.map((e) {
