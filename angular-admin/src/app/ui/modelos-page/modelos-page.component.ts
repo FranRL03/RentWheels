@@ -17,22 +17,22 @@ export class ModelosPageComponent {
   logoError: string = '';
   modeloError: string = '';
 
-  constructor(private modalService: NgbModal, private service: ModeloService, private router: Router) {}
+  constructor(private modalService: NgbModal, private service: ModeloService, private router: Router) { }
 
-  crear(){
+  crear() {
 
     this.validacion();
-    
-    
-    this.service.create(this.logo, this.modelo).subscribe((modelo: ModeloDetails) =>{
+
+
+    this.service.create(this.modelo, this.logo).subscribe((modelo: ModeloDetails) => {
       console.log('Modelo añadido', modelo);
       this.router.navigate([`/admin/modelos`]);
     });
   }
 
-	openBackDropCustomClass(content: TemplateRef<any>) {
-		this.modalService.open(content, { backdropClass: 'light-blue-backdrop' });
-	}
+  openBackDropCustomClass(content: TemplateRef<any>) {
+    this.modalService.open(content, { backdropClass: 'light-blue-backdrop' });
+  }
 
   validacion() {
     let errores = false;
@@ -47,7 +47,7 @@ export class ModelosPageComponent {
       errores = true;
     }
 
-    if(errores){
+    if (errores) {
       return console.log(errores);
     }
   }

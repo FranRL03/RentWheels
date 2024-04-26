@@ -13,33 +13,46 @@ export class ModeloService {
 
   constructor(private http: HttpClient) { }
 
-  listModelosWithOutPage(): Observable<ListModelosNoPage[]>{
+  listModelosWithOutPage(): Observable<ListModelosNoPage[]> {
     return this.http.get<ListModelosNoPage[]>(`${environment.apiBaseUrl}/admin/modelo/no-page`,
-    {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      }
-    });
+      {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
   }
 
   listModelos(page: number): Observable<ListModelos> {
     return this.http.get<ListModelos>(`${environment.apiBaseUrl}/admin/modelo?page=${page}`,
-    {
+      {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+  }
+
+  create(logo: string, modelo: string): Observable<ModeloDetails> {
+    return this.http.post<ModeloDetails>(`${environment.apiBaseUrl}/admin/add/modelo`,
+      {
+        logo: logo,
+        modelo: modelo
+      }, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
     });
   }
 
-  create(logo: string, modelo: string): Observable<ModeloDetails> {
-    return this.http.post<ModeloDetails>(`${environment.apiBaseUrl}/admin/add/modelo`,
-    {
-      logo: logo,
-      modelo: modelo
-    }, {
+  edit(logo: string, modelo: string, id: string): Observable<ModeloDetails> {
+    return this.http.put<ModeloDetails>(`${environment.apiBaseUrl}/admin/edit/modelo/${id}`,
+      {
+        logo: logo,
+        modelo: modelo
+      }, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
-    });
+    }
+    );
   }
 }

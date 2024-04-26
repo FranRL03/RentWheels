@@ -31,4 +31,13 @@ public class ModeloServicio {
 
         return vehiculos;
     }
+
+    public int vehiculosDeUnModelo(UUID idModelo) {
+
+        return modeloRepository.cantidadVehiculosDeUnModelo(idModelo);
+    }
+
+
+
+
 }

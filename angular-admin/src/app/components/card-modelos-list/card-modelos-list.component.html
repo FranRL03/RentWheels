@@ -3,9 +3,12 @@
         <div class="row">
             @for (m of modelosList; track m.modelo; let i = $index) {
             <div class="col-md-4 mb-4">
-                <!-- Cambiado a col-md-4 para mostrar 3 tarjetas por fila en pantallas medianas -->
                 <button type="button" class="card" style="width: 15rem;" (click)="modelo(m.id)">
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        99+
+                    </span>
                     <img src="assets/img/logo_toyota.png" class="card-img-top" alt="...">
+                    <!-- <img [src]="m.logo" class="card-img-top" alt="..."> -->
                     <div class="card-body">
                         <h4 class="text-center">{{m.modelo}}</h4>
                     </div>
