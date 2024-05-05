@@ -61,4 +61,9 @@ public class AdminModeloService {
         return modeloRepository.save(m);
     }
 
+    public int vehiculosDeUnModelo(UUID idModelo) {
+
+        return modeloRepository.cantidadVehiculosDeUnModelo(idModelo);
+    }
+
 }
