@@ -19,12 +19,15 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -104,22 +107,10 @@ public class AdminModeloController {
                             array = @ArraySchema(schema = @Schema(implementation = Modelo.class)),
                             examples = {@ExampleObject(
                                     value = """
-                                            [
-                                                {
-                                                      "id": "ac19c001-8c06-178e-818c-0687df90000e",
-                                                      "nombre": "Picos",
-                                                      "imagen": "https://st.depositphotos.com/2078351/2100/i/450/depositphotos_21008703-stock-photo-a-bread-peaks-over-white.jpg",
-                                                      "descripcion": "picos",
-                                                      "precio": 0.13,
-                                                      "tags": [
-                                                          "pan",
-                                                          "integral"
-                                                      ],
-                                                      "categoria": {
-                                                          "nombre": "Tapas"
-                                                      }
-                                                  }
-                                            ]
+                                            {
+                                                  "modelo": "Acura",
+                                                  "logo": "https://seeklogo.com/images/A/Acura-logo-6A7CD0D53A-seeklogo.com.png"
+                                              }
                                             """
                             )}
                     )}),
@@ -136,5 +127,48 @@ public class AdminModeloController {
         return ResponseEntity
                 .status(201)
                 .body(GetModeloDto.of(m));
+    }
+
+    @Operation(summary = "Edita un vehiculo existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "OK",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Vehiculo.class)),
+                            examples = @ExampleObject(
+                                    value = """
+                                              {
+                                                "id": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+                                                "combustion": "Hibrido",
+                                                "modelo": {
+                                                    "modelo": "Toyota Corolla",
+                                                     "logo": "https://assets.stickpng.com/thumbs/580b585b2edbce24c47b2cdc.png"
+                                                                         },
+                                                "imagen": "https://kobemotor.es/wp-content/uploads/2023/12/Toyota-C-HR-140h-Advance.png",
+                                                "transmision": "manual",
+                                                "capacidadPasajeros": 5,
+                                                "autonomia": 69000,
+                                                "potencia": 100,
+                                                "estado": "seminuevo",
+                                                "numPuertas": 5,
+                                                "disponible": true,
+                                                "precioBase": 300.0
+                                                }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(responseCode = "404",
+                    description = "Not Found",
+                    content = @Content
+            )
+    })
+
+    @PutMapping("/edit/modelo/{idModelo}")
+    public GetModeloDto editModelo (@RequestBody EditModeloDto edit, @PathVariable UUID idModelo){
+
+        Modelo m = modeloServicio.edit(edit, idModelo);
+
+        return GetModeloDto.of(m);
     }
 }

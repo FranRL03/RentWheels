@@ -21,4 +21,12 @@ public interface ModeloRepository extends JpaRepository<Modelo, UUID> {
     List<Vehiculo> getVehiculoModelo (String nombreModelo);
 
     Modelo findByModeloIgnoreCase(String nombreModelo);
+
+    @Query("""
+            select count (v)
+            from Vehiculo v
+            join v.modelo as m
+            where m.id = ?1
+            """)
+    int cantidadVehiculosDeUnModelo(UUID idModelo);
 }

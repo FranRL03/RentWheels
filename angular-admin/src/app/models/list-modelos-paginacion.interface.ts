@@ -15,6 +15,7 @@ export interface ListModelos {
 }
 
 export interface Modelo {
+    id: string;
     modelo: string;
     logo:   string;
 }
