@@ -51,7 +51,6 @@ export class VehiculosRowVerticalComponent implements OnInit {
     this.selectedVehiculoId = id;
 		this.modalService.open(content, { centered: true });
 	}
-
 }
 
 

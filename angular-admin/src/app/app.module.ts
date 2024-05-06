@@ -9,7 +9,7 @@ import { CochesPageComponent } from './ui/coches-page/coches-page.component';
 import { NoAdminComponent } from './ui/no-admin/no-admin.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPerfilComponent } from './components/modal-perfil/modal-perfil.component';
 import { AdminSectionComponent } from './section/admin-section/admin-section.component';
 import { VehiculosRowVerticalComponent } from './components/vehiculos-row-vertical/vehiculos-row-vertical.component';
@@ -40,7 +40,8 @@ import { ModeloConVehiculosComponent } from './ui/modelo-con-vehiculos/modelo-co
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    NgbModule, 
+    NgbModule,
+    NgbPopoverModule 
   ],
   providers: [],
   bootstrap: [AppComponent]
