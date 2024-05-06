@@ -9,11 +9,11 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-vehiculos-row-vertical',
-  templateUrl: './vehiculos-row-vertical.component.html',
-  styleUrl: './vehiculos-row-vertical.component.css',
+  selector: 'app-card-vehiculos',
+  templateUrl: './card-vehiculos.component.html',
+  styleUrl: './card-vehiculos.component.css',
 })
-export class VehiculosRowVerticalComponent implements OnInit {
+export class CardVehiculosComponent implements OnInit {
 
   vehiculoList!: Vehiculo[];
   selectedVehiculoId!: string
