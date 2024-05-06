@@ -5,6 +5,7 @@ import com.proyecto.rentwheels.modelo.exception.EmptyModeloException;
 import com.proyecto.rentwheels.modelo.exception.NotFoundModeloException;
 import com.proyecto.rentwheels.modelo.model.Modelo;
 import com.proyecto.rentwheels.modelo.repositorio.ModeloRepository;
+import com.proyecto.rentwheels.vehiculo.model.Vehiculo;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -64,6 +65,15 @@ public class AdminModeloService {
     public int vehiculosDeUnModelo(UUID idModelo) {
 
         return modeloRepository.cantidadVehiculosDeUnModelo(idModelo);
+    }
+
+    public Page<Vehiculo> getVehiculoModelo(UUID idModelo, Pageable pageable) {
+        Page<Vehiculo> vehiculos = modeloRepository.getVehiculoModeloWithPageble(idModelo, pageable);
+
+        if (vehiculos.isEmpty())
+            throw  new EmptyModeloException();
+
+        return vehiculos;
     }
 
 }

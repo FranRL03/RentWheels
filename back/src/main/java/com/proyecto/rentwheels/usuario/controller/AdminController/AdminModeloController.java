@@ -171,4 +171,14 @@ public class AdminModeloController {
 
         return GetModeloDto.of(m);
     }
+
+    @GetMapping("/modelo/vehiculo/{idModelo}")
+    public Page<GetVehiculosDto> getVehiculoModelos (@PathVariable UUID idModelo, @PageableDefault(page=0, size =6) Pageable pageable){
+
+
+        Page<Vehiculo> vehiculoModelos = modeloServicio.getVehiculoModelo(idModelo, pageable);
+
+        return vehiculoModelos.map(GetVehiculosDto::of);
+
+    }
 }
