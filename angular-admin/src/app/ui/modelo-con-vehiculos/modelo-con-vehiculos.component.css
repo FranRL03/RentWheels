@@ -1,3 +1,41 @@
 span {
     color: red;
 }
+
+.card {
+    background: rgb(18, 119, 116);
+    background: radial-gradient(circle, rgba(18, 119, 116, 1) 0%, rgba(91, 143, 204, 1) 100%);
+}
+
+.card:hover {
+    filter: brightness(70%);
+}
+
+.card:hover .botones-ocultos {
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+.botones-ocultos {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
+
+.botones-ocultos button {
+    margin: 5px;
+    width: 100%;
+}
+
+.arrow-icon {
+    transition: background-color 0.3s ease;
+}
+
+.arrow-icon:hover {
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 5px; 
+    box-sizing: border-box;
+}
