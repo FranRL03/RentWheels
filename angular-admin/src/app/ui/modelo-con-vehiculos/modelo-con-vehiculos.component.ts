@@ -11,7 +11,7 @@ import { VehiculoService } from '../../services/vehiculo.service';
   templateUrl: './modelo-con-vehiculos.component.html',
   styleUrl: './modelo-con-vehiculos.component.css'
 })
-export class ModeloConVehiculosComponent{
+export class ModeloConVehiculosComponent implements OnInit{
 
   route: ActivatedRoute = inject(ActivatedRoute);
   idModelo!: string;
@@ -31,6 +31,13 @@ export class ModeloConVehiculosComponent{
 
   constructor(private modalService: NgbModal, private router: Router, private modeloService: ModeloService) {
     this.idModelo = this.route.snapshot.params['idModelo'];
+  }
+
+  ngOnInit(): void {
+      this.modeloService.modeloDetails(this.idModelo).subscribe(resp => {
+        this.modelo = resp.modelo;
+        this.logo = resp.logo;
+      })
   }
 
   openBackDropCustomClass(content: TemplateRef<any>) {

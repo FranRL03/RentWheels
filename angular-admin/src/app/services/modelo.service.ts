@@ -66,4 +66,14 @@ export class ModeloService {
     }
     )
   }
+
+  modeloDetails(id: string): Observable<ModeloDetails> {
+    return this.http.get<ModeloDetails>(`${environment.apiBaseUrl}/admin/modelo/${id}`,
+    {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    }
+    )
+  }
 }
