@@ -9,15 +9,15 @@ import { CochesPageComponent } from './ui/coches-page/coches-page.component';
 import { NoAdminComponent } from './ui/no-admin/no-admin.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPerfilComponent } from './components/modal-perfil/modal-perfil.component';
 import { AdminSectionComponent } from './section/admin-section/admin-section.component';
-import { VehiculosRowVerticalComponent } from './components/vehiculos-row-vertical/vehiculos-row-vertical.component';
 import { VehiculoFormComponent } from './ui/vehiculo-form/vehiculo-form.component';
 import { VehiculoEditComponent } from './ui/vehiculo-edit/vehiculo-edit.component';
 import { CardModelosListComponent } from './components/card-modelos-list/card-modelos-list.component';
 import { ModelosPageComponent } from './ui/modelos-page/modelos-page.component';
 import { ModeloConVehiculosComponent } from './ui/modelo-con-vehiculos/modelo-con-vehiculos.component';
+import { CardVehiculosComponent } from './components/card-vehiculos/card-vehiculos.component';
 
 @NgModule({
   declarations: [
@@ -25,10 +25,10 @@ import { ModeloConVehiculosComponent } from './ui/modelo-con-vehiculos/modelo-co
     NavComponent,
     LoginPageComponent,
     CochesPageComponent,
+    CardVehiculosComponent,
     NoAdminComponent,
     ModalPerfilComponent,
     AdminSectionComponent,
-    VehiculosRowVerticalComponent,
     VehiculoFormComponent,
     VehiculoEditComponent,
     CardModelosListComponent,
@@ -40,7 +40,8 @@ import { ModeloConVehiculosComponent } from './ui/modelo-con-vehiculos/modelo-co
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    NgbModule, 
+    NgbModule,
+    NgbPopoverModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -29,4 +29,12 @@ public interface ModeloRepository extends JpaRepository<Modelo, UUID> {
             where m.id = ?1
             """)
     int cantidadVehiculosDeUnModelo(UUID idModelo);
+
+    @Query("""
+            select v
+            from Vehiculo v
+            join v.modelo as m
+            where m.id = ?1
+            """)
+    Page<Vehiculo> getVehiculoModeloWithPageble (UUID idModelo, Pageable pageable);
 }

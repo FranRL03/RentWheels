@@ -5,6 +5,7 @@ import { ListModelosNoPage } from '../models/list-modelos-no-page.interface';
 import { environment } from '../environment/environment';
 import { ListModelos } from '../models/list-modelos-paginacion.interface';
 import { ModeloDetails } from '../models/new-modelo.interface';
+import { ListVehiculo } from '../models/list-vehiculo.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -54,5 +55,25 @@ export class ModeloService {
       }
     }
     );
+  }
+
+  vehiculosModelo(id: string, page: number): Observable<ListVehiculo> {
+    return this.http.get<ListVehiculo>(`${environment.apiBaseUrl}/admin/modelo/vehiculo/${id}?page=${page}`, 
+    {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    }
+    )
+  }
+
+  modeloDetails(id: string): Observable<ModeloDetails> {
+    return this.http.get<ModeloDetails>(`${environment.apiBaseUrl}/admin/modelo/${id}`,
+    {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    }
+    )
   }
 }

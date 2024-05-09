@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -168,6 +169,44 @@ public class AdminModeloController {
     public GetModeloDto editModelo (@RequestBody EditModeloDto edit, @PathVariable UUID idModelo){
 
         Modelo m = modeloServicio.edit(edit, idModelo);
+
+        return GetModeloDto.of(m);
+    }
+
+    @GetMapping("/modelo/vehiculo/{idModelo}")
+    public Page<GetVehiculosDto> getVehiculoModelos (@PathVariable UUID idModelo, @PageableDefault(page=0, size =6) Pageable pageable){
+
+
+        Page<Vehiculo> vehiculoModelos = modeloServicio.getVehiculoModelo(idModelo, pageable);
+
+        return vehiculoModelos.map(GetVehiculosDto::of);
+
+    }
+
+    @Operation(summary = "Detalles modelo")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Detalles un modelo",
+                    content = {@Content(mediaType = "aplication/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Vehiculo.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                  "modelo": "Acura",
+                                                  "logo": "https://seeklogo.com/images/A/Acura-logo-6A7CD0D53A-seeklogo.com.png"
+                                              }
+                                            """
+                            )}
+                    )}),
+
+            @ApiResponse(responseCode = "500",
+                    description = "Error al encontrar el modelo para mostrar los detalles",
+                    content = @Content)
+    })
+    @GetMapping("/modelo/{id}")
+    public GetModeloDto details (@Valid @PathVariable UUID id) {
+
+        Modelo m = modeloServicio.details(id);
 
         return GetModeloDto.of(m);
     }
