@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Modelo } from '../../models/list-modelos-paginacion.interface';
 import { ModeloService } from '../../services/modelo.service';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-card-modelos-list',
   templateUrl: './card-modelos-list.component.html',
   styleUrl: './card-modelos-list.component.css'
 })
-export class CardModelosListComponent implements OnInit{
+export class CardModelosListComponent implements OnInit {
   modelosList!: Modelo[];
   idModelo!: string;
 
@@ -16,10 +17,11 @@ export class CardModelosListComponent implements OnInit{
   modelosPorPagina = 0;
   pagina = 0;
 
-  constructor(private service: ModeloService, private router: Router) {}
+  constructor(private service: ModeloService, private router: Router, private modalService: NgbModal) { }
 
   ngOnInit(): void {
-      this.loadPage();
+    this.loadPage();
+
   }
 
   loadPage(): void {
@@ -31,8 +33,7 @@ export class CardModelosListComponent implements OnInit{
     });
   }
 
-  modelo(idModelo: string){
+  modelo(idModelo: string) {
     this.router.navigate([`/admin/modelo/${idModelo}`]);
   }
-
 }

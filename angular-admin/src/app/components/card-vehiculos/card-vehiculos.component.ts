@@ -21,19 +21,19 @@ export class CardVehiculosComponent implements OnInit {
 
   @Input() modeloId: string | undefined;
 
-  totalVehiculos = 0; 
+  totalVehiculos = 0;
   vehiculosPorPagina = 10;
   pagina = 0;
   id!: string;
 
-  constructor(private service: VehiculoService, private router: Router, private modalService: NgbModal, private modeloService: ModeloService) {}
+  constructor(private service: VehiculoService, private router: Router, private modalService: NgbModal, private modeloService: ModeloService) { }
 
   ngOnInit(): void {
     this.loadPage();
   }
 
   loadPage(): void {
-    if(this.modeloId){
+    if (this.modeloId) {
       this.modeloService.vehiculosModelo(this.modeloId, this.pagina - 1).subscribe(resp => {
         this.vehiculoList = resp.content;
         this.vehiculosPorPagina = resp.pageable.pageSize;
@@ -47,8 +47,8 @@ export class CardVehiculosComponent implements OnInit {
       });
     }
   }
-  
-  edit(id: string){
+
+  edit(id: string) {
     this.router.navigate([`admin/vehiculo/form-edit/${id}`])
     console.log(id);
   }
@@ -58,10 +58,10 @@ export class CardVehiculosComponent implements OnInit {
     window.location.href = `http://localhost:4200/admin/coche`;
   }
 
-	openVerticallyCentered(content: TemplateRef<any>, id: string) {
+  openVerticallyCentered(content: TemplateRef<any>, id: string) {
     this.selectedVehiculoId = id;
-		this.modalService.open(content, { centered: true });
-	}
+    this.modalService.open(content, { centered: true });
+  }
 }
 
 

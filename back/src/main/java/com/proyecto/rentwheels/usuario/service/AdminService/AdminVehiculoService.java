@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -91,5 +92,19 @@ public class AdminVehiculoService {
         else
             vehiculoRepository.deleteById(idVehiculo);
 
+    }
+
+    public void clearModelList (UUID idModelo) {
+
+//        Optional<Modelo> m =
+        modeloRepository.findById(idModelo).ifPresentOrElse(
+                (modelo) -> vehiculoRepository.clearModelList(modelo.getId()),
+                () -> { throw new NotFoundModeloException(); }
+        );
+
+    /*    if(m.isPresent())
+            vehiculoRepository.clearModelList(idModelo);
+        else
+            throw new NotFoundModeloException();*/
     }
 }
