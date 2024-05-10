@@ -58,22 +58,31 @@ export class ModeloService {
   }
 
   vehiculosModelo(id: string, page: number): Observable<ListVehiculo> {
-    return this.http.get<ListVehiculo>(`${environment.apiBaseUrl}/admin/modelo/vehiculo/${id}?page=${page}`, 
-    {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
+    return this.http.get<ListVehiculo>(`${environment.apiBaseUrl}/admin/modelo/vehiculo/${id}?page=${page}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
       }
-    }
     )
   }
 
   modeloDetails(id: string): Observable<ModeloDetails> {
     return this.http.get<ModeloDetails>(`${environment.apiBaseUrl}/admin/modelo/${id}`,
-    {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
       }
-    }
     )
+  }
+
+  clear(id: string) {
+    return this.http.delete(`${environment.apiBaseUrl}/admin/clear/modelo/${id}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
   }
 }

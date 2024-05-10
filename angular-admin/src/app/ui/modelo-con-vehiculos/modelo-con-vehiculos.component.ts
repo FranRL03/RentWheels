@@ -11,7 +11,7 @@ import { VehiculoService } from '../../services/vehiculo.service';
   templateUrl: './modelo-con-vehiculos.component.html',
   styleUrl: './modelo-con-vehiculos.component.css'
 })
-export class ModeloConVehiculosComponent implements OnInit{
+export class ModeloConVehiculosComponent implements OnInit {
 
   route: ActivatedRoute = inject(ActivatedRoute);
   idModelo!: string;
@@ -22,10 +22,10 @@ export class ModeloConVehiculosComponent implements OnInit{
   logoError: string = '';
   modeloError: string = '';
 
-  vehiculoList!: Vehiculo[];
-  selectedVehiculoId!: string
+  // vehiculoList!: Vehiculo[];
+  // selectedVehiculoId!: string
 
-  totalVehiculos = 0; 
+  totalVehiculos = 0;
   vehiculosPorPagina = 10;
   pagina = 0;
 
@@ -34,10 +34,12 @@ export class ModeloConVehiculosComponent implements OnInit{
   }
 
   ngOnInit(): void {
-      this.modeloService.modeloDetails(this.idModelo).subscribe(resp => {
-        this.modelo = resp.modelo;
-        this.logo = resp.logo;
-      })
+    this.modeloService.modeloDetails(this.idModelo).subscribe(resp => {
+      this.modelo = resp.modelo;
+      this.logo = resp.logo;
+    });
+
+    this.comprobacionCantVehiculos();
   }
 
   openBackDropCustomClass(content: TemplateRef<any>) {
@@ -53,6 +55,17 @@ export class ModeloConVehiculosComponent implements OnInit{
 
   goBack() {
     window.history.back();
+  }
+
+  clear(idModelo: string) {
+    this.modeloService.clear(idModelo).subscribe();
+    window.location.href = `http://localhost:4200/admin/modelo/${idModelo}`;
+  }
+
+  comprobacionCantVehiculos() {
+    this.modeloService.vehiculosModelo(this.idModelo, this.pagina - 1).subscribe(resp => {
+      this.totalVehiculos = resp.totalElements;
+    });
   }
 
 }

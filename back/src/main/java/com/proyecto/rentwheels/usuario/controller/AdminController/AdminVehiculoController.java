@@ -166,5 +166,12 @@ public class AdminVehiculoController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/clear/modelo/{idModelo}")
+    public ResponseEntity<?> clearModelList (@PathVariable UUID idModelo){
+
+        adminVehiculoService.clearModelList(idModelo);
+
+        return ResponseEntity.noContent().build();
+    }
 
 }
