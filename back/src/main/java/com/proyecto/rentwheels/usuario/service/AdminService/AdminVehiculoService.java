@@ -96,15 +96,9 @@ public class AdminVehiculoService {
 
     public void clearModelList (UUID idModelo) {
 
-//        Optional<Modelo> m =
-        modeloRepository.findById(idModelo).ifPresentOrElse(
-                (modelo) -> vehiculoRepository.clearModelList(modelo.getId()),
+        modeloRepository.findById(idModelo)
+                .ifPresentOrElse((modelo) -> vehiculoRepository.clearModelList(modelo.getId()),
                 () -> { throw new NotFoundModeloException(); }
         );
-
-    /*    if(m.isPresent())
-            vehiculoRepository.clearModelList(idModelo);
-        else
-            throw new NotFoundModeloException();*/
     }
 }

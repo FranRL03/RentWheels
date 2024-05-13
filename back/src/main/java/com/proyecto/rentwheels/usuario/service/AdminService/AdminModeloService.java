@@ -1,6 +1,7 @@
 package com.proyecto.rentwheels.usuario.service.AdminService;
 
 import com.proyecto.rentwheels.modelo.dto.EditModeloDto;
+import com.proyecto.rentwheels.modelo.exception.DeleteModeloException;
 import com.proyecto.rentwheels.modelo.exception.EmptyModeloException;
 import com.proyecto.rentwheels.modelo.exception.NotFoundModeloException;
 import com.proyecto.rentwheels.modelo.model.Modelo;
@@ -86,6 +87,19 @@ public class AdminModeloService {
             return modelo.get();
 
         throw new NotFoundModeloException();
+    }
+
+
+    public void delete (UUID idModelo) {
+
+        int cantVehiculos = modeloRepository.cantidadVehiculosDeUnModelo(idModelo);
+
+        if (cantVehiculos > 0) {
+            throw new DeleteModeloException();
+        } else {
+            modeloRepository.deleteById(idModelo);
+        }
+
     }
 
 }

@@ -210,4 +210,14 @@ public class AdminModeloController {
 
         return GetModeloDto.of(m);
     }
+
+    @Operation(summary = "Borra un modelo por su id")
+    @ApiResponse(responseCode = "204 No Content",
+            description = "Borrado con éxito",
+            content = @Content)
+    @DeleteMapping("/delete/modelo/{idModelo}")
+    public ResponseEntity<?> delete(@PathVariable UUID idModelo) {
+        modeloServicio.delete(idModelo);
+        return ResponseEntity.noContent().build();
+    }
 }

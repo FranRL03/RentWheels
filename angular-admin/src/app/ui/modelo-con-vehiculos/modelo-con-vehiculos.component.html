@@ -60,7 +60,7 @@
         <div class="modal-footer">
             <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Cerrar</button>
         </div>
-    </ng-template>
+    </ng-template>>
 
     <ng-template #delete let-modal>
         @if (totalVehiculos == 0) {
@@ -82,6 +82,7 @@
         </div>
         <div class="modal-body">
             <h6>¿Estás seguro de que quieres borrar todos los vehiculos?</h6>
+            <p>Antes de borrar un modelo hay que borrar todos los vehiculos</p>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" disabled>Aceptar</button>
