@@ -70,4 +70,9 @@ export class ModeloConVehiculosComponent implements OnInit {
     );
   }
 
+  delete(idModelo: string) {
+    this.modeloService.delete(idModelo).subscribe();
+    window.location.href = `http://localhost:4200/admin/modelos`;
+  }
+
 }
