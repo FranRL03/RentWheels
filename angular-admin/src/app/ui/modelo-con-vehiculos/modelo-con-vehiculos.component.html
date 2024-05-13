@@ -21,7 +21,7 @@
                 Editar Modelo
             </button>
 
-            <button type=" button" class="btn btn-secondary mt-4 text-center" (click)="openBackDropCustomClass(delete)">
+            <button type=" button" class="btn btn-secondary mt-4 text-center" (click)="openBackDropCustomClass(deleteModal)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                     class="bi bi-x-circle text-center" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
@@ -60,9 +60,9 @@
         <div class="modal-footer">
             <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Cerrar</button>
         </div>
-    </ng-template>
+    </ng-template>>
 
-    <ng-template #delete let-modal>
+    <ng-template #deleteModal let-modal>
         @if (totalVehiculos == 0) {
         <div class="modal-header">
             <h4 class="modal-title">Borrar Modelo</h4>
@@ -72,7 +72,7 @@
             <h6>¿Estás seguro de que quieres borrar este modelo?</h6>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Aceptar</button>
+            <button type="button" class="btn btn-danger" (click)="delete(idModelo)">Aceptar</button>
             <button type="button" class="btn btn-secondary" disabled>Borrar lista</button>
         </div>
         } @else {
@@ -82,6 +82,7 @@
         </div>
         <div class="modal-body">
             <h6>¿Estás seguro de que quieres borrar todos los vehiculos?</h6>
+            <p>Antes de borrar un modelo hay que borrar todos los vehiculos</p>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" disabled>Aceptar</button>

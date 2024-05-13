@@ -5,6 +5,7 @@ import { ModeloService } from '../../services/modelo.service';
 import { ModeloDetails } from '../../models/new-modelo.interface';
 import { Vehiculo } from '../../models/list-vehiculo.interface';
 import { VehiculoService } from '../../services/vehiculo.service';
+import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-modelo-con-vehiculos',
@@ -59,13 +60,19 @@ export class ModeloConVehiculosComponent implements OnInit {
 
   clear(idModelo: string) {
     this.modeloService.clear(idModelo).subscribe();
-    window.location.href = `http://localhost:4200/admin/modelo/${idModelo}`;
+        window.location.href = `http://localhost:4200/admin/modelo/${idModelo}`;
   }
 
   comprobacionCantVehiculos() {
     this.modeloService.vehiculosModelo(this.idModelo, this.pagina - 1).subscribe(resp => {
       this.totalVehiculos = resp.totalElements;
-    });
+    },
+    );
+  }
+
+  delete(idModelo: string) {
+    this.modeloService.delete(idModelo).subscribe();
+    window.location.href = `http://localhost:4200/admin/modelos`;
   }
 
 }

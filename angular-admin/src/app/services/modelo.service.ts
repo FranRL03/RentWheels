@@ -85,4 +85,13 @@ export class ModeloService {
         }
       });
   }
+
+  delete(id: string) {
+    return this.http.delete(`${environment.apiBaseUrl}/admin/delete/modelo/${id}`,
+    {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+  }
 }
