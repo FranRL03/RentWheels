@@ -18,6 +18,7 @@ export interface Modelo {
     id: string;
     modelo: string;
     logo:   string;
+    cantVehiculos: number;
 }
 
 export interface Pageable {

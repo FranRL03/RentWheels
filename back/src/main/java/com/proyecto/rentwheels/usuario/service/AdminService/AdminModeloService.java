@@ -1,6 +1,8 @@
 package com.proyecto.rentwheels.usuario.service.AdminService;
 
 import com.proyecto.rentwheels.modelo.dto.EditModeloDto;
+import com.proyecto.rentwheels.modelo.dto.GetModeloConCantVehiculos;
+import com.proyecto.rentwheels.modelo.dto.GetModeloDto;
 import com.proyecto.rentwheels.modelo.exception.DeleteModeloException;
 import com.proyecto.rentwheels.modelo.exception.EmptyModeloException;
 import com.proyecto.rentwheels.modelo.exception.NotFoundModeloException;
@@ -11,9 +13,11 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.Banner;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -69,6 +73,16 @@ public class AdminModeloService {
 
         return modeloRepository.cantidadVehiculosDeUnModelo(idModelo);
     }
+
+    public Page<GetModeloConCantVehiculos> getAllModeloConCantidadVehiculos(Pageable pageable) {
+        return modeloRepository.findAll(pageable)
+                .map(modelo -> new GetModeloConCantVehiculos(
+                        modelo.getId().toString(),
+                        modelo.getLogo(),
+                        modelo.getModelo(),
+                        vehiculosDeUnModelo(modelo.getId())));
+    }
+
 
     public Page<Vehiculo> getVehiculoModelo(UUID idModelo, Pageable pageable) {
         Page<Vehiculo> vehiculos = modeloRepository.getVehiculoModeloWithPageble(idModelo, pageable);
