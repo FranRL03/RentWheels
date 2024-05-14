@@ -1,6 +1,7 @@
 package com.proyecto.rentwheels.usuario.controller.AdminController;
 
 import com.proyecto.rentwheels.modelo.dto.EditModeloDto;
+import com.proyecto.rentwheels.modelo.dto.GetModeloConCantVehiculos;
 import com.proyecto.rentwheels.modelo.dto.GetModeloDto;
 import com.proyecto.rentwheels.modelo.model.Modelo;
 import com.proyecto.rentwheels.modelo.servicio.ModeloServicio;
@@ -92,12 +93,8 @@ public class AdminModeloController {
     })
     @Operation(summary = "getAllModels", description = "lista de modelos")
     @GetMapping("/modelo")
-    public Page<GetModeloDto> getAllModelo (@PageableDefault(page=0, size =6) Pageable pageable) {
-
-        Page<Modelo> modelos = modeloServicio.getAll(pageable);
-
-        return modelos.map(GetModeloDto::of);
-
+    public Page<GetModeloConCantVehiculos> getAllModelo(@PageableDefault(page = 0, size = 6) Pageable pageable) {
+        return modeloServicio.getAllModeloConCantidadVehiculos(pageable);
     }
 
     @Operation(summary = "Añades un vehiculo")
