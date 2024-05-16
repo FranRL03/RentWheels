@@ -31,10 +31,10 @@ class AlquilerBloc extends Bloc<AlquilerEvent, AlquilerState> {
     emit(DoAlquilerLoading());
     try {
       final AlquilerDto alquilerDto = AlquilerDto(
-          kilometrosAnos: event.kilometrosAnos,
           fechaInicio: event.fechaInicio,
           fechaFin: event.fechaFin,
-          // precio: event.precio
+          origen: event.origen,
+          destino: event.destino
           );
       final response =
           await alquilerRepository.alquiler(alquilerDto, event.uuid);

@@ -27,6 +27,10 @@ class _FormAlquilerState extends State<FormAlquiler> {
   //     TextEditingController(text: '10000');
   late TextEditingController dateEndTextController = TextEditingController();
   late TextEditingController dateStartTextController = TextEditingController();
+  late TextEditingController origenTextController = TextEditingController();
+  late TextEditingController destinoTextController = TextEditingController();
+
+
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
 
   var _currentSelectedDate = DateTime.now();
@@ -189,8 +193,7 @@ class _FormAlquilerState extends State<FormAlquiler> {
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: TextFormField(
-                controller: dateEndTextController,
-                // onTap: callDatePickerEnd,
+                controller: origenTextController,
                 decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.pin_drop),
                     filled: true,
@@ -216,8 +219,7 @@ class _FormAlquilerState extends State<FormAlquiler> {
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: TextFormField(
-                controller: dateEndTextController,
-                // onTap: callDatePickerEnd,
+                controller: destinoTextController,
                 decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.pin_drop),
                     filled: true,
@@ -237,6 +239,40 @@ class _FormAlquilerState extends State<FormAlquiler> {
                 },
               ),
             ),
+            
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: ElevatedButton(
+                onPressed: () {
+                  if (_formAlquiler.currentState!.validate()) {
+                    _alquilerBloc.add(DoAlquilerEvent(
+                        dateStartTextController.text,
+                        dateEndTextController.text,
+                        origenTextController.text,
+                        destinoTextController.text,
+                        widget.uuid));
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.colorPrincipal,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 12,
+                    horizontal: 54,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(28.5),
+                  ),
+                ),
+                child: const Text(
+                  'Alquilar',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Color.fromRGBO(255, 255, 255, 1),
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            )
           ]),
     );
   }

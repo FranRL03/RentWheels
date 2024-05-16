@@ -10,12 +10,10 @@ class GetAlquilerClienteEvent extends AlquilerEvent {
 }
 
 class DoAlquilerEvent extends AlquilerEvent {
-  final int kilometrosAnos;
   final String fechaInicio;
   final String fechaFin;
-  // final double precio;
+  final String origen;
+  final String destino;
   final String uuid;
-  DoAlquilerEvent(this.kilometrosAnos, this.fechaInicio, this.fechaFin
-  // ,this.precio
-  , this.uuid);
+  DoAlquilerEvent(this.fechaInicio, this.fechaFin, this.origen, this.destino, this.uuid);
 }
