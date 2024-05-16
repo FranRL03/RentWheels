@@ -23,11 +23,10 @@ class _FormAlquilerState extends State<FormAlquiler> {
 
   final _formAlquiler = GlobalKey<FormState>();
 
-  late TextEditingController kilomettrosTextController =
-      TextEditingController(text: '10000');
+  // late TextEditingController kilomettrosTextController =
+  //     TextEditingController(text: '10000');
   late TextEditingController dateEndTextController = TextEditingController();
   late TextEditingController dateStartTextController = TextEditingController();
-  late TextEditingController precioTextController = TextEditingController();
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
 
   var _currentSelectedDate = DateTime.now();
@@ -38,8 +37,8 @@ class _FormAlquilerState extends State<FormAlquiler> {
   late VehiculoDetailsResponse vehiculoDetailsResponse;
   late VehiculoRepository vehiculoRepository;
 
-  List lista = ['10000', '20000', '30000'];
-  String dropdownValue = '10000';
+  // List lista = ['10000', '20000', '30000'];
+  // String dropdownValue = '10000';
 
   @override
   void initState() {
@@ -47,21 +46,21 @@ class _FormAlquilerState extends State<FormAlquiler> {
     alquilerRepository = AlquilerRepositoryImpl();
     _alquilerBloc = AlquilerBloc(alquilerRepository);
     vehiculoRepository = VehiculoRepositoryImpl();
-    _loadPrecioBase();
+    // _loadPrecioBase();
   }
 
-  void _loadPrecioBase() async {
-    try {
-      vehiculoDetailsResponse =
-          await vehiculoRepository.vehiculoDetails(widget.uuid);
-      setState(() {
-        _precio = vehiculoDetailsResponse.precioBase!;
-        precioTextController.text = _precio.toString();
-      });
-    } catch (e) {
-      precioTextController.text = 'Error al cargar el precio';
-    }
-  }
+  // void _loadPrecioBase() async {
+  //   try {
+  //     vehiculoDetailsResponse =
+  //         await vehiculoRepository.vehiculoDetails(widget.uuid);
+  //     setState(() {
+  //       _precio = vehiculoDetailsResponse.precioBase!;
+  //       precioTextController.text = _precio.toString();
+  //     });
+  //   } catch (e) {
+  //     precioTextController.text = 'Error al cargar el precio';
+  //   }
+  // }
 
   void callDatePickerStart() async {
     var selectedDate = await getDatePickedWidget();
@@ -123,8 +122,12 @@ class _FormAlquilerState extends State<FormAlquiler> {
       child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(
+              height: 20,
+            ),
+            const Text('¿Quieres alquilar?', style: TextStyle(fontSize: 25),),
             const SizedBox(
               height: 20,
             ),
@@ -139,7 +142,7 @@ class _FormAlquilerState extends State<FormAlquiler> {
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    labelText: 'Desde',
+                    labelText: 'Fecha inicio',
                     focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                             color: Color.fromRGBO(28, 38, 73, 1), width: 2),
@@ -166,7 +169,7 @@ class _FormAlquilerState extends State<FormAlquiler> {
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    labelText: 'Hasta',
+                    labelText: 'Fecha fin',
                     focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                             color: Color.fromRGBO(28, 38, 73, 1), width: 2),
@@ -179,145 +182,61 @@ class _FormAlquilerState extends State<FormAlquiler> {
                 },
               ),
             ),
-            DropdownButtonFormField(
-                value: dropdownValue,
-                items: lista.map((e) {
-                  return DropdownMenuItem(
-                    value: e,
-                    child: Text(e),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  if (value == '10000') {
-                    setState(() {
-                      _precio = (vehiculoDetailsResponse.precioBase! + 0.0);
-                      precioTextController.text = '$_precio';
-                      kilomettrosTextController.text = '10000';
-                    });
-                  } else if (value == '20000') {
-                    setState(() {
-                      _precio = (vehiculoDetailsResponse.precioBase! + 100.0);
-                      precioTextController.text = '$_precio';
-                      kilomettrosTextController.text = '20000';
-                    });
-                  } else {
-                    setState(() {
-                      _precio = (vehiculoDetailsResponse.precioBase! + 150.0);
-                      precioTextController.text = '$_precio';
-                      kilomettrosTextController.text = '30000';
-                    });
-                  }
-                }),
-            // DropdownButtonFormField(
-            //   value: dropdownValue,
-            //   items: lista.map((e) {
-            //     return DropdownMenuItem(
-            //       value: e,
-            //       child: Text(e),
-            //     );
-            //   }).toList(),
-            //   onChanged: (value) {
-            //     setState(() {
-            //       dropdownValue = value.toString();
-            //       if (dropdownValue == '10000') {
-            //         _precio = (vehiculoDetailsResponse.precioBase! + 0.0);
-            //         kilomettrosTextController.text = '10000';
-            //       } else if (dropdownValue == '20000') {
-            //         _precio = (vehiculoDetailsResponse.precioBase! + 100.0);
-            //         kilomettrosTextController.text = '20000';
-            //       } else {
-            //         _precio = (vehiculoDetailsResponse.precioBase! + 150.0);
-            //         kilomettrosTextController.text = '30000';
-            //       }
-            //       precioTextController.text = _precio.toString();
-            //     });
-            //   },
-            // ),
-
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-            //   child: TextFormField(
-            //     controller: precioTextController,
-            //     // enabled: false,
-            //     decoration: InputDecoration(
-            //         prefixIcon: const Icon(Icons.euro),
-            //         filled: true,
-            //         fillColor: Colors.white,
-            //         border: OutlineInputBorder(
-            //           borderRadius: BorderRadius.circular(10),
-            //         ),
-            //         labelText: 'Precio',
-            //         focusedBorder: OutlineInputBorder(
-            //             borderSide: const BorderSide(
-            //                 color: Color.fromRGBO(28, 38, 73, 1), width: 2),
-            //             borderRadius: BorderRadius.circular(10))),
-            //     validator: (value) {
-            //       if (value == null || value.isEmpty) {
-            //         return 'Please enter some date';
-            //       }
-            //       return null;
-            //     },
-            //   ),
-            // ),
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-            //   child: TextFormField(
-            //     controller: kilomettrosTextController,
-            //     // enabled: false,
-            //     decoration: InputDecoration(
-            //         prefixIcon: const Icon(Icons.car_crash_outlined),
-            //         filled: true,
-            //         fillColor: Colors.white,
-            //         border: OutlineInputBorder(
-            //           borderRadius: BorderRadius.circular(10),
-            //         ),
-            //         labelText: 'Kilometros/Año',
-            //         focusedBorder: OutlineInputBorder(
-            //             borderSide: const BorderSide(
-            //                 color: Color.fromRGBO(28, 38, 73, 1), width: 2),
-            //             borderRadius: BorderRadius.circular(10))),
-            //     validator: (value) {
-            //       // ignore: unrelated_type_equality_checks
-            //       if (value == null || value.isEmpty) {
-            //         return 'Please enter some date';
-            //       }
-            //       return null;
-            //     },
-            //   ),
-            // ),
+            const Text('*Por cada semana alquilada suma 25€*', style: TextStyle(color: Colors.red, fontSize: 16),),
+            const SizedBox(
+              height: 20,
+            ),
             Padding(
-              padding: const EdgeInsets.only(top: 30, left: 100),
-              child: ElevatedButton(
-                onPressed: () {
-                  if (_formAlquiler.currentState!.validate()) {
-                    _alquilerBloc.add(DoAlquilerEvent(
-                        int.parse(kilomettrosTextController.text),
-                        dateStartTextController.text,
-                        dateEndTextController.text,
-                        double.parse(precioTextController.text),
-                        widget.uuid));
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: TextFormField(
+                controller: dateEndTextController,
+                // onTap: callDatePickerEnd,
+                decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.pin_drop),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    labelText: 'Origen',
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color.fromRGBO(28, 38, 73, 1), width: 2),
+                        borderRadius: BorderRadius.circular(10))),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some date';
                   }
+                  return null;
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.colorPrincipal,
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 12,
-                    horizontal: 54,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(28.5),
-                  ),
-                ),
-                child: const Text(
-                  'Alquilar',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Color.fromRGBO(255, 255, 255, 1),
-                    fontSize: 16,
-                  ),
-                ),
               ),
-            )
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: TextFormField(
+                controller: dateEndTextController,
+                // onTap: callDatePickerEnd,
+                decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.pin_drop),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    labelText: 'Destino',
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color.fromRGBO(28, 38, 73, 1), width: 2),
+                        borderRadius: BorderRadius.circular(10))),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some date';
+                  }
+                  return null;
+                },
+              ),
+            ),
           ]),
     );
   }

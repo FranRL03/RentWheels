@@ -34,7 +34,8 @@ class AlquilerBloc extends Bloc<AlquilerEvent, AlquilerState> {
           kilometrosAnos: event.kilometrosAnos,
           fechaInicio: event.fechaInicio,
           fechaFin: event.fechaFin,
-          precio: event.precio);
+          // precio: event.precio
+          );
       final response =
           await alquilerRepository.alquiler(alquilerDto, event.uuid);
       emit(DoAlquilerSuccess(response));

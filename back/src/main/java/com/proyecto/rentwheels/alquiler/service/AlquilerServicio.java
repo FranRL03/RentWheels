@@ -15,7 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.Period;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -56,13 +56,16 @@ public class AlquilerServicio {
                  se puede actualizar.
                   */
 
-                 double precioTotal = precioPorKilometro(v, create);
+                 double precioTotal = precioPorSemana(v, create);
 
                  Alquiler a = Alquiler.builder()
-                         .precio(create.precio())
+                         .precio(precioPorSemana(v, create))
                          .kilometrosAnos(create.kilometrosAnos())
+                         .fechaCreacion(LocalDate.now())
                          .fechaInicio(create.fechaInicio())
                          .fechaFin(create.fechaFin())
+                         .origen(create.origen())
+                         .destino(create.destino())
                          .enAlquiler(true)
                          .vehiculo(v)
                          .cliente(c)
@@ -88,6 +91,18 @@ public class AlquilerServicio {
         }
 
         return v.getPrecioBase() + 150;
+
+    }
+
+    private double precioPorSemana (Vehiculo v, CreateAlquilerDto create) {
+
+        Period period = Period.between(create.fechaInicio(), create.fechaFin());
+
+        double incremento = period.getDays() / 7 * 25;
+
+        double precioPorSemana = incremento + v.getPrecioBase();
+
+        return precioPorSemana;
 
     }
 
