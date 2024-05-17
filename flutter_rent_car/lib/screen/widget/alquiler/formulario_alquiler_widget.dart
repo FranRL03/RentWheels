@@ -19,17 +19,12 @@ class FormAlquiler extends StatefulWidget {
 }
 
 class _FormAlquilerState extends State<FormAlquiler> {
-  late double _precio = 0.0;
-
   final _formAlquiler = GlobalKey<FormState>();
 
-  // late TextEditingController kilomettrosTextController =
-  //     TextEditingController(text: '10000');
   late TextEditingController dateEndTextController = TextEditingController();
   late TextEditingController dateStartTextController = TextEditingController();
   late TextEditingController origenTextController = TextEditingController();
   late TextEditingController destinoTextController = TextEditingController();
-
 
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
 
@@ -41,30 +36,13 @@ class _FormAlquilerState extends State<FormAlquiler> {
   late VehiculoDetailsResponse vehiculoDetailsResponse;
   late VehiculoRepository vehiculoRepository;
 
-  // List lista = ['10000', '20000', '30000'];
-  // String dropdownValue = '10000';
-
   @override
   void initState() {
     super.initState();
     alquilerRepository = AlquilerRepositoryImpl();
     _alquilerBloc = AlquilerBloc(alquilerRepository);
     vehiculoRepository = VehiculoRepositoryImpl();
-    // _loadPrecioBase();
   }
-
-  // void _loadPrecioBase() async {
-  //   try {
-  //     vehiculoDetailsResponse =
-  //         await vehiculoRepository.vehiculoDetails(widget.uuid);
-  //     setState(() {
-  //       _precio = vehiculoDetailsResponse.precioBase!;
-  //       precioTextController.text = _precio.toString();
-  //     });
-  //   } catch (e) {
-  //     precioTextController.text = 'Error al cargar el precio';
-  //   }
-  // }
 
   void callDatePickerStart() async {
     var selectedDate = await getDatePickedWidget();
@@ -105,9 +83,6 @@ class _FormAlquilerState extends State<FormAlquiler> {
           }
           return _buildAlquiler();
         },
-        // listenWhen: (context, state) {
-        //   return state is DoAlquilerSuccess;
-        // },
         listener: (BuildContext context, AlquilerState state) {
           if (state is DoAlquilerSuccess) {
             Navigator.push(
@@ -131,7 +106,10 @@ class _FormAlquilerState extends State<FormAlquiler> {
             const SizedBox(
               height: 20,
             ),
-            const Text('¿Quieres alquilar?', style: TextStyle(fontSize: 25),),
+            const Text(
+              '¿Quieres alquilar?',
+              style: TextStyle(fontSize: 25),
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -186,7 +164,19 @@ class _FormAlquilerState extends State<FormAlquiler> {
                 },
               ),
             ),
-            const Text('*Por cada semana alquilada suma 25€*', style: TextStyle(color: Colors.red, fontSize: 16),),
+            const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '· Por cada semana se aplica un descuento del 5%',
+                  style: TextStyle(color: Colors.red, fontSize: 16),
+                ),
+                Text(
+                  '· Por cada mes se aplica un descuento del 15%',
+                  style: TextStyle(color: Colors.red, fontSize: 16),
+                ),
+              ],
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -239,7 +229,6 @@ class _FormAlquilerState extends State<FormAlquiler> {
                 },
               ),
             ),
-            
             Padding(
               padding: const EdgeInsets.only(top: 30),
               child: ElevatedButton(

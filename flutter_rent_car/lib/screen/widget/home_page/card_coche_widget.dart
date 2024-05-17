@@ -86,9 +86,10 @@ class CardCocheWidget extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text('${vehiculosResponse[index].precioBase} €/semana',
+                      Text('Precio base: ${vehiculosResponse[index].precioBase} €/día',
                       style: TextStyle(
                         fontSize: 23,
+                        fontWeight: FontWeight.w500,
                         color: AppColors.colorPrincipal,
                         // fontWeight: FontWeight.bold
                       ),
