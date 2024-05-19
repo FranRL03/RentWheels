@@ -53,6 +53,10 @@ export class CardVehiculosComponent implements OnInit {
     console.log(id);
   }
 
+  details() {
+    this.router.navigate([`no-admin`])
+  }
+
   delete(id: string) {
     this.service.delete(id).subscribe();
     window.location.href = `http://localhost:4200/admin/coche`;

@@ -72,5 +72,4 @@ export class TableAlquilerComponent implements OnInit {
       });
     }
   }
-
 }
