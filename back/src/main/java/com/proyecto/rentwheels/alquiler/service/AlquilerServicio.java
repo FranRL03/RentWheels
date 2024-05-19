@@ -15,7 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -49,20 +50,14 @@ public class AlquilerServicio {
                  v.setDisponible(false);
                  vehiculoRepository.save(v);
 
-                 /*
-                 Aquí el precio del alquiler no se cambia en función de los kiloómetros
-                 elegidos que sería la metodología del alquiler.
-                 En cambio en el front si se cambia porque así el dto que recibe el front el precio
-                 se puede actualizar.
-                  */
-
-                 double precioTotal = precioPorKilometro(v, create);
-
                  Alquiler a = Alquiler.builder()
-                         .precio(create.precio())
+                         .precio(precioPorSemana(v, create))
                          .kilometrosAnos(create.kilometrosAnos())
+                         .fechaCreacion(LocalDate.now())
                          .fechaInicio(create.fechaInicio())
                          .fechaFin(create.fechaFin())
+                         .origen(create.origen())
+                         .destino(create.destino())
                          .enAlquiler(true)
                          .vehiculo(v)
                          .cliente(c)
@@ -80,15 +75,29 @@ public class AlquilerServicio {
         throw new VehiculoNoDisponibleException();
     }
 
-    private double precioPorKilometro (Vehiculo v, CreateAlquilerDto create) {
-        if (create.kilometrosAnos() <= 20000) {
-            return  v.getPrecioBase();
-        }else if (create.kilometrosAnos() > 20000 && create.kilometrosAnos() <=30000) {
-            return v.getPrecioBase() + 100;
+    private double precioPorSemana(Vehiculo v, CreateAlquilerDto create) {
+        long totalDias = ChronoUnit.DAYS.between(create.fechaInicio(), create.fechaFin());
+
+        if (totalDias >= 7 && totalDias <= 30) {
+
+            int semanas = (int) totalDias / 7;
+            double descuentoPorSemanas = semanas * (v.getPrecioBase() * 0.05);
+
+            return v.getPrecioBase() - descuentoPorSemanas;
+        } else if (totalDias > 30) {
+
+            int meses = (int) totalDias / 30;
+            double descuentoPorMes = meses * (v.getPrecioBase() * 0.15);
+
+            int diasRestantes = (int) totalDias % 30;
+            int semanasRestantes = diasRestantes / 7;
+            double descuentoPorSemanas = semanasRestantes * (v.getPrecioBase() * 0.05);
+
+            return v.getPrecioBase() - descuentoPorMes - descuentoPorSemanas;
+        } else {
+
+            return v.getPrecioBase();
         }
-
-        return v.getPrecioBase() + 150;
-
     }
 
 }

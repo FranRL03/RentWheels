@@ -23,6 +23,7 @@ public interface AlquilerRepository extends JpaRepository<Alquiler, UUID> {
             from Alquiler a
             where a.cliente.id = :id
                 and a.enAlquiler = :statusRent
+            order by a.fechaCreacion desc
             """)
     Page<GetAlquileresCliente> getAlquileresActivosCliente(Pageable pageable, UUID id, boolean statusRent);
 }

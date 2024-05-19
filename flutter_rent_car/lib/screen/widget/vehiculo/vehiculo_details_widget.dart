@@ -42,8 +42,9 @@ class VehiculoDetailsWidget extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 30, left: 30),
+          padding: const EdgeInsets.only(top: 30),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 width: 150,
@@ -109,8 +110,9 @@ class VehiculoDetailsWidget extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 15, left: 30),
+          padding: const EdgeInsets.only(top: 15),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 width: 150,
@@ -176,8 +178,9 @@ class VehiculoDetailsWidget extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 15, left: 30),
+          padding: const EdgeInsets.only(top: 15),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 width: 150,
@@ -243,35 +246,40 @@ class VehiculoDetailsWidget extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 15, left: 30),
-          child: SizedBox(
-            width: 150,
-            child: Card(
-              color: Colors.transparent, // Hacer la tarjeta transparente
-              elevation:
-                  0, // Agregar una sombra para dar la apariencia de un borde
-              shape: const RoundedRectangleBorder(
-                side: BorderSide(color: Colors.black, width: 1),
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    const Text(
-                      'Precio',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+          padding: const EdgeInsets.only(top: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 150,
+                child: Card(
+                  color: Colors.transparent, // Hacer la tarjeta transparente
+                  elevation:
+                      0, // Agregar una sombra para dar la apariencia de un borde
+                  shape: const RoundedRectangleBorder(
+                    side: BorderSide(color: Colors.black, width: 1),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Precio',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 17),
+                        ),
+                        Text(
+                          '${vehiculoDetailsResponse.precioBase} €',
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w300, fontSize: 18),
+                        ),
+                      ],
                     ),
-                    Text(
-                      '${vehiculoDetailsResponse.precioBase} €',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w300, fontSize: 18),
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
         ),
       ],

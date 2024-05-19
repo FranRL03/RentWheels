@@ -10,8 +10,10 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -40,8 +42,11 @@ public class Alquiler {
 
     private double precio;
     private int kilometrosAnos;
+    private LocalDate fechaCreacion;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
+    private String origen;
+    private String destino;
     private boolean enAlquiler;
 
     @ManyToOne
