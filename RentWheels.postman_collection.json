@@ -330,6 +330,36 @@
 							"response": []
 						},
 						{
+							"name": "clearModelList",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/admin/clear/modelo/afcf760a-8e8a-4e7c-ae94-f5af066c0be7",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"clear",
+										"modelo",
+										"afcf760a-8e8a-4e7c-ae94-f5af066c0be7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "getAllModelos",
 							"request": {
 								"auth": {
@@ -429,6 +459,186 @@
 										"edit",
 										"modelo",
 										"afcf760a-8e8a-4e7c-ae94-f5af066c0be7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetVehiculosModelo",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/admin/modelo/vehiculo/afcf760a-8e8a-4e7c-ae94-f5af066c0be7",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"modelo",
+										"vehiculo",
+										"afcf760a-8e8a-4e7c-ae94-f5af066c0be7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "modeloDetails",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/admin/modelo/afcf760a-8e8a-4e7c-ae94-f5af066c0be7",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"modelo",
+										"afcf760a-8e8a-4e7c-ae94-f5af066c0be7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/admin/delete/modelo/afcf760a-8e8a-4e7c-ae94-f5af066c0be7",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"delete",
+										"modelo",
+										"afcf760a-8e8a-4e7c-ae94-f5af066c0be7"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "AlquilerAdmin",
+					"item": [
+						{
+							"name": "allAlquileres",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/admin/alquiler",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"alquiler"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAlquileresExpitadosActivos",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/admin/alquiler/true",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"alquiler",
+										"true"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "alquilerDetails",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/admin/alquiler-details/e6d26b2c-ffcb-4859-b9b8-71a1d52042f6",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"alquiler-details",
+										"e6d26b2c-ffcb-4859-b9b8-71a1d52042f6"
 									]
 								}
 							},
@@ -713,13 +923,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/cliente/alquiler",
+							"raw": "{{base_url}}/cliente/alquiler/false",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"cliente",
-								"alquiler"
+								"alquiler",
+								"false"
 							]
 						}
 					},
@@ -742,7 +953,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"kilometrosAnos\": 25000,\r\n    \"fechaInicio\": \"2024-02-04\",\r\n    \"fechaFin\": \"2024-12-03\" \r\n}",
+							"raw": "{\r\n    \"kilometrosAnos\": 25000,\r\n    \"fechaInicio\": \"2024-05-17\",\r\n    \"fechaFin\": \"2024-06-14\",\r\n    \"origen\": \"Sevilla\",\r\n    \"destino\": \"Cádiz\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
