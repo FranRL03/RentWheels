@@ -1,0 +1,24 @@
+<div class="container">
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs mt-4">
+        <li [ngbNavItem]="1">
+            <button ngbNavLink>Todos los alquileres</button>
+            <ng-template ngbNavContent>
+                <app-table-alquiler></app-table-alquiler>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="2">
+            <button ngbNavLink>Alquieleres activos</button>
+            <ng-template ngbNavContent>
+                    <app-table-alquiler [statusRent]="statusRentTrue"></app-table-alquiler>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="3">
+            <button ngbNavLink>Alquileres expirados</button>
+            <ng-template ngbNavContent>
+                <app-table-alquiler [statusRent]="statusRentFalse"></app-table-alquiler>
+            </ng-template>
+        </li>
+    </ul>
+    
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+</div>
