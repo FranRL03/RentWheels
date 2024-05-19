@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListAlquilerResponse } from '../models/list-alquileres';
 import { environment } from '../environment/environment';
+import { AlquilerDetails } from '../models/detalles-alquiler';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,16 @@ export class AlquilerService {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
       }
+    )
+  }
+
+  details(id: string): Observable<AlquilerDetails> {
+    return this.http.get<AlquilerDetails>(`${environment.apiBaseUrl}/admin/alquiler-details/${id}`, 
+    {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    }
     )
   }
 

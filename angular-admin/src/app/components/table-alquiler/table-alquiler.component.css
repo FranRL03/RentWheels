@@ -1,4 +1,35 @@
-.table{
+.table {
     --bs-table-bg: #a29ebc;
     --bs-table-accent-bg: #a8a8b6;
+}
+
+.avatar-container {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.avatar {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.modal-body ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.modal-body ul li {
+    margin-bottom: 10px;
+}
+
+.modal-body ul li strong {
+    margin-right: 5px;
+}
+
+.vehicle-image {
+    max-width: 300px;
+    max-height: 200px;
 }
