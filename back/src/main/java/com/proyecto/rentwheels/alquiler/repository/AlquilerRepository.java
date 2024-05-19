@@ -1,5 +1,6 @@
 package com.proyecto.rentwheels.alquiler.repository;
 
+import com.proyecto.rentwheels.alquiler.dto.GetAllAlquileres;
 import com.proyecto.rentwheels.alquiler.dto.GetAlquileresCliente;
 import com.proyecto.rentwheels.alquiler.model.Alquiler;
 import org.springframework.data.domain.Page;
@@ -26,4 +27,19 @@ public interface AlquilerRepository extends JpaRepository<Alquiler, UUID> {
             order by a.fechaCreacion desc
             """)
     Page<GetAlquileresCliente> getAlquileresActivosCliente(Pageable pageable, UUID id, boolean statusRent);
+
+    @Query("""
+            select a
+            from Alquiler a
+            order by a.fechaCreacion desc
+            """)
+    Page<GetAllAlquileres> allAlquileres(Pageable pageable);
+
+    @Query("""
+            select a
+            from Alquiler a
+            where a.enAlquiler = :statusRent
+            order by a.fechaCreacion desc
+            """)
+    Page<GetAllAlquileres> getAlquileresActivosExpirados(Pageable pageable, boolean statusRent);
 }

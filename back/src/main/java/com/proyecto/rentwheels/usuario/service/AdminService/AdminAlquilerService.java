@@ -1,7 +1,7 @@
 package com.proyecto.rentwheels.usuario.service.AdminService;
 
+import com.proyecto.rentwheels.alquiler.dto.GetAllAlquileres;
 import com.proyecto.rentwheels.alquiler.exception.EmptyAlquilerException;
-import com.proyecto.rentwheels.alquiler.model.Alquiler;
 import com.proyecto.rentwheels.alquiler.repository.AlquilerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,13 +14,28 @@ public class AdminAlquilerService {
 
     private final AlquilerRepository alquilerRepository;
 
-    public Page<Alquiler> getAll (Pageable pageable) {
+    public Page<GetAllAlquileres> getAll (Pageable pageable) {
 
-        Page<Alquiler> alquileres = alquilerRepository.findAll(pageable);
+        Page<GetAllAlquileres> alquileres = alquilerRepository.allAlquileres(pageable);
 
         if (alquileres.isEmpty())
             throw new EmptyAlquilerException();
 
         return alquileres;
     }
+
+    public Page<GetAllAlquileres> getAlquileresActivosExpirados (Pageable pageable, boolean statusRent) {
+
+        Page<GetAllAlquileres> alquileres;
+
+
+            alquileres = alquilerRepository.getAlquileresActivosExpirados(pageable, statusRent);
+
+        if (alquileres.isEmpty()) {
+            throw new EmptyAlquilerException();
+        }
+
+        return alquileres;
+    }
+
 }

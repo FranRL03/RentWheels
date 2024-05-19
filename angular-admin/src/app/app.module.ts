@@ -9,7 +9,7 @@ import { CochesPageComponent } from './ui/coches-page/coches-page.component';
 import { NoAdminComponent } from './ui/no-admin/no-admin.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { NgbModule, NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbNavModule, NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPerfilComponent } from './components/modal-perfil/modal-perfil.component';
 import { AdminSectionComponent } from './section/admin-section/admin-section.component';
 import { VehiculoFormComponent } from './ui/vehiculo-form/vehiculo-form.component';
@@ -18,6 +18,8 @@ import { CardModelosListComponent } from './components/card-modelos-list/card-mo
 import { ModelosPageComponent } from './ui/modelos-page/modelos-page.component';
 import { ModeloConVehiculosComponent } from './ui/modelo-con-vehiculos/modelo-con-vehiculos.component';
 import { CardVehiculosComponent } from './components/card-vehiculos/card-vehiculos.component';
+import { TableAlquilerComponent } from './components/table-alquiler/table-alquiler.component';
+import { ListaAlquileresComponent } from './ui/lista-alquileres/lista-alquileres.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,10 @@ import { CardVehiculosComponent } from './components/card-vehiculos/card-vehicul
     VehiculoEditComponent,
     CardModelosListComponent,
     ModelosPageComponent,
-    ModeloConVehiculosComponent
+    ModeloConVehiculosComponent,
+    TableAlquilerComponent,
+    ListaAlquileresComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -41,7 +46,8 @@ import { CardVehiculosComponent } from './components/card-vehiculos/card-vehicul
     FormsModule,
     HttpClientModule,
     NgbModule,
-    NgbPopoverModule 
+    NgbPopoverModule,
+    NgbNavModule
   ],
   providers: [],
   bootstrap: [AppComponent]

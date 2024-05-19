@@ -8,6 +8,7 @@ import { VehiculoFormComponent } from './ui/vehiculo-form/vehiculo-form.componen
 import { VehiculoEditComponent } from './ui/vehiculo-edit/vehiculo-edit.component';
 import { ModelosPageComponent } from './ui/modelos-page/modelos-page.component';
 import { ModeloConVehiculosComponent } from './ui/modelo-con-vehiculos/modelo-con-vehiculos.component';
+import { ListaAlquileresComponent } from './ui/lista-alquileres/lista-alquileres.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
@@ -17,7 +18,9 @@ const routes: Routes = [
     { path: 'vehiculo/form', component: VehiculoFormComponent},
     { path: 'vehiculo/form-edit/:id', component: VehiculoEditComponent},
     { path: 'modelos', component: ModelosPageComponent},
-    { path: 'modelo/:idModelo', component: ModeloConVehiculosComponent}
+    { path: 'modelo/:idModelo', component: ModeloConVehiculosComponent},
+    { path: 'alquileres', component: ListaAlquileresComponent},
+
   ]},
 
   { path: 'no-admin', component: NoAdminComponent},
