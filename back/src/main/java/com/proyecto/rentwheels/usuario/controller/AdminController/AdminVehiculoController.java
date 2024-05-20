@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -172,6 +173,47 @@ public class AdminVehiculoController {
         adminVehiculoService.clearModelList(idModelo);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Detalles vehiculo")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Detalles un vehiculo",
+                    content = {@Content(mediaType = "aplication/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Vehiculo.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                "id": "9b11dd61-4424-46c9-9daa-c5d70025c478",
+                                                "combustion": "Hibrido",
+                                                "modelo": {
+                                                    "modelo": "Mercedes",
+                                                    "logo": "https://assets.stickpng.com/thumbs/5ec3e30358550c0004427741.png"
+                                                },
+                                                "imagen": "https://assets.stickpng.com/thumbs/580b585b2edbce24c47b2c94.png",
+                                                "transmision": "Manual",
+                                                "capacidadPasajeros": 4,
+                                                "autonomia": 247587,
+                                                "potencia": 170,
+                                                "estado": "Nuevo",
+                                                "numPuertas": 5,
+                                                "disponible": true,
+                                                "precioBase": 275.0
+                                            }
+                                            """
+                            )}
+                    )}),
+
+            @ApiResponse(responseCode = "500",
+                    description = "Error al encontrar el vehiculo para mostrar los detalles",
+                    content = @Content)
+    })
+    @GetMapping("/vehiculo-details/{id}")
+    public GetAllDetailsDto details (@Valid @PathVariable UUID id) {
+
+        Vehiculo v = adminVehiculoService.details(id);
+
+        return GetAllDetailsDto.of(v);
     }
 
 }

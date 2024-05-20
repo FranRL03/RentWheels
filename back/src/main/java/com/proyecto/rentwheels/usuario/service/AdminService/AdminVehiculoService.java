@@ -101,4 +101,14 @@ public class AdminVehiculoService {
                 () -> { throw new NotFoundModeloException(); }
         );
     }
+
+    public Vehiculo details (UUID id) {
+
+        Optional<Vehiculo> v = vehiculoRepository.findById(id);
+
+        if (v.isPresent())
+            return v.get();
+
+        throw new VehiculoNotFoundException(id.toString());
+    }
 }

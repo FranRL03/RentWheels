@@ -24,3 +24,8 @@
     margin: 5px;
     width: 100%;
 }
+
+.vehicle-image {
+    max-width: 300px;
+    max-height: 200px;
+}
