@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface AlquilerRepository extends JpaRepository<Alquiler, UUID> {
@@ -42,4 +43,11 @@ public interface AlquilerRepository extends JpaRepository<Alquiler, UUID> {
             order by a.fechaCreacion desc
             """)
     Page<GetAllAlquileres> getAlquileresActivosExpirados(Pageable pageable, boolean statusRent);
+
+    @Query("""
+            select count(a)
+            from Alquiler a 
+            where a.vehiculo.id = ?1
+            """)
+int findByVehiculoId(UUID vehiculoId);
 }

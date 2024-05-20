@@ -32,6 +32,7 @@ public interface VehiculoRepository extends JpaRepository<Vehiculo, UUID> {
             from Vehiculo v
             where v.modelo.id = ?1
             and v.disponible = true
+            and not exists (select 1 from Alquiler a where a.vehiculo = v)
             """)
     void clearModelList(UUID idModelo);
 }

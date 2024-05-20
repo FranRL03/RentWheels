@@ -131,3 +131,7 @@
         <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
     </div>
 </ng-template>
+
+<ngb-pagination [collectionSize]="totalAlquileres" [pageSize]="alquileresPorPagina" [maxSize]="5" [(page)]="pagina"
+	aria-label="Default pagination" class="d-flex justify-content-center mt-5"
+	(pageChange)="loadPage()"></ngb-pagination>

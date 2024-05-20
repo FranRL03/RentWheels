@@ -65,7 +65,7 @@ export class CardVehiculosComponent implements OnInit {
 
   delete(id: string) {
     this.service.delete(id).subscribe();
-    window.location.href = `http://localhost:4200/admin/coche`;
+    window.location.reload();
   }
 
   openVerticallyCentered(content: TemplateRef<any>, id: string) {
