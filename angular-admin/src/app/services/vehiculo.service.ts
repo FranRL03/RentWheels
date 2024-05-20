@@ -65,7 +65,7 @@ export class VehiculoService {
       }
 
     details(id: string): Observable<VehiculoAllDetails> {
-      return this.http.get<VehiculoAllDetails>(`${environment.apiBaseUrl}/vehiculos/${id}`,
+      return this.http.get<VehiculoAllDetails>(`${environment.apiBaseUrl}/admin/vehiculo-details/${id}`,
       {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`

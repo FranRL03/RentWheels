@@ -8,6 +8,7 @@ import { VehiculoService } from '../../services/vehiculo.service';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModeloService } from '../../services/modelo.service';
+import { VehiculoAllDetails } from '../../models/new-vehiculo.interface';
 
 @Component({
   selector: 'app-card-vehiculos',
@@ -18,6 +19,7 @@ export class CardVehiculosComponent implements OnInit {
 
   vehiculoList!: Vehiculo[];
   selectedVehiculoId!: string
+  vehiculoDetails!: VehiculoAllDetails;
 
   @Input() modeloId: string | undefined;
 
@@ -53,13 +55,17 @@ export class CardVehiculosComponent implements OnInit {
     console.log(id);
   }
 
-  details() {
-    this.router.navigate([`no-admin`])
+  details(id: string, content: TemplateRef<any>) {
+    this.service.details(id).subscribe( resp => {
+      this.vehiculoDetails = resp;
+    });
+
+    this.modalService.open(content, { backdropClass: 'light-blue-backdrop' });
   }
 
   delete(id: string) {
     this.service.delete(id).subscribe();
-    window.location.href = `http://localhost:4200/admin/coche`;
+    window.location.reload();
   }
 
   openVerticallyCentered(content: TemplateRef<any>, id: string) {

@@ -1,5 +1,6 @@
 package com.proyecto.rentwheels.usuario.service.AdminService;
 
+import com.proyecto.rentwheels.alquiler.repository.AlquilerRepository;
 import com.proyecto.rentwheels.modelo.exception.NotFoundModeloException;
 import com.proyecto.rentwheels.modelo.model.Modelo;
 import com.proyecto.rentwheels.modelo.repositorio.ModeloRepository;
@@ -23,6 +24,7 @@ public class AdminVehiculoService {
 
     private final VehiculoRepository vehiculoRepository;
     private final ModeloRepository modeloRepository;
+    private final AlquilerRepository alquilerRepository;
 
     public Page<Vehiculo> findAll (Pageable pageable){
 
@@ -86,8 +88,9 @@ public class AdminVehiculoService {
     public void deleteVehiculo(UUID idVehiculo) {
 
         int num = vehiculoRepository.comprobarDisponibilidad(idVehiculo);
+        int numAlquiler = alquilerRepository.findByVehiculoId(idVehiculo);
 
-        if(num == 0)
+        if(num == 0 || numAlquiler > 0)
             throw new VehiculoNoDisponibleException();
         else
             vehiculoRepository.deleteById(idVehiculo);
@@ -100,5 +103,15 @@ public class AdminVehiculoService {
                 .ifPresentOrElse((modelo) -> vehiculoRepository.clearModelList(modelo.getId()),
                 () -> { throw new NotFoundModeloException(); }
         );
+    }
+
+    public Vehiculo details (UUID id) {
+
+        Optional<Vehiculo> v = vehiculoRepository.findById(id);
+
+        if (v.isPresent())
+            return v.get();
+
+        throw new VehiculoNotFoundException(id.toString());
     }
 }
