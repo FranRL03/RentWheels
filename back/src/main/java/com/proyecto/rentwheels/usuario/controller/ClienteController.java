@@ -15,6 +15,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -68,7 +69,8 @@ public class ClienteController {
     })
     @Operation(summary = "editLoggedUser", description = "Editar datos del Cliente loggeado")
     @PutMapping("/profile/edit")
-    public GetClienteDetailsDto editLoggedUser(@Valid @RequestBody EditClientDto editado, @AuthenticationPrincipal Cliente c){
-        return GetClienteDetailsDto.of(clienteService.editCliente(editado,c));
+    public GetClienteDetailsDto editLoggedUser(@Valid @RequestPart("editado") EditClientDto editado, @AuthenticationPrincipal Cliente c,
+                                               @RequestPart("file") MultipartFile file){
+        return GetClienteDetailsDto.of(clienteService.editCliente(editado,c, file));
     }
 }

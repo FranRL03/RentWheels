@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
 public record EditClientDto (
-        @URL(message = "{loggedUser.url}")
+//        @URL(message = "{loggedUser.url}")
         String avatar,
         @Email(message = "{loggedUser.email}")
         String email,

@@ -1,10 +1,12 @@
 package com.proyecto.rentwheels.usuario.service;
 
+import com.proyecto.rentwheels.files.service.StorageService;
 import com.proyecto.rentwheels.usuario.dto.EditClientDto;
 import com.proyecto.rentwheels.usuario.model.Cliente;
 import com.proyecto.rentwheels.usuario.repository.ClienteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -14,23 +16,34 @@ import java.util.List;
 public class ClienteService {
 
     private final ClienteRepository clienteRepository;
+    private final StorageService storageService;
 
     public List<Cliente> getAll () {
 
         return clienteRepository.findAll();
     }
 
-    public Cliente editCliente (EditClientDto edit, Cliente c){
-        Cliente editado = Cliente.builder()
-                .id(c.getId())
-                .username(c.getUsername())
-                .password(c.getPassword())
-                .avatar(edit.avatar())
-                .email(edit.email())
-                .telefono(edit.telefono())
-                .pin(edit.pin())
-                .build();
-        return clienteRepository.save(editado);
+    public Cliente editCliente (EditClientDto edit, Cliente c, MultipartFile file){
+//        Cliente editado = Cliente.builder()
+//                .id(c.getId())
+//                .username(c.getUsername())
+//                .password(c.getPassword())
+//                .avatar(edit.avatar())
+//                .email(edit.email())
+//                .telefono(edit.telefono())
+//                .pin(edit.pin())
+//                .build();
+//        return clienteRepository.save(editado);
+        // Actualiza los campos del cliente con los datos del DTO
+        c.setEmail(edit.email());
+        c.setTelefono(edit.telefono());
+        c.setPin(edit.pin());
+
+        // Actualiza el avatar solo si se proporciona un nuevo archivo
+            String avatarUrl = storageService.store(file);
+            c.setAvatar(avatarUrl);
+
+        return clienteRepository.save(c);
     }
 
 }
