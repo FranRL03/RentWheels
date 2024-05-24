@@ -69,7 +69,8 @@ public class ClienteController {
     })
     @Operation(summary = "editLoggedUser", description = "Editar datos del Cliente loggeado")
     @PutMapping("/profile/edit")
-    public GetClienteDetailsDto editLoggedUser(@Valid @RequestPart("editado") EditClientDto editado, @AuthenticationPrincipal Cliente c,
+    public GetClienteDetailsDto editLoggedUser(@Valid @RequestPart("editado") EditClientDto editado,
+                                               @AuthenticationPrincipal Cliente c,
                                                @RequestPart("file") MultipartFile file){
         return GetClienteDetailsDto.of(clienteService.editCliente(editado,c, file));
     }

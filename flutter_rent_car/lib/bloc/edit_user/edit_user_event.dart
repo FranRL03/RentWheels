@@ -4,7 +4,7 @@ part of 'edit_user_bloc.dart';
 sealed class EditUserEvent {}
 
 class DoEditUserEvent extends EditUserEvent {
-  final String avatar;
+  final File  avatar;
   final String email;
   final String telefono;
   final String pin;
