@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListModelosNoPage } from '../models/list-modelos-no-page.interface';
@@ -6,6 +6,7 @@ import { environment } from '../environment/environment';
 import { ListModelos } from '../models/list-modelos-paginacion.interface';
 import { ModeloDetails } from '../models/new-modelo.interface';
 import { ListVehiculo } from '../models/list-vehiculo.interface';
+import { EditModeloDto } from '../dto/edit-modelo-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -44,17 +45,16 @@ export class ModeloService {
     });
   }
 
-  edit(logo: string, modelo: string, id: string): Observable<ModeloDetails> {
-    return this.http.put<ModeloDetails>(`${environment.apiBaseUrl}/admin/edit/modelo/${id}`,
-      {
-        logo: logo,
-        modelo: modelo
-      }, {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      }
-    }
-    );
+  editModelo(modeloEditado: EditModeloDto, file: File, id: string): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('modeloEditado', new Blob([JSON.stringify(modeloEditado)], { type: 'application/json' }));
+    formData.append('file', file);
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    });
+
+    return this.http.put(`${environment.apiBaseUrl}/admin/edit/modelo/${id}`, formData, {headers});
   }
 
   vehiculosModelo(id: string, page: number): Observable<ListVehiculo> {

@@ -45,11 +45,14 @@
             <form class="form">
                 <div class="">
                     <label for="validationDefault01" class="form-label">Nombre del modelo: <span>*</span></label>
-                    <input type="text" class="form-control" id="validationDefault01" [(ngModel)]="modelo" name="modelo">
+                    <input type="text" class="form-control" id="validationDefault01" [(ngModel)]="modeloEditado.modelo" name="modelo">
                 </div>
                 <div class="pt-2">
                     <label for="validationDefault02" class="form-label">Imagen del logo: <span>*</span></label>
-                    <input type="url" class="form-control" id="validationDefault02" [(ngModel)]="logo" name="logo">
+                    <input type="file" id="file" (change)="onFileChange($event)" required>
+                </div>
+                <div class="pt-2">
+                    <img src="{{logo}}" alt="">
                 </div>
                 <div class="pt-3">
                     <button class="btn btn-primary" type="submit"

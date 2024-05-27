@@ -26,6 +26,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collections;
 import java.util.List;
@@ -163,11 +164,12 @@ public class AdminModeloController {
     })
 
     @PutMapping("/edit/modelo/{idModelo}")
-    public GetModeloDto editModelo (@RequestBody EditModeloDto edit, @PathVariable UUID idModelo){
+    public GetModeloDto editModelo (@RequestPart("modeloEditado") EditModeloDto edit,
+                                    @PathVariable UUID idModelo,
+                                    @RequestPart("file") MultipartFile file){
 
-        Modelo m = modeloServicio.edit(edit, idModelo);
 
-        return GetModeloDto.of(m);
+        return GetModeloDto.of(modeloServicio.edit(edit, idModelo, file));
     }
 
     @GetMapping("/modelo/vehiculo/{idModelo}")
