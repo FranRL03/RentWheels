@@ -1,10 +1,38 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rent_car/model/response/vehiculos/vehiculo_details_response/vehiculo_details_response.dart';
+import 'package:flutter_rent_car/variables.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+
 
 class VehiculoDetailsWidget extends StatelessWidget {
   final VehiculoDetailsResponse vehiculoDetailsResponse;
   const VehiculoDetailsWidget(
       {super.key, required this.vehiculoDetailsResponse});
+
+  Future<String?> getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('token');
+  }
+
+  Future<Uint8List> fetchImage(String filename) async {
+    final token = await getToken();
+    final response = await http.get(
+      Uri.parse('$urlMovil/download/$filename'), // Ajusta la URL según tu API
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+    );
+    if (response.statusCode == 200) {
+      return response.bodyBytes;
+    } else {
+      throw Exception('Failed to load image');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +60,27 @@ class VehiculoDetailsWidget extends StatelessWidget {
                 Text(vehiculoDetailsResponse.modelo!.modelo!,
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 30)),
-                SizedBox(
-                  height: 250,
-                  width: 250,
-                  child: Image.network(vehiculoDetailsResponse.imagen!),
-                ),
+                FutureBuilder<Uint8List>(
+                      future: fetchImage(vehiculoDetailsResponse.imagen!),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<Uint8List> snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return CircularProgressIndicator();
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else if (snapshot.hasData) {
+                          return Image.memory(
+                            snapshot.data!,
+                            fit: BoxFit.cover,
+                            width:
+                                300
+                          );
+                        } else {
+                          return Text('No image data');
+                        }
+                      },
+                    ),
               ],
             ),
           ),

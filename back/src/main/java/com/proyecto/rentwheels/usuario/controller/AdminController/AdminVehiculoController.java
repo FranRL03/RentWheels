@@ -21,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
 
@@ -106,13 +107,12 @@ public class AdminVehiculoController {
                     content = @Content)
     })
     @PostMapping("/add/vehiculo")
-    public ResponseEntity<GetAllDetailsDto> create (@RequestBody EditVehiculoDto nuevo) {
-
-        Vehiculo v = adminVehiculoService.createVehiculo(nuevo);
+    public ResponseEntity<GetAllDetailsDto> create (@RequestPart("vehiculoCreate") EditVehiculoDto nuevo,
+                                                    @RequestPart("file")MultipartFile file) {
 
         return ResponseEntity
                 .status(201)
-                .body(GetAllDetailsDto.of(v));
+                .body(GetAllDetailsDto.of(adminVehiculoService.createVehiculo(nuevo, file)));
     }
 
     @Operation(summary = "Edita un vehiculo existente")
@@ -150,11 +150,11 @@ public class AdminVehiculoController {
             )
     })
     @PutMapping("/edit/vehiculo/{idVehiculo}")
-    public GetAllDetailsDto editVehiculo (@RequestBody EditVehiculoDto edit, @PathVariable UUID idVehiculo){
+    public GetAllDetailsDto editVehiculo (@RequestPart("vehiculoEditado") EditVehiculoDto edit,
+                                          @PathVariable UUID idVehiculo,
+                                          @RequestPart("file") MultipartFile file){
 
-        Vehiculo v = adminVehiculoService.editVehiculo(edit, idVehiculo);
-
-        return GetAllDetailsDto.of(v);
+        return GetAllDetailsDto.of(adminVehiculoService.editVehiculo(edit, idVehiculo, file));
     }
 
     @Operation(summary = "Borra un vehiculo por su id")

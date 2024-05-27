@@ -1,5 +1,6 @@
 package com.proyecto.rentwheels.usuario.service.AdminService;
 
+import com.proyecto.rentwheels.files.service.StorageService;
 import com.proyecto.rentwheels.modelo.dto.EditModeloDto;
 import com.proyecto.rentwheels.modelo.dto.GetModeloConCantVehiculos;
 import com.proyecto.rentwheels.modelo.dto.GetModeloDto;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,8 @@ import java.util.UUID;
 public class AdminModeloService {
 
     private final ModeloRepository modeloRepository;
+    private final StorageService storageService;
+
 
     public Page<Modelo> getAll (Pageable pageable){
 
@@ -48,22 +52,25 @@ public class AdminModeloService {
         return modelos;
     }
 
-    public Modelo create (EditModeloDto nuevo){
+    public Modelo create (EditModeloDto nuevo, MultipartFile file){
 
         Modelo m = new Modelo();
 
-        m.setLogo(nuevo.logo());
+        String logoUrl = storageService.store(file);
+        m.setLogo(logoUrl);
         m.setModelo(nuevo.modelo());
 
         return modeloRepository.save(m);
     }
 
-    public Modelo edit (EditModeloDto edit, UUID idModelo) {
+    public Modelo edit (EditModeloDto edit, UUID idModelo, MultipartFile file) {
 
         Modelo m = modeloRepository.findById(idModelo)
                 .orElseThrow(() -> new NotFoundModeloException());
 
-        m.setLogo(edit.logo());
+
+        String logoUrl = storageService.store(file);
+        m.setLogo(logoUrl);
         m.setModelo(edit.modelo());
 
         return modeloRepository.save(m);

@@ -2,10 +2,8 @@ import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModeloService } from '../../services/modelo.service';
-import { ModeloDetails } from '../../models/new-modelo.interface';
-import { Vehiculo } from '../../models/list-vehiculo.interface';
-import { VehiculoService } from '../../services/vehiculo.service';
-import { state } from '@angular/animations';
+import { ModeloDto } from '../../dto/modelo-dto';
+import { FileService } from '../../services/file.service';
 
 @Component({
   selector: 'app-modelo-con-vehiculos',
@@ -17,27 +15,31 @@ export class ModeloConVehiculosComponent implements OnInit {
   route: ActivatedRoute = inject(ActivatedRoute);
   idModelo!: string;
 
-  modelo!: string;
   logo!: string;
+
+  modeloEditado: ModeloDto = {
+    modelo: ''
+  }
+
+  file!: File;
 
   logoError: string = '';
   modeloError: string = '';
-
-  // vehiculoList!: Vehiculo[];
-  // selectedVehiculoId!: string
 
   totalVehiculos = 0;
   vehiculosPorPagina = 10;
   pagina = 0;
 
-  constructor(private modalService: NgbModal, private router: Router, private modeloService: ModeloService) {
+  constructor(private modalService: NgbModal, private router: Router, 
+    private modeloService: ModeloService, private fileService: FileService) {
     this.idModelo = this.route.snapshot.params['idModelo'];
   }
 
   ngOnInit(): void {
     this.modeloService.modeloDetails(this.idModelo).subscribe(resp => {
-      this.modelo = resp.modelo;
+      this.modeloEditado.modelo = resp.modelo;
       this.logo = resp.logo;
+      this.loadImage(this.logo);
     });
 
     this.comprobacionCantVehiculos();
@@ -47,11 +49,17 @@ export class ModeloConVehiculosComponent implements OnInit {
     this.modalService.open(content, { backdropClass: 'light-blue-backdrop' });
   }
 
-  editar() {
-    this.modeloService.edit(this.logo, this.modelo, this.idModelo).subscribe(() => {
-      this.router.navigate([`/admin/modelos`]);
-    })
+  onFileChange(event: any) {
+    this.file = event.target.files[0];
+  }
 
+  editar() {
+    this.modeloService.editModelo(this.modeloEditado, this.file, this.idModelo).subscribe(response => {
+      console.log('Profile updated successfully', response);
+      this.router.navigate([`/admin/modelos`]);
+    }, error => {
+      console.error('Error updating profile', error);
+    });
   }
 
   goBack() {
@@ -73,6 +81,13 @@ export class ModeloConVehiculosComponent implements OnInit {
   delete(idModelo: string) {
     this.modeloService.delete(idModelo).subscribe();
     window.location.href = `http://localhost:4200/admin/modelos`;
+  }
+
+  loadImage(filename: string): void {
+    this.fileService.getFile(filename).subscribe((blob: Blob) => {
+      const objectUrl = URL.createObjectURL(blob);
+      this.logo = objectUrl;
+    });
   }
 
 }

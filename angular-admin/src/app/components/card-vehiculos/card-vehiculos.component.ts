@@ -1,14 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output, PipeTransform, TemplateRef } from '@angular/core';
-import { Transmision, Vehiculo } from '../../models/list-vehiculo.interface';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { AsyncPipe, DecimalPipe } from '@angular/common';
-import { map, startWith, take } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { Vehiculo } from '../../models/list-vehiculo.interface';
 import { VehiculoService } from '../../services/vehiculo.service';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModeloService } from '../../services/modelo.service';
 import { VehiculoAllDetails } from '../../models/new-vehiculo.interface';
+import { FileService } from '../../services/file.service';
 
 @Component({
   selector: 'app-card-vehiculos',
@@ -28,7 +25,8 @@ export class CardVehiculosComponent implements OnInit {
   pagina = 0;
   id!: string;
 
-  constructor(private service: VehiculoService, private router: Router, private modalService: NgbModal, private modeloService: ModeloService) { }
+  constructor(private service: VehiculoService, private router: Router, private modalService: NgbModal, 
+    private modeloService: ModeloService, private fileService: FileService) { }
 
   ngOnInit(): void {
     this.loadPage();
@@ -40,12 +38,18 @@ export class CardVehiculosComponent implements OnInit {
         this.vehiculoList = resp.content;
         this.vehiculosPorPagina = resp.pageable.pageSize;
         this.totalVehiculos = resp.totalElements;
+        this.vehiculoList.forEach(vehiculo => {
+          this.loadImage(vehiculo);
+        });
       });
     } else {
       this.service.listVehiculos(this.pagina - 1).subscribe(resp => {
         this.vehiculoList = resp.content;
         this.vehiculosPorPagina = resp.pageable.pageSize;
         this.totalVehiculos = resp.totalElements;
+        this.vehiculoList.forEach(vehiculo => {
+          this.loadImage(vehiculo);
+        });
       });
     }
   }
@@ -71,6 +75,13 @@ export class CardVehiculosComponent implements OnInit {
   openVerticallyCentered(content: TemplateRef<any>, id: string) {
     this.selectedVehiculoId = id;
     this.modalService.open(content, { centered: true });
+  }
+
+  loadImage(vehiculo: Vehiculo): void {
+    this.fileService.getFile(vehiculo.imagen).subscribe((blob: Blob) => {
+      const objectUrl = URL.createObjectURL(blob);
+      vehiculo.imagen = objectUrl;
+    });
   }
 }
 

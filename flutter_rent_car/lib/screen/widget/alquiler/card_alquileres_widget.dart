@@ -1,6 +1,12 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rent_car/model/response/user/alquiler_cliente/alquiler_clientes.dart';
 import 'package:flutter_rent_car/variables.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class CardAlquileresWidget extends StatefulWidget {
   final AlquilerClientesResponse alquilerClientesResponse;
@@ -13,6 +19,27 @@ class CardAlquileresWidget extends StatefulWidget {
 }
 
 class _CardAlquileresWidgetState extends State<CardAlquileresWidget> {
+
+   Future<String?> getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('token');
+  }
+
+  Future<Uint8List> fetchImage(String filename) async {
+    final token = await getToken();
+    final response = await http.get(
+      Uri.parse('$urlMovil/download/$filename'), // Ajusta la URL según tu API
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+    );
+    if (response.statusCode == 200) {
+      return response.bodyBytes;
+    } else {
+      throw Exception('Failed to load image');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     String alquilado = '';
@@ -38,9 +65,10 @@ class _CardAlquileresWidgetState extends State<CardAlquileresWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 90, left: 10),
+                    padding: const EdgeInsets.only(bottom: 90),
                     child: Text(
                       '${widget.alquilerClientesResponse.content![widget.index].vehiculo!.modelo?.modelo}',
                       style: const TextStyle(
@@ -52,14 +80,23 @@ class _CardAlquileresWidgetState extends State<CardAlquileresWidget> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 30),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 145,
-                          child: Image.network(widget.alquilerClientesResponse
-                              .content![widget.index].vehiculo!.imagen!),
-                        ),
-                      ],
+                    child: FutureBuilder<Uint8List>(
+                      future: fetchImage(widget.alquilerClientesResponse
+                          .content![widget.index].vehiculo!.imagen!),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<Uint8List> snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return CircularProgressIndicator();
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else if (snapshot.hasData) {
+                          return Image.memory(snapshot.data!,
+                              fit: BoxFit.cover, width: 145);
+                        } else {
+                          return Text('No image data');
+                        }
+                      },
                     ),
                   ),
                 ],

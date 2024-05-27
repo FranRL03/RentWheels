@@ -26,6 +26,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collections;
 import java.util.List;
@@ -118,13 +119,12 @@ public class AdminModeloController {
                     content = @Content)
     })
     @PostMapping("/add/modelo")
-    public ResponseEntity<GetModeloDto> create (@RequestBody EditModeloDto nuevo) {
-
-        Modelo m = modeloServicio.create(nuevo);
+    public ResponseEntity<GetModeloDto> create (@RequestPart("modeloCreate") EditModeloDto nuevo,
+                                                @RequestPart("file") MultipartFile file) {
 
         return ResponseEntity
                 .status(201)
-                .body(GetModeloDto.of(m));
+                .body(GetModeloDto.of(modeloServicio.create(nuevo, file)));
     }
 
     @Operation(summary = "Edita un vehiculo existente")
@@ -163,11 +163,12 @@ public class AdminModeloController {
     })
 
     @PutMapping("/edit/modelo/{idModelo}")
-    public GetModeloDto editModelo (@RequestBody EditModeloDto edit, @PathVariable UUID idModelo){
+    public GetModeloDto editModelo (@RequestPart("modeloEditado") EditModeloDto edit,
+                                    @PathVariable UUID idModelo,
+                                    @RequestPart("file") MultipartFile file){
 
-        Modelo m = modeloServicio.edit(edit, idModelo);
 
-        return GetModeloDto.of(m);
+        return GetModeloDto.of(modeloServicio.edit(edit, idModelo, file));
     }
 
     @GetMapping("/modelo/vehiculo/{idModelo}")

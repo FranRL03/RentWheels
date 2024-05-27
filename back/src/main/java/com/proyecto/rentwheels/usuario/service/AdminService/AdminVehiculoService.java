@@ -1,6 +1,7 @@
 package com.proyecto.rentwheels.usuario.service.AdminService;
 
 import com.proyecto.rentwheels.alquiler.repository.AlquilerRepository;
+import com.proyecto.rentwheels.files.service.StorageService;
 import com.proyecto.rentwheels.modelo.exception.NotFoundModeloException;
 import com.proyecto.rentwheels.modelo.model.Modelo;
 import com.proyecto.rentwheels.modelo.repositorio.ModeloRepository;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -25,6 +27,7 @@ public class AdminVehiculoService {
     private final VehiculoRepository vehiculoRepository;
     private final ModeloRepository modeloRepository;
     private final AlquilerRepository alquilerRepository;
+    private final StorageService storageService;
 
     public Page<Vehiculo> findAll (Pageable pageable){
 
@@ -37,11 +40,12 @@ public class AdminVehiculoService {
     }
 
 
-    public Vehiculo createVehiculo (EditVehiculoDto nuevoVehiculo) {
+    public Vehiculo createVehiculo (EditVehiculoDto nuevoVehiculo, MultipartFile file) {
 
         Vehiculo v = new Vehiculo();
 
-        v.setImagen(nuevoVehiculo.imagen());
+        String imagenUrl = storageService.store(file);
+        v.setImagen(imagenUrl);
         v.setCombustible(nuevoVehiculo.combustion());
         v.setTransmision(nuevoVehiculo.transmision());
         v.setCapacidadPasajeros(nuevoVehiculo.capacidadPasajeros());
@@ -62,7 +66,7 @@ public class AdminVehiculoService {
         return vehiculoRepository.save(v);
     }
 
-    public Vehiculo editVehiculo (EditVehiculoDto edit, UUID idVehiculo){
+    public Vehiculo editVehiculo (EditVehiculoDto edit, UUID idVehiculo, MultipartFile file){
 
         Vehiculo v = vehiculoRepository.findById(idVehiculo)
                 .orElseThrow(() -> new VehiculoNotFoundException(idVehiculo.toString()));
@@ -70,7 +74,8 @@ public class AdminVehiculoService {
         if (!v.isDisponible()) {
             throw new VehiculoNoDisponibleException();
         } else {
-            v.setImagen(edit.imagen());
+            String imagenUrl = storageService.store(file);
+            v.setImagen(imagenUrl);
             v.setCombustible(edit.combustion());
             v.setTransmision(edit.transmision());
             v.setCapacidadPasajeros(edit.capacidadPasajeros());
