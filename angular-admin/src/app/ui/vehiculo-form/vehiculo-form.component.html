@@ -4,13 +4,12 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="imagen" class="text-white">URL Imagen:</label>
-                    <input type="url" id="imagen" name="imagen" class="form-control" [(ngModel)]="imagen"
-                        placeholder="Ej: https://kobemotor.es/wp-content/uploads/2023/12/Toyota-C-HR-140h-Advance.png">
+                    <input type="file" id="file" (change)="onFileChange($event)" required>
                     <!-- <span class="error" *ngIf="imagenError">{{imagenError}}</span> -->
                 </div>
                 <div class="form-group">
                     <label for="validationDefault01" class="text-white">Transmisión: *</label>
-                    <select id="validationDefault01" name="transmision" class="form-select" [(ngModel)]="transmision"
+                    <select id="validationDefault01" name="transmision" class="form-select" [(ngModel)]="vehiculoCreate.transmision"
                         required>
                         <option value="" selected>Seleccione una opcion</option>
                         <option value="Manual">MANUAL</option>
@@ -23,7 +22,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="combustion" class="text-white">Combustión: *</label>
-                    <select id="combustion" name="combustion" class="form-select" [(ngModel)]="combustion" required>
+                    <select id="combustion" name="combustion" class="form-select" [(ngModel)]="vehiculoCreate.combustion" required>
                         <option value="" selected>Seleccione una opcion</option>
                         <option value="Electrico">ELECTRICO</option>
                         <option value="Hibrido">HIBRIDO</option>
@@ -35,7 +34,7 @@
                 <div class="form-group">
                     <label for="capacidadPasajeros" class="text-white">Capacidad Pasajeros: *</label>
                     <input type="number" name="capacidadPasajeros" id="capacidadPasajeros" min="2" max="10" step="1"
-                        class="form-control" [(ngModel)]="capacidadPasajeros" placeholder="Ej: 2" required />
+                        class="form-control" [(ngModel)]="vehiculoCreate.capacidadPasajeros" placeholder="Ej: 2" required />
                     <span class="error" *ngIf="capacidadPasajerosError">{{capacidadPasajerosError}}</span>
 
                 </div>
@@ -47,7 +46,7 @@
                 <div class="form-group">
                     <label for="autonomia" class="text-white">Autonomía (Km): *</label>
                     <input type="number" name="autonomia" id="autonomia" min="10000" max="30000" step="500"
-                        class="form-control" [(ngModel)]="autonomia" placeholder="Ej: 500" required />
+                        class="form-control" [(ngModel)]="vehiculoCreate.autonomia" placeholder="Ej: 500" required />
                     <span class="error" *ngIf="autonomiaError">{{autonomiaError}}</span>
                 </div>
             </div>
@@ -56,7 +55,7 @@
                 <div class="form-group">
                     <label for="potencia" class="text-white">Potencia (Kw): *</label>
                     <input type="number" name="potencia" id="potencia" min="90" max="300" step="5" class="form-control"
-                        [(ngModel)]="potencia" placeholder="Ej: 80" required />
+                        [(ngModel)]="vehiculoCreate.potencia" placeholder="Ej: 80" required />
                     <span class="error" *ngIf="potenciaError">{{potenciaError}}</span>
                 </div>
             </div>
@@ -66,7 +65,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="puesto" class="text-white">Estado: *</label>
-                    <select id="puesto" name="puesto" class="form-select" [(ngModel)]="estado" required>
+                    <select id="puesto" name="puesto" class="form-select" [(ngModel)]="vehiculoCreate.estado" required>
                         <option value="" selected>Seleccione una opcion</option>
                         <option value="Nuevo">NUEVO</option>
                         <option value="Seminuevo">SEMINUEVO</option>
@@ -79,7 +78,7 @@
                 <div class="form-group">
                     <label for="numPuertas" class="text-white">Puertas: *</label>
                     <input type="number" name="numPuertas" id="numPuertas" min="2" max="5" step="1" class="form-control"
-                        [(ngModel)]="numPuertas" placeholder="Ej: 5" required />
+                        [(ngModel)]="vehiculoCreate.numPuertas" placeholder="Ej: 5" required />
                     <span class="error" *ngIf="numPuertasError">{{numPuertasError}}</span>
                 </div>
             </div>
@@ -90,14 +89,14 @@
                 <div class="form-group">
                     <label for="precioBase" class="text-white">Precio Base (€): *</label>
                     <input type="number" name="precioBase" id="precioBase" min="120" max="300" step="10"
-                        class="form-control" [(ngModel)]="precioBase" placeholder="Ej: 100" required />
+                        class="form-control" [(ngModel)]="vehiculoCreate.precioBase" placeholder="Ej: 100" required />
                     <span class="error" *ngIf="precioBaseError">{{precioBaseError}}</span>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="modelo" class="text-white">Modelo: *</label>
-                    <select id="modelo" name="modelo" class="form-select" [(ngModel)]="modelo" required>
+                    <select id="modelo" name="modelo" class="form-select" [(ngModel)]="vehiculoCreate.modelo" required>
                         <option value="" selected>Seleccione una opcion</option>
                         @for (m of modeloList; track $index) {
                         <option [value]="m.modelo.toLowerCase()">{{m.modelo}}</option>

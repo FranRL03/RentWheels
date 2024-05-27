@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { VehiculoService } from '../../services/vehiculo.service';
 import { Router } from '@angular/router';
-import { VehiculoAllDetails } from '../../models/new-vehiculo.interface';
 import { ListModelosNoPage } from '../../models/list-modelos-no-page.interface';
 import { ModeloService } from '../../services/modelo.service';
-import { NgForm } from '@angular/forms';
+import { VehiculoDto } from '../../dto/vehiculo-dto';
 
 @Component({
   selector: 'app-vehiculo-form',
@@ -15,16 +14,21 @@ export class VehiculoFormComponent implements OnInit{
 
   modeloList: ListModelosNoPage [] = [];
 
+  vehiculoCreate: VehiculoDto = {
+    combustion:         '',
+    modelo:             '',
+    transmision:        '',
+    capacidadPasajeros:  1,
+    autonomia:          1,
+    potencia:           1,
+    estado:             '',
+    numPuertas:         1,
+    precioBase:         1,
+  }
+
+  file!: File;
+
   imagen!: string;
-  combustion: string = '';
-  transmision: string = '';
-  capacidadPasajeros!: number;
-  autonomia!: number;
-  potencia!: number;
-  estado: string = '';
-  numPuertas!: number;
-  precioBase!: number;
-  modelo: string = '';
 
   imagenError: string = '';
   combustionError: string = '';
@@ -49,58 +53,61 @@ export class VehiculoFormComponent implements OnInit{
 
     this.validacion();
 
-    this.service.createVehiculo(this.imagen, this.combustion, this.transmision, this.capacidadPasajeros,
-      this.autonomia, this.potencia, this.estado, this.numPuertas, this.precioBase, this.modelo.toLowerCase())
-      .subscribe((vehiculo: VehiculoAllDetails) => {
+    this.service.createVehiculo(this.vehiculoCreate, this.file)
+      .subscribe(vehiculo => {
         console.log('Vehiculo añadido', vehiculo);
         this.route.navigate([`/admin/coche`]);
       });
   }
 
+  onFileChange(event: any) {
+    this.file = event.target.files[0];
+  }
+
   validacion(){
     let errores = false;
 
-    if(this.transmision == '') {
+    if(this.vehiculoCreate.transmision == '') {
       this.transmisionError = 'Por favor, selecciona una opción';
       errores = true;
     }
 
-    if(this.combustion == ''){
+    if(this.vehiculoCreate.combustion == ''){
       this.combustionError = 'Por favor, selecciona una opción';
       errores = true;
     }
 
-    if(this.modelo == ''){
+    if(this.vehiculoCreate.modelo == ''){
       this.modeloError = 'Por favor, selecciona una opción';
       errores = true;
     }
 
-    if(this.estado == ''){
+    if(this.vehiculoCreate.estado == ''){
       this.estadoError = 'Por favor, selecciona una opción';
       errores = true;
     }
 
-    if(this.capacidadPasajeros < 2 || this.capacidadPasajeros > 10 || !this.capacidadPasajeros){
+    if(this.vehiculoCreate.capacidadPasajeros < 2 || this.vehiculoCreate.capacidadPasajeros > 10 || !this.vehiculoCreate.capacidadPasajeros){
       this.capacidadPasajerosError = 'El número de pasajeros no válido';
       errores = true;
     }
 
-    if(this.autonomia < 10000 || this.autonomia > 30000 || !this.autonomia){
+    if(this.vehiculoCreate.autonomia < 10000 || this.vehiculoCreate.autonomia > 30000 || !this.vehiculoCreate.autonomia){
       this.autonomiaError = 'Número no válido';
       errores = true;
     }
 
-    if(this.potencia < 90 || this.potencia > 300 || !this.potencia){
+    if(this.vehiculoCreate.potencia < 90 || this.vehiculoCreate.potencia > 300 || !this.vehiculoCreate.potencia){
       this.potenciaError = 'Número no válido';
       errores = true;
     }
 
-    if(this.numPuertas < 2 || this.numPuertas > 5 || !this.numPuertas){
+    if(this.vehiculoCreate.numPuertas < 2 || this.vehiculoCreate.numPuertas > 5 || !this.vehiculoCreate.numPuertas){
       this.numPuertasError = 'Número no válido';
       errores = true;
     }
 
-    if(this.precioBase < 1 || !this.precioBase){
+    if(this.vehiculoCreate.precioBase < 1 || !this.vehiculoCreate.precioBase){
       this.precioBaseError = 'El precio no puede ser negativo';
       errores = true;
     }

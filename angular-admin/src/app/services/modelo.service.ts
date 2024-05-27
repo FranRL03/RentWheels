@@ -6,7 +6,7 @@ import { environment } from '../environment/environment';
 import { ListModelos } from '../models/list-modelos-paginacion.interface';
 import { ModeloDetails } from '../models/new-modelo.interface';
 import { ListVehiculo } from '../models/list-vehiculo.interface';
-import { EditModeloDto } from '../dto/edit-modelo-dto';
+import { ModeloDto } from '../dto/modelo-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +33,7 @@ export class ModeloService {
       });
   }
 
-  create(modeloCreate: EditModeloDto, file: File): Observable<any> {
+  create(modeloCreate: ModeloDto, file: File): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('modeloCreate', new Blob([JSON.stringify(modeloCreate)], { type: 'application/json' }));
     formData.append('file', file);
@@ -45,7 +45,7 @@ export class ModeloService {
     return this.http.post(`${environment.apiBaseUrl}/admin/add/modelo`, formData, {headers});
   }
 
-  editModelo(modeloEditado: EditModeloDto, file: File, id: string): Observable<any> {
+  editModelo(modeloEditado: ModeloDto, file: File, id: string): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('modeloEditado', new Blob([JSON.stringify(modeloEditado)], { type: 'application/json' }));
     formData.append('file', file);

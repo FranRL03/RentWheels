@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModeloService } from '../../services/modelo.service';
-import { EditModeloDto } from '../../dto/edit-modelo-dto';
+import { ModeloDto } from '../../dto/modelo-dto';
 import { FileService } from '../../services/file.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class ModeloConVehiculosComponent implements OnInit {
 
   logo!: string;
 
-  modeloEditado: EditModeloDto = {
+  modeloEditado: ModeloDto = {
     modelo: ''
   }
 

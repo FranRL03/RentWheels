@@ -1,9 +1,8 @@
 import { Component, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModeloService } from '../../services/modelo.service';
-import { ModeloDetails } from '../../models/new-modelo.interface';
 import { Router } from '@angular/router';
-import { EditModeloDto } from '../../dto/edit-modelo-dto';
+import { ModeloDto } from '../../dto/modelo-dto';
 
 @Component({
   selector: 'app-modelos-page',
@@ -14,7 +13,7 @@ export class ModelosPageComponent {
 
   logo!: string;
 
-  modeloCreate: EditModeloDto = {
+  modeloCreate: ModeloDto = {
     modelo: ''
   }
 
