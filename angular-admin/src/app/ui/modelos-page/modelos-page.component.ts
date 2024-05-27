@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModeloService } from '../../services/modelo.service';
 import { ModeloDetails } from '../../models/new-modelo.interface';
 import { Router } from '@angular/router';
+import { EditModeloDto } from '../../dto/edit-modelo-dto';
 
 @Component({
   selector: 'app-modelos-page',
@@ -12,7 +13,12 @@ import { Router } from '@angular/router';
 export class ModelosPageComponent {
 
   logo!: string;
-  modelo!: string;
+
+  modeloCreate: EditModeloDto = {
+    modelo: ''
+  }
+
+  file!: File;
 
   logoError: string = '';
   modeloError: string = '';
@@ -23,11 +29,16 @@ export class ModelosPageComponent {
 
     this.validacion();
 
-
-    this.service.create(this.modelo, this.logo).subscribe((modelo: ModeloDetails) => {
-      console.log('Modelo añadido', modelo);
+    this.service.create(this.modeloCreate, this.file).subscribe(response => {
+      console.log('Modelo añadido', response);
       this.router.navigate([`/admin/modelos`]);
+    }, error => {
+      console.error('Error updating profile', error);
     });
+  }
+
+  onFileChange(event: any) {
+    this.file = event.target.files[0];
   }
 
   openBackDropCustomClass(content: TemplateRef<any>) {
@@ -42,7 +53,7 @@ export class ModelosPageComponent {
       errores = true;
     }
 
-    if (!this.modelo || this.modelo.trim() === '') {
+    if (!this.modeloCreate.modelo || this.modeloCreate.modelo.trim() === '') {
       this.modeloError = 'Complete el campo';
       errores = true;
     }

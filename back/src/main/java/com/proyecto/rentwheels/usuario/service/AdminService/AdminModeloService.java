@@ -52,11 +52,12 @@ public class AdminModeloService {
         return modelos;
     }
 
-    public Modelo create (EditModeloDto nuevo){
+    public Modelo create (EditModeloDto nuevo, MultipartFile file){
 
         Modelo m = new Modelo();
 
-        m.setLogo(nuevo.logo());
+        String logoUrl = storageService.store(file);
+        m.setLogo(logoUrl);
         m.setModelo(nuevo.modelo());
 
         return modeloRepository.save(m);

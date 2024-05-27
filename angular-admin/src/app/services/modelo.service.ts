@@ -33,16 +33,16 @@ export class ModeloService {
       });
   }
 
-  create(logo: string, modelo: string): Observable<ModeloDetails> {
-    return this.http.post<ModeloDetails>(`${environment.apiBaseUrl}/admin/add/modelo`,
-      {
-        logo: logo,
-        modelo: modelo
-      }, {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      }
+  create(modeloCreate: EditModeloDto, file: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('modeloCreate', new Blob([JSON.stringify(modeloCreate)], { type: 'application/json' }));
+    formData.append('file', file);
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
     });
+
+    return this.http.post(`${environment.apiBaseUrl}/admin/add/modelo`, formData, {headers});
   }
 
   editModelo(modeloEditado: EditModeloDto, file: File, id: string): Observable<any> {

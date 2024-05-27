@@ -119,13 +119,12 @@ public class AdminModeloController {
                     content = @Content)
     })
     @PostMapping("/add/modelo")
-    public ResponseEntity<GetModeloDto> create (@RequestBody EditModeloDto nuevo) {
-
-        Modelo m = modeloServicio.create(nuevo);
+    public ResponseEntity<GetModeloDto> create (@RequestPart("modeloCreate") EditModeloDto nuevo,
+                                                @RequestPart("file") MultipartFile file) {
 
         return ResponseEntity
                 .status(201)
-                .body(GetModeloDto.of(m));
+                .body(GetModeloDto.of(modeloServicio.create(nuevo, file)));
     }
 
     @Operation(summary = "Edita un vehiculo existente")
