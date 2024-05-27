@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter_rent_car/model/response/vehiculos/list_vehiculos_response_v2/list_vehiculos_response_v2.dart';
 import 'package:flutter_rent_car/model/response/vehiculos/vehiculo_details_response/vehiculo_details_response.dart';
@@ -16,28 +17,31 @@ class VehiculoRepositoryImpl extends VehiculoRepository {
   }
 
   @override
-Future<List<ListVehiculosResponseV2>> listVehiculos() async {
-  final token = await getToken();
+  Future<List<ListVehiculosResponseV2>> listVehiculos() async {
+    final token = await getToken();
 
-  final response = await _htppClient.get(
-    Uri.parse('$urlMovil/vehiculos/menu'),
-    headers: <String, String>{
-      'Content-Type': 'application/json',  // Corregido aquí: quitado 'Content-type:'
-      'Authorization': 'Bearer $token',
-    },
-  );
+    final response = await _htppClient.get(
+      Uri.parse('$urlMovil/vehiculos/menu'),
+      headers: <String, String>{
+        'Content-Type':
+            'application/json', // Corregido aquí: quitado 'Content-type:'
+        'Authorization': 'Bearer $token',
+      },
+    );
 
-  if (response.statusCode == 200) {
-    List<dynamic> jsonResponse = json.decode(response.body);
-    return jsonResponse.map((data) => ListVehiculosResponseV2.fromListVehiculos(data)).toList();
-  } else {
-    throw Exception('Failed to get vehicles');
+    if (response.statusCode == 200) {
+      List<dynamic> jsonResponse = json.decode(response.body);
+      return jsonResponse
+          .map((data) => ListVehiculosResponseV2.fromListVehiculos(data))
+          .toList();
+    } else {
+      throw Exception('Failed to get vehicles');
+    }
   }
-}
-
 
   @override
-  Future<List<ListVehiculosResponseV2>> vehiculoModels(String nombreModelo) async {
+  Future<List<ListVehiculosResponseV2>> vehiculoModels(
+      String nombreModelo) async {
     final token = await getToken();
 
     final response = await _htppClient
@@ -49,8 +53,10 @@ Future<List<ListVehiculosResponseV2>> listVehiculos() async {
         });
 
     if (response.statusCode == 200) {
-       List<dynamic> jsonResponse = json.decode(response.body);
-    return jsonResponse.map((data) => ListVehiculosResponseV2.fromListVehiculos(data)).toList();
+      List<dynamic> jsonResponse = json.decode(response.body);
+      return jsonResponse
+          .map((data) => ListVehiculosResponseV2.fromListVehiculos(data))
+          .toList();
     } else {
       throw Exception('Failed to get models');
     }
@@ -72,6 +78,21 @@ Future<List<ListVehiculosResponseV2>> listVehiculos() async {
       return VehiculoDetailsResponse.fromJson(response.body);
     } else {
       throw Exception('Failed to get details');
+    }
+  }
+
+  Future<Uint8List> fetchImage(String filename) async {
+    final token = await getToken();
+    final response = await _htppClient.get(
+      Uri.parse('$urlMovil/download/$filename'), // Ajusta la URL según tu API
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+    );
+    if (response.statusCode == 200) {
+      return response.bodyBytes;
+    } else {
+      throw Exception('Failed to load image');
     }
   }
 }

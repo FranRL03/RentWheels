@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           Expanded(flex: 1, child: modelosDeCoches()),
-          Expanded(flex: 4, child: listDeCoches()),
+          Expanded(flex: 4, child: listDeCoches(vehiculoRepository as VehiculoRepositoryImpl)),
         ],
       ),
     );
@@ -155,7 +155,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Widget listDeCoches() {
+  Widget listDeCoches(VehiculoRepositoryImpl vehiculoRepository) {
     return BlocBuilder<VehiculoBloc, VehiculoState>(
         bloc: vehiculoBloc,
         builder: (context, state) {
@@ -172,7 +172,7 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (context, index) {
                       final vehiculo = state.vehiculosResponse;
                       return CardCocheWidget(
-                          vehiculosResponse: vehiculo, index: index);
+                          vehiculosResponse: vehiculo, index: index, repository: vehiculoRepository);
                     }));
           } else if (state is GetModelosVehiculosSuccess) {
             return SizedBox(
@@ -181,7 +181,7 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (context, index) {
                       final vehiculo = state.vehiculosModelsResponse;
                       return CardCocheWidget(
-                          vehiculosResponse: vehiculo, index: index);
+                          vehiculosResponse: vehiculo, index: index,  repository: vehiculoRepository);
                     }));
           }
           return const Center(child: CircularProgressIndicator());
