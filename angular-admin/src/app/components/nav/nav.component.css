@@ -11,8 +11,30 @@ a{
     color: rgb(210, 192, 192);
 }
 
+a:hover {
+    color: rgb(133, 130, 130);
+}
+
 .nav-underline .nav-link.active{
     --bs-nav-underline-link-active-color: #e1e1e1;
 }
+
+.navbarStile .nav-item {
+    display: flex;
+    align-items: center;
+}
+
+.navbarStile .nav-item img {
+    width: 60px; 
+    height: auto;
+}
+
+.navbarStile .nav-item h4 {
+    margin: 0;
+    padding-left: 15px;
+    color: #e1e1e1;
+}
+
+
 
 
