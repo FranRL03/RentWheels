@@ -36,6 +36,15 @@
     max-height: 200px;
 }
 
-h3{
+h3 {
     font-family: 'ultimate', sans-serif;
+}
+
+h4 {
+    font-family: 'ultimate', sans-serif;
+    font-size: 40px;
+}
+
+::ng-deep .modal-content {
+    background-color: #b0e4ff;
 }

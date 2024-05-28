@@ -25,7 +25,7 @@ export class CardVehiculosComponent implements OnInit {
   pagina = 0;
   id!: string;
 
-  constructor(private service: VehiculoService, private router: Router, private modalService: NgbModal, 
+  constructor(private service: VehiculoService, private router: Router, private modalService: NgbModal,
     private modeloService: ModeloService, private fileService: FileService) { }
 
   ngOnInit(): void {
@@ -60,8 +60,9 @@ export class CardVehiculosComponent implements OnInit {
   }
 
   details(id: string, content: TemplateRef<any>) {
-    this.service.details(id).subscribe( resp => {
+    this.service.details(id).subscribe(resp => {
       this.vehiculoDetails = resp;
+      this.loadModalImage(this.vehiculoDetails);
     });
 
     this.modalService.open(content, { backdropClass: 'light-blue-backdrop' });
@@ -83,7 +84,14 @@ export class CardVehiculosComponent implements OnInit {
       vehiculo.imagen = objectUrl;
     });
   }
+
+  loadModalImage(vehiculoDetails: VehiculoAllDetails): void {
+    if (vehiculoDetails && vehiculoDetails.imagen) {
+      this.fileService.getFile(vehiculoDetails.imagen).subscribe((blob: Blob) => {
+        const objectUrl = URL.createObjectURL(blob);
+        vehiculoDetails.imagen = objectUrl;
+      });
+    }
+  }
 }
-
-
 

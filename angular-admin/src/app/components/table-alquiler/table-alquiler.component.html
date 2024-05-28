@@ -1,4 +1,4 @@
-<table class="table table-striped mt-4 rounded-4">
+<table class="table table-striped mt-4">
     <thead>
         <tr class="text-center">
             <th scope="col">Usuario</th>
@@ -102,9 +102,6 @@
               </svg><strong>En alquiler:</strong> {{alquilerDetails.enAlquiler ? 'Sí' : 'Expirado'}}</li>
         </ul>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
-    </div>
 </ng-template>
 
 
@@ -126,9 +123,6 @@
             <li><strong>Potencia:</strong> {{alquilerDetails.vehiculo.potencia}} k/W</li>
             <li><strong>Transmisión:</strong> {{alquilerDetails.vehiculo.transmision}}</li>
         </ul>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
     </div>
 </ng-template>
 

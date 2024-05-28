@@ -39,3 +39,7 @@ span {
     padding: 5px; 
     box-sizing: border-box;
 }
+
+::ng-deep .modal-delete{
+    background-color: #6d8198;
+}

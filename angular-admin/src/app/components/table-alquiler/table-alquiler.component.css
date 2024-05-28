@@ -1,6 +1,9 @@
 .table {
-    --bs-table-bg: #a29ebc;
-    --bs-table-accent-bg: #a8a8b6;
+    --bs-table-bg: #a4c2ec;
+    --bs-table-accent-bg: #78a2e2;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 10px rgb(95 150 209);
 }
 
 .avatar-container {
@@ -32,4 +35,8 @@
 .vehicle-image {
     max-width: 300px;
     max-height: 200px;
+}
+
+::ng-deep .modal-content{
+    background-color: #b0e4ff;
 }

@@ -1,12 +1,12 @@
 <div class="container">
     <div class="d-flex justify-content-between">
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" (click)="goBack()" fill="white"
-        class="bi bi-box-arrow-left mt-4 arrow-icon" viewBox="0 0 16 16">
-        <path fill-rule="evenodd"
-            d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z" />
-        <path fill-rule="evenodd"
-            d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z" />
-    </svg>
+            class="bi bi-box-arrow-left mt-4 arrow-icon" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z" />
+            <path fill-rule="evenodd"
+                d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z" />
+        </svg>
 
         <div>
             <button type=" button" class="btn btn-warning mt-4 me-5 text-center"
@@ -21,7 +21,8 @@
                 Editar Modelo
             </button>
 
-            <button type=" button" class="btn btn-danger mt-4 text-center" (click)="openBackDropCustomClass(deleteModal)">
+            <button type=" button" class="btn btn-danger mt-4 text-center"
+                (click)="openBackDropCustomClass(deleteModal)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                     class="bi bi-x-circle text-center" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
@@ -45,7 +46,8 @@
             <form class="form">
                 <div class="">
                     <label for="validationDefault01" class="form-label">Nombre del modelo: <span>*</span></label>
-                    <input type="text" class="form-control" id="validationDefault01" [(ngModel)]="modeloEditado.modelo" name="modelo">
+                    <input type="text" class="form-control" id="validationDefault01" [(ngModel)]="modeloEditado.modelo"
+                        name="modelo">
                 </div>
                 <div class="pt-2">
                     <label for="validationDefault02" class="form-label">Imagen del logo: <span>*</span></label>
@@ -55,42 +57,41 @@
                     <img src="{{logo}}" alt="">
                 </div>
                 <div class="pt-3">
-                    <button class="btn btn-primary" type="submit"
+                    <button class="btn btn-success" type="submit"
                         (click)="editar(); modal.close('Close click')">Enviar</button>
                 </div>
             </form>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Cerrar</button>
-        </div>
     </ng-template>>
 
     <ng-template #deleteModal let-modal>
-        @if (totalVehiculos == 0) {
-        <div class="modal-header">
-            <h4 class="modal-title">Borrar Modelo</h4>
-            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        <div class="modal-delete">
+            @if (totalVehiculos == 0) {
+            <div class="modal-header">
+                <h4 class="modal-title">Borrar Modelo</h4>
+                <button type="button" class="btn-close" aria-label="Close"
+                    (click)="modal.dismiss('Cross click')"></button>
+            </div>
+            <div class="modal-body">
+                <h6>¿Estás seguro de que quieres borrar este modelo?</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="delete(idModelo)">Aceptar</button>
+            </div>
+            } @else {
+            <div class="modal-header">
+                <h4 class="modal-title">Borrar lista</h4>
+                <button type="button" class="btn-close" aria-label="Close"
+                    (click)="modal.dismiss('Cross click')"></button>
+            </div>
+            <div class="modal-body">
+                <h6>¿Estás seguro de que quieres borrar todos los vehiculos?</h6>
+                <p>*Antes de borrar un modelo hay que borrar todos los vehiculos*</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="clear(idModelo)">Borrar lista</button>
+            </div>
+            }
         </div>
-        <div class="modal-body">
-            <h6>¿Estás seguro de que quieres borrar este modelo?</h6>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger" (click)="delete(idModelo)">Aceptar</button>
-            <button type="button" class="btn btn-secondary" disabled>Borrar lista</button>
-        </div>
-        } @else {
-        <div class="modal-header">
-            <h4 class="modal-title">Borrar lista</h4>
-            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-        </div>
-        <div class="modal-body">
-            <h6>¿Estás seguro de que quieres borrar todos los vehiculos?</h6>
-            <p>Antes de borrar un modelo hay que borrar todos los vehiculos</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" disabled>Aceptar</button>
-            <button type="button" class="btn btn-danger" (click)="clear(idModelo)">Borrar lista</button>
-        </div>
-        }
     </ng-template>
 </div>
