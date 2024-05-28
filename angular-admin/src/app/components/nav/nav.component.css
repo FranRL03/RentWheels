@@ -1,5 +1,6 @@
 nav{
-    background-color: #181C2C;
+    background-color: #283567;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
 }
 
 .logo{
@@ -7,8 +8,15 @@ nav{
     padding-left: 10px;
 }
 
+h4{
+    font-family: 'ultimate', sans-serif;
+    font-size: 40px;
+}
+
 a{
     color: rgb(210, 192, 192);
+    font-family: 'ultimate', sans-serif;
+    font-size: 25px;
 }
 
 a:hover {
