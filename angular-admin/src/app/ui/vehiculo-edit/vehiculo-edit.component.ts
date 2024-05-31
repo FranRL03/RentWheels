@@ -70,4 +70,8 @@ export class VehiculoEditComponent implements OnInit{
     });
   }
 
+  goBack() {
+    window.history.back();
+  }
+
 }

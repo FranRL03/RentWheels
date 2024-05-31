@@ -14,6 +14,8 @@ export class VehiculoFormComponent implements OnInit{
 
   modeloList: ListModelosNoPage [] = [];
 
+  imageSrc: string | ArrayBuffer | null | undefined = null;
+
   vehiculoCreate: VehiculoDto = {
     combustion:         '',
     modelo:             '',
@@ -61,7 +63,15 @@ export class VehiculoFormComponent implements OnInit{
   }
 
   onFileChange(event: any) {
-    this.file = event.target.files[0];
+    // this.file = event.target.files[0];
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.imageSrc = e.target?.result;
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
   }
 
   validacion(){
@@ -117,5 +127,8 @@ export class VehiculoFormComponent implements OnInit{
     }
   }
 
+  goBack() {
+    window.history.back();
+  }
 
 }
