@@ -13,6 +13,7 @@ export class VehiculoEditComponent implements OnInit{
 
   id!: string;
   imagen!: string;
+  imagenSelected: string | ArrayBuffer | null | undefined = null;
 
   
   vehiculoEditado: VehiculoDto = {
@@ -54,7 +55,16 @@ export class VehiculoEditComponent implements OnInit{
   }
 
   onFileChange(event: any) {
-    this.file = event.target.files[0];
+  const input = event.target as HTMLInputElement;
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      this.imagenSelected = e.target?.result;
+    };
+    // agregamos la imagen seleccionada al tipo de archivo file
+    reader.readAsDataURL(input.files[0]);
+    this.file = input.files[0]; 
+  }
   }
 
   editVehiculo(){
@@ -72,6 +82,14 @@ export class VehiculoEditComponent implements OnInit{
 
   goBack() {
     window.history.back();
+  }
+
+  removeImgSelected(){
+    this.imagenSelected = null;
+  const input = document.getElementById('file-upload-input') as HTMLInputElement;
+  if (input) {
+    input.value = '';
+  }
   }
 
 }
