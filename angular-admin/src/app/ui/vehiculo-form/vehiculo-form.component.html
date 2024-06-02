@@ -1,110 +1,113 @@
 <div class="container mt-5">
     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" (click)="goBack()" fill="white"
-            class="bi bi-box-arrow-left mt-4 arrow-icon" viewBox="0 0 16 16">
-            <path fill-rule="evenodd"
-                d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z" />
-            <path fill-rule="evenodd"
-                d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z" />
-        </svg>
+        class="bi bi-box-arrow-left mt-4 arrow-icon" viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+            d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z" />
+        <path fill-rule="evenodd"
+            d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z" />
+    </svg>
 
-    <form class="form pt-5" #vehiculoForm="ngForm">
+    <form class="form needs-validation pt-5" novalidate>
         <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="imagen" class="text-white">URL Imagen:</label>
-                    <!-- <input type="file" id="file" (change)="onFileChange($event)" required> -->
-                    <input type="file" id="file" (change)="onFileChange($event)" required>
-                    <img [src]="imageSrc" *ngIf="imageSrc" alt="Imagen seleccionada" class="img-thumbnail mt-2" style="max-width: 100%;">
-                    <!-- <span class="error" *ngIf="imagenError">{{imagenError}}</span> -->
-                </div>
-                <div class="form-group">
-                    <label for="validationDefault01" class="text-white">Transmisión: *</label>
-                    <select id="validationDefault01" name="transmision" class="form-select" [(ngModel)]="vehiculoCreate.transmision"
-                        required>
-                        <option value="" selected>Seleccione una opcion</option>
-                        <option value="Manual">MANUAL</option>
-                        <option value="Automatico">AUTOMATICO</option>
-                    </select>
-                    <span class="error" *ngIf="transmisionError">{{transmisionError}}</span>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="combustion" class="text-white">Combustión: *</label>
-                    <select id="combustion" name="combustion" class="form-select" [(ngModel)]="vehiculoCreate.combustion" required>
-                        <option value="" selected>Seleccione una opcion</option>
-                        <option value="Electrico">ELECTRICO</option>
-                        <option value="Hibrido">HIBRIDO</option>
-                        <option value="Gasolina">GASOLINA</option>
-                        <option value="Diesel">DIESEL</option>
-                    </select>
-                    <span class="error" *ngIf="combustionError">{{combustionError}}</span>
-                </div>
-                <div class="form-group">
-                    <label for="capacidadPasajeros" class="text-white">Capacidad Pasajeros: *</label>
-                    <input type="number" name="capacidadPasajeros" id="capacidadPasajeros" min="2" max="10" step="1"
-                        class="form-control" [(ngModel)]="vehiculoCreate.capacidadPasajeros" placeholder="Ej: 2" required />
-                    <span class="error" *ngIf="capacidadPasajerosError">{{capacidadPasajerosError}}</span>
-
-                </div>
-            </div>
+         <div class="col-md-6">
+             <div class="file-upload">
+                 <button class="file-upload-btn" type="button">
+                     <input class="file-upload-input-btn" id="file" type='file' (change)="onFileChange($event)" />Añadir Imagen
+                    </button>
+                     <!-- <input type="file" id="file" (change)="onFileChange($event)" required> -->
+                
+                @if (imageSrc != null) {
+                    <div class="image-upload-wrap">
+                        <div class="drag-text">
+                           <img [src]="imageSrc" *ngIf="imageSrc" alt="Imagen seleccionada" class="img-thumbnail mt-2">
+                        </div>
+                    </div>
+                }
+             </div>
+         </div>
         </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="autonomia" class="text-white">Autonomía (Km): *</label>
-                    <input type="number" name="autonomia" id="autonomia" min="10000" max="30000" step="500"
-                        class="form-control" [(ngModel)]="vehiculoCreate.autonomia" placeholder="Ej: 500" required />
-                    <span class="error" *ngIf="autonomiaError">{{autonomiaError}}</span>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="potencia" class="text-white">Potencia (Kw): *</label>
-                    <input type="number" name="potencia" id="potencia" min="90" max="300" step="5" class="form-control"
-                        [(ngModel)]="vehiculoCreate.potencia" placeholder="Ej: 80" required />
-                    <span class="error" *ngIf="potenciaError">{{potenciaError}}</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="puesto" class="text-white">Estado: *</label>
-                    <select id="puesto" name="puesto" class="form-select" [(ngModel)]="vehiculoCreate.estado" required>
-                        <option value="" selected>Seleccione una opcion</option>
-                        <option value="Nuevo">NUEVO</option>
-                        <option value="Seminuevo">SEMINUEVO</option>
-                    </select>
-                    <span class="error" *ngIf="estadoError">{{estadoError}}</span>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="numPuertas" class="text-white">Puertas: *</label>
-                    <input type="number" name="numPuertas" id="numPuertas" min="2" max="5" step="1" class="form-control"
-                        [(ngModel)]="vehiculoCreate.numPuertas" placeholder="Ej: 5" required />
-                    <span class="error" *ngIf="numPuertasError">{{numPuertasError}}</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="precioBase" class="text-white">Precio Base (€): *</label>
-                    <input type="number" name="precioBase" id="precioBase" min="120" max="300" step="10"
-                        class="form-control" [(ngModel)]="vehiculoCreate.precioBase" placeholder="Ej: 100" required />
-                    <span class="error" *ngIf="precioBaseError">{{precioBaseError}}</span>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
+         <div class="row">
+             <div class="col-md-6">
+ 
+                 <div class="form-group">
+                     <label for="validationDefault01" class="text-white">Transmisión: </label>
+                     <select id="validationDefault01" name="transmision" class="form-select"
+                         [(ngModel)]="vehiculoCreate.transmision" required>
+                         <option value="" selected>Seleccione una opcion</option>
+                         <option value="Manual">MANUAL</option>
+                         <option value="Automatico">AUTOMATICO</option>
+                     </select>
+                     <!-- <span class="error" *ngIf="transmisionError">{{transmisionError}}</span> -->
+                 </div>
+ 
+                 <div class="form-group">
+                     <label for="combustion" class="text-white">Combustión: </label>
+                     <select id="combustion" name="combustion" class="form-select"
+                         [(ngModel)]="vehiculoCreate.combustion" required>
+                         <option value="" selected>Seleccione una opcion</option>
+                         <option value="Electrico">ELECTRICO</option>
+                         <option value="Hibrido">HIBRIDO</option>
+                         <option value="Gasolina">GASOLINA</option>
+                         <option value="Diesel">DIESEL</option>
+                     </select>
+                     <!-- <span class="error" *ngIf="combustionError">{{combustionError}}</span> -->
+                 </div>
+             </div>
+ 
+             <div class="col-md-6">
+                 
+                 <div class="form-group">
+                     <label for="capacidadPasajeros" class="text-white">Capacidad Pasajeros: </label>
+                     <input type="number" name="capacidadPasajeros" id="capacidadPasajeros" min="2" max="10" step="1"
+                         class="form-control" [(ngModel)]="vehiculoCreate.capacidadPasajeros" required />
+                     <!-- <span class="error" *ngIf="capacidadPasajerosError">{{capacidadPasajerosError}}</span> -->
+ 
+                 </div>
+ 
+                 <div class="form-group">
+                     <label for="potencia" class="text-white">Potencia (Kw): </label>
+                     <input type="number" name="potencia" id="potencia" min="90" max="300" step="5" class="form-control"
+                         [(ngModel)]="vehiculoCreate.potencia" required />
+                     <!-- <span class="error" *ngIf="potenciaError">{{potenciaError}}</span> -->
+                 </div>
+             </div>
+         </div>
+ 
+ 
+         <div class="row">
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <label for="estado" class="text-white">Estado: </label>
+                     <select id="estado" name="estado" class="form-select" [(ngModel)]="vehiculoCreate.estado" required>
+                         <option value="" selected>Seleccione una opcion</option>
+                         <option value="Nuevo">NUEVO</option>
+                         <option value="Seminuevo">SEMINUEVO</option>
+                     </select>
+                     <!-- <span class="error" *ngIf="estadoError">{{estadoError}}</span> -->
+                 </div>
+             </div>
+ 
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <label for="numPuertas" class="text-white">Puertas: </label>
+                     <input type="number" name="numPuertas" id="numPuertas" min="2" max="5" step="1" class="form-control"
+                         [(ngModel)]="vehiculoCreate.numPuertas" required />
+                     <!-- <span class="error" *ngIf="numPuertasError">{{numPuertasError}}</span> -->
+                 </div>
+             </div>
+         </div>
+ 
+         <div class="row">
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <label for="precioBase" class="text-white">Precio Base (€): </label>
+                     <input type="number" name="precioBase" id="precioBase" min="120" max="300" step="10"
+                         class="form-control" [(ngModel)]="vehiculoCreate.precioBase" required />
+                     <!-- <span class="error" *ngIf="precioBaseError">{{precioBaseError}}</span> -->
+                 </div>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
                     <label for="modelo" class="text-white">Modelo: *</label>
                     <select id="modelo" name="modelo" class="form-select" [(ngModel)]="vehiculoCreate.modelo" required>
                         <option value="" selected>Seleccione una opcion</option>
@@ -113,9 +116,22 @@
                         }
                     </select>
                     <span class="error" *ngIf="modeloError">{{modeloError}}</span>
-                </div>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary mt-3" (click)="addVehiculo()">Enviar</button>
-    </form>
+                 </div>
+             </div>
+         </div>
+ 
+         <div class="row">
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <label for="autonomia" class="text-white">Autonomía (Km): </label>
+                     <input type="number" name="autonomia" id="autonomia" min="10000" max="30000" step="500"
+                         class="form-control" [(ngModel)]="vehiculoCreate.autonomia" required />
+                     <!-- <span class="error" *ngIf="autonomiaError">{{autonomiaError}}</span> -->
+                 </div>
+             </div>
+         </div>
+ 
+         <button type="submit" class="btn btn-primary mt-3" (click)="addVehiculo()">Enviar</button>
+     </form>
+
 </div>
