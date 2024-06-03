@@ -51,11 +51,34 @@
                 </div>
                 <div class="pt-2">
                     <label for="validationDefault02" class="form-label">Imagen del logo: <span>*</span></label>
-                    <input type="file" id="file" (change)="onFileChange($event)" required>
+                    <button class="file-upload-btn" type="button">
+                        <input class="file-upload-input-btn" type='file' (change)="onFileChange($event)" />Añadir Imagen</button>
                 </div>
-                <div class="pt-2">
-                    <img src="{{logo}}" alt="">
-                </div>
+                    <div class="pt-2 d-flex justify-content-center">
+                        @if (logoSelected == null) {
+                            <img src="{{logo}}" alt="" width="60%">
+                        } @else {
+                            <img [src]="logoSelected" *ngIf="logoSelected" alt="Imagen seleccionada" style="max-width: 100%;">
+                        }
+                    </div>
+
+                    <!-- <div class="pt-2 col-md-6">
+                        @if (logoSelected != null) {
+                            <div class="file-upload">
+                                <button class="file-upload-btn">
+                                   Imagen Seleccionada</button>
+                    
+                                <div class="image-upload-wrap">
+                                    <div class="drag-text">
+                                        <img [src]="logoSelected" *ngIf="logoSelected" alt="Imagen seleccionada" style="max-width: 100%;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ps-3">
+                                <button type="button" class="remove-image">Borrar imagen seleccionada</button>
+                            </div>
+                        }
+                    </div> -->
                 <div class="pt-3">
                     <button class="btn btn-success" type="submit"
                         (click)="editar(); modal.close('Close click')">Enviar</button>

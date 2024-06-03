@@ -23,7 +23,18 @@
       </div>
       <div class="pt-2">
         <label for="validationDefault02" class="form-label">Imagen del logo: <span>*</span></label>
-        <input type="file" id="file" (change)="onFileChange($event)" required>
+        <div class="file-upload">
+
+          <input type="file" id="file" (change)="onFileChange($event)" required>
+         
+         @if (logoSrc != null) {
+             <div class="image-upload-wrap">
+                 <div class="drag-text">
+                    <img [src]="logoSrc" *ngIf="logoSrc" alt="Imagen seleccionada" class="img-thumbnail mt-2">
+                 </div>
+             </div>
+         }
+      </div>
         <span class="error" *ngIf="logoError">{{logoError}}</span>
       </div>
       <div class="pt-3">

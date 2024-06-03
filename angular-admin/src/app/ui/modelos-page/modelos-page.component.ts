@@ -13,6 +13,9 @@ export class ModelosPageComponent {
 
   logo!: string;
 
+  logoSrc: string | ArrayBuffer | null | undefined = null;
+
+
   modeloCreate: ModeloDto = {
     modelo: ''
   }
@@ -37,7 +40,17 @@ export class ModelosPageComponent {
   }
 
   onFileChange(event: any) {
-    this.file = event.target.files[0];
+    // this.file = event.target.files[0];
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.logoSrc = e.target?.result;
+      };
+      // agregamos la imagen seleccionada al tipo de archivo file
+      reader.readAsDataURL(input.files[0]);
+      this.file = input.files[0]; 
+    }
   }
 
   openBackDropCustomClass(content: TemplateRef<any>) {

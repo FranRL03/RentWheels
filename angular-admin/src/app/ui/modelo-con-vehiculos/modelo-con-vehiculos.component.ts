@@ -16,6 +16,8 @@ export class ModeloConVehiculosComponent implements OnInit {
   idModelo!: string;
 
   logo!: string;
+  logoSelected: string | ArrayBuffer | null | undefined = null;
+
 
   modeloEditado: ModeloDto = {
     modelo: ''
@@ -50,7 +52,16 @@ export class ModeloConVehiculosComponent implements OnInit {
   }
 
   onFileChange(event: any) {
-    this.file = event.target.files[0];
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.logoSelected = e.target?.result;
+      };
+      // agregamos la imagen seleccionada al tipo de archivo file
+      reader.readAsDataURL(input.files[0]);
+      this.file = input.files[0]; 
+    }
   }
 
   editar() {
