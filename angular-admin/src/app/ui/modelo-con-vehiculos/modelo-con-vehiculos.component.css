@@ -87,3 +87,14 @@ span {
     opacity: 0;
     cursor: pointer;
   }
+
+  .alert-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+  
+  .alert-bottom-right {
+    position: relative;
+  }

@@ -32,6 +32,8 @@ export class ModeloConVehiculosComponent implements OnInit {
   vehiculosPorPagina = 10;
   pagina = 0;
 
+  show = false;
+
   constructor(private modalService: NgbModal, private router: Router, 
     private modeloService: ModeloService, private fileService: FileService) {
     this.idModelo = this.route.snapshot.params['idModelo'];
@@ -78,8 +80,14 @@ export class ModeloConVehiculosComponent implements OnInit {
   }
 
   clear(idModelo: string) {
-    this.modeloService.clear(idModelo).subscribe();
-        window.location.href = `http://localhost:4200/admin/modelo/${idModelo}`;
+    this.modeloService.clear(idModelo).subscribe(() => {
+      this.router.navigateByUrl(`/admin/modelo/${idModelo}`).then(() => {
+        if (this.totalVehiculos >= 1) {
+          this.show = true;
+        }
+        this.modalService.dismissAll()
+      });
+    });
   }
 
   comprobacionCantVehiculos() {
