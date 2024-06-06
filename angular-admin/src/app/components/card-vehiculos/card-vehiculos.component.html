@@ -77,6 +77,9 @@
 			}
 		</div>
 	</div>
+	<div class="loading" *ngIf="loading">
+        <app-loading ></app-loading>     
+     </div>
 </div>
 
 <ngb-pagination [collectionSize]="totalVehiculos" [pageSize]="vehiculosPorPagina" [maxSize]="5" [(page)]="pagina"
