@@ -14,6 +14,8 @@ export class VehiculoFormComponent implements OnInit{
 
   modeloList: ListModelosNoPage [] = [];
 
+  imageSrc: string | ArrayBuffer | null | undefined = null;
+
   vehiculoCreate: VehiculoDto = {
     combustion:         '',
     modelo:             '',
@@ -41,6 +43,8 @@ export class VehiculoFormComponent implements OnInit{
   precioBaseError: string = '';
   modeloError: string = '';
 
+  loading = false
+
   constructor(private service: VehiculoService, private route: Router, private modeloService: ModeloService) {}
 
   ngOnInit(): void {
@@ -49,19 +53,35 @@ export class VehiculoFormComponent implements OnInit{
       });
   }
   
-  addVehiculo() {
 
+  addVehiculo() {
     this.validacion();
 
+    this.loading = true;  // Muestra el spinner de carga
+
     this.service.createVehiculo(this.vehiculoCreate, this.file)
-      .subscribe(vehiculo => {
-        console.log('Vehiculo añadido', vehiculo);
-        this.route.navigate([`/admin/coche`]);
-      });
+      .subscribe(
+        vehiculo => {
+          console.log('Vehiculo añadido', vehiculo);
+          setTimeout(() => {
+            this.loading = false; 
+            this.route.navigate(['/admin/coche'])
+          }, 3000);
+        },
+      );
   }
 
   onFileChange(event: any) {
-    this.file = event.target.files[0];
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.imageSrc = e.target?.result;
+      };
+      // agregamos la imagen seleccionada al tipo de archivo file
+      reader.readAsDataURL(input.files[0]);
+      this.file = input.files[0]; 
+    }
   }
 
   validacion(){
@@ -117,5 +137,8 @@ export class VehiculoFormComponent implements OnInit{
     }
   }
 
+  goBack() {
+    window.history.back();
+  }
 
 }

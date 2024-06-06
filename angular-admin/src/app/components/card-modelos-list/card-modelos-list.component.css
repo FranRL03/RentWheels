@@ -6,3 +6,7 @@
 .card:hover {
     filter: brightness(70%);
 }
+
+h3 {
+    font-family: 'ultimate', sans-serif;
+}

@@ -1,21 +1,16 @@
 <nav class="navbar navbar-expand-lg navbarStile sticky-top container-fluid">
     <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
-        <div class="nav-item logo">
+        <div class="nav-item logo d-flex align-items-center">
             <a class="nav-link" [routerLink]="['/']" aria-current="page">
                 <img src="assets/img/logo.png" width="70%">
             </a>
+            <h4>RentWheels</h4>
         </div>
         <div class="nav-item d-flex justify-content-around nav-underline">
             <a [routerLink]="['/admin/coche']" [routerLinkActive]="['active']" class="nav-link mx-2">COCHES</a>
             <a [routerLink]="['/admin/modelos']" [routerLinkActive]="['active']" class="nav-link  mx-2">MODELOS</a>
             <a [routerLink]="['/admin/alquileres']" [routerLinkActive]="['active']" class="nav-link  mx-2">ALQUILERES</a>
-            <a [routerLink]="['/no-admin']" [routerLinkActive]="['active']" class="nav-link  mx-2">USUARIOS</a>
-        </div>
-        <!-- <div class="nav-item fotoPerfil">
-            <a class="nav-link" [routerLink]="['/']" aria-current="page">
-                <img src="assets/img/foto_perfil.png" width="60%">
-            </a>
-        </div> -->
+         </div>
         <app-modal-perfil [admin]="admin"></app-modal-perfil>
     </div>
 </nav>

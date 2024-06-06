@@ -16,6 +16,8 @@ export class ModeloConVehiculosComponent implements OnInit {
   idModelo!: string;
 
   logo!: string;
+  logoSelected: string | ArrayBuffer | null | undefined = null;
+
 
   modeloEditado: ModeloDto = {
     modelo: ''
@@ -29,6 +31,9 @@ export class ModeloConVehiculosComponent implements OnInit {
   totalVehiculos = 0;
   vehiculosPorPagina = 10;
   pagina = 0;
+
+  show = false;
+  loading = false;
 
   constructor(private modalService: NgbModal, private router: Router, 
     private modeloService: ModeloService, private fileService: FileService) {
@@ -50,15 +55,26 @@ export class ModeloConVehiculosComponent implements OnInit {
   }
 
   onFileChange(event: any) {
-    this.file = event.target.files[0];
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.logoSelected = e.target?.result;
+      };
+      // agregamos la imagen seleccionada al tipo de archivo file
+      reader.readAsDataURL(input.files[0]);
+      this.file = input.files[0]; 
+    }
   }
 
   editar() {
+    this.loading = true;
     this.modeloService.editModelo(this.modeloEditado, this.file, this.idModelo).subscribe(response => {
       console.log('Profile updated successfully', response);
-      this.router.navigate([`/admin/modelos`]);
-    }, error => {
-      console.error('Error updating profile', error);
+      setTimeout(() => {
+        this.loading = false;
+        this.router.navigate([`/admin/modelos`]);
+      }, 3000);
     });
   }
 
@@ -67,8 +83,19 @@ export class ModeloConVehiculosComponent implements OnInit {
   }
 
   clear(idModelo: string) {
-    this.modeloService.clear(idModelo).subscribe();
-        window.location.href = `http://localhost:4200/admin/modelo/${idModelo}`;
+    this.loading = true;
+    this.modeloService.clear(idModelo).subscribe(() => {
+      setTimeout(() => {
+        this.loading = false;
+        window.location.reload();
+        this.router.navigateByUrl(`/admin/modelo/${idModelo}`).then(() => {
+          if (this.totalVehiculos >= 1) {
+            this.show = true;
+          }
+          this.modalService.dismissAll()
+        });
+      }, 3000);
+    });
   }
 
   comprobacionCantVehiculos() {
@@ -79,8 +106,13 @@ export class ModeloConVehiculosComponent implements OnInit {
   }
 
   delete(idModelo: string) {
-    this.modeloService.delete(idModelo).subscribe();
-    window.location.href = `http://localhost:4200/admin/modelos`;
+    this.loading = true;
+    this.modeloService.delete(idModelo).subscribe(() => {
+      setTimeout(() => {
+        this.loading = false;
+        window.location.href = `http://localhost:4200/admin/modelos`;
+      }, 3000);
+    });
   }
 
   loadImage(filename: string): void {

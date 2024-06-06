@@ -1,4 +1,11 @@
 <div class="container">
+
+    <div *ngIf="show" class="alert-container pt-5">
+        <ngb-alert [dismissible]="true" [animation]="true" class="alert-right">
+            <strong>Warning!</strong> Los vehículos no se pueden borrar porque están alquilados o han sido alquilados.
+        </ngb-alert>
+    </div>
+
     <div class="d-flex justify-content-between">
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" (click)="goBack()" fill="white"
             class="bi bi-box-arrow-left mt-4 arrow-icon" viewBox="0 0 16 16">
@@ -9,7 +16,7 @@
         </svg>
 
         <div>
-            <button type=" button" class="btn btn-secondary mt-4 me-5 text-center"
+            <button type=" button" class="btn btn-warning mt-4 me-5 text-center"
                 (click)="openBackDropCustomClass(content)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                     class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -21,7 +28,8 @@
                 Editar Modelo
             </button>
 
-            <button type=" button" class="btn btn-secondary mt-4 text-center" (click)="openBackDropCustomClass(deleteModal)">
+            <button type=" button" class="btn btn-danger mt-4 text-center"
+                (click)="openBackDropCustomClass(deleteModal)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                     class="bi bi-x-circle text-center" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
@@ -35,62 +43,70 @@
 
     <app-card-vehiculos [modeloId]="idModelo"></app-card-vehiculos>
 
+    <div class="loading" *ngIf="loading">
+        <app-loading ></app-loading>     
+     </div>
+</div>
 
-    <ng-template #content let-modal>
-        <div class="modal-header">
-            <h4 class="modal-title">Editar Modelo</h4>
-            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-        </div>
-        <div class="modal-body">
-            <form class="form">
-                <div class="">
-                    <label for="validationDefault01" class="form-label">Nombre del modelo: <span>*</span></label>
-                    <input type="text" class="form-control" id="validationDefault01" [(ngModel)]="modeloEditado.modelo" name="modelo">
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Editar Modelo</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form class="form">
+            <div class="">
+                <label for="validationDefault01" class="form-label">Nombre del modelo: <span>*</span></label>
+                <input type="text" class="form-control" id="validationDefault01" [(ngModel)]="modeloEditado.modelo"
+                    name="modelo">
+            </div>
+            <div class="pt-2">
+                <label for="validationDefault02" class="form-label">Imagen del logo: <span>*</span></label>
+                <button class="file-upload-btn" type="button">
+                    <input class="file-upload-input-btn" type='file' (change)="onFileChange($event)" />Añadir Imagen</button>
+            </div>
+                <div class="pt-2 d-flex justify-content-center">
+                    @if (logoSelected == null) {
+                        <img src="{{logo}}" alt="" width="60%">
+                    } @else {
+                        <img [src]="logoSelected" *ngIf="logoSelected" alt="Imagen seleccionada" style="max-width: 100%;">
+                    }
                 </div>
-                <div class="pt-2">
-                    <label for="validationDefault02" class="form-label">Imagen del logo: <span>*</span></label>
-                    <input type="file" id="file" (change)="onFileChange($event)" required>
-                </div>
-                <div class="pt-2">
-                    <img src="{{logo}}" alt="">
-                </div>
-                <div class="pt-3">
-                    <button class="btn btn-primary" type="submit"
-                        (click)="editar(); modal.close('Close click')">Enviar</button>
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Cerrar</button>
-        </div>
-    </ng-template>>
+            <div class="pt-3">
+                <button class="btn btn-success" type="submit"
+                    (click)="editar(); modal.close('Close click')">Enviar</button>
+            </div>
+        </form>
+    </div>
+</ng-template>>
 
-    <ng-template #deleteModal let-modal>
+<ng-template #deleteModal let-modal>
+    <div class="modal-delete">
         @if (totalVehiculos == 0) {
         <div class="modal-header">
             <h4 class="modal-title">Borrar Modelo</h4>
-            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+            <button type="button" class="btn-close" aria-label="Close"
+                (click)="modal.dismiss('Cross click')"></button>
         </div>
         <div class="modal-body">
             <h6>¿Estás seguro de que quieres borrar este modelo?</h6>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-danger" (click)="delete(idModelo)">Aceptar</button>
-            <button type="button" class="btn btn-secondary" disabled>Borrar lista</button>
         </div>
         } @else {
         <div class="modal-header">
             <h4 class="modal-title">Borrar lista</h4>
-            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+            <button type="button" class="btn-close" aria-label="Close"
+                (click)="modal.dismiss('Cross click')"></button>
         </div>
         <div class="modal-body">
             <h6>¿Estás seguro de que quieres borrar todos los vehiculos?</h6>
-            <p>Antes de borrar un modelo hay que borrar todos los vehiculos</p>
+            <p>*Antes de borrar un modelo hay que borrar todos los vehiculos*</p>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" disabled>Aceptar</button>
             <button type="button" class="btn btn-danger" (click)="clear(idModelo)">Borrar lista</button>
         </div>
         }
-    </ng-template>
-</div>
+    </div>
+</ng-template>

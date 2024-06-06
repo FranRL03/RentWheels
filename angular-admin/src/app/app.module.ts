@@ -20,6 +20,7 @@ import { ModeloConVehiculosComponent } from './ui/modelo-con-vehiculos/modelo-co
 import { CardVehiculosComponent } from './components/card-vehiculos/card-vehiculos.component';
 import { TableAlquilerComponent } from './components/table-alquiler/table-alquiler.component';
 import { ListaAlquileresComponent } from './ui/lista-alquileres/lista-alquileres.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { ListaAlquileresComponent } from './ui/lista-alquileres/lista-alquileres
     ModeloConVehiculosComponent,
     TableAlquilerComponent,
     ListaAlquileresComponent,
-    
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

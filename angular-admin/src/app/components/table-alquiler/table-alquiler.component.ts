@@ -3,6 +3,7 @@ import { AlquilerService } from '../../services/alquiler.service';
 import { Alquiler } from '../../models/list-alquileres';
 import { AlquilerDetails } from '../../models/detalles-alquiler';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FileService } from '../../services/file.service';
 
 @Component({
   selector: 'app-table-alquiler',
@@ -19,7 +20,7 @@ export class TableAlquilerComponent implements OnInit {
   alquileresPorPagina = 10;
   pagina = 0;
 
-  constructor(private service: AlquilerService, private modalService: NgbModal) { }
+  constructor(private service: AlquilerService, private modalService: NgbModal, private fileService: FileService) { }
 
   ngOnInit(): void {
     this.loadPage();
@@ -45,9 +46,19 @@ export class TableAlquilerComponent implements OnInit {
     this.service.details(id).subscribe( resp => {
       this.alquilerDetails = resp;
       console.log(this.alquilerDetails)
+      this.loadModalImage(this.alquilerDetails);
     });
 
     this.modalService.open(content, { backdropClass: 'light-blue-backdrop' });
+  }
+
+  loadModalImage(alquilerDetails: AlquilerDetails): void {
+    if (alquilerDetails && alquilerDetails.vehiculo.imagen) {
+      this.fileService.getFile(alquilerDetails.vehiculo.imagen).subscribe((blob: Blob) => {
+        const objectUrl = URL.createObjectURL(blob);
+        alquilerDetails.vehiculo.imagen = objectUrl;
+      });
+    }
   }
 
   open(content2: TemplateRef<any>) {
