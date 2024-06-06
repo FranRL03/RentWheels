@@ -119,7 +119,7 @@ public class AdminModeloController {
                     content = @Content)
     })
     @PostMapping("/add/modelo")
-    public ResponseEntity<GetModeloDto> create (@RequestPart("modeloCreate") EditModeloDto nuevo,
+    public ResponseEntity<GetModeloDto> create (@Valid @RequestPart("modeloCreate") EditModeloDto nuevo,
                                                 @RequestPart("file") MultipartFile file) {
 
         return ResponseEntity
@@ -202,7 +202,7 @@ public class AdminModeloController {
                     content = @Content)
     })
     @GetMapping("/modelo/{id}")
-    public GetModeloDto details (@Valid @PathVariable UUID id) {
+    public GetModeloDto details (@PathVariable UUID id) {
 
         Modelo m = modeloServicio.details(id);
 
