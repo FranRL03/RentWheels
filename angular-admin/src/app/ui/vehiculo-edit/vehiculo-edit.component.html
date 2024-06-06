@@ -145,4 +145,8 @@
 
         <button type="submit" class="btn btn-primary mt-3" (click)="editVehiculo()">Enviar</button>
     </form>
+
+    <div class="loading" *ngIf="loading">
+        <app-loading ></app-loading>     
+     </div>
 </div>

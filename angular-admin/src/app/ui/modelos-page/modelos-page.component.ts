@@ -21,6 +21,7 @@ export class ModelosPageComponent {
   }
 
   file!: File;
+  loading = false;
 
   logoError: string = '';
   modeloError: string = '';
@@ -30,12 +31,13 @@ export class ModelosPageComponent {
   crear() {
 
     this.validacion();
-
+    this.loading = true;
     this.service.create(this.modeloCreate, this.file).subscribe(response => {
       console.log('Modelo añadido', response);
-      this.router.navigate([`/admin/modelos`]);
-    }, error => {
-      console.error('Error updating profile', error);
+      setTimeout(() => {
+        this.loading = false;
+        this.router.navigate([`/admin/modelos`]);
+      }, 3000);
     });
   }
 

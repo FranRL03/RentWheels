@@ -150,9 +150,9 @@ public class AdminVehiculoController {
             )
     })
     @PutMapping("/edit/vehiculo/{idVehiculo}")
-    public GetAllDetailsDto editVehiculo (@RequestPart("vehiculoEditado") EditVehiculoDto edit,
+    public GetAllDetailsDto editVehiculo (@RequestPart(value = "vehiculoEditado") EditVehiculoDto edit,
                                           @PathVariable UUID idVehiculo,
-                                          @RequestPart("file") MultipartFile file){
+                                          @RequestPart(value = "file", required = false) MultipartFile file){
 
         return GetAllDetailsDto.of(adminVehiculoService.editVehiculo(edit, idVehiculo, file));
     }

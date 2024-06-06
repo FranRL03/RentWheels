@@ -33,6 +33,7 @@ export class ModeloConVehiculosComponent implements OnInit {
   pagina = 0;
 
   show = false;
+  loading = false;
 
   constructor(private modalService: NgbModal, private router: Router, 
     private modeloService: ModeloService, private fileService: FileService) {
@@ -67,11 +68,13 @@ export class ModeloConVehiculosComponent implements OnInit {
   }
 
   editar() {
+    this.loading = true;
     this.modeloService.editModelo(this.modeloEditado, this.file, this.idModelo).subscribe(response => {
       console.log('Profile updated successfully', response);
-      this.router.navigate([`/admin/modelos`]);
-    }, error => {
-      console.error('Error updating profile', error);
+      setTimeout(() => {
+        this.loading = false;
+        this.router.navigate([`/admin/modelos`]);
+      }, 3000);
     });
   }
 
@@ -80,13 +83,18 @@ export class ModeloConVehiculosComponent implements OnInit {
   }
 
   clear(idModelo: string) {
+    this.loading = true;
     this.modeloService.clear(idModelo).subscribe(() => {
-      this.router.navigateByUrl(`/admin/modelo/${idModelo}`).then(() => {
-        if (this.totalVehiculos >= 1) {
-          this.show = true;
-        }
-        this.modalService.dismissAll()
-      });
+      setTimeout(() => {
+        this.loading = false;
+        window.location.reload();
+        this.router.navigateByUrl(`/admin/modelo/${idModelo}`).then(() => {
+          if (this.totalVehiculos >= 1) {
+            this.show = true;
+          }
+          this.modalService.dismissAll()
+        });
+      }, 3000);
     });
   }
 
@@ -98,8 +106,13 @@ export class ModeloConVehiculosComponent implements OnInit {
   }
 
   delete(idModelo: string) {
-    this.modeloService.delete(idModelo).subscribe();
-    window.location.href = `http://localhost:4200/admin/modelos`;
+    this.loading = true;
+    this.modeloService.delete(idModelo).subscribe(() => {
+      setTimeout(() => {
+        this.loading = false;
+        window.location.href = `http://localhost:4200/admin/modelos`;
+      }, 3000);
+    });
   }
 
   loadImage(filename: string): void {

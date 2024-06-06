@@ -43,6 +43,8 @@ export class VehiculoFormComponent implements OnInit{
   precioBaseError: string = '';
   modeloError: string = '';
 
+  loading = false
+
   constructor(private service: VehiculoService, private route: Router, private modeloService: ModeloService) {}
 
   ngOnInit(): void {
@@ -51,15 +53,22 @@ export class VehiculoFormComponent implements OnInit{
       });
   }
   
-  addVehiculo() {
 
+  addVehiculo() {
     this.validacion();
 
+    this.loading = true;  // Muestra el spinner de carga
+
     this.service.createVehiculo(this.vehiculoCreate, this.file)
-      .subscribe(vehiculo => {
-        console.log('Vehiculo añadido', vehiculo);
-        this.route.navigate([`/admin/coche`]);
-      });
+      .subscribe(
+        vehiculo => {
+          console.log('Vehiculo añadido', vehiculo);
+          setTimeout(() => {
+            this.loading = false; 
+            this.route.navigate(['/admin/coche'])
+          }, 3000);
+        },
+      );
   }
 
   onFileChange(event: any) {
