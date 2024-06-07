@@ -37,7 +37,7 @@ export class ModelosPageComponent {
       setTimeout(() => {
         this.loading = false;
         this.router.navigate([`/admin/modelos`]);
-      }, 3000);
+      }, 2000);
     });
   }
 
@@ -51,7 +51,7 @@ export class ModelosPageComponent {
       };
       // agregamos la imagen seleccionada al tipo de archivo file
       reader.readAsDataURL(input.files[0]);
-      this.file = input.files[0]; 
+      this.file = input.files[0];
     }
   }
 

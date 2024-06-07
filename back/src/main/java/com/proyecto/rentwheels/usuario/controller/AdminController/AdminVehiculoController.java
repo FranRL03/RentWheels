@@ -107,7 +107,7 @@ public class AdminVehiculoController {
                     content = @Content)
     })
     @PostMapping("/add/vehiculo")
-    public ResponseEntity<GetAllDetailsDto> create (@RequestPart("vehiculoCreate") EditVehiculoDto nuevo,
+    public ResponseEntity<GetAllDetailsDto> create (@Valid @RequestPart("vehiculoCreate") EditVehiculoDto nuevo,
                                                     @RequestPart("file")MultipartFile file) {
 
         return ResponseEntity
@@ -209,7 +209,7 @@ public class AdminVehiculoController {
                     content = @Content)
     })
     @GetMapping("/vehiculo-details/{id}")
-    public GetAllDetailsDto details (@Valid @PathVariable UUID id) {
+    public GetAllDetailsDto details (@PathVariable UUID id) {
 
         Vehiculo v = adminVehiculoService.details(id);
 

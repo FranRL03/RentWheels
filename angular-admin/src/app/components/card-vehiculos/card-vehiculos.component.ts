@@ -76,7 +76,7 @@ export class CardVehiculosComponent implements OnInit {
       setTimeout(() => {
         this.loading = false;
         window.location.reload();
-      }, 3000);
+      }, 2000);
     });
   }
 

@@ -6,7 +6,7 @@ public record EditModeloDto (
 
         @NotEmpty(message = "{editModeloDto.modelo.notempty}")
         String modelo,
-        @NotEmpty(message = "{editModeloDto.logo.notempty}")
+//        @NotEmpty(message = "{editModeloDto.logo.notempty}")
         String logo
 ){
 }
