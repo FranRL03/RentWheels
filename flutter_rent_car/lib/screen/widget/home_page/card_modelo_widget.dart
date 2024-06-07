@@ -22,16 +22,20 @@ class CardModeloWidget extends StatelessWidget {
     return prefs.getString('token');
   }
 
-  Future<Uint8List> fetchImage(String filename) async {
-    final token = await getToken();
-    final response = await http.get(
-      Uri.parse('$urlMovil/download/$filename'), // Ajusta la URL según tu API
-      headers: {
-        'Authorization': 'Bearer $token',
-      },
-    );
+  Future<Map<String, String>> _getHeaders() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token");
+    return {
+      'Authorization': 'Bearer $token',
+    };
+  }
+
+  Future<ImageProvider> fetchImage(String url) async {
+    final headers = await _getHeaders();
+    final response = await http
+        .get(Uri.parse('http://10.0.2.2:8080/download/$url'), headers: headers);
     if (response.statusCode == 200) {
-      return response.bodyBytes;
+      return MemoryImage(response.bodyBytes);
     } else {
       throw Exception('Failed to load image');
     }
@@ -43,8 +47,8 @@ class CardModeloWidget extends StatelessWidget {
       width: 80,
       child: InkWell(
         onTap: () {
-          vehiculoBloc.add(
-              GetVehiculosModelosEvent(modeloResponse[index].modelo!));
+          vehiculoBloc
+              .add(GetVehiculosModelosEvent(modeloResponse[index].modelo!));
         },
         child: Card(
           color: const Color.fromRGBO(29, 47, 111, 1),
@@ -55,24 +59,41 @@ class CardModeloWidget extends StatelessWidget {
           child: Center(
             child: Padding(
               padding: const EdgeInsets.only(top: 0),
-              child: FutureBuilder<Uint8List>(
+              child: FutureBuilder<ImageProvider>(
                 future: fetchImage(modeloResponse[index].logo!),
-                builder: (BuildContext context, AsyncSnapshot<Uint8List> snapshot) {
+                builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
+                    return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  } else if (snapshot.hasData) {
+                    return const Center(child: Text('Failed to load image'));
+                  } else {
                     return CircleAvatar(
                       radius: 30,
                       backgroundColor: const Color.fromARGB(255, 119, 133, 187),
-                      backgroundImage: MemoryImage(snapshot.data!),
+                      backgroundImage: MemoryImage(snapshot.data! as Uint8List),
                     );
-                  } else {
-                    return const Text('No image data');
                   }
                 },
               ),
+              // FutureBuilder<Uint8List>(
+              //   future: fetchImage(modeloResponse[index].logo!),
+              //   builder:
+              //       (BuildContext context, AsyncSnapshot<Uint8List> snapshot) {
+              //     if (snapshot.connectionState == ConnectionState.waiting) {
+              //       return const CircularProgressIndicator();
+              //     } else if (snapshot.hasError) {
+              //       return Text('Error: ${snapshot.error}');
+              //     } else if (snapshot.hasData) {
+              //       return CircleAvatar(
+              //         radius: 30,
+              //         backgroundColor: const Color.fromARGB(255, 119, 133, 187),
+              //         backgroundImage: MemoryImage(snapshot.data!),
+              //       );
+              //     } else {
+              //       return const Text('No image data');
+              //     }
+              //   },
+              // ),
             ),
           ),
         ),

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rent_car/bloc/user_details/user_bloc.dart';
@@ -7,7 +9,9 @@ import 'package:flutter_rent_car/screen/login/login_screen.dart';
 import 'package:flutter_rent_car/screen/page/alquiler_cliente.dart';
 import 'package:flutter_rent_car/screen/page/change_password.dart';
 import 'package:flutter_rent_car/screen/page/edit_perfil_page.dart';
+import 'package:flutter_rent_car/variables.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class MyPerfilPage extends StatefulWidget {
   const MyPerfilPage({super.key});
@@ -34,12 +38,36 @@ class _MyPerfilPageState extends State<MyPerfilPage> {
     super.dispose();
   }
 
-   Future<void> logout() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.remove('token');
-  // ignore: avoid_print
-  print('Token borrado exitosamente.');
-}
+  Future<void> logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
+    // ignore: avoid_print
+    print('Token borrado exitosamente.');
+  }
+
+  // Future<String?> getToken() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return prefs.getString('token');
+  // }
+
+  Future<Map<String, String>> _getHeaders() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token");
+    return {
+      'Authorization': 'Bearer $token',
+    };
+  }
+
+  Future<ImageProvider> fetchImage(String url) async {
+    final headers = await _getHeaders();
+    final response = await http
+        .get(Uri.parse('http://10.0.2.2:8080/download/$url'), headers: headers);
+    if (response.statusCode == 200) {
+      return MemoryImage(response.bodyBytes);
+    } else {
+      throw Exception('Failed to load image');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,11 +95,25 @@ class _MyPerfilPageState extends State<MyPerfilPage> {
                   } else if (state is DoUserSuccess) {
                     Widget avatarWidget;
                     if (state.userDetails.avatar != null) {
-                      avatarWidget = CircleAvatar(
-                        radius: 65,
-                        backgroundColor: const Color.fromRGBO(28, 38, 73, 1),
-                        backgroundImage:
-                            NetworkImage(state.userDetails.avatar!),
+                      avatarWidget = FutureBuilder<ImageProvider>(
+                        future: fetchImage(state.userDetails.avatar!),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          } else if (snapshot.hasError) {
+                            return const Center(
+                                child: Text('Failed to load image'));
+                          } else {
+                            return CircleAvatar(
+                              radius: 65,
+                              backgroundColor:
+                                  const Color.fromRGBO(28, 38, 73, 1),
+                              backgroundImage: snapshot.data!,
+                            );
+                          }
+                        },
                       );
                     } else {
                       avatarWidget = const CircleAvatar(

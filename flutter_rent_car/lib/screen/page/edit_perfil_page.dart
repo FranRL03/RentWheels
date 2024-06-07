@@ -43,7 +43,8 @@ class _EditPerfilPageState extends State<EditPerfilPage> {
   final picker = ImagePicker();
 
   Future<void> _pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
 
     setState(() {
       if (pickedFile != null) {
@@ -53,7 +54,6 @@ class _EditPerfilPageState extends State<EditPerfilPage> {
       }
     });
   }
-
 
   void _loadUserData() async {
     try {
@@ -76,34 +76,33 @@ class _EditPerfilPageState extends State<EditPerfilPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: _editUserBloc,
-      child: Scaffold(
-        body: BlocConsumer<EditUserBloc, EditUserState>(
-          buildWhen: (context, state) {
-            return state is EditUserInitial ||
-                state is DoEditUserSuccess ||
-                state is DoEditUserError ||
-                state is DoEditUserLoading;
-          },
-          builder: (context, state) {
-            if (state is DoEditUserError) {
-              return const Text('Edit error');
-            } else if (state is DoEditUserLoading) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            return Center(child: _buildEdit());
-          },
-          listener: (BuildContext context, EditUserState state) {
-            if (state is DoEditUserSuccess) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HomePage()),
-              );
-            }
-          },
-        ),
-      ),
-    );
+        value: _editUserBloc,
+        child: Scaffold(
+          body: BlocConsumer<EditUserBloc, EditUserState>(
+            buildWhen: (context, state) {
+              return state is EditUserInitial ||
+                  state is DoEditUserSuccess ||
+                  state is DoEditUserError ||
+                  state is DoEditUserLoading;
+            },
+            builder: (context, state) {
+              if (state is DoEditUserSuccess) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const EditPerfilPage()));
+                });
+              } else if (state is DoEditUserError) {
+                return const Text('Edit error');
+              } else if (state is DoEditUserLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              return Center(child: _buildEdit());
+            },
+            listener: (BuildContext context, EditUserState state) {},
+          ),
+        ));
   }
 
   _buildEdit() {
@@ -266,12 +265,12 @@ class _EditPerfilPageState extends State<EditPerfilPage> {
                                 onPressed: () {
                                   if (_formEdit.currentState!.validate()) {
                                     _editUserBloc.add(DoEditUserEvent(
-                                        // avatarTextController.text,
-                                        _avatar!,
-                                        emailTextController.text,
-                                        telefonoTextController.text,
-                                        pinTextController.text, 
-                                        ));
+                                      // avatarTextController.text,
+                                      _avatar!,
+                                      emailTextController.text,
+                                      telefonoTextController.text,
+                                      pinTextController.text,
+                                    ));
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(

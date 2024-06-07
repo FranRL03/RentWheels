@@ -13,7 +13,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -69,9 +71,10 @@ public class ClienteController {
     })
     @Operation(summary = "editLoggedUser", description = "Editar datos del Cliente loggeado")
     @PutMapping("/profile/edit")
-    public GetClienteDetailsDto editLoggedUser(@Valid @RequestPart("editado") EditClientDto editado,
-                                               @AuthenticationPrincipal Cliente c,
+    public GetClienteDetailsDto editLoggedUser(@Valid @RequestPart("editado") String editado,
                                                @RequestPart("file") MultipartFile file){
-        return GetClienteDetailsDto.of(clienteService.editCliente(editado,c, file));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Cliente c = (Cliente) authentication.getPrincipal();
+        return GetClienteDetailsDto.of(clienteService.editClient(editado,c, file));
     }
 }

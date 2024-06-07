@@ -1,5 +1,7 @@
 package com.proyecto.rentwheels.usuario.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyecto.rentwheels.files.service.StorageService;
 import com.proyecto.rentwheels.usuario.dto.EditClientDto;
 import com.proyecto.rentwheels.usuario.model.Cliente;
@@ -17,6 +19,7 @@ public class ClienteService {
 
     private final ClienteRepository clienteRepository;
     private final StorageService storageService;
+    private final ObjectMapper mapper;
 
     public List<Cliente> getAll () {
 
@@ -44,6 +47,16 @@ public class ClienteService {
             c.setAvatar(avatarUrl);
 
         return clienteRepository.save(c);
+    }
+
+    public Cliente editClient(String cliente,Cliente c,MultipartFile file){
+        EditClientDto editClientDto = null;
+        try {
+            editClientDto = mapper.readValue(cliente,EditClientDto.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        return editCliente(editClientDto,c,file);
     }
 
 }

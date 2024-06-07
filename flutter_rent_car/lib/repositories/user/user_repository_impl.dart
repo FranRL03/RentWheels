@@ -8,9 +8,7 @@ import 'package:flutter_rent_car/model/response/user/user_details.dart';
 import 'package:flutter_rent_car/repositories/user/user_repository.dart';
 import 'package:flutter_rent_car/variables.dart';
 import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:mime/mime.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserRepositoryImpl extends UserRepository {
@@ -23,10 +21,10 @@ class UserRepositoryImpl extends UserRepository {
   }
 
   Future<void> logout() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.remove('token');
-  print('Token borrado exitosamente.');
-}
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
+    print('Token borrado exitosamente.');
+  }
 
   @override
   Future<UserDetails> userDetails() async {
@@ -52,10 +50,11 @@ class UserRepositoryImpl extends UserRepository {
   Future<UserDetails> editUser(UserEditDto userEditDto, File avatarFile) async {
     final token = await getToken();
 
-    final request = http.MultipartRequest('PUT', Uri.parse('$urlMovil/profile/edit'));
+    final request =
+        http.MultipartRequest('PUT', Uri.parse('$urlMovil/profile/edit'));
 
-
-    request.files.add(await http.MultipartFile.fromPath('file', avatarFile.path));
+    request.files
+        .add(await http.MultipartFile.fromPath('file', avatarFile.path));
     request.fields['editado'] = jsonEncode(userEditDto.toJson());
     request.headers['Authorization'] = 'Bearer $token';
 
@@ -66,13 +65,12 @@ class UserRepositoryImpl extends UserRepository {
     // request.files.add(multipartFile);
     // request.headers['Authorization'] = 'Bearer $token';
     // request.headers[HttpHeaders.acceptHeader] = 'application/json; charset-utf-8';
-    // request.headers[HttpHeaders.contentTypeHeader] = 'application/json;'; 
+    // request.headers[HttpHeaders.contentTypeHeader] = 'application/json;';
 
-  
     final streamdResponse = await request.send();
     final response = await http.Response.fromStream(streamdResponse);
 
-    if (response.statusCode == 200) {
+    if (response.statusCode != 415) {
       final responseBody = jsonDecode(response.body);
       // final responseBody = await response.stream.bytesToString();
       return UserDetails.fromJson(responseBody);
