@@ -7,6 +7,7 @@ import com.proyecto.rentwheels.modelo.model.Modelo;
 import com.proyecto.rentwheels.modelo.servicio.ModeloServicio;
 import com.proyecto.rentwheels.usuario.dto.JwtUserResponse;
 import com.proyecto.rentwheels.usuario.service.AdminService.AdminModeloService;
+import com.proyecto.rentwheels.validacion.annotacion.ValidFile;
 import com.proyecto.rentwheels.vehiculo.dto.EditVehiculoDto;
 import com.proyecto.rentwheels.vehiculo.dto.GetAllDetailsDto;
 import com.proyecto.rentwheels.vehiculo.dto.GetVehiculosDto;
@@ -24,9 +25,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,6 +40,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin")
+@Validated
 public class AdminModeloController {
 
     private final AdminModeloService modeloServicio;
@@ -120,7 +126,13 @@ public class AdminModeloController {
     })
     @PostMapping("/add/modelo")
     public ResponseEntity<GetModeloDto> create (@Valid @RequestPart("modeloCreate") EditModeloDto nuevo,
-                                                @RequestPart("file") MultipartFile file) {
+                                                @ValidFile @RequestPart("file") MultipartFile file,
+                                                BindingResult errors) {
+
+        if (errors.hasErrors()) {
+            System.out.println(errors);
+            throw new ResponseStatusException(HttpStatusCode.valueOf(400), "Error con la imagen");
+        }
 
         return ResponseEntity
                 .status(201)
