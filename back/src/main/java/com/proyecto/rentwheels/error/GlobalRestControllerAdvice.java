@@ -45,7 +45,7 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
                 .body(
                         ApiErrorImpl.builder()
                                 .status(HttpStatus.BAD_REQUEST)
-                                .message("Constraint Validation error. Please check the sublist.")
+                                .message("Error de validación de restricciones. Por favor consulte la sublista.")
                                 .path(((ServletWebRequest) request).getRequest().getRequestURI())
                                 .subErrors(exception.getConstraintViolations().stream()
                                         .map(v -> {
@@ -67,7 +67,7 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
     @Override
     //protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        return buildApiErrorWithSubErrors("Validation error. Please check the sublist.", request, HttpStatus.valueOf(status.value()), ex.getAllErrors());
+        return buildApiErrorWithSubErrors("Error de validación. Por favor consulte la sublista.", request, HttpStatus.valueOf(status.value()), ex.getAllErrors());
     }
 
     private final ResponseEntity<Object> buildApiError(String message, WebRequest request, HttpStatus status) {
