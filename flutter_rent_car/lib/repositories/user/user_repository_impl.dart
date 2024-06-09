@@ -58,21 +58,11 @@ class UserRepositoryImpl extends UserRepository {
     request.fields['editado'] = jsonEncode(userEditDto.toJson());
     request.headers['Authorization'] = 'Bearer $token';
 
-    // final avatar = File(avatarFile.path);
-    // final bytes = await avatar.readAsBytes();
-    // final multipartFile = http.MultipartFile.fromBytes('file', bytes, filename: avatar.path.split('/').last);
-
-    // request.files.add(multipartFile);
-    // request.headers['Authorization'] = 'Bearer $token';
-    // request.headers[HttpHeaders.acceptHeader] = 'application/json; charset-utf-8';
-    // request.headers[HttpHeaders.contentTypeHeader] = 'application/json;';
-
     final streamdResponse = await request.send();
     final response = await http.Response.fromStream(streamdResponse);
 
-    if (response.statusCode != 415) {
+    if (response.statusCode == 200) {
       final responseBody = jsonDecode(response.body);
-      // final responseBody = await response.stream.bytesToString();
       return UserDetails.fromJson(responseBody);
     } else {
       throw Exception('Failed to edit profile: ${response.statusCode}');

@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +8,6 @@ import 'package:flutter_rent_car/screen/login/login_screen.dart';
 import 'package:flutter_rent_car/screen/page/alquiler_cliente.dart';
 import 'package:flutter_rent_car/screen/page/change_password.dart';
 import 'package:flutter_rent_car/screen/page/edit_perfil_page.dart';
-import 'package:flutter_rent_car/variables.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -44,11 +42,6 @@ class _MyPerfilPageState extends State<MyPerfilPage> {
     // ignore: avoid_print
     print('Token borrado exitosamente.');
   }
-
-  // Future<String?> getToken() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   return prefs.getString('token');
-  // }
 
   Future<Map<String, String>> _getHeaders() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();

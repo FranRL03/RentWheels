@@ -6,7 +6,6 @@ import 'package:flutter_rent_car/bloc/edit_user/edit_user_bloc.dart';
 import 'package:flutter_rent_car/model/response/user/user_details.dart';
 import 'package:flutter_rent_car/repositories/user/user_repository.dart';
 import 'package:flutter_rent_car/repositories/user/user_repository_impl.dart';
-import 'package:flutter_rent_car/screen/page/home_page.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditPerfilPage extends StatefulWidget {
@@ -87,12 +86,12 @@ class _EditPerfilPageState extends State<EditPerfilPage> {
             },
             builder: (context, state) {
               if (state is DoEditUserSuccess) {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
+                // WidgetsBinding.instance.addPostFrameCallback((_) {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const EditPerfilPage()));
-                });
+                // });
               } else if (state is DoEditUserError) {
                 return const Text('Edit error');
               } else if (state is DoEditUserLoading) {
@@ -160,23 +159,7 @@ class _EditPerfilPageState extends State<EditPerfilPage> {
                         const SizedBox(
                           height: 20,
                         ),
-                        // Padding(
-                        //   padding: const EdgeInsets.only(left: 20, right: 20),
-                        //   child: TextFormField(
-                        //     controller: avatarTextController,
-                        //     decoration: InputDecoration(
-                        //         filled: true,
-                        //         fillColor: Colors.white,
-                        //         border: OutlineInputBorder(
-                        //             borderRadius: BorderRadius.circular(10)),
-                        //         labelText: 'Avatar del Usuario',
-                        //         focusedBorder: OutlineInputBorder(
-                        //             borderSide: const BorderSide(
-                        //                 color: Color.fromRGBO(28, 38, 73, 1),
-                        //                 width: 2),
-                        //             borderRadius: BorderRadius.circular(10))),
-                        //   ),
-                        // ),
+                        
                         if (_avatar != null)
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
