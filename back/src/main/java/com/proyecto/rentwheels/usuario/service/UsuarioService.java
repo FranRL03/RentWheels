@@ -101,6 +101,4 @@ public class UsuarioService {
         return passwordEncoder.matches(clearPassword, user.getPassword());
     }
 
-
-
 }

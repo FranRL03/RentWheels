@@ -168,7 +168,7 @@ public class AdminAlquilerController {
     })
     @Operation(summary = "getAllModels", description = "detalles alquileres")
     @GetMapping("/alquiler-details/{id}")
-    public AlquilerDetailsDto details (@Valid @PathVariable UUID id) {
+    public AlquilerDetailsDto details (@PathVariable UUID id) {
 
         Alquiler a = alquilerService.details(id);
 

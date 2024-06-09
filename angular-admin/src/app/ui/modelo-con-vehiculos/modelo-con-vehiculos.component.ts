@@ -35,7 +35,7 @@ export class ModeloConVehiculosComponent implements OnInit {
   show = false;
   loading = false;
 
-  constructor(private modalService: NgbModal, private router: Router, 
+  constructor(private modalService: NgbModal, private router: Router,
     private modeloService: ModeloService, private fileService: FileService) {
     this.idModelo = this.route.snapshot.params['idModelo'];
   }
@@ -63,7 +63,7 @@ export class ModeloConVehiculosComponent implements OnInit {
       };
       // agregamos la imagen seleccionada al tipo de archivo file
       reader.readAsDataURL(input.files[0]);
-      this.file = input.files[0]; 
+      this.file = input.files[0];
     }
   }
 
@@ -74,7 +74,7 @@ export class ModeloConVehiculosComponent implements OnInit {
       setTimeout(() => {
         this.loading = false;
         this.router.navigate([`/admin/modelos`]);
-      }, 3000);
+      }, 2000);
     });
   }
 
@@ -94,7 +94,7 @@ export class ModeloConVehiculosComponent implements OnInit {
           }
           this.modalService.dismissAll()
         });
-      }, 3000);
+      }, 2000);
     });
   }
 
@@ -111,7 +111,7 @@ export class ModeloConVehiculosComponent implements OnInit {
       setTimeout(() => {
         this.loading = false;
         window.location.href = `http://localhost:4200/admin/modelos`;
-      }, 3000);
+      }, 2000);
     });
   }
 

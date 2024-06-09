@@ -2,6 +2,7 @@ package com.proyecto.rentwheels.alquiler.service;
 
 import com.proyecto.rentwheels.alquiler.dto.CreateAlquilerDto;
 import com.proyecto.rentwheels.alquiler.dto.GetAlquileresCliente;
+import com.proyecto.rentwheels.alquiler.exception.InvalidDateException;
 import com.proyecto.rentwheels.alquiler.model.Alquiler;
 import com.proyecto.rentwheels.alquiler.repository.AlquilerRepository;
 import com.proyecto.rentwheels.usuario.model.Cliente;
@@ -43,8 +44,8 @@ public class AlquilerServicio {
              Vehiculo v = disponible.get();
 
              if (v.isDisponible()) {
-                 if (create.fechaInicio().isAfter(create.fechaFin())) {
-                     throw new IllegalArgumentException("La fecha de inicio no puede ser posterior a la fecha fin");
+                 if (create.fechaInicio().isAfter(create.fechaFin()) || create.fechaInicio().isBefore(LocalDate.now())) {
+                     throw new InvalidDateException();
                  }
 
                  v.setDisponible(false);

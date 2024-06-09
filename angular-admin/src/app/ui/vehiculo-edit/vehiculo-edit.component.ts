@@ -75,7 +75,7 @@ export class VehiculoEditComponent implements OnInit {
       setTimeout(() => {
         this.loading = false;
         this.router.navigate([`/admin/coche`])
-      }, 3000);
+      }, 2000);
     });
   }
 

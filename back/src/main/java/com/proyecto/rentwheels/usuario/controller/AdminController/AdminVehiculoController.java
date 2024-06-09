@@ -2,6 +2,7 @@ package com.proyecto.rentwheels.usuario.controller.AdminController;
 
 import com.proyecto.rentwheels.usuario.service.AdminService.AdminModeloService;
 import com.proyecto.rentwheels.usuario.service.AdminService.AdminVehiculoService;
+import com.proyecto.rentwheels.validacion.annotacion.ValidFile;
 import com.proyecto.rentwheels.vehiculo.dto.EditVehiculoDto;
 import com.proyecto.rentwheels.vehiculo.dto.GetAllDetailsDto;
 import com.proyecto.rentwheels.vehiculo.dto.GetVehiculosDto;
@@ -107,8 +108,8 @@ public class AdminVehiculoController {
                     content = @Content)
     })
     @PostMapping("/add/vehiculo")
-    public ResponseEntity<GetAllDetailsDto> create (@RequestPart("vehiculoCreate") EditVehiculoDto nuevo,
-                                                    @RequestPart("file")MultipartFile file) {
+    public ResponseEntity<GetAllDetailsDto> create (@Valid @RequestPart("vehiculoCreate") EditVehiculoDto nuevo,
+                                                    @ValidFile @RequestPart("file")MultipartFile file) {
 
         return ResponseEntity
                 .status(201)
@@ -150,9 +151,9 @@ public class AdminVehiculoController {
             )
     })
     @PutMapping("/edit/vehiculo/{idVehiculo}")
-    public GetAllDetailsDto editVehiculo (@RequestPart(value = "vehiculoEditado") EditVehiculoDto edit,
+    public GetAllDetailsDto editVehiculo (@Valid @RequestPart(value = "vehiculoEditado") EditVehiculoDto edit,
                                           @PathVariable UUID idVehiculo,
-                                          @RequestPart(value = "file", required = false) MultipartFile file){
+                                          @ValidFile @RequestPart(value = "file", required = false) MultipartFile file){
 
         return GetAllDetailsDto.of(adminVehiculoService.editVehiculo(edit, idVehiculo, file));
     }
@@ -209,7 +210,7 @@ public class AdminVehiculoController {
                     content = @Content)
     })
     @GetMapping("/vehiculo-details/{id}")
-    public GetAllDetailsDto details (@Valid @PathVariable UUID id) {
+    public GetAllDetailsDto details (@PathVariable UUID id) {
 
         Vehiculo v = adminVehiculoService.details(id);
 
