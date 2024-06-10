@@ -34,10 +34,14 @@ export class ModelosPageComponent {
     this.loading = true;
     this.service.create(this.modeloCreate, this.file).subscribe(response => {
       console.log('Modelo añadido', response);
+      this.modalService.dismissAll();
       setTimeout(() => {
         this.loading = false;
-        this.router.navigate([`/admin/modelos`]);
+        window.location.reload();
       }, 2000);
+    }, 
+    error => {
+      this.loading = false;
     });
   }
 
@@ -62,13 +66,13 @@ export class ModelosPageComponent {
   validacion() {
     let errores = false;
 
-    if (!this.logo || this.logo.trim() === '') {
-      this.logoError = 'Complete el campo';
+    if (!this.logoSrc) {
+      this.logoError = 'El logo no puede estar vacío';
       errores = true;
     }
 
     if (!this.modeloCreate.modelo || this.modeloCreate.modelo.trim() === '') {
-      this.modeloError = 'Complete el campo';
+      this.modeloError = 'El modelo no puede estar vacío';
       errores = true;
     }
 
