@@ -30,7 +30,7 @@ export class VehiculoEditComponent implements OnInit {
 
   file!: File;
   loading = false
-
+  showErrorEdit = false;
 
   route: ActivatedRoute = inject(ActivatedRoute);
 
@@ -76,7 +76,11 @@ export class VehiculoEditComponent implements OnInit {
         this.loading = false;
         this.router.navigate([`/admin/coche`])
       }, 2000);
-    });
+    },
+  error => {
+    this.loading = false;
+    this.showErrorEdit = true;
+  });
   }
 
   loadImage(filename: string): void {
