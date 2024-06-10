@@ -26,6 +26,7 @@ export class CardVehiculosComponent implements OnInit {
   id!: string;
 
   loading = false;
+  show = false;
 
   constructor(private service: VehiculoService, private router: Router, private modalService: NgbModal,
     private modeloService: ModeloService, private fileService: FileService) { }
@@ -77,7 +78,11 @@ export class CardVehiculosComponent implements OnInit {
         this.loading = false;
         window.location.reload();
       }, 2000);
-    });
+    }, 
+  error => {
+    this.loading = false;
+    this.show = true;
+  });
   }
 
   openVerticallyCentered(content: TemplateRef<any>, id: string) {

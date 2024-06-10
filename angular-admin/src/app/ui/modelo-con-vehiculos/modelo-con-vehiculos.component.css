@@ -112,3 +112,22 @@ span {
     background-color: rgba(0, 0, 0, 0.5); 
     z-index: 1000; 
   }
+
+  .empty-list-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    margin: 50px auto; 
+}
+
+.empty-list-image {
+    width: 20%;
+    margin-bottom: 20px;
+}
+
+.empty-list-container h1 {
+    margin-bottom: 50px;
+}

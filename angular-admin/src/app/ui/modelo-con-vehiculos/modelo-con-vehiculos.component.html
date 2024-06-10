@@ -47,7 +47,14 @@
         </div>
     </div>
 
-    <app-card-vehiculos [modeloId]="idModelo"></app-card-vehiculos>
+    @if (totalVehiculos) {
+        <app-card-vehiculos [modeloId]="idModelo"></app-card-vehiculos>
+    } @else {
+        <div class="empty-list-container">
+            <h1>No se ha encontrado ningún vehículo</h1>
+            <img src="assets/img/emptyList.png" alt="Lista Vacía" class="empty-list-image">
+        </div>
+    }
 
     <div class="loading" *ngIf="loading">
         <app-loading ></app-loading>     

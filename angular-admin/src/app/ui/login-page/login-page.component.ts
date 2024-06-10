@@ -50,7 +50,7 @@ export class LoginPageComponent implements OnInit{
   }
 
   validacion() {
-    if(this.username == '' || HttpStatusCode.Unauthorized || this.password == '' || HttpStatusCode.Unauthorized){
+    if(this.username == '' || HttpStatusCode.Unauthorized || this.password == ''){
       this.errorLogin = true;
     }
   }
