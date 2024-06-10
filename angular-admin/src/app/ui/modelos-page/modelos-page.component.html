@@ -43,11 +43,8 @@
         <span class="error" *ngIf="logoError">{{logoError}}</span>
       </div>
       <div class="pt-3">
-        <button class="btn btn-primary" type="submit" (click)="crear(); modal.close('Close click')">Enviar</button>
+        <button class="btn btn-primary" type="submit" (click)="crear();">Enviar</button>
       </div>
     </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Cerrar</button>
   </div>
 </ng-template>

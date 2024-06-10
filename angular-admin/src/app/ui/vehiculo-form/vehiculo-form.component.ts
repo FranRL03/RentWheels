@@ -68,6 +68,9 @@ export class VehiculoFormComponent implements OnInit {
             this.route.navigate(['/admin/coche'])
           }, 2000);
         },
+        error => {
+          this.loading = false;
+        },
       );
   }
 
@@ -87,6 +90,11 @@ export class VehiculoFormComponent implements OnInit {
   validacion() {
     let errores = false;
 
+    if(!this.imageSrc) {
+      this.imagenError = 'La imagen no puede estar vacía';
+      errores = true;
+    }
+    
     if (this.vehiculoCreate.transmision == '') {
       this.transmisionError = 'Por favor, selecciona una opción';
       errores = true;
@@ -127,8 +135,8 @@ export class VehiculoFormComponent implements OnInit {
       errores = true;
     }
 
-    if (this.vehiculoCreate.precioBase < 1 || !this.vehiculoCreate.precioBase) {
-      this.precioBaseError = 'El precio no puede ser negativo';
+    if (this.vehiculoCreate.precioBase < 80 || !this.vehiculoCreate.precioBase) {
+      this.precioBaseError = 'El precio no puede ser menor a 80';
       errores = true;
     }
 

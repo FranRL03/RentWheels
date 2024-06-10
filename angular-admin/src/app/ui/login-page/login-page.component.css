@@ -175,3 +175,10 @@ h1{
         bottom: 100%;
     }
 }
+
+.alert-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
