@@ -33,6 +33,7 @@ export class ModeloConVehiculosComponent implements OnInit {
   pagina = 0;
 
   show = false;
+  showErrorEdit = false;
   loading = false;
 
   constructor(private modalService: NgbModal, private router: Router,
@@ -75,6 +76,10 @@ export class ModeloConVehiculosComponent implements OnInit {
         this.loading = false;
         this.router.navigate([`/admin/modelos`]);
       }, 2000);
+    }, 
+    error => {
+      this.loading = false;
+      this.showErrorEdit = true;
     });
   }
 

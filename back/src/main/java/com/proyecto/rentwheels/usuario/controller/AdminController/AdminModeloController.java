@@ -171,7 +171,7 @@ public class AdminModeloController {
     @PutMapping("/edit/modelo/{idModelo}")
     public GetModeloDto editModelo (@Valid @RequestPart("modeloEditado") EditModeloDto edit,
                                     @PathVariable UUID idModelo,
-                                    @ValidFile @RequestPart("file") MultipartFile file){
+                                    @RequestPart("file") MultipartFile file){
 
 
         return GetModeloDto.of(modeloServicio.edit(edit, idModelo, file));
