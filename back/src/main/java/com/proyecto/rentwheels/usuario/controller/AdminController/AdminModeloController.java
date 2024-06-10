@@ -126,13 +126,7 @@ public class AdminModeloController {
     })
     @PostMapping("/add/modelo")
     public ResponseEntity<GetModeloDto> create (@Valid @RequestPart("modeloCreate") EditModeloDto nuevo,
-                                                @ValidFile @RequestPart("file") MultipartFile file,
-                                                BindingResult errors) {
-
-        if (errors.hasErrors()) {
-            System.out.println(errors);
-            throw new ResponseStatusException(HttpStatusCode.valueOf(400), "Error con la imagen");
-        }
+                                                @RequestPart("file") MultipartFile file) {
 
         return ResponseEntity
                 .status(201)
