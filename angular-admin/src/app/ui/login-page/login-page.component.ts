@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-page',
@@ -13,6 +14,9 @@ export class LoginPageComponent implements OnInit{
   password = '';
   rol: string[] = [];
   id = '';
+
+  noAuth = false;
+  errorLogin = false;
 
   constructor(private userService: UserService, private router: Router) {}
 
@@ -27,6 +31,7 @@ export class LoginPageComponent implements OnInit{
   }
 
   login() {
+    this.validacion();
     this.userService.login(this.username, this.password).subscribe(resp => {
       localStorage.setItem('account_id', resp.id)
       localStorage.setItem('token', resp.token)
@@ -38,10 +43,16 @@ export class LoginPageComponent implements OnInit{
 
       if (this.rol.includes('ADMIN')) {
         this.router.navigateByUrl('admin/coche')
-      } else {
-        this.router.navigateByUrl('/no-admin')
+      } else {  
+        this.noAuth = true;
       }
     })
+  }
+
+  validacion() {
+    if(this.username == '' || HttpStatusCode.Unauthorized || this.password == '' || HttpStatusCode.Unauthorized){
+      this.errorLogin = true;
+    }
   }
 
 }
