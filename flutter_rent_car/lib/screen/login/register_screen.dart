@@ -39,6 +39,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
   }
 
+  String? _validateNumeric(String? value, String fieldName) {
+    if (value == null || value.isEmpty) {
+      return 'Por favor ingrese $fieldName';
+    }
+    if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+      return 'Ingrese solo números en $fieldName';
+    }
+    return null;
+  }
+
+  String? _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Por favor ingrese una contraseña';
+    }
+    return null;
+  }
+
+  String? _validateConfirmPassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Por favor confirme su contraseña';
+    }
+    if (value != passTextController.text) {
+      return 'Las contraseñas no coinciden';
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -123,7 +150,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     borderRadius: BorderRadius.circular(10))),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
+                                return 'Por favor ingrese un nombre de usuario';
                               }
                               return null;
                             },
@@ -147,12 +174,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         color: Color.fromRGBO(28, 38, 73, 1),
                                         width: 2),
                                     borderRadius: BorderRadius.circular(10))),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
                           ),
                         ),
                         const SizedBox(
@@ -167,18 +188,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 fillColor: Colors.white,
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10)),
-                                labelText: 'Telefono',
+                                labelText: 'Teléfono',
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
                                         color: Color.fromRGBO(28, 38, 73, 1),
                                         width: 2),
                                     borderRadius: BorderRadius.circular(10))),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
+                            validator: (value) =>
+                                _validateNumeric(value, 'teléfono'),
                           ),
                         ),
                         const SizedBox(
@@ -200,12 +217,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         color: Color.fromRGBO(28, 38, 73, 1),
                                         width: 2),
                                     borderRadius: BorderRadius.circular(10))),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
+                            validator: (value) => _validateNumeric(value, 'pin'),
                           ),
                         ),
                         const SizedBox(
@@ -227,12 +239,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         color: Color.fromRGBO(28, 38, 73, 1),
                                         width: 2),
                                     borderRadius: BorderRadius.circular(10))),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some contraseña';
-                              }
-                              return null;
-                            },
+                            validator: _validatePassword,
                           ),
                         ),
                         const SizedBox(
@@ -254,12 +261,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         color: Color.fromRGBO(28, 38, 73, 1),
                                         width: 2),
                                     borderRadius: BorderRadius.circular(10))),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some contraseña';
-                              }
-                              return null;
-                            },
+                            validator: _validateConfirmPassword,
                           ),
                         ),
                         const SizedBox(
@@ -275,7 +277,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   if (_formRegister.currentState!.validate()) {
                                     _registerBloc.add(DoRegisterEvent(
                                         userTextController.text,
-                                        // fullNameTextController.text,
                                         emailTextController.text,
                                         passTextController.text,
                                         verifyPassTextController.text,
