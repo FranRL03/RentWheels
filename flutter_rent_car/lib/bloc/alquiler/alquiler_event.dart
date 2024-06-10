@@ -15,5 +15,6 @@ class DoAlquilerEvent extends AlquilerEvent {
   final String origen;
   final String destino;
   final String uuid;
-  DoAlquilerEvent(this.fechaInicio, this.fechaFin, this.origen, this.destino, this.uuid);
+  DoAlquilerEvent(
+      this.fechaInicio, this.fechaFin, this.origen, this.destino, this.uuid);
 }

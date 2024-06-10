@@ -297,12 +297,11 @@ class _FormAlquilerState extends State<FormAlquiler> {
         });
   }
 
-DateTime? _parseDate(String date) {
-  try {
-    return DateFormat('yyyy-MM-dd').parse(date);
-  } catch (e) {
-    return null;
+  DateTime? _parseDate(String date) {
+    try {
+      return DateFormat('yyyy-MM-dd').parse(date);
+    } catch (e) {
+      return null;
+    }
   }
-}
-
 }

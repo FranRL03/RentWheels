@@ -20,8 +20,8 @@ class AlquilerRepositoryImpl extends AlquilerRepository {
   Future<AlquilerClientesResponse> alquilerCliente(bool statusAlquiler) async {
     final token = await getToken();
 
-    final response =
-        await _httpClient.get(Uri.parse('$urlMovil/cliente/alquiler/$statusAlquiler'),
+    final response = await _httpClient
+        .get(Uri.parse('$urlMovil/cliente/alquiler/$statusAlquiler'),
             // Uri.parse('$urlChrome/cliente/alquiler'),
             headers: <String, String>{
           'Content-Type': 'Content-type: application/json',

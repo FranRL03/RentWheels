@@ -23,10 +23,10 @@ class UserRepositoryImpl extends UserRepository {
   }
 
   Future<void> logout() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.remove('token');
-  print('Token borrado exitosamente.');
-}
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
+    print('Token borrado exitosamente.');
+  }
 
   @override
   Future<UserDetails> userDetails() async {
@@ -52,10 +52,11 @@ class UserRepositoryImpl extends UserRepository {
   Future<UserDetails> editUser(UserEditDto userEditDto, File avatarFile) async {
     final token = await getToken();
 
-    final request = http.MultipartRequest('PUT', Uri.parse('$urlMovil/profile/edit'));
+    final request =
+        http.MultipartRequest('PUT', Uri.parse('$urlMovil/profile/edit'));
 
-
-    request.files.add(await http.MultipartFile.fromPath('file', avatarFile.path));
+    request.files
+        .add(await http.MultipartFile.fromPath('file', avatarFile.path));
     request.fields['editado'] = jsonEncode(userEditDto.toJson());
     request.headers['Authorization'] = 'Bearer $token';
 
@@ -66,9 +67,8 @@ class UserRepositoryImpl extends UserRepository {
     // request.files.add(multipartFile);
     // request.headers['Authorization'] = 'Bearer $token';
     // request.headers[HttpHeaders.acceptHeader] = 'application/json; charset-utf-8';
-    // request.headers[HttpHeaders.contentTypeHeader] = 'application/json;'; 
+    // request.headers[HttpHeaders.contentTypeHeader] = 'application/json;';
 
-  
     final streamdResponse = await request.send();
     final response = await http.Response.fromStream(streamdResponse);
 

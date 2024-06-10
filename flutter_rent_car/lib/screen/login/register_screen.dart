@@ -217,7 +217,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         color: Color.fromRGBO(28, 38, 73, 1),
                                         width: 2),
                                     borderRadius: BorderRadius.circular(10))),
-                            validator: (value) => _validateNumeric(value, 'pin'),
+                            validator: (value) =>
+                                _validateNumeric(value, 'pin'),
                           ),
                         ),
                         const SizedBox(

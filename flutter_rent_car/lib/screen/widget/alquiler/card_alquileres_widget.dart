@@ -19,8 +19,7 @@ class CardAlquileresWidget extends StatefulWidget {
 }
 
 class _CardAlquileresWidgetState extends State<CardAlquileresWidget> {
-
-   Future<String?> getToken() async {
+  Future<String?> getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('token');
   }

@@ -43,7 +43,8 @@ class _EditPerfilPageState extends State<EditPerfilPage> {
   final picker = ImagePicker();
 
   Future<void> _pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
 
     setState(() {
       if (pickedFile != null) {
@@ -53,7 +54,6 @@ class _EditPerfilPageState extends State<EditPerfilPage> {
       }
     });
   }
-
 
   void _loadUserData() async {
     try {
@@ -266,12 +266,12 @@ class _EditPerfilPageState extends State<EditPerfilPage> {
                                 onPressed: () {
                                   if (_formEdit.currentState!.validate()) {
                                     _editUserBloc.add(DoEditUserEvent(
-                                        // avatarTextController.text,
-                                        _avatar!,
-                                        emailTextController.text,
-                                        telefonoTextController.text,
-                                        pinTextController.text, 
-                                        ));
+                                      // avatarTextController.text,
+                                      _avatar!,
+                                      emailTextController.text,
+                                      telefonoTextController.text,
+                                      pinTextController.text,
+                                    ));
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(

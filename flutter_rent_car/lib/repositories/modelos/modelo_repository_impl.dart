@@ -15,7 +15,7 @@ class ModeloRepositorioImpl extends ModeloRepository {
   }
 
   @override
-  Future <List<ModeloResponseV2>> models() async {
+  Future<List<ModeloResponseV2>> models() async {
     final token = await getToken();
 
     final response = await _htppClient.get(Uri.parse('$urlMovil/modelo'),
@@ -26,8 +26,10 @@ class ModeloRepositorioImpl extends ModeloRepository {
         });
 
     if (response.statusCode == 200) {
-       List<dynamic> jsonResponse = json.decode(response.body);
-    return jsonResponse.map((data) => ModeloResponseV2.fromModeloResponseV2(data)).toList();
+      List<dynamic> jsonResponse = json.decode(response.body);
+      return jsonResponse
+          .map((data) => ModeloResponseV2.fromModeloResponseV2(data))
+          .toList();
     } else {
       throw Exception('Failed to get models');
     }
