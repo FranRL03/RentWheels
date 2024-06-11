@@ -17,18 +17,18 @@ Lo necesario para poder inicar y probar la aplicación se necesita:
 
 Estos son los pasos para probar la App:
 
-Clonar el repositorio
+- Clonar el repositorio
 
-    git clone https://github.com/FranRL03/RentWheels.git
+        git clone https://github.com/FranRL03/RentWheels.git
 
-Abrir docker y la terminal para entrar en la carpeta 
+- Abrir docker y la terminal para entrar en la carpeta 
 *back* y ejecutar el siguiente commando
 
-    docker-compose up
+        docker-compose up
 
-Abrir el back e iniciarlo
+- Abrir el back e iniciarlo
 
-    mvn spring-boot:run
+        mvn spring-boot:run
 
   Una vez iniciado el back ahora se inicia el front.
   Se abre la carpeta *flutter_rent_car* y en el archivo 
@@ -63,7 +63,35 @@ Al navegar a tu perfil puedes:
 
   ![image](https://github.com/FranRL03/RentWheels/assets/122262348/849d574f-e24f-4794-9ddc-e7e2bd40ace3)
 
+## ADMIN
 
+Para iniciar la pagina web que es el entorno del administrador iniciamos el back como se ha hecho anteriormente.
+Se abre la carpeta *angular-admin* y en la consola a la altura del archivo `package.json` escribimos el siguiente comando:
+
+- Para descargar/actualizar la carpeta `node_modules`:
+
+        npm i
+
+ - Para iniciar la web: 
+
+        ng serve -o
+
+Una vez iniciada la página solo queda loguearnos con el usuario de administrador y ya se podrá gestionar los datos que 
+sean necesarios.
+
+## USERS
+
+- ROL_CLIENTE
+
+     Username: `fernando01`
+  
+     Contraseña: `1234`
+  
+- ROL_ADMIN
+
+     Username: `angel02`
+  
+     Contraseña: `1234`
 
 ## Author
 
