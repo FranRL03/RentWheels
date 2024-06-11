@@ -49,7 +49,10 @@ Abrir el back e iniciarlo
 ## Functionalities
 
 Algunas de las funcionalidades que se pueden hacer en la App es que al iniciar sesión navega a la *Home Page*, 
-donde muestra una lista de coches y puedes filtrar por modelos.
+donde muestra una lista de coches y puedes filtrar por modelos
+
+Al seleccionar un vehículo si está disponible nos saldrá un pequeño formulario para poder alquilarlo por unos diás, semanas o meses aplicandole un descuento
+dependiendo de la cantidad de días que se alquilen. Así motivamos al cliente a que utilice más la app. 
 
 ![image](https://github.com/FranRL03/RentWheels/assets/122262348/916e3998-d334-431d-b358-537733b09602)
 
@@ -57,10 +60,6 @@ Al navegar a tu perfil puedes:
 - Editar los datos
 - Ver los alquieres realizados
 - Cambiar la contraseña
-
-> [!NOTE]
-> Si el botón de ver los alquieres no funciona es porque no me ha dado tiempo xd
-
 
   ![image](https://github.com/FranRL03/RentWheels/assets/122262348/849d574f-e24f-4794-9ddc-e7e2bd40ace3)
 
