@@ -62,6 +62,38 @@ public class ModeloController {
 
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de vehiculos de un modelo", content = {
+                    @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Modelo.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                  {
+                                                           "id": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+                                                           "imagen": "toyota1.png",
+                                                           "modelo": "Toyota Corolla",
+                                                           "combustion": "Electrico",
+                                                           "transmision": "Automatico",
+                                                           "disponible": true,
+                                                           "precioBase": 220.0
+                                                       },
+                                                       {
+                                                           "id": "2641c15b-3c06-4fe5-81d3-5a3deaa9d366",
+                                                           "imagen": "toyota2.png",
+                                                           "modelo": "Toyota Corolla",
+                                                           "combustion": "Hibrido",
+                                                           "transmision": "Automatico",
+                                                           "disponible": true,
+                                                           "precioBase": 208.5
+                                                       }
+                                            ]
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404", description = "Error en la lista", content = @Content)
+    })
+    @Operation(summary = "getAllModels", description = "lista de vehiculos")
     @GetMapping("/modelo/vehiculo/{nombreModelo}")
     public List<GetVehiculosDto> getVehiculoModelos (@PathVariable String nombreModelo){
 

@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +6,6 @@ import 'package:flutter_rent_car/model/response/user/user_details.dart';
 import 'package:flutter_rent_car/repositories/user/user_repository.dart';
 import 'package:flutter_rent_car/repositories/user/user_repository_impl.dart';
 import 'package:flutter_rent_car/screen/page/home_page.dart';
-import 'package:image_picker/image_picker.dart';
 
 class EditPerfilPage extends StatefulWidget {
   const EditPerfilPage({super.key});
