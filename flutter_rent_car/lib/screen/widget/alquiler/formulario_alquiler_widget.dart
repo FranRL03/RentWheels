@@ -206,7 +206,11 @@ class _FormAlquilerState extends State<FormAlquiler> {
                         borderRadius: BorderRadius.circular(10))),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter some city';
+                    return 'El campo no puede estar vacío';
+                  }
+
+                  if (RegExp(r'\d').hasMatch(value)) {
+                    return 'El campo no puede contener números';
                   }
                   return null;
                 },
@@ -232,7 +236,11 @@ class _FormAlquilerState extends State<FormAlquiler> {
                         borderRadius: BorderRadius.circular(10))),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter some city';
+                    return 'El campo no puede estar vacío';
+                  }
+
+                  if (RegExp(r'\d').hasMatch(value)) {
+                    return 'El campo no puede contener números';
                   }
                   return null;
                 },

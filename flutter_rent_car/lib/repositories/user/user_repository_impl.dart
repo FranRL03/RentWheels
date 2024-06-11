@@ -49,35 +49,20 @@ class UserRepositoryImpl extends UserRepository {
   }
 
   @override
-  Future<UserDetails> editUser(UserEditDto userEditDto, File avatarFile) async {
+  Future<UserDetails> editUser(UserEditDto userEditDto) async {
     final token = await getToken();
 
-    final request =
-        http.MultipartRequest('PUT', Uri.parse('$urlMovil/profile/edit'));
+    final response = await _httpClient.put(Uri.parse('$urlMovil/profile/edit'),
+       headers: <String, String>{
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer $token',
+            },
+            body: jsonEncode(userEditDto.toJson()));
 
-    request.files
-        .add(await http.MultipartFile.fromPath('file', avatarFile.path));
-    request.fields['editado'] = jsonEncode(userEditDto.toJson());
-    request.headers['Authorization'] = 'Bearer $token';
-
-    // final avatar = File(avatarFile.path);
-    // final bytes = await avatar.readAsBytes();
-    // final multipartFile = http.MultipartFile.fromBytes('file', bytes, filename: avatar.path.split('/').last);
-
-    // request.files.add(multipartFile);
-    // request.headers['Authorization'] = 'Bearer $token';
-    // request.headers[HttpHeaders.acceptHeader] = 'application/json; charset-utf-8';
-    // request.headers[HttpHeaders.contentTypeHeader] = 'application/json;';
-
-    final streamdResponse = await request.send();
-    final response = await http.Response.fromStream(streamdResponse);
-
-    if (response.statusCode == 200) {
-      final responseBody = jsonDecode(response.body);
-      // final responseBody = await response.stream.bytesToString();
-      return UserDetails.fromJson(responseBody);
+            if (response.statusCode == 200) {
+      return UserDetails.fromJson(response.body);
     } else {
-      throw Exception('Failed to edit profile: ${response.statusCode}');
+      throw Exception('Failed to do edit');
     }
   }
 

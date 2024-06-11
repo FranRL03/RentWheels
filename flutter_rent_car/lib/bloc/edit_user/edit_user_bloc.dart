@@ -22,12 +22,12 @@ class EditUserBloc extends Bloc<EditUserEvent, EditUserState> {
     emit(DoEditUserLoading());
     try {
       final UserEditDto userEditDto = UserEditDto(
-          // avatar: event.avatar,
+          avatar: event.avatar,
           email: event.email,
           telefono: event.telefono,
           pin: event.pin);
 
-      final response = await userRepository.editUser(userEditDto, event.avatar);
+      final response = await userRepository.editUser(userEditDto);
       emit(DoEditUserSuccess(response));
       return;
     } on Exception catch (e) {
