@@ -131,7 +131,7 @@ class _FormAlquilerState extends State<FormAlquiler> {
                         borderRadius: BorderRadius.circular(10))),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter some date';
+                    return 'Por favor ingrese una fecha';
                   }
                   return null;
                 },
@@ -158,7 +158,16 @@ class _FormAlquilerState extends State<FormAlquiler> {
                         borderRadius: BorderRadius.circular(10))),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter some date';
+                    return 'Por favor ingrese una fecha';
+                  }
+                  DateTime? startDate =
+                      _parseDate(dateStartTextController.text);
+                  DateTime? endDate = _parseDate(value);
+                  if (startDate == null || endDate == null) {
+                    return 'Formato de fecha no válido';
+                  }
+                  if (endDate.isBefore(startDate)) {
+                    return 'La fecha de fin no puede ser anterior a la fecha de inicio';
                   }
                   return null;
                 },
@@ -197,7 +206,11 @@ class _FormAlquilerState extends State<FormAlquiler> {
                         borderRadius: BorderRadius.circular(10))),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter some date';
+                    return 'El campo no puede estar vacío';
+                  }
+
+                  if (RegExp(r'\d').hasMatch(value)) {
+                    return 'El campo no puede contener números';
                   }
                   return null;
                 },
@@ -223,7 +236,11 @@ class _FormAlquilerState extends State<FormAlquiler> {
                         borderRadius: BorderRadius.circular(10))),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter some date';
+                    return 'El campo no puede estar vacío';
+                  }
+
+                  if (RegExp(r'\d').hasMatch(value)) {
+                    return 'El campo no puede contener números';
                   }
                   return null;
                 },
@@ -286,5 +303,13 @@ class _FormAlquilerState extends State<FormAlquiler> {
         builder: (context, child) {
           return Theme(data: ThemeData.dark(), child: child!);
         });
+  }
+
+  DateTime? _parseDate(String date) {
+    try {
+      return DateFormat('yyyy-MM-dd').parse(date);
+    } catch (e) {
+      return null;
+    }
   }
 }

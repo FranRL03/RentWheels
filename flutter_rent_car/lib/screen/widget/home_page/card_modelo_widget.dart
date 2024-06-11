@@ -43,8 +43,8 @@ class CardModeloWidget extends StatelessWidget {
       width: 80,
       child: InkWell(
         onTap: () {
-          vehiculoBloc.add(
-              GetVehiculosModelosEvent(modeloResponse[index].modelo!));
+          vehiculoBloc
+              .add(GetVehiculosModelosEvent(modeloResponse[index].modelo!));
         },
         child: Card(
           color: const Color.fromRGBO(29, 47, 111, 1),
@@ -57,7 +57,8 @@ class CardModeloWidget extends StatelessWidget {
               padding: const EdgeInsets.only(top: 0),
               child: FutureBuilder<Uint8List>(
                 future: fetchImage(modeloResponse[index].logo!),
-                builder: (BuildContext context, AsyncSnapshot<Uint8List> snapshot) {
+                builder:
+                    (BuildContext context, AsyncSnapshot<Uint8List> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const CircularProgressIndicator();
                   } else if (snapshot.hasError) {

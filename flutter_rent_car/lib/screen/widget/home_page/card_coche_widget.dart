@@ -54,7 +54,9 @@ class CardCocheWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 90,),
+                      padding: const EdgeInsets.only(
+                        bottom: 90,
+                      ),
                       child: Text(
                         '${vehiculosResponse[index].modelo}',
                         style: const TextStyle(
@@ -75,12 +77,8 @@ class CardCocheWidget extends StatelessWidget {
                         } else if (snapshot.hasError) {
                           return Text('Error: ${snapshot.error}');
                         } else if (snapshot.hasData) {
-                          return Image.memory(
-                            snapshot.data!,
-                            fit: BoxFit.cover,
-                            width:
-                                160
-                          );
+                          return Image.memory(snapshot.data!,
+                              fit: BoxFit.cover, width: 160);
                         } else {
                           return Text('No image data');
                         }

@@ -1,20 +1,20 @@
 import 'dart:io';
 
 class UserEditDto {
-  // File? avatar;
+  String? avatar;
   String? email;
   String? telefono;
   String? pin;
 
   UserEditDto({
-    // this.avatar,
+    this.avatar,
     this.email,
     this.telefono,
     this.pin,
   });
 
   UserEditDto.fromJson(Map<String, dynamic> json) {
-    // avatar = json['avatar'];
+    avatar = json['avatar'];
     email = json['email'];
     telefono = json['telefono'];
     pin = json['pin'];
@@ -22,7 +22,7 @@ class UserEditDto {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    // data['avatar'] = this.avatar;
+    data['avatar'] = this.avatar;
     data['email'] = this.email;
     data['telefono'] = this.telefono;
     data['pin'] = this.pin;

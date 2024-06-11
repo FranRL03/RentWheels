@@ -34,12 +34,12 @@ class _MyPerfilPageState extends State<MyPerfilPage> {
     super.dispose();
   }
 
-   Future<void> logout() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.remove('token');
-  // ignore: avoid_print
-  print('Token borrado exitosamente.');
-}
+  Future<void> logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
+    // ignore: avoid_print
+    print('Token borrado exitosamente.');
+  }
 
   @override
   Widget build(BuildContext context) {

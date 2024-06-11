@@ -19,14 +19,13 @@ class Content {
       this.precioBase});
 
   factory Content.fromListVehiculos(Map<String, dynamic> data) => Content(
-        id: data['id'] as String?,
-        imagen: data['imagen'] as String?,
-        modelo: data['modelo'] as String?,
-        combustion: data['combustion'] as String?,
-        transmision: data['transmision'] as String?,
-        disponible: data['disponible'] as bool?,
-        precioBase: data['precioBase'] as double?
-      );
+      id: data['id'] as String?,
+      imagen: data['imagen'] as String?,
+      modelo: data['modelo'] as String?,
+      combustion: data['combustion'] as String?,
+      transmision: data['transmision'] as String?,
+      disponible: data['disponible'] as bool?,
+      precioBase: data['precioBase'] as double?);
 
   Map<String, dynamic> toListVehiculos() => {
         'id': id,

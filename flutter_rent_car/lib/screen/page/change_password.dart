@@ -133,6 +133,12 @@ class _ChangePasswordPage extends State<ChangePasswordPage> {
                                         color: Color.fromRGBO(28, 38, 73, 1),
                                         width: 2),
                                     borderRadius: BorderRadius.circular(10))),
+                            validator: (value) {
+                              if (value != verifyPasswordTextController.text) {
+                                return 'Las contraseñas no coinciden';
+                              }
+                              return null;
+                            },
                           ),
                         ),
                         const SizedBox(
@@ -154,6 +160,12 @@ class _ChangePasswordPage extends State<ChangePasswordPage> {
                                         color: Color.fromRGBO(28, 38, 73, 1),
                                         width: 2),
                                     borderRadius: BorderRadius.circular(10))),
+                            validator: (value) {
+                              if (value != newPasswordTextController.text) {
+                                return 'Las contraseñas no coinciden';
+                              }
+                              return null;
+                            },
                           ),
                         ),
                         const SizedBox(
@@ -207,3 +219,4 @@ class _ChangePasswordPage extends State<ChangePasswordPage> {
     );
   }
 }
+

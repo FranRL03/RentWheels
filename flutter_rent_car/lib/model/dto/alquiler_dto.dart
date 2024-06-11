@@ -4,13 +4,7 @@ class AlquilerDto {
   String? origen;
   String? destino;
 
-  AlquilerDto(
-      {
-      this.fechaInicio,
-      this.fechaFin,
-      this.origen,
-      this.destino
-      });
+  AlquilerDto({this.fechaInicio, this.fechaFin, this.origen, this.destino});
 
   AlquilerDto.fromJson(Map<String, dynamic> json) {
     fechaInicio = json['fechaInicio'];

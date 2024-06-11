@@ -25,8 +25,6 @@ class _EditPerfilPageState extends State<EditPerfilPage> {
   late TextEditingController telefonoTextController = TextEditingController();
   late TextEditingController pinTextController = TextEditingController();
 
-  File? _avatar;
-
   late UserRepository userRepository;
   late EditUserBloc _editUserBloc;
   late UserDetails userDetails;
@@ -40,29 +38,12 @@ class _EditPerfilPageState extends State<EditPerfilPage> {
     super.initState();
   }
 
-  final picker = ImagePicker();
-
-  Future<void> _pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      if (pickedFile != null) {
-        _avatar = File(pickedFile.path);
-      } else {
-        print('No image selected.');
-      }
-    });
-  }
-
-
   void _loadUserData() async {
     try {
       userDetails = await userRepository.userDetails();
-      // Actualiza los controladores de texto con los datos del usuario
       setState(() {
         userTextController.text = userDetails.username ?? '';
-        // _avatar;
-        // avatarTextController.text = userDetails.avatar ?? '';
+        avatarTextController.text = userDetails.avatar ?? '';
         emailTextController.text = userDetails.email ?? '';
         telefonoTextController.text = userDetails.telefono ?? '';
         pinTextController.text = userDetails.pin ?? '';
@@ -161,33 +142,21 @@ class _EditPerfilPageState extends State<EditPerfilPage> {
                         const SizedBox(
                           height: 20,
                         ),
-                        // Padding(
-                        //   padding: const EdgeInsets.only(left: 20, right: 20),
-                        //   child: TextFormField(
-                        //     controller: avatarTextController,
-                        //     decoration: InputDecoration(
-                        //         filled: true,
-                        //         fillColor: Colors.white,
-                        //         border: OutlineInputBorder(
-                        //             borderRadius: BorderRadius.circular(10)),
-                        //         labelText: 'Avatar del Usuario',
-                        //         focusedBorder: OutlineInputBorder(
-                        //             borderSide: const BorderSide(
-                        //                 color: Color.fromRGBO(28, 38, 73, 1),
-                        //                 width: 2),
-                        //             borderRadius: BorderRadius.circular(10))),
-                        //   ),
-                        // ),
-                        if (_avatar != null)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Image.file(_avatar!),
-                          ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: ElevatedButton(
-                            onPressed: _pickImage,
-                            child: const Text('Seleccionar Imagen'),
+                          padding: const EdgeInsets.only(left: 20, right: 20),
+                          child: TextFormField(
+                            controller: avatarTextController,
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                labelText: 'Avatar del Usuario',
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: Color.fromRGBO(28, 38, 73, 1),
+                                        width: 2),
+                                    borderRadius: BorderRadius.circular(10))),
                           ),
                         ),
                         const SizedBox(
@@ -266,12 +235,11 @@ class _EditPerfilPageState extends State<EditPerfilPage> {
                                 onPressed: () {
                                   if (_formEdit.currentState!.validate()) {
                                     _editUserBloc.add(DoEditUserEvent(
-                                        // avatarTextController.text,
-                                        _avatar!,
-                                        emailTextController.text,
-                                        telefonoTextController.text,
-                                        pinTextController.text, 
-                                        ));
+                                      avatarTextController.text,
+                                      emailTextController.text,
+                                      telefonoTextController.text,
+                                      pinTextController.text,
+                                    ));
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(

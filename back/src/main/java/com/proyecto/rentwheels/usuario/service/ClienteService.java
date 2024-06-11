@@ -23,25 +23,12 @@ public class ClienteService {
         return clienteRepository.findAll();
     }
 
-    public Cliente editCliente (EditClientDto edit, Cliente c, MultipartFile file){
-//        Cliente editado = Cliente.builder()
-//                .id(c.getId())
-//                .username(c.getUsername())
-//                .password(c.getPassword())
-//                .avatar(edit.avatar())
-//                .email(edit.email())
-//                .telefono(edit.telefono())
-//                .pin(edit.pin())
-//                .build();
-//        return clienteRepository.save(editado);
-        // Actualiza los campos del cliente con los datos del DTO
+    public Cliente editCliente (EditClientDto edit, Cliente c){
+
+        c.setAvatar(edit.avatar());
         c.setEmail(edit.email());
         c.setTelefono(edit.telefono());
         c.setPin(edit.pin());
-
-        // Actualiza el avatar solo si se proporciona un nuevo archivo
-            String avatarUrl = storageService.store(file);
-            c.setAvatar(avatarUrl);
 
         return clienteRepository.save(c);
     }

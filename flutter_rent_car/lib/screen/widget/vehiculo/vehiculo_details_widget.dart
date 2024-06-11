@@ -8,7 +8,6 @@ import 'package:flutter_rent_car/variables.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-
 class VehiculoDetailsWidget extends StatelessWidget {
   final VehiculoDetailsResponse vehiculoDetailsResponse;
   const VehiculoDetailsWidget(
@@ -61,26 +60,21 @@ class VehiculoDetailsWidget extends StatelessWidget {
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 30)),
                 FutureBuilder<Uint8List>(
-                      future: fetchImage(vehiculoDetailsResponse.imagen!),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<Uint8List> snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return CircularProgressIndicator();
-                        } else if (snapshot.hasError) {
-                          return Text('Error: ${snapshot.error}');
-                        } else if (snapshot.hasData) {
-                          return Image.memory(
-                            snapshot.data!,
-                            fit: BoxFit.cover,
-                            width:
-                                300
-                          );
-                        } else {
-                          return Text('No image data');
-                        }
-                      },
-                    ),
+                  future: fetchImage(vehiculoDetailsResponse.imagen!),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<Uint8List> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else if (snapshot.hasData) {
+                      return Image.memory(snapshot.data!,
+                          fit: BoxFit.cover, width: 300);
+                    } else {
+                      return Text('No image data');
+                    }
+                  },
+                ),
               ],
             ),
           ),
