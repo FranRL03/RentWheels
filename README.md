@@ -89,7 +89,7 @@ sean necesarios.
   
 - ROL_ADMIN
 
-     Username: `angel02`
+     Username: `fran02`
   
      Contraseña: `1234`
 
