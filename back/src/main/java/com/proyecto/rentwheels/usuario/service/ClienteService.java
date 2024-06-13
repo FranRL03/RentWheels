@@ -33,4 +33,11 @@ public class ClienteService {
         return clienteRepository.save(c);
     }
 
+    public Cliente ingresar (Cliente c, EditClientDto edit) {
+
+        c.setCash(edit.cash() + c.getCash());
+
+        return clienteRepository.save(c);
+    }
+
 }

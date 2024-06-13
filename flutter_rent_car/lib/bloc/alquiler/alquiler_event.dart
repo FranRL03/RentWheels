@@ -18,3 +18,7 @@ class DoAlquilerEvent extends AlquilerEvent {
   DoAlquilerEvent(
       this.fechaInicio, this.fechaFin, this.origen, this.destino, this.uuid);
 }
+
+class GetPriceAlquilerClienteEvent extends AlquilerEvent {
+  GetPriceAlquilerClienteEvent();
+}

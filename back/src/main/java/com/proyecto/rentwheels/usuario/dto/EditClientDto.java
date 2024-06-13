@@ -10,6 +10,7 @@ public record EditClientDto (
         @Email(message = "{loggedUser.email}")
         String email,
         String telefono,
-        String pin
+        String pin,
+        double cash
 ){
 }

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 class UserEditDto {
   String? avatar;
   String? email;

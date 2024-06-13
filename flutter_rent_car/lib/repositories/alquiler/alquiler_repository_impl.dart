@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_rent_car/model/dto/alquiler_dto.dart';
 import 'package:flutter_rent_car/model/response/alquiler/alquiler_response.dart';
 import 'package:flutter_rent_car/model/response/user/alquiler_cliente/alquiler_clientes.dart';
+import 'package:flutter_rent_car/model/response/user/list_price_rent_client/list_price_rent_client.dart';
 import 'package:flutter_rent_car/repositories/alquiler/alquiler_repository.dart';
 import 'package:flutter_rent_car/variables.dart';
 import 'package:http/http.dart';
@@ -53,6 +54,29 @@ class AlquilerRepositoryImpl extends AlquilerRepository {
       return AlquilerResponse.fromJson(response.body);
     } else {
       throw Exception('Failed to do alquiler');
+    }
+  }
+
+  @override
+  Future<List<ListPriceRentClient>> listPriceAlquiler () async {
+    final token = await getToken();
+
+    final response = await _httpClient.get(
+      Uri.parse('$urlMovil/cliente/precio/alquiler'),
+      headers: <String, String>{
+        'Content-Type':
+            'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      List<dynamic> jsonResponse = json.decode(response.body);
+      return jsonResponse
+          .map((data) => ListPriceRentClient.fromNs(data))
+          .toList();
+    } else {
+      throw Exception('Failed to get prices');
     }
   }
 }

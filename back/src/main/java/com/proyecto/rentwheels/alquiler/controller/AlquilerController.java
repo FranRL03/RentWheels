@@ -2,6 +2,7 @@ package com.proyecto.rentwheels.alquiler.controller;
 
 import com.proyecto.rentwheels.alquiler.dto.CreateAlquilerDto;
 import com.proyecto.rentwheels.alquiler.dto.GetAlquileresCliente;
+import com.proyecto.rentwheels.alquiler.dto.PriceAlquilerDto;
 import com.proyecto.rentwheels.alquiler.model.Alquiler;
 import com.proyecto.rentwheels.alquiler.service.AlquilerServicio;
 import com.proyecto.rentwheels.usuario.model.Cliente;
@@ -20,23 +21,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class AlquilerController {
 
     private final AlquilerServicio alquilerServicio;
 
-
-
-//    @GetMapping("/cliente/alquiler")
-//    public Page<GetAlquileresCliente> getAlquileresClientes(@PageableDefault(page=0, size =10) Pageable pageable, @AuthenticationPrincipal Cliente c){
-//        return alquilerServicio.getAlquileresCliente(pageable, c.getId());
-//    }
+    @GetMapping("/cliente/precio/alquiler")
+    public List<PriceAlquilerDto> getPriceAlquileres(@AuthenticationPrincipal Cliente c){
+        return alquilerServicio.getPriceAlquileresCliente( c.getId());
+    }
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Obtener lista de alquileres del cliente", content = {
                     @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = GetAlquileresCliente.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = Alquiler.class)),
                             examples = {@ExampleObject(
                                     value = """
                                             {
@@ -76,6 +77,47 @@ public class AlquilerController {
         return alquilerServicio.getAlquileresRentCliente(pageable, c.getId(), statusRent);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Hace run alquiler", content = {
+                    @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Alquiler.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                "id": "ac19c001-9006-1139-8190-06b6da3a0003",
+                                                "precio": 275.0,
+                                                "kilometrosAnos": 25000,
+                                                "fechaCreacion": "11-06-2024",
+                                                "fechaInicio": "17-06-2024",
+                                                "fechaFin": "20-06-2024",
+                                                "origen": "Sevilla",
+                                                "destino": "Cádiz",
+                                                "enAlquiler": true,
+                                                "vehiculo": {
+                                                    "id": "9b11dd61-4424-46c9-9daa-c5d70025c478",
+                                                    "combustion": "Hibrido",
+                                                    "modelo": {
+                                                        "id": "fe3756a0-2262-4ec7-a924-95e0eefdaa15",
+                                                        "modelo": "Mercedes",
+                                                        "logo": "mercedes_logo.png"
+                                                    },
+                                                    "imagen": "mercedes1.png",
+                                                    "transmision": "Manual",
+                                                    "capacidadPasajeros": 4,
+                                                    "autonomia": 247587,
+                                                    "potencia": 170,
+                                                    "estado": "Nuevo",
+                                                    "numPuertas": 5,
+                                                    "disponible": false,
+                                                    "precioBase": 275.0
+                                                }
+                                            }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "400", description = "Error al alquilar", content = @Content)
+    })
+    @Operation(summary = "createAlquiler", description = "Alquiler")
     @PostMapping("/alquilar/{idVehiculo}")
     public ResponseEntity<GetAlquileresCliente> createAlquiler (@AuthenticationPrincipal Cliente c, @RequestBody CreateAlquilerDto create, @PathVariable String idVehiculo){
 

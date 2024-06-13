@@ -58,7 +58,7 @@
                         <option value="Manual">MANUAL</option>
                         <option value="Automatico">AUTOMATICO</option>
                     </select>
-                    <!-- <span class="error" *ngIf="transmisionError">{{transmisionError}}</span> -->
+                    <span class="error" *ngIf="transmisionError">{{transmisionError}}</span>
                 </div>
 
                 <div class="form-group">
@@ -71,7 +71,7 @@
                         <option value="Gasolina">GASOLINA</option>
                         <option value="Diesel">DIESEL</option>
                     </select>
-                    <!-- <span class="error" *ngIf="combustionError">{{combustionError}}</span> -->
+                    <span class="error" *ngIf="combustionError">{{combustionError}}</span>
                 </div>
             </div>
 
@@ -81,7 +81,7 @@
                     <label for="capacidadPasajeros" class="text-white">Capacidad Pasajeros: </label>
                     <input type="number" name="capacidadPasajeros" id="capacidadPasajeros" min="2" max="10" step="1"
                         class="form-control" [(ngModel)]="vehiculoEditado.capacidadPasajeros" required />
-                    <!-- <span class="error" *ngIf="capacidadPasajerosError">{{capacidadPasajerosError}}</span> -->
+                    <span class="error" *ngIf="capacidadPasajerosError">{{capacidadPasajerosError}}</span>
 
                 </div>
 
@@ -89,7 +89,7 @@
                     <label for="potencia" class="text-white">Potencia (Kw): </label>
                     <input type="number" name="potencia" id="potencia" min="90" max="300" step="5" class="form-control"
                         [(ngModel)]="vehiculoEditado.potencia" required />
-                    <!-- <span class="error" *ngIf="potenciaError">{{potenciaError}}</span> -->
+                    <span class="error" *ngIf="potenciaError">{{potenciaError}}</span>
                 </div>
             </div>
         </div>
@@ -104,7 +104,7 @@
                         <option value="Nuevo">NUEVO</option>
                         <option value="Seminuevo">SEMINUEVO</option>
                     </select>
-                    <!-- <span class="error" *ngIf="estadoError">{{estadoError}}</span> -->
+                    <span class="error" *ngIf="estadoError">{{estadoError}}</span>
                 </div>
             </div>
 
@@ -113,7 +113,7 @@
                     <label for="numPuertas" class="text-white">Puertas: </label>
                     <input type="number" name="numPuertas" id="numPuertas" min="2" max="5" step="1" class="form-control"
                         [(ngModel)]="vehiculoEditado.numPuertas" required />
-                    <!-- <span class="error" *ngIf="numPuertasError">{{numPuertasError}}</span> -->
+                    <span class="error" *ngIf="numPuertasError">{{numPuertasError}}</span>
                 </div>
             </div>
         </div>
@@ -124,7 +124,7 @@
                     <label for="precioBase" class="text-white">Precio Base (€): </label>
                     <input type="number" name="precioBase" id="precioBase" min="80" max="300" step="10"
                         class="form-control" [(ngModel)]="vehiculoEditado.precioBase" required />
-                    <!-- <span class="error" *ngIf="precioBaseError">{{precioBaseError}}</span> -->
+                    <span class="error" *ngIf="precioBaseError">{{precioBaseError}}</span>
                 </div>
             </div>
             <div class="col-md-6">
@@ -133,7 +133,7 @@
                     <select id="modelo" name="modelo" class="form-select" [(ngModel)]="vehiculoEditado.modelo" disabled>
                         <option [value]="">{{vehiculoEditado.modelo}}</option>
                     </select>
-                    <!-- <span class="error" *ngIf="modeloError">{{modeloError}}</span> -->
+                    <span class="error" *ngIf="modeloError">{{modeloError}}</span>
                 </div>
             </div>
         </div>
@@ -144,7 +144,7 @@
                     <label for="autonomia" class="text-white">Autonomía (Km): </label>
                     <input type="number" name="autonomia" id="autonomia" min="10000" max="30000" step="500"
                         class="form-control" [(ngModel)]="vehiculoEditado.autonomia" required />
-                    <!-- <span class="error" *ngIf="autonomiaError">{{autonomiaError}}</span> -->
+                    <span class="error" *ngIf="autonomiaError">{{autonomiaError}}</span>
                 </div>
             </div>
         </div>

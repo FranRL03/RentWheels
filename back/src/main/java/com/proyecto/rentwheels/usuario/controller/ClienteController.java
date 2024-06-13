@@ -73,4 +73,10 @@ public class ClienteController {
                                                @AuthenticationPrincipal Cliente c){
         return GetClienteDetailsDto.of(clienteService.editCliente(editado,c));
     }
+
+    @PutMapping("/profile/ingresar")
+    public GetClienteDetailsDto ingresar(@RequestBody EditClientDto editado,
+                                               @AuthenticationPrincipal Cliente c){
+        return GetClienteDetailsDto.of(clienteService.ingresar(c,editado));
+    }
 }

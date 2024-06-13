@@ -6,11 +6,11 @@
 --INSERT INTO USUARIO_ROLES (roles, usuario_id) VALUES (0,'86cc45ac-7e72-40d7-b528-2863a1e2500f');
 
 INSERT INTO USUARIO (id, username, password, avatar, account_non_expired, account_non_locked,credentials_non_expired, enabled) VALUES ('1ce9c1c7-7a02-4c7f-bf69-6d0306cbed61', 'fernando01','{bcrypt}$2a$12$qG8MR/W6ExYtPPdpr2Ry/eEy.x30mvHWlRyLuG6fP57lCK.6Kuz.W', 'https://media.istockphoto.com/id/92044396/es/foto/rana-con-gafas-de-sol.jpg?s=170667a&w=0&k=20&c=jEh4ZMUWU9Y3gx5odmT-LmbCGymtiBVzzEPerkawqm0=', true, true, true, true);
-INSERT INTO CLIENTE (id, pin, email, telefono) VALUES ('1ce9c1c7-7a02-4c7f-bf69-6d0306cbed61','2222', 'fernando@gmail.com','112332112');
+INSERT INTO CLIENTE (id, pin, email, telefono, cash) VALUES ('1ce9c1c7-7a02-4c7f-bf69-6d0306cbed61','2222', 'fernando@gmail.com','112332112', 1000.0);
 INSERT INTO USUARIO_ROLES (roles, usuario_id) VALUES (1,'1ce9c1c7-7a02-4c7f-bf69-6d0306cbed61');
 
-INSERT INTO USUARIO (id, username, password, avatar, account_non_expired, account_non_locked,credentials_non_expired, enabled) VALUES ('86cc45ac-7e72-40d7-b528-2863a1e2500f', 'angel02','{bcrypt}$2a$12$qG8MR/W6ExYtPPdpr2Ry/eEy.x30mvHWlRyLuG6fP57lCK.6Kuz.W', 'https://images.vexels.com/media/users/3/157970/isolated/preview/c156b4270aea292b9b335dd463ea17eb-icono-de-planeta-tierra-icono-de-tierra.png', true, true, true, true);
-INSERT INTO CLIENTE (id, pin, email, telefono) VALUES ('86cc45ac-7e72-40d7-b528-2863a1e2500f','1111', 'angel@gmail.com','123456789');
+INSERT INTO USUARIO (id, username, password, avatar, account_non_expired, account_non_locked,credentials_non_expired, enabled) VALUES ('86cc45ac-7e72-40d7-b528-2863a1e2500f', 'fran02','{bcrypt}$2a$12$qG8MR/W6ExYtPPdpr2Ry/eEy.x30mvHWlRyLuG6fP57lCK.6Kuz.W', 'https://images.vexels.com/media/users/3/157970/isolated/preview/c156b4270aea292b9b335dd463ea17eb-icono-de-planeta-tierra-icono-de-tierra.png', true, true, true, true);
+INSERT INTO CLIENTE (id, pin, email, telefono, cash) VALUES ('86cc45ac-7e72-40d7-b528-2863a1e2500f','1111', 'fran@gmail.com','123456789', 0.0);
 INSERT INTO USUARIO_ROLES (roles, usuario_id) VALUES (0,'86cc45ac-7e72-40d7-b528-2863a1e2500f');
 
 
@@ -26,21 +26,21 @@ insert into TIPO_VEHICULO (id, tipo) values ('38c7c21e-13d7-4d2b-9fb3-df5ec849dd
 
 -- MODELO DE COCHES
 
-insert into MODELO (id, modelo, logo) values ('afcf760a-8e8a-4e7c-ae94-f5af066c0be7', 'Toyota Corolla', 'toyota_logo.png');
-insert into MODELO (id, modelo, logo) values ('b13f10a7-5cc1-4bc2-8e16-21260b2a1fe2', 'Honda Civic', 'honda_logo.png');
-insert into MODELO (id, modelo, logo) values ('7d7d67f8-73e5-4cfb-87fd-3c7769db2b24', 'Ford Mustang', 'mustang_logo.png');
+insert into MODELO (id, modelo, logo) values ('afcf760a-8e8a-4e7c-ae94-f5af066c0be7', 'Toyota', 'toyota_logo.png');
+insert into MODELO (id, modelo, logo) values ('b13f10a7-5cc1-4bc2-8e16-21260b2a1fe2', 'Honda', 'honda_logo.png');
+insert into MODELO (id, modelo, logo) values ('7d7d67f8-73e5-4cfb-87fd-3c7769db2b24', 'Mustang', 'mustang_logo.png');
 insert into MODELO (id, modelo, logo) values ('e04f9cd6-f5e1-4db2-9eaa-29b9b29431a1', 'Chevrolet', 'chevrolet_logo.png');
-insert into MODELO (id, modelo, logo) values ('35eef7de-5b6e-48d7-803e-b201d8b032f6', 'BMW Serie 3', 'bmw_logo.png');
+insert into MODELO (id, modelo, logo) values ('35eef7de-5b6e-48d7-803e-b201d8b032f6', 'BMW', 'bmw_logo.png');
 insert into MODELO (id, modelo, logo) values ('fe3756a0-2262-4ec7-a924-95e0eefdaa15', 'Mercedes', 'mercedes_logo.png');
-insert into MODELO (id, modelo, logo) values ('8c5e42c3-3c2b-4e15-af8c-498e5e63509f', 'Audi A4', 'audi_logo.png');
+insert into MODELO (id, modelo, logo) values ('8c5e42c3-3c2b-4e15-af8c-498e5e63509f', 'Audi', 'audi_logo.png');
 insert into MODELO (id, modelo, logo) values ('4f8a0e86-b937-4189-9435-65f66543e956', 'Volkswagen', 'volkswagen_logo.png');
-insert into MODELO (id, modelo, logo) values ('b40e4dd4-b0d7-4715-8391-eb5a7b0bbd1a', 'Tesla Model S', 'tesla_logo.png');
-insert into MODELO (id, modelo, logo) values ('1c4e89a2-0ac4-41e8-a885-4b8b0d11fcdf', 'Nissan Rogue', 'nissan_logo.png');
-insert into MODELO (id, modelo, logo) values ('eb3d7d0d-1667-494d-9912-90521e057010', 'Subaru Outback', 'subaru_logo.png');
-insert into MODELO (id, modelo, logo) values ('b8b5f10e-41a4-4705-91eb-305c7f00df53', 'Jeep Wrangler', 'jeep_logo.png');
-insert into MODELO (id, modelo, logo) values ('0d96352d-8295-4622-87d1-511398daac50', 'Porsche 911', 'porsche_logo.png');
+insert into MODELO (id, modelo, logo) values ('b40e4dd4-b0d7-4715-8391-eb5a7b0bbd1a', 'Tesla', 'tesla_logo.png');
+insert into MODELO (id, modelo, logo) values ('1c4e89a2-0ac4-41e8-a885-4b8b0d11fcdf', 'Nissan', 'nissan_logo.png');
+insert into MODELO (id, modelo, logo) values ('eb3d7d0d-1667-494d-9912-90521e057010', 'Subaru', 'subaru_logo.png');
+insert into MODELO (id, modelo, logo) values ('b8b5f10e-41a4-4705-91eb-305c7f00df53', 'Jeep', 'jeep_logo.png');
+insert into MODELO (id, modelo, logo) values ('0d96352d-8295-4622-87d1-511398daac50', 'Porsche', 'porsche_logo.png');
 insert into MODELO (id, modelo, logo) values ('a18715cc-b94b-43b0-bb73-52a1d0b89e61', 'Hyundai', 'hyundai_logo.png');
-insert into MODELO (id, modelo, logo) values ('ec3c2e40-6892-4725-8670-4b79922fe7b3', 'Kia Sportage', 'kia_logo.png');
+insert into MODELO (id, modelo, logo) values ('ec3c2e40-6892-4725-8670-4b79922fe7b3', 'Kia', 'kia_logo.png');
 
 --COCHES
 

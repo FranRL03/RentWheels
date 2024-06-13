@@ -7,6 +7,7 @@ import 'package:flutter_rent_car/screen/login/login_screen.dart';
 import 'package:flutter_rent_car/screen/page/alquiler_cliente.dart';
 import 'package:flutter_rent_car/screen/page/change_password.dart';
 import 'package:flutter_rent_car/screen/page/edit_perfil_page.dart';
+import 'package:flutter_rent_car/screen/page/confirm_alquiler_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyPerfilPage extends StatefulWidget {
@@ -66,7 +67,7 @@ class _MyPerfilPageState extends State<MyPerfilPage> {
                     );
                   } else if (state is DoUserSuccess) {
                     Widget avatarWidget;
-                    if (state.userDetails.avatar != null) {
+                    if (state.userDetails.avatar != null && state.userDetails.avatar!.isNotEmpty) {
                       avatarWidget = CircleAvatar(
                         radius: 65,
                         backgroundColor: const Color.fromRGBO(28, 38, 73, 1),
@@ -97,18 +98,18 @@ class _MyPerfilPageState extends State<MyPerfilPage> {
                             state.userDetails.email!,
                             style: const TextStyle(
                               color: Color.fromRGBO(105, 105, 106, 1),
-                              fontSize: 15,
+                              fontSize: 18,
                             ),
                           ),
                           Text(
-                            "(+34) ${state.userDetails.telefono!}",
+                            "(+34) ${state.userDetails.telefono}",
                             style: const TextStyle(
                               color: Color.fromRGBO(105, 105, 106, 1),
-                              fontSize: 15,
+                              fontSize: 18,
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 30),
+                            padding: const EdgeInsets.only(top: 70),
                             child: ElevatedButton(
                                 onPressed: () {
                                   Navigator.push(
@@ -167,6 +168,32 @@ class _MyPerfilPageState extends State<MyPerfilPage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
+                                            const ConfirmAlquilerPage()),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        const Color.fromRGBO(29, 47, 111, 1),
+                                    fixedSize: const Size(303, 50),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(28.5))),
+                                child: const Text(
+                                  'Tarjeta',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white,
+                                      fontSize: 16),
+                                )),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
                                             const ChangePasswordPage()),
                                   );
                                 },
@@ -188,16 +215,8 @@ class _MyPerfilPageState extends State<MyPerfilPage> {
                           Padding(
                             padding: const EdgeInsets.only(top: 45),
                             child: ElevatedButton(
-                                // onPressed: () {
-                                //   Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) =>
-                                //             const LoginScreen()),
-                                //   );
-                                // },
                                 onPressed: () async {
-                                  await logout(); // Llama a la función logout para eliminar el token
+                                  await logout(); 
                                   // ignore: use_build_context_synchronously
                                   Navigator.pushAndRemoveUntil(
                                     // Navega a la pantalla de inicio de sesión y elimina la pila de rutas

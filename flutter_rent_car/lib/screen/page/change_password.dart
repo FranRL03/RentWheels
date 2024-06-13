@@ -219,4 +219,3 @@ class _ChangePasswordPage extends State<ChangePasswordPage> {
     );
   }
 }
-

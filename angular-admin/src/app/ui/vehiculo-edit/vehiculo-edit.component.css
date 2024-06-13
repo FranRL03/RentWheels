@@ -127,3 +127,7 @@
     right: 20px;
     z-index: 1000;
   }
+
+  span {
+    color: rgb(196, 74, 74);
+}
