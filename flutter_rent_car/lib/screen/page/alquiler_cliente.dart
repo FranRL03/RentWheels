@@ -17,13 +17,13 @@ class ListAlquilerCliente extends StatefulWidget {
 class _ListAlquilerClienteState extends State<ListAlquilerCliente> {
   late AlquilerRepository alquilerRepository;
   late AlquilerBloc _alquilerClienteBloc;
-  bool statusAlquiler = false;
+  bool statusAlquiler = true;
 
   @override
   void initState() {
     alquilerRepository = AlquilerRepositoryImpl();
     _alquilerClienteBloc = AlquilerBloc(alquilerRepository)
-      ..add(GetAlquilerClienteEvent(false));
+      ..add(GetAlquilerClienteEvent(true));
 
     super.initState();
   }

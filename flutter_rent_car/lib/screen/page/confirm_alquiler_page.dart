@@ -37,6 +37,7 @@ class _ConfirmAlquilerPageState extends State<ConfirmAlquilerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.only(top: 100),
         child: Column(

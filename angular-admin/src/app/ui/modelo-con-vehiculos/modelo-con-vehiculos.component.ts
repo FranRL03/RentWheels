@@ -92,15 +92,16 @@ export class ModeloConVehiculosComponent implements OnInit {
     this.modeloService.clear(idModelo).subscribe(() => {
       setTimeout(() => {
         this.loading = false;
-        window.location.reload();
         this.router.navigateByUrl(`/admin/modelo/${idModelo}`).then(() => {
           if (this.totalVehiculos >= 1) {
             this.show = true;
           }
           this.modalService.dismissAll()
         });
+        window.location.reload(); 
       }, 2000);
-    });
+    }
+    );
   }
 
   comprobacionCantVehiculos() {

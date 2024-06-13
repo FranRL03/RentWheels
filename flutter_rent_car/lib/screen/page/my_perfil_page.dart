@@ -67,7 +67,7 @@ class _MyPerfilPageState extends State<MyPerfilPage> {
                     );
                   } else if (state is DoUserSuccess) {
                     Widget avatarWidget;
-                    if (state.userDetails.avatar != null) {
+                    if (state.userDetails.avatar != null && state.userDetails.avatar!.isNotEmpty) {
                       avatarWidget = CircleAvatar(
                         radius: 65,
                         backgroundColor: const Color.fromRGBO(28, 38, 73, 1),
@@ -98,25 +98,18 @@ class _MyPerfilPageState extends State<MyPerfilPage> {
                             state.userDetails.email!,
                             style: const TextStyle(
                               color: Color.fromRGBO(105, 105, 106, 1),
-                              fontSize: 15,
+                              fontSize: 18,
                             ),
                           ),
                           Text(
                             "(+34) ${state.userDetails.telefono}",
                             style: const TextStyle(
                               color: Color.fromRGBO(105, 105, 106, 1),
-                              fontSize: 15,
-                            ),
-                          ),
-                          Text(
-                            '${state.userDetails.cash} €',
-                            style: const TextStyle(
-                              color: Color.fromRGBO(105, 105, 106, 1),
-                              fontSize: 15,
+                              fontSize: 18,
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 30),
+                            padding: const EdgeInsets.only(top: 70),
                             child: ElevatedButton(
                                 onPressed: () {
                                   Navigator.push(

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rent_car/bloc/edit_user/edit_user_bloc.dart';
 import 'package:flutter_rent_car/repositories/user/user_repository.dart';
 import 'package:flutter_rent_car/repositories/user/user_repository_impl.dart';
-import 'package:flutter_rent_car/screen/page/confirm_alquiler_page.dart';
+import 'package:flutter_rent_car/screen/page/my_perfil_page.dart';
 
 class FormularioIngresar extends StatefulWidget {
   const FormularioIngresar({super.key});
@@ -53,7 +53,7 @@ class _FormularioIngresarState extends State<FormularioIngresar> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ConfirmAlquilerPage()),
+                        builder: (context) => const MyPerfilPage()),
                   );
                 }
               },

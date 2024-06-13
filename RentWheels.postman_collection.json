@@ -34,7 +34,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"fernando01\",\n    \"password\": \"1234\"\n}",
+							"raw": "{\n    \"username\": \"fernando\",\n    \"password\": \"1234\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -170,13 +170,21 @@
 								"method": "POST",
 								"header": [],
 								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"imagen\": \"https://kobemotor.es/wp-content/uploads/2023/12/Toyota-C-HR-140h-Advance.png\",\r\n    \"combustion\": \"Hibrido\",\r\n    \"transmision\": \"manual\",\r\n    \"capacidadPasajeros\": 5,\r\n    \"autonomia\": 69000,\r\n    \"potencia\": 100,\r\n    \"estado\": \"seminuevo\",\r\n    \"numPuertas\": 5,\r\n    \"precioBase\": 300,\r\n    \"modelo\": \"toyota corolla\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "vehiculoCreate",
+											"value": "{\n    \"combustion\": \"Hibrido\",\n    \"transmision\": \"manual\",\n    \"capacidadPasajeros\": 5,\n    \"autonomia\": 69000,\n    \"potencia\": 100,\n    \"estado\": \"seminuevo\",\n    \"numPuertas\": 5,\n    \"precioBase\": 300,\n    \"modelo\": \"toyota corolla\"\n}",
+											"contentType": "application/json",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"contentType": "multipart/form-data",
+											"type": "file",
+											"src": "postman-cloud:///1ef168c2-27d6-4350-a1f3-1c3762c7d7a3"
 										}
-									}
+									]
 								},
 								"url": {
 									"raw": "{{base_url}}/admin/add/vehiculo",
@@ -208,13 +216,21 @@
 								"method": "PUT",
 								"header": [],
 								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"imagen\": \"https://kobemotor.es/wp-content/uploads/2023/12/Toyota-C-HR-140h-Advance.png\",\r\n    \"combustion\": \"Hibrido\",\r\n    \"transmision\": \"manual\",\r\n    \"capacidadPasajeros\": 5,\r\n    \"autonomia\": 69000,\r\n    \"potencia\": 100,\r\n    \"estado\": \"seminuevo\",\r\n    \"numPuertas\": 5,\r\n    \"precioBase\": 300\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "vehiculoEditado",
+											"value": "{\n    \"combustion\": \"Hibrido\",\n    \"transmision\": \"manual\",\n    \"capacidadPasajeros\": 5,\n    \"autonomia\": 69000,\n    \"potencia\": 100,\n    \"estado\": \"seminuevo\",\n    \"numPuertas\": 5,\n    \"precioBase\": 300\n}",
+											"contentType": "application/json",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"contentType": "multipart/form-data",
+											"type": "file",
+											"src": "postman-cloud:///1ef168c2-27d6-4350-a1f3-1c3762c7d7a3"
 										}
-									}
+									]
 								},
 								"url": {
 									"raw": "{{base_url}}/admin/edit/vehiculo/7c9e6679-7425-40de-944b-e07fc1f90ae7",
@@ -247,7 +263,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/admin/delete/vehiculo/7c9e6679-7425-40de-944b-e07fc1f90ae7",
+									"raw": "{{base_url}}/admin/delete/vehiculo/99b5f3fc-ef56-4768-8a1a-8728b6a56f3f",
 									"host": [
 										"{{base_url}}"
 									],
@@ -255,7 +271,7 @@
 										"admin",
 										"delete",
 										"vehiculo",
-										"7c9e6679-7425-40de-944b-e07fc1f90ae7"
+										"99b5f3fc-ef56-4768-8a1a-8728b6a56f3f"
 									]
 								}
 							},
@@ -290,6 +306,35 @@
 											"key": "page",
 											"value": "0"
 										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "details",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/admin/vehiculo-details/99b5f3fc-ef56-4768-8a1a-8728b6a56f3f",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"vehiculo-details",
+										"99b5f3fc-ef56-4768-8a1a-8728b6a56f3f"
 									]
 								}
 							},
@@ -403,13 +448,21 @@
 								"method": "POST",
 								"header": [],
 								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"logo\": \"https://seeklogo.com/images/A/Acura-logo-6A7CD0D53A-seeklogo.com.png\",\r\n    \"modelo\": \"Acura\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "modeloCreate",
+											"value": "{\n    \"modelo\": \"Acura\"\n}",
+											"contentType": "application/json",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"contentType": "multipart/form-data",
+											"type": "file",
+											"src": "postman-cloud:///1ef168c2-27d6-4350-a1f3-1c3762c7d7a3"
 										}
-									}
+									]
 								},
 								"url": {
 									"raw": "{{base_url}}/admin/add/modelo",
@@ -441,13 +494,21 @@
 								"method": "PUT",
 								"header": [],
 								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"logo\": \"https://seeklogo.com/images/A/Acura-logo-6A7CD0D53A-seeklogo.com.png\",\r\n    \"modelo\": \"editado\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "modeloEditado",
+											"value": "{\n    \"modelo\": \"editado\"\n}",
+											"contentType": "application/json",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"contentType": "multipart/form-data",
+											"type": "file",
+											"src": []
 										}
-									}
+									]
 								},
 								"url": {
 									"raw": "{{base_url}}/admin/edit/modelo/afcf760a-8e8a-4e7c-ae94-f5af066c0be7",
@@ -631,14 +692,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/admin/alquiler-details/e6d26b2c-ffcb-4859-b9b8-71a1d52042f6",
+									"raw": "{{base_url}}/admin/alquiler-details/c738c1fb-5a94-49ae-a2b0-29f494e4d47b",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"admin",
 										"alquiler-details",
-										"e6d26b2c-ffcb-4859-b9b8-71a1d52042f6"
+										"c738c1fb-5a94-49ae-a2b0-29f494e4d47b"
 									]
 								}
 							},
@@ -768,43 +829,6 @@
 					"response": []
 				},
 				{
-					"name": "edit",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxY2U5YzFjNy03YTAyLTRjN2YtYmY2OS02ZDAzMDZjYmVkNjEiLCJpYXQiOjE3MDk1MDE1MzcsImV4cCI6MTcwOTU4NzkzN30.jZBGNTDuqYrVx6Q5mDNysme4BNYJVIlOMOxwe3KM36QNypABzFy3LYR6v4rYDI7i4J8aR-a_06uo24r4tX8NpA",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"avatar\":null,\r\n    \"email\":\"hola@gmail.com\",\r\n    \"telefono\": \"2222222\",\r\n    \"pin\": \"1111\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/profile/edit",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"profile",
-								"edit"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "changePassword",
 					"request": {
 						"auth": {
@@ -836,6 +860,80 @@
 							"path": [
 								"user",
 								"changePassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editProfile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"avatar\": \"\",\r\n    \"email\": \"edit@gmail.com\",\r\n    \"telefono\": 987654321,\r\n    \"pin\": 3434\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/profile/edit",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profile",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ingresar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cash\": 1000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/profile/ingresar",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profile",
+								"ingresar"
 							]
 						}
 					},
@@ -953,7 +1051,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"kilometrosAnos\": 25000,\r\n    \"fechaInicio\": \"2024-05-17\",\r\n    \"fechaFin\": \"2024-06-14\",\r\n    \"origen\": \"Sevilla\",\r\n    \"destino\": \"Cádiz\"\r\n}",
+							"raw": "{\r\n    \"kilometrosAnos\": 25000,\r\n    \"fechaInicio\": \"2024-06-17\",\r\n    \"fechaFin\": \"2024-06-20\",\r\n    \"origen\": \"Sevilla\",\r\n    \"destino\": \"Cádiz\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -972,8 +1070,65 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "PreciosAlquileres",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/cliente/precio/alquiler",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cliente",
+								"precio",
+								"alquiler"
+							]
+						}
+					},
+					"response": []
 				}
 			]
+		},
+		{
+			"name": "obtenerImagen",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/download/duplica.png",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"download",
+						"duplica.png"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [

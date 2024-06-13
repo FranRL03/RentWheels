@@ -2,6 +2,10 @@ span {
     color: rgb(196, 74, 74);
 }
 
+label {
+  color: black !important;
+}
+
 .file-upload {
     width: 552px;
     /* margin: 0 auto; */

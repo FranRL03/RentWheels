@@ -30,7 +30,7 @@
              <div class="col-md-6">
  
                  <div class="form-group">
-                     <label for="validationDefault01" class="text-white">Transmisión: </label>
+                     <label for="validationDefault01" class="text-white">Transmisión: <span>*</span></label>
                      <select id="validationDefault01" name="transmision" class="form-select"
                          [(ngModel)]="vehiculoCreate.transmision" required>
                          <option value="" selected>Seleccione una opcion</option>
@@ -41,7 +41,7 @@
                  </div>
  
                  <div class="form-group">
-                     <label for="combustion" class="text-white">Combustión: </label>
+                     <label for="combustion" class="text-white">Combustión: <span>*</span></label>
                      <select id="combustion" name="combustion" class="form-select"
                          [(ngModel)]="vehiculoCreate.combustion" required>
                          <option value="" selected>Seleccione una opcion</option>
@@ -57,7 +57,7 @@
              <div class="col-md-6">
                  
                  <div class="form-group">
-                     <label for="capacidadPasajeros" class="text-white">Capacidad Pasajeros: </label>
+                     <label for="capacidadPasajeros" class="text-white">Capacidad Pasajeros: <span>*</span></label>
                      <input type="number" name="capacidadPasajeros" id="capacidadPasajeros" min="2" max="10" step="1"
                          class="form-control" [(ngModel)]="vehiculoCreate.capacidadPasajeros" required />
                      <span class="error" *ngIf="capacidadPasajerosError">{{capacidadPasajerosError}}</span>
@@ -65,7 +65,7 @@
                  </div>
  
                  <div class="form-group">
-                     <label for="potencia" class="text-white">Potencia (Kw): </label>
+                     <label for="potencia" class="text-white">Potencia (Kw): <span>*</span></label>
                      <input type="number" name="potencia" id="potencia" min="90" max="300" step="5" class="form-control"
                          [(ngModel)]="vehiculoCreate.potencia" required />
                      <span class="error" *ngIf="potenciaError">{{potenciaError}}</span>
@@ -77,7 +77,7 @@
          <div class="row">
              <div class="col-md-6">
                  <div class="form-group">
-                     <label for="estado" class="text-white">Estado: </label>
+                     <label for="estado" class="text-white">Estado: <span>*</span></label>
                      <select id="estado" name="estado" class="form-select" [(ngModel)]="vehiculoCreate.estado" required>
                          <option value="" selected>Seleccione una opcion</option>
                          <option value="Nuevo">NUEVO</option>
@@ -89,7 +89,7 @@
  
              <div class="col-md-6">
                  <div class="form-group">
-                     <label for="numPuertas" class="text-white">Puertas: </label>
+                     <label for="numPuertas" class="text-white">Puertas: <span>*</span></label>
                      <input type="number" name="numPuertas" id="numPuertas" min="2" max="5" step="1" class="form-control"
                          [(ngModel)]="vehiculoCreate.numPuertas" required />
                      <span class="error" *ngIf="numPuertasError">{{numPuertasError}}</span>
@@ -100,7 +100,7 @@
          <div class="row">
              <div class="col-md-6">
                  <div class="form-group">
-                     <label for="precioBase" class="text-white">Precio Base (€): </label>
+                     <label for="precioBase" class="text-white">Precio Base (€): <span>*</span></label>
                      <input type="number" name="precioBase" id="precioBase" min="80" max="300" step="10"
                          class="form-control" [(ngModel)]="vehiculoCreate.precioBase" required />
                      <span class="error" *ngIf="precioBaseError">{{precioBaseError}}</span>
@@ -108,7 +108,7 @@
              </div>
              <div class="col-md-6">
                  <div class="form-group">
-                    <label for="modelo" class="text-white">Modelo: *</label>
+                    <label for="modelo" class="text-white">Modelo: <span>*</span></label>
                     <select id="modelo" name="modelo" class="form-select" [(ngModel)]="vehiculoCreate.modelo" required>
                         <option value="" selected>Seleccione una opcion</option>
                         @for (m of modeloList; track $index) {
@@ -123,7 +123,7 @@
          <div class="row">
              <div class="col-md-6">
                  <div class="form-group">
-                     <label for="autonomia" class="text-white">Autonomía (Km): </label>
+                     <label for="autonomia" class="text-white">Autonomía (Km): <span>*</span></label>
                      <input type="number" name="autonomia" id="autonomia" min="10000" max="30000" step="500"
                          class="form-control" [(ngModel)]="vehiculoCreate.autonomia" required />
                      <span class="error" *ngIf="autonomiaError">{{autonomiaError}}</span>
