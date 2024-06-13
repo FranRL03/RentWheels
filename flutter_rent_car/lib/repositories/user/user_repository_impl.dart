@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_rent_car/model/dto/change_password_dto.dart';
 import 'package:flutter_rent_car/model/dto/user_edit_dto.dart';
+import 'package:flutter_rent_car/model/dto/user_ingresar_dto.dart';
 import 'package:flutter_rent_car/model/response/auth/register_response.dart';
 import 'package:flutter_rent_car/model/response/user/user_details.dart';
 import 'package:flutter_rent_car/repositories/user/user_repository.dart';
@@ -49,13 +50,13 @@ class UserRepositoryImpl extends UserRepository {
     final token = await getToken();
 
     final response = await _httpClient.put(Uri.parse('$urlMovil/profile/edit'),
-       headers: <String, String>{
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer $token',
-            },
-            body: jsonEncode(userEditDto.toJson()));
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonEncode(userEditDto.toJson()));
 
-            if (response.statusCode == 200) {
+    if (response.statusCode == 200) {
       return UserDetails.fromJson(response.body);
     } else {
       throw Exception('Failed to do edit');
@@ -83,4 +84,23 @@ class UserRepositoryImpl extends UserRepository {
       throw Exception('Error al cambiar la contraseña: ${response.statusCode}');
     }
   }
+
+@override
+  Future<UserDetails> ingresar(UserIngresar userIngresar) async {
+    final token = await getToken();
+
+    final response = await _httpClient.put(Uri.parse('$urlMovil/profile/ingresar'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonEncode(userIngresar.toJson()));
+
+    if (response.statusCode == 200) {
+      return UserDetails.fromJson(response.body);
+    } else {
+      throw Exception('Failed to do edit');
+    }
+  }
+
 }

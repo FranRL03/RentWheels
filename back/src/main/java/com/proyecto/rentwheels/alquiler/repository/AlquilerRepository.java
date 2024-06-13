@@ -2,6 +2,7 @@ package com.proyecto.rentwheels.alquiler.repository;
 
 import com.proyecto.rentwheels.alquiler.dto.GetAllAlquileres;
 import com.proyecto.rentwheels.alquiler.dto.GetAlquileresCliente;
+import com.proyecto.rentwheels.alquiler.dto.PriceAlquilerDto;
 import com.proyecto.rentwheels.alquiler.model.Alquiler;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,12 +14,13 @@ import java.util.UUID;
 
 public interface AlquilerRepository extends JpaRepository<Alquiler, UUID> {
 
-//    @Query("""
-//            select a
-//            from Alquiler a
-//            where a.cliente.id = :id
-//            """)
-//    Page<GetAlquileresCliente> getAllAlquileresCliente(Pageable pageable, UUID id);
+    @Query("""
+            select new com.proyecto.rentwheels.alquiler.dto.PriceAlquilerDto(a.precio, a.fechaCreacion)
+            from Alquiler a
+            where a.cliente.id = :id
+            order by a.fechaCreacion desc
+            """)
+    List<PriceAlquilerDto> getPriceAlquileresCliente(UUID id);
 
     @Query("""
             select a

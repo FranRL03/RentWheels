@@ -2,6 +2,7 @@ package com.proyecto.rentwheels.alquiler.controller;
 
 import com.proyecto.rentwheels.alquiler.dto.CreateAlquilerDto;
 import com.proyecto.rentwheels.alquiler.dto.GetAlquileresCliente;
+import com.proyecto.rentwheels.alquiler.dto.PriceAlquilerDto;
 import com.proyecto.rentwheels.alquiler.model.Alquiler;
 import com.proyecto.rentwheels.alquiler.service.AlquilerServicio;
 import com.proyecto.rentwheels.usuario.model.Cliente;
@@ -20,11 +21,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class AlquilerController {
 
     private final AlquilerServicio alquilerServicio;
+
+    @GetMapping("/cliente/precio/alquiler")
+    public List<PriceAlquilerDto> getPriceAlquileres(@AuthenticationPrincipal Cliente c){
+        return alquilerServicio.getPriceAlquileresCliente( c.getId());
+    }
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Obtener lista de alquileres del cliente", content = {

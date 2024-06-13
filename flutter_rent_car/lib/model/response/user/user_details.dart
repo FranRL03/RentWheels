@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 class UserDetails {
   String? id;
@@ -7,6 +8,7 @@ class UserDetails {
   String? email;
   String? telefono;
   String? pin;
+  double? cash;
 
   UserDetails({
     this.id,
@@ -15,6 +17,7 @@ class UserDetails {
     this.email,
     this.telefono,
     this.pin,
+    this.cash
   });
 
   factory UserDetails.fromUserDetails(Map<String, dynamic> data) {
@@ -25,6 +28,7 @@ class UserDetails {
       email: data['email'] as String?,
       telefono: data['telefono'] as String?,
       pin: data['pin'] as String?,
+      cash: data['cash'] as double?
     );
   }
 
@@ -35,6 +39,7 @@ class UserDetails {
         'email': email,
         'telefono': telefono,
         'pin': pin,
+        'cash': cash
       };
 
   /// `dart:convert`

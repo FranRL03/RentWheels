@@ -9,7 +9,8 @@ public record GetClienteDetailsDto(
         String avatar,
         String email,
         String telefono,
-        String pin
+        String pin,
+        double cash
 ) {
 
     public static GetClienteDetailsDto of(Cliente c){
@@ -19,7 +20,8 @@ public record GetClienteDetailsDto(
                 c.getAvatar(),
                 c.getEmail(),
                 c.getTelefono(),
-                c.getPin()
+                c.getPin(),
+                c.getCash()
         );
     }
 }

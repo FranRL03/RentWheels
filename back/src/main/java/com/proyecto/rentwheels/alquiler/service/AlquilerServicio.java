@@ -2,10 +2,13 @@ package com.proyecto.rentwheels.alquiler.service;
 
 import com.proyecto.rentwheels.alquiler.dto.CreateAlquilerDto;
 import com.proyecto.rentwheels.alquiler.dto.GetAlquileresCliente;
+import com.proyecto.rentwheels.alquiler.dto.PriceAlquilerDto;
+import com.proyecto.rentwheels.alquiler.exception.InsufficientFundsException;
 import com.proyecto.rentwheels.alquiler.exception.InvalidDateException;
 import com.proyecto.rentwheels.alquiler.model.Alquiler;
 import com.proyecto.rentwheels.alquiler.repository.AlquilerRepository;
 import com.proyecto.rentwheels.usuario.model.Cliente;
+import com.proyecto.rentwheels.usuario.repository.ClienteRepository;
 import com.proyecto.rentwheels.vehiculo.exception.VehiculoNoDisponibleException;
 import com.proyecto.rentwheels.vehiculo.exception.VehiculoNotFoundException;
 import com.proyecto.rentwheels.vehiculo.model.Vehiculo;
@@ -18,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,10 +31,11 @@ public class AlquilerServicio {
 
     private final AlquilerRepository alquilerRepository;
     private final VehiculoRepository vehiculoRepository;
+    private final ClienteRepository clienteRepository;
 
-//    public Page<GetAlquileresCliente> getAlquileresCliente (Pageable pageable, UUID id){
-//        return alquilerRepository.getAllAlquileresCliente(pageable, id);
-//    }
+    public List<PriceAlquilerDto> getPriceAlquileresCliente (UUID id){
+        return alquilerRepository.getPriceAlquileresCliente(id);
+    }
 
     public Page<GetAlquileresCliente> getAlquileresRentCliente (Pageable pageable, UUID id, boolean statusRent){
         return alquilerRepository.getAlquileresActivosCliente(pageable, id, statusRent);
@@ -47,6 +52,12 @@ public class AlquilerServicio {
                  if (create.fechaInicio().isAfter(create.fechaFin()) || create.fechaInicio().isBefore(LocalDate.now())) {
                      throw new InvalidDateException();
                  }
+
+                 if(c.getCash() < precioPorSemana(v, create))
+                     throw new InsufficientFundsException();
+
+                 c.setCash(c.getCash() - precioPorSemana(v, create));
+                 clienteRepository.save(c);
 
                  v.setDisponible(false);
                  vehiculoRepository.save(v);

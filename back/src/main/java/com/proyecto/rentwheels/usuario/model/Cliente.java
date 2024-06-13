@@ -21,5 +21,6 @@ public class Cliente extends Usuario {
     private String email;
     private String telefono;
     private String pin;
+    private double cash;
 
 }

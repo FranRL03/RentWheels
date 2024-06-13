@@ -16,3 +16,17 @@ final class DoEditUserError extends EditUserState {
   final String errorMessage;
   DoEditUserError(this.errorMessage);
 }
+
+final class IngresarInitial extends EditUserState {}
+
+final class DoIngresarLoading extends EditUserState {}
+
+final class DoIngresarSuccess extends EditUserState {
+  final UserDetails userDetails;
+  DoIngresarSuccess(this.userDetails);
+}
+
+final class DoIngresarError extends EditUserState {
+  final String errorMessage;
+  DoIngresarError(this.errorMessage);
+}

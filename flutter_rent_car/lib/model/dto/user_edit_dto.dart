@@ -1,4 +1,3 @@
-
 class UserEditDto {
   String? avatar;
   String? email;

@@ -10,3 +10,8 @@ class DoEditUserEvent extends EditUserEvent {
   final String pin;
   DoEditUserEvent(this.avatar, this.email, this.telefono, this.pin);
 }
+
+class DoIngresarEvent extends EditUserEvent {
+ final double cash;
+  DoIngresarEvent(this.cash);
+}

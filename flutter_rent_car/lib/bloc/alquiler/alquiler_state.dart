@@ -30,3 +30,18 @@ final class DoAlquilerError extends AlquilerState {
   final String errorMessage;
   DoAlquilerError(this.errorMessage);
 }
+
+
+final class PriceAlquilerClienteInitial extends AlquilerState {}
+
+final class GetPriceAlquilerClienteLoading extends AlquilerState {}
+
+final class GetPriceAlquilerClienteSuccess extends AlquilerState {
+  final List<ListPriceRentClient> listPriceRentClient;
+  GetPriceAlquilerClienteSuccess(this.listPriceRentClient);
+}
+
+final class GetPriceAlquilerClienteError extends AlquilerState {
+  final String errorMessage;
+  GetPriceAlquilerClienteError(this.errorMessage);
+}
